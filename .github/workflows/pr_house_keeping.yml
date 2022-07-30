@@ -4,7 +4,7 @@ on:
   - pull_request_target
 
 jobs:
-  analysis:
+  labeler:
     runs-on: ubuntu-latest
     steps:
       - name: PR labeler
@@ -13,13 +13,15 @@ jobs:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           configuration-path: ".github/pull_request_labeler_filters.yml"
           sync-labels: true
+  size-check:
+    runs-on: ubuntu-latest
+    steps:
       - name: PR size check
         uses: ookami-kb/gh-pr-size-watcher@v1.1.0
         with:
           githubToken: "${{ secrets.GITHUB_TOKEN }}"
-          warningSize: 300
-          errorSize: 500
-          warningMessage: PR has more than **300 lines** added. Consider splitting it into smaller PRs.
+          warningSize: 500
+          warningMessage: PR has more than **500 lines** added. Consider splitting it into smaller PRs.
           excludeTitle: '[SKIP_SIZE_CHECK]'
           excludePaths: |
             **.md
