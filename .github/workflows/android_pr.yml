@@ -3,10 +3,13 @@ name: PR Checks
 on:
   pull_request:
     paths-ignore:
-      - '**.md'
       - '*/.creds/**'
-      - docs/**
+      - .idea/**
       - LICENSE
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   quality:
@@ -24,3 +27,46 @@ jobs:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_build.yml@main
     secrets:
       CACHE_VERSION: ${{secrets.CACHE_VERSION}}
+
+  house-keeping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR labeler
+        uses: actions/labeler@main
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: ".github/pull_request_labeler_filters.yml"
+          sync-labels: true
+      - name: PR size check
+        uses: ookami-kb/gh-pr-size-watcher@v1.1.0
+        with:
+          githubToken: "${{ secrets.GITHUB_TOKEN }}"
+          warningSize: 500
+          warningMessage: PR has more than **500 lines** added. Consider splitting it into smaller PRs if possible.
+          excludeTitle: '[SKIP_SIZE_CHECK]'
+          excludePaths: |
+            **.md
+            **.json
+            **.yml
+            .idea/**
+
+  dependabot:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    needs: [ quality , test, build ]
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1.1.1
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Approve Dependabot PRs
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
