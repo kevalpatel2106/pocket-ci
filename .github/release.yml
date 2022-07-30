@@ -1,0 +1,22 @@
+changelog:
+  exclude:
+    labels:
+      - ignore-in-changelog
+    authors:
+      - dependabot
+  categories:
+    - title: New Features 🎉
+      labels:
+        - Change type > new-feature
+    - title: Bugfixes 🛠
+      labels:
+        - Change type > bug
+    - title: Documentation 📝
+      labels:
+        - Change type > documentation
+    - title: Automation 🤖
+      labels:
+        - Change type > automation
+    - title: Other Changes
+      labels:
+        - "*"

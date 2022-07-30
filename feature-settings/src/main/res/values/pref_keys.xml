@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Keys with values-->
+    <string name="pref_key_theme" translatable="false">pref_key_theme</string>
+
+    <!--Keys without values-->
+    <string name="pref_key_version" translatable="false">pref_key_version</string>
+    <string name="pref_key_contact" translatable="false">pref_key_contact</string>
+    <string name="pref_key_changelog" translatable="false">pref_key_changelog</string>
+    <string name="pref_key_privacy_policy" translatable="false">pref_key_privacy_policy</string>
+    <string name="pref_key_pro_version_header" translatable="false">pro_version_header</string>
+    <string name="pref_key_open_source_licences" translatable="false">pref_key_open_source_licences</string>
+    <string name="pref_key_share_friends" translatable="false">pref_key_share_friends</string>
+</resources>

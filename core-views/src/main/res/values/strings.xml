@@ -1,0 +1,5 @@
+<resources>
+    <string name="standard_error_message_title">Something went wrong.</string>
+    <string name="standard_error_message_subtitle">Check your internet connection and please try again.</string>
+    <string name="standard_retry_button_title">Retry</string>
+</resources>

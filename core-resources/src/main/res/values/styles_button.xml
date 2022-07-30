@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.PocketCI.Button.Secondary" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/selector_button_gray_background</item>
+        <item name="android:textColor">@color/selector_button_gray_content</item>
+        <item name="iconTint">@color/selector_button_gray_content</item>
+        <item name="rippleColor">@color/rippleColor</item>
+        <item name="android:minWidth">@dimen/button_min_width</item>
+    </style>
+
+    <style name="Theme.PocketCI.Button.Primary" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/selector_button_orange_background</item>
+        <item name="android:textColor">@color/selector_button_orange_content</item>
+        <item name="iconTint">@color/selector_button_orange_content</item>
+        <item name="rippleColor">@color/rippleColor</item>
+        <item name="android:minWidth">@dimen/button_min_width</item>
+    </style>
+
+    <style name="Theme.PocketCI.Button.Outline" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:minWidth">@dimen/button_min_width</item>
+        <item name="android:textColor">@color/selector_button_outline_content</item>
+        <item name="iconTint">@color/selector_button_outline_content</item>
+        <item name="strokeColor">@color/selector_button_outline_stroke</item>
+        <item name="rippleColor">@color/rippleColor</item>
+    </style>
+</resources>

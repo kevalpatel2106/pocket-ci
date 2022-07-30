@@ -1,0 +1,26 @@
+name: PR Checks
+
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - '*/.creds/**'
+      - docs/**
+      - LICENSE
+
+jobs:
+  quality:
+    uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_code_analysis.yml@main
+    secrets:
+      CACHE_VERSION: ${{secrets.CACHE_VERSION}}
+
+  test:
+    uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_tests.yml@main
+    secrets:
+      CACHE_VERSION: ${{secrets.CACHE_VERSION}}
+      CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+
+  build:
+    uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_build.yml@main
+    secrets:
+      CACHE_VERSION: ${{secrets.CACHE_VERSION}}

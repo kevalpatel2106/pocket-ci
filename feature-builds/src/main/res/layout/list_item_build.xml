@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="build"
+            type="com.kevalpatel2106.entity.Build" />
+
+        <variable
+            name="callback"
+            type="com.kevalpatel2106.builds.list.adapter.BuildsAdapterCallback" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:onClick="@{() -> callback.onBuildSelected(build)}"
+        android:paddingHorizontal="@dimen/spacing_regular"
+        android:paddingVertical="@dimen/spacing_small">
+
+        <TextView
+            android:id="@+id/buildNameTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_regular"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{build.number}"
+            android:textAppearance="@style/MediumText.Primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="@tools:sample/lorem/random" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

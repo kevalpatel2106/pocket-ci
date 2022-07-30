@@ -1,0 +1,27 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'de.mannodermaus.android-junit5'
+}
+
+android {
+    // Import resources from theme
+    sourceSets {
+        main {
+            res.srcDirs = ['../core-resources/src/main/res', 'src/main/res']
+        }
+    }
+}
+
+dependencies {
+    implementation project(':entity')
+    implementation project(':core')
+    implementation project(':core-views')
+    testImplementation project(':core-test')
+
+    // Data handling protocols modules
+    implementation project(':repository')
+}

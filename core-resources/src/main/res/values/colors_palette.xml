@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    This color pallet if for internal use only.
+    They are not supported in dark/light theme.
+    Do not use it in the app anywhere.
+    -->
+
+    <!-- Blue -->
+    <color name="blue50">#F5FBFF</color>
+    <color name="blue100">#E5F2F9</color>
+    <color name="blue200">#B8DFF4</color>
+    <color name="blue300">#95D0F4</color>
+    <color name="blue400">#80C2F0</color>
+    <color name="blue500">#76B6EF</color>
+    <color name="blue600">#6EA7DE</color>
+    <color name="blue700">#5481D4</color>
+    <color name="blue800">#3165C4</color>
+    <color name="blue900">#0444BC</color>
+
+    <!-- Brown -->
+    <color name="brown50">#BDA595</color>
+    <color name="brown100">#A68577</color>
+    <color name="brown200">#8A6656</color>
+    <color name="brown300">#6F4735</color>
+    <color name="brown400">#5A311E</color>
+    <color name="brown500">#401C00</color>
+    <color name="brown600">#3A1100</color>
+    <color name="brown700">#2E0300</color>
+    <color name="brown800">#270000</color>
+    <color name="brown900">#1F0000</color>
+
+    <!-- Gray -->
+    <color name="gray50">#FFFFFF</color>
+    <color name="gray100">#FCFCFB</color>
+    <color name="gray200">#F8F6F2</color>
+    <color name="gray250">#F4F1EC</color>
+    <color name="gray300">#ECEBE9</color>
+    <color name="gray400">#CECECD</color>
+    <color name="gray500">#939290</color>
+    <color name="gray600">#767676</color>
+    <color name="gray650">#585858</color>
+    <color name="gray700">#4A4A4A</color>
+    <color name="gray800">#242424</color>
+    <color name="gray900">#0F0F0F</color>
+
+    <!-- Green -->
+    <color name="green50">#F3FDDD</color>
+    <color name="green100">#DCF5A3</color>
+    <color name="green200">#B9DB70</color>
+    <color name="green300">#A0C255</color>
+    <color name="green400">#92B934</color>
+    <color name="green500">#81B000</color>
+    <color name="green600">#6F9F00</color>
+    <color name="green700">#5D8C00</color>
+    <color name="green800">#487A00</color>
+    <color name="green900">#225A00</color>
+
+    <!-- Orange -->
+    <color name="orange50">#FDF1E2</color>
+    <color name="orange100">#F9E3C7</color>
+    <color name="orange200">#FBCD96</color>
+    <color name="orange300">#FCB765</color>
+    <color name="orange400">#FDA645</color>
+    <color name="orange500">#FF9933</color>
+    <color name="orange600">#F98E2F</color>
+    <color name="orange700">#F47E2E</color>
+    <color name="orange800">#EC702B</color>
+    <color name="orange900">#E25727</color>
+
+    <!-- Pink -->
+    <color name="pink50">#FFFAFB</color>
+    <color name="pink100">#FCEFF2</color>
+    <color name="pink200">#FDD5DF</color>
+    <color name="pink300">#FCBECC</color>
+    <color name="pink400">#FCA6B6</color>
+    <color name="pink500">#FC8D9C</color>
+    <color name="pink600">#F47195</color>
+    <color name="pink700">#EA4471</color>
+    <color name="pink800">#E7275C</color>
+    <color name="pink900">#CE0039</color>
+
+    <!-- Purple -->
+    <color name="purple50">#FEF5FD</color>
+    <color name="purple100">#F7E8F5</color>
+    <color name="purple200">#EED7EB</color>
+    <color name="purple300">#DFADDA</color>
+    <color name="purple400">#D38DCB</color>
+    <color name="purple500">#C875C0</color>
+    <color name="purple600">#BB6EB8</color>
+    <color name="purple700">#AB67AF</color>
+    <color name="purple800">#9C5FA5</color>
+    <color name="purple900">#835497</color>
+
+    <!-- Red -->
+    <color name="red50">#FFEBF0</color>
+    <color name="red100">#FFD1D7</color>
+    <color name="red200">#F79C9D</color>
+    <color name="red300">#ED7677</color>
+    <color name="red400">#FA5754</color>
+    <color name="red500">#FE463A</color>
+    <color name="red600">#EE3C39</color>
+    <color name="red700">#DB2F32</color>
+    <color name="red800">#CE2A2B</color>
+    <color name="red900">#C01F1E</color>
+
+    <!-- Tan -->
+    <color name="tan50">#ECDED3</color>
+    <color name="tan100">#E5D3C5</color>
+    <color name="tan200">#DDC4B1</color>
+    <color name="tan300">#D1B197</color>
+    <color name="tan400">#C29675</color>
+    <color name="tan500">#A27652</color>
+    <color name="tan600">#886348</color>
+    <color name="tan700">#715440</color>
+    <color name="tan800">#5E4838</color>
+    <color name="tan900">#4E3D31</color>
+
+    <!-- Teal -->
+    <color name="teal50">#F0FFFF</color>
+    <color name="teal100">#E3FCFC</color>
+    <color name="teal200">#BCFFFF</color>
+    <color name="teal300">#89F5F1</color>
+    <color name="teal400">#68E6E0</color>
+    <color name="teal500">#58D6CE</color>
+    <color name="teal600">#51C6BD</color>
+    <color name="teal700">#51B6AD</color>
+    <color name="teal800">#20766E</color>
+    <color name="teal900">#14655D</color>
+
+    <!-- Yellow -->
+    <color name="yellow50">#FAF5D7</color>
+    <color name="yellow100">#FAF0B5</color>
+    <color name="yellow200">#FBEA8C</color>
+    <color name="yellow300">#FEE766</color>
+    <color name="yellow400">#FEE445</color>
+    <color name="yellow500">#FFE121</color>
+    <color name="yellow600">#FDCD1A</color>
+    <color name="yellow700">#FAB617</color>
+    <color name="yellow800">#F89D14</color>
+    <color name="yellow900">#F3710B</color>
+</resources>

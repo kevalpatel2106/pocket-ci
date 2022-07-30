@@ -1,0 +1,23 @@
+#!/bin/sh
+
+echo "Running detekt..."
+./gradlew detekt --stacktrace
+
+status=$?
+if [ "$status" = 0 ] ; then
+    echo "detekt analysis found no issues. Proceeding with ktlint..."
+    ktlint
+
+    status=$?
+    if [ "$status" = 0 ] ; then
+        echo "ktlint analysis found no issues. Proceeding with push."
+        exit 0
+    else
+        ktlint
+        echo 1>&2 "ktlint analysis found issues you need to fix before pushing."
+        exit 1
+    fi
+else
+    echo 1>&2 "detekt analysis found issues you need to fix before pushing."
+    exit 1
+fi

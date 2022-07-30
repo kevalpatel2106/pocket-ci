@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_registration"
+    app:startDestination="@id/ciSelection">
+    <fragment
+        android:id="@+id/register"
+        android:name="com.kevalpatel2106.registration.register.RegisterFragment"
+        android:label="@string/title_ci_register_screen"
+        tools:layout="@layout/fragment_register">
+        <argument
+            android:name="selectedCI"
+            app:argType="com.kevalpatel2106.entity.CIInfo"
+            app:nullable="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/ciSelection"
+        android:name="com.kevalpatel2106.registration.ciSelection.CISelectionFragment"
+        android:label="@string/title_ci_selection_screen"
+        tools:layout="@layout/fragment_selection">
+        <action
+            android:id="@+id/action_ciSelection_to_register"
+            app:destination="@id/register"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <deepLink app:uri="pocket-ci://ci-selection/" />
+    </fragment>
+</navigation>

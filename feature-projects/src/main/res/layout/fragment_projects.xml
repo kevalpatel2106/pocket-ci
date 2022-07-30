@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.kevalpatel2106.projects.list.ProjectsViewModel" />
+    </data>
+
+    <ViewFlipper
+        android:id="@+id/projectsViewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/projectListSwipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/projectListRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_item_project" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.kevalpatel2106.coreViews.ErrorStateView
+            android:id="@+id/projectListErrorView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:onRetryButtonClick="@{() -> model.reload()}" />
+    </ViewFlipper>
+</layout>

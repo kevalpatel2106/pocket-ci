@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="clickHandler"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/spacing_small">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/spacing_large"
+            android:layout_height="@dimen/spacing_large"
+            android:layout_gravity="center_horizontal"
+            android:paddingVertical="@dimen/spacing_micro"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_drag_handle"
+            app:tint="@color/colorOnBackground" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bottom_drawer_option_accounts"
+            style="@style/BottomDrawerOptions"
+            android:drawableStart="@drawable/ic_add"
+            android:onClick="@{clickHandler::onClick}"
+            android:text="@string/navigation_title_accounts"
+            app:drawableTint="@color/secondaryText" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bottom_drawer_option_settings"
+            style="@style/BottomDrawerOptions"
+            android:drawableStart="@drawable/ic_settings"
+            android:onClick="@{clickHandler::onClick}"
+            android:text="@string/navigation_title_settings"
+            app:drawableTint="@color/secondaryText" />
+    </LinearLayout>
+</layout>

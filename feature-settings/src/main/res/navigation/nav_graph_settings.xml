@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_settings"
+    app:startDestination="@id/settings">
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.kevalpatel2106.settings.list.SettingsFragment"
+        android:label="@string/title_settings_screen">
+        <action
+            android:id="@+id/action_settings_to_webview"
+            app:destination="@id/webview"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <deepLink app:uri="pocket-ci://settings/" />
+    </fragment>
+    <fragment
+        android:id="@+id/webview"
+        android:name="com.kevalpatel2106.settings.webView.WebViewFragment"
+        android:label="@string/title_web_view_screen"
+        tools:layout="@layout/fragment_webview">
+
+        <argument
+            android:name="content"
+            app:argType="com.kevalpatel2106.settings.webView.WebViewContent" />
+    </fragment>
+</navigation>

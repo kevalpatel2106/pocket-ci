@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary texts -->
+    <style name="LargeText.Primary" parent="Base.TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+
+    <style name="MediumText.Primary" parent="Base.TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+
+    <style name="SmallText.Primary" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+
+    <style name="NanoText.Primary" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">@dimen/md_nano_text_size</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+
+    <!-- Secondary texts -->
+    <style name="LargeText.Secondary" parent="Base.TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/secondaryText</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+
+    <style name="MediumText.Secondary" parent="Base.TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/secondaryText</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+
+    <style name="SmallText.Secondary" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/secondaryText</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+
+    <style name="NanoText.Secondary" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/secondaryText</item>
+        <item name="android:textSize">@dimen/md_nano_text_size</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+
+    <!-- Orange texts -->
+    <style name="LargeText.Orange" parent="Base.TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+
+    <style name="MediumText.Orange" parent="Base.TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+
+    <style name="SmallText.Orange" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+
+    <style name="NanoText.Orange" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:textSize">@dimen/md_nano_text_size</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+
+    <!--Error text-->
+    <style name="NanoText.Red" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/colorError</item>
+        <item name="android:textSize">@dimen/md_nano_text_size</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+</resources>

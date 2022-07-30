@@ -1,0 +1,14 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'de.mannodermaus.android-junit5'
+}
+
+dependencies {
+    implementation project(":entity")
+    implementation "com.flextrade.jfixture:kfixture:0.2.0"
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+    implementation 'app.cash.turbine:turbine:0.8.0'
+}

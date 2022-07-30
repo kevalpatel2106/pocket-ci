@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--General dimensions-->
+    <item name="match_parent" type="dimen">-1</item>
+    <item name="wrap_content" type="dimen">-2</item>
+    <dimen name="divider_height">1px</dimen>
+    <dimen name="md_nano_text_size">12sp</dimen>
+    <dimen name="card_radius">@dimen/spacing_small</dimen>
+    <dimen name="edit_text_cursor_width">2dp</dimen>
+    <dimen name="button_min_width">64dp</dimen>
+</resources>

@@ -1,0 +1,28 @@
+name: PR house keeping
+
+on:
+  - pull_request_target
+
+jobs:
+  analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR labeler
+        uses: actions/labeler@main
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: ".github/pull_request_labeler_filters.yml"
+          sync-labels: true
+      - name: PR size check
+        uses: ookami-kb/gh-pr-size-watcher@v1.1.0
+        with:
+          githubToken: "${{ secrets.GITHUB_TOKEN }}"
+          warningSize: 300
+          errorSize: 500
+          warningMessage: PR has more than **300 lines** added. Consider splitting it into smaller PRs.
+          excludeTitle: '[SKIP_SIZE_CHECK]'
+          excludePaths: |
+            **.md
+            **.json
+            **.yml
+            .idea/**

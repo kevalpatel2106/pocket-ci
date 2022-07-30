@@ -1,0 +1,9 @@
+Change type > automation:
+  - .github/workflows/**/*
+  - .github/pull_request_labeler_filters.yml
+  - .github/release.yml
+  - .github/dependabot.yml
+
+Change type > documentation:
+  - docs/**/*
+  - .github/**/*.md

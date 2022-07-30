@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'com.google.android.gms.oss-licenses-plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'de.mannodermaus.android-junit5'
+}
+
+android {
+    // Import resources from theme
+    sourceSets {
+        main {
+            res.srcDirs = ['../core-resources/src/main/res', 'src/main/res']
+        }
+    }
+}
+
+dependencies {
+    // feature modules
+    implementation project(':feature-settings')
+    implementation project(':feature-registration')
+    implementation project(':feature-projects')
+    implementation project(':feature-accounts')
+    implementation project(':feature-builds')
+
+    // Core modules
+    implementation project(':entity')
+    implementation project(':core')
+    implementation project(':core-network')
+    implementation project(':core-resources')
+    testImplementation project(':core-test')
+
+    // protocols modules
+    implementation project(':repository')
+
+    // Implementation module
+    implementation project(':repository-impl')
+    implementation project(':connector-bitrise')
+    implementation project(':connector-github')
+
+    // Crashalytics
+    implementation platform('com.google.firebase:firebase-bom:30.3.1')
+    releaseImplementation 'com.google.firebase:firebase-crashlytics'
+    releaseImplementation 'com.google.firebase:firebase-analytics'
+
+    implementation 'androidx.startup:startup-runtime:1.1.1'
+
+    setup_glide(this)
+}

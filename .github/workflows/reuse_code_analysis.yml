@@ -1,0 +1,113 @@
+name: Static code analysis
+
+on:
+  workflow_call:
+    secrets:
+      CACHE_VERSION:
+        required: true
+
+jobs:
+  detekt:
+    name: detekt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: 11
+      - name: Find cache
+        uses: actions/cache@v3
+        continue-on-error: true
+        with:
+          path: |
+            ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-${{ secrets.CACHE_VERSION }}-
+      - name: Run detekt
+        run: ./gradlew detekt --stacktrace --scan
+      - name: Upload results Artifact
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: detekt-report
+          path: |
+            **/build/reports/detekt/**/*
+          if-no-files-found: error
+      - name: Cleanup Gradle Cache
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
+
+  lint:
+    name: android lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: 11
+      - name: Find cache
+        uses: actions/cache@v3
+        continue-on-error: true
+        with:
+          path: |
+            ~/.gradle/caches
+          key: ${{ runner.os }}-${{ secrets.CACHE_VERSION }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-${{ secrets.CACHE_VERSION }}-
+      - name: Run lint
+        run: ./gradlew app:lintRelease --stacktrace --scan
+      - name: Generate annotations from lint report
+        if: success() || failure()
+        uses: yutailang0119/action-android-lint@v3
+        with:
+          report-path: '**/build/reports/lint-results-*.xml'
+        continue-on-error: true
+      - name: Upload lint report
+        if: success() || failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: lint-report
+          path: |
+            **/build/reports/lint-results-*.html
+            **/build/reports/lint-results-*.xml
+          if-no-files-found: error
+      - name: Cleanup Gradle Cache
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
+
+  ktlint:
+    name: ktlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Install ktlint
+        run: |
+          curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.44.0/ktlint
+          chmod a+x ktlint
+          sudo mv ktlint /usr/local/bin/
+      - name: Lint with ktlint
+        run: ktlint --reporter=checkstyle,output=build/ktlint-report.xml
+      - name: Generate annotations from ktlint report
+        uses: yutailang0119/action-ktlint@v3
+        if: failure()
+        with:
+          report-path: build/ktlint-report.xml
+        continue-on-error: true
+      - name: Upload results Artifact
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ktlint-report
+          path: |
+            **/build/ktlint-report.xml
+          if-no-files-found: error
