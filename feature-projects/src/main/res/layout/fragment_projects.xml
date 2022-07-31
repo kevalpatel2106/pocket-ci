@@ -15,11 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- 0. Loader-->
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
 
+        <!-- 1. List-->
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/projectListSwipeRefresh"
             android:layout_width="match_parent"
@@ -34,10 +36,20 @@
                 tools:listitem="@layout/list_item_project" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+        <!-- 2. Error-->
         <com.kevalpatel2106.coreViews.ErrorStateView
             android:id="@+id/projectListErrorView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:onRetryButtonClick="@{() -> model.reload()}" />
+
+        <!-- 3. Empty view-->
+        <com.kevalpatel2106.coreViews.ErrorStateView
+            android:id="@+id/projectListEmptyView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:headlineText="@string/projects_empty_view_headline"
+            app:descriptionText="@string/projects_empty_view_description"
+            app:showCallToAction="false"/>
     </ViewFlipper>
 </layout>
