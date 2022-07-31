@@ -41,7 +41,7 @@ internal class BuildsPagingSource(
             result = LoadResult.Page(
                 data = response.data,
                 prevKey = null, // Only paging forward.
-                nextKey = response.nextCursor,
+                nextKey = if (response.data.isEmpty()) null else response.nextCursor,
             )
         }.onFailure { error ->
             Timber.e(error)

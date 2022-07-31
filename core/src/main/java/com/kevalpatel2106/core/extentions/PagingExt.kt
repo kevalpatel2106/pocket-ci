@@ -7,5 +7,5 @@ import androidx.paging.PagingDataAdapter
 fun LoadStates.isEmptyList(adapter: PagingDataAdapter<*, *>): Boolean {
     return refresh is LoadState.NotLoading &&
             append.endOfPaginationReached &&
-            adapter.itemCount == 0
+            adapter.itemCount < 1
 }
