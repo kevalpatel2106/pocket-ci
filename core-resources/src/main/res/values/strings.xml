@@ -25,6 +25,8 @@
     <string name="title_projects_screen">Projects</string>
     <string name="list_header_favourites">Favourites</string>
     <string name="list_header_other">Other</string>
+    <string name="projects_empty_view_description">Please check you have projects set up in the account. If you\'re linked with organisation, please verify the authentication token has access to organisation.</string>
+    <string name="projects_empty_view_headline">No project found in this account.</string>
 
     <!-- Bottom Drawer-->
     <string name="navigation_title_settings">Settings</string>
@@ -78,6 +80,8 @@
 
     <!--Builds listing-->
     <string name="title_builds_screen">Builds</string>
+    <string name="builds_empty_view_description">Please check you have at least one build triggered in this project. Also verify the token has read access to builds.</string>
+    <string name="builds_empty_view_headline">No builds found in this project.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 
