@@ -9,7 +9,7 @@ import java.util.Date
 import javax.inject.Inject
 
 internal class ProjectMapperImpl @Inject constructor(
-    private val isoDateMapper: IsoDateMapper
+    private val isoDateMapper: IsoDateMapper,
 ) : ProjectMapper {
 
     override fun invoke(dto: ProjectDto, accountId: AccountId) = with(dto) {
@@ -23,7 +23,7 @@ internal class ProjectMapperImpl @Inject constructor(
             isDisabled = disabled,
             isPublic = visibility == PUBLIC_VISIBILITY,
             isFavourite = false,
-            lastUpdatedAt = isoDateMapper(updatedAt)?: Date(),
+            lastUpdatedAt = isoDateMapper(updatedAt) ?: Date(),
         )
     }
 

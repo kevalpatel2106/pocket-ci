@@ -5,6 +5,8 @@ import com.kevalpatel2106.entity.Build
 
 sealed class BuildListItem(val listItemType: BuildListItemType, val compareId: String) {
 
-    data class BuildItem(val build: Build) :
-        BuildListItem(BUILD_ITEM, build.id.toString())
+    data class BuildItem(
+        val build: Build,
+        val numberText: String
+    ) : BuildListItem(BUILD_ITEM, build.id.toString())
 }

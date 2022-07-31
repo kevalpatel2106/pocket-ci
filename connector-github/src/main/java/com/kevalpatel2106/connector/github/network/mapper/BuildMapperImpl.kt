@@ -1,18 +1,13 @@
 package com.kevalpatel2106.connector.github.network.mapper
 
 import com.kevalpatel2106.connector.github.network.dto.BuildDto
-import com.kevalpatel2106.connector.github.network.dto.CommitDto
 import com.kevalpatel2106.connector.github.network.dto.PullRequestDto
 import com.kevalpatel2106.entity.Build
-import com.kevalpatel2106.entity.Commit
 import com.kevalpatel2106.entity.PullRequest
 import com.kevalpatel2106.entity.Workflow
-import com.kevalpatel2106.entity.id.CommitHash
 import com.kevalpatel2106.entity.id.ProjectId
-import com.kevalpatel2106.entity.id.PullRequestId
 import com.kevalpatel2106.entity.id.toBuildId
 import com.kevalpatel2106.entity.id.toPullRequestId
-import java.text.SimpleDateFormat
 import java.util.Date
 import javax.inject.Inject
 
@@ -34,7 +29,7 @@ internal class BuildMapperImpl @Inject constructor(
             commit = dto.headCommit?.let { commitMapper(it) },
             headBranch = headBranch,
             triggeredBy = triggeringActor.login,
-            pullRequest = pullRequests.firstOrNull()?.getPr()
+            pullRequest = pullRequests.firstOrNull()?.getPr(),
         )
     }
 

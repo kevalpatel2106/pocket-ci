@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="build"
-            type="com.kevalpatel2106.entity.Build" />
+            name="buildItem"
+            type="com.kevalpatel2106.builds.list.adapter.BuildListItem.BuildItem" />
 
         <variable
             name="callback"
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
-        android:onClick="@{() -> callback.onBuildSelected(build)}"
+        android:onClick="@{() -> callback.onBuildSelected(buildItem.build)}"
         android:paddingHorizontal="@dimen/spacing_regular"
         android:paddingVertical="@dimen/spacing_small">
 
@@ -29,7 +29,7 @@
             android:layout_marginStart="@dimen/spacing_regular"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{build.number}"
+            android:text="@{buildItem.numberText}"
             android:textAppearance="@style/MediumText.Primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
