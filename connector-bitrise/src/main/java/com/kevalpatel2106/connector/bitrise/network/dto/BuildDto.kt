@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 internal data class BuildDto(
 
     @Json(name = "build_number")
-    val buildNumber: Int,
+    val buildNumber: Long,
 
     @Json(name = "slug")
     val slug: String,
@@ -21,6 +21,9 @@ internal data class BuildDto(
     @Json(name = "finished_at")
     val finishedAt: String? = null,
 
+    @Json(name = "pipeline_workflow_id")
+    val triggeredWorkflowId: String?,
+
     @Json(name = "triggered_workflow")
     val triggeredWorkflow: String,
 
@@ -31,16 +34,16 @@ internal data class BuildDto(
     val branch: String,
 
     @Json(name = "commit_hash")
-    val commitHash: String,
+    val commitHash: String?,
 
     @Json(name = "commit_message")
-    val commitMessage: String,
+    val commitMessage: String?,
 
     @Json(name = "commit_view_url")
     val commitViewUrl: String? = null,
 
     @Json(name = "pull_request_id")
-    val pullRequestId: Int? = null,
+    val pullRequestId: Long? = null,
 
     @Json(name = "pull_request_view_url")
     val pullRequestViewUrl: String? = null,

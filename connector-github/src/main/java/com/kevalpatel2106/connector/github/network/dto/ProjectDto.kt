@@ -9,7 +9,7 @@ internal data class ProjectDto(
     val id: Int,
 
     @Json(name = "visibility")
-    val visibility: String,
+    val visibility: String?,
 
     @Json(name = "full_name")
     val fullName: String,

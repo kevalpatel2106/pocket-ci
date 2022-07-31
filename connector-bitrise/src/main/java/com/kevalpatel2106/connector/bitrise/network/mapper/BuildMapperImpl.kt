@@ -2,15 +2,20 @@ package com.kevalpatel2106.connector.bitrise.network.mapper
 
 import com.kevalpatel2106.connector.bitrise.network.dto.BuildDto
 import com.kevalpatel2106.entity.Build
+import com.kevalpatel2106.entity.Commit
+import com.kevalpatel2106.entity.PullRequest
+import com.kevalpatel2106.entity.Workflow
+import com.kevalpatel2106.entity.id.CommitHash
 import com.kevalpatel2106.entity.id.ProjectId
 import com.kevalpatel2106.entity.id.toBuildId
+import com.kevalpatel2106.entity.id.toPullRequestId
+import com.kevalpatel2106.entity.id.toWorkflowIdOrNull
 import com.kevalpatel2106.entity.toUrlOrNull
-import java.text.SimpleDateFormat
-import java.util.Date
 import javax.inject.Inject
 
 internal class BuildMapperImpl @Inject constructor(
     private val buildStatusMapper: BuildStatusMapper,
+    private val isoDateMapper: IsoDateMapper,
 ) : BuildMapper {
 
     override operator fun invoke(projectId: ProjectId, dto: BuildDto): Build = with(dto) {
@@ -18,23 +23,42 @@ internal class BuildMapperImpl @Inject constructor(
             id = slug.toBuildId(),
             projectId = projectId,
             number = buildNumber,
-            finishedAt = finishedAt?.let { format(it) },
-            triggeredAt = format(triggeredAt) ?: error("Cannot parse the date $triggeredAt"),
-            workflow = triggeredWorkflow,
+            finishedAt = isoDateMapper(finishedAt),
+            triggeredAt = isoDateMapper(triggeredAt) ?: error("Cannot parse the date $triggeredAt"),
+            workflow = getWorkflow(),
             status = buildStatusMapper(this),
-            commitAt = null, // Not supported
-            commitAuthor = null, // Not supported
-            commitHash = commitHash,
-            commitMessage = commitMessage,
-            commitViewUrl = commitViewUrl.toUrlOrNull(),
+            commit = getCommit(),
             headBranch = branch,
             triggeredBy = triggeredBy,
+            pullRequest = getPr(),
         )
     }
 
-    private fun format(date: String): Date? = SimpleDateFormat(ISO_8601_TIME_FORMAT).parse(date)
+    private fun BuildDto.getCommit() = if (commitHash != null) {
+        Commit(
+            hash = CommitHash(commitHash),
+            message = commitMessage,
+            author = null,
+            commitAt = null,
+            commitViewUrl = commitViewUrl.toUrlOrNull(),
+        )
+    } else {
+        null
+    }
 
-    companion object {
-        private const val ISO_8601_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    private fun BuildDto.getWorkflow() = Workflow(
+        id = triggeredWorkflowId.toWorkflowIdOrNull(),
+        name = triggeredWorkflow,
+    )
+
+    private fun BuildDto.getPr() = if (pullRequestId != null && pullRequestId != 0L) {
+        PullRequest(
+            id = pullRequestId.toString().toPullRequestId(),
+            number = null,
+            headBranch = branch,
+            baseBranch = pullRequestTargetBranch ?: error("No PR target branch found $this"),
+        )
+    } else {
+        null
     }
 }
