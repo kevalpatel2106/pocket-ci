@@ -42,7 +42,7 @@ jobs:
         with:
           githubToken: "${{ secrets.GITHUB_TOKEN }}"
           warningSize: 500
-          warningMessage: PR has more than **500 lines** added. Consider splitting it into smaller PRs if possible.
+          warningMessage: More than **500 lines** added. Consider splitting into smaller PRs.
           excludeTitle: '[SKIP_SIZE_CHECK]'
           excludePaths: |
             **.md
@@ -53,7 +53,7 @@ jobs:
   dependabot:
     runs-on: ubuntu-latest
     if: ${{ github.actor == 'dependabot[bot]' }}
-    needs: [ quality , test, build ]
+    needs: [quality, test, build]
     steps:
       - name: Dependabot metadata
         id: metadata

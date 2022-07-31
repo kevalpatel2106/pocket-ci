@@ -17,18 +17,18 @@ processors:
   active: true
   exclude:
     - 'DetektProgressListener'
-  # - 'KtFileCountProcessor'
-  # - 'PackageCountProcessor'
-  # - 'ClassCountProcessor'
-  # - 'FunctionCountProcessor'
-  # - 'PropertyCountProcessor'
-  # - 'ProjectComplexityProcessor'
-  # - 'ProjectCognitiveComplexityProcessor'
-  # - 'ProjectLLOCProcessor'
-  # - 'ProjectCLOCProcessor'
-  # - 'ProjectLOCProcessor'
-  # - 'ProjectSLOCProcessor'
-  # - 'LicenseHeaderLoaderExtension'
+    # - 'KtFileCountProcessor'
+    # - 'PackageCountProcessor'
+    # - 'ClassCountProcessor'
+    # - 'FunctionCountProcessor'
+    # - 'PropertyCountProcessor'
+    # - 'ProjectComplexityProcessor'
+    # - 'ProjectCognitiveComplexityProcessor'
+    # - 'ProjectLLOCProcessor'
+    # - 'ProjectCLOCProcessor'
+    # - 'ProjectLOCProcessor'
+    # - 'ProjectSLOCProcessor'
+    # - 'LicenseHeaderLoaderExtension'
 
 console-reports:
   active: true
@@ -38,7 +38,7 @@ console-reports:
     - 'NotificationReport'
     - 'FindingsReport'
     - 'FileBasedFindingsReport'
-  #  - 'LiteFindingsReport'
+    #  - 'LiteFindingsReport'
 
 output-reports:
   active: true
@@ -587,7 +587,7 @@ style:
     active: false
     maxChainedCalls: 5
   MaxLineLength:
-    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**'] # Changed from default
+    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']   # Changed from default
     active: true
     maxLineLength: 120
     excludePackageStatements: true
