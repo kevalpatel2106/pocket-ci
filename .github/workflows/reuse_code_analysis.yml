@@ -103,7 +103,7 @@ jobs:
         with:
           report-path: build/ktlint-report.xml
         continue-on-error: true
-      - name: Upload results Artifact
+      - name: Upload results
         uses: actions/upload-artifact@v3
         if: failure()
         with:
@@ -111,3 +111,22 @@ jobs:
           path: |
             **/build/ktlint-report.xml
           if-no-files-found: error
+
+  yaml-lint:
+    name: yaml-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Lint check
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          config_file: yamllint-config.yml
+      - name: Print result
+        run: echo ${{ steps.yaml-lint.outputs.logfile }}
+      - name: Upload result
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: yamllint-logfile
+          path: ${{ steps.yaml-lint.outputs.logfile }}

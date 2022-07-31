@@ -13,14 +13,14 @@ jobs:
 
   test:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_tests.yml@main
-    needs: [ quality ]
+    needs: [quality]
     secrets:
       CACHE_VERSION: ${{secrets.CACHE_VERSION}}
       CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
 
   build:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_build.yml@main
-    needs: [ test ]
+    needs: [test]
     secrets:
       CACHE_VERSION: ${{secrets.CACHE_VERSION}}
       ANDROID_KEYSTORE_BASE64: ${{secrets.ANDROID_KEYSTORE_BASE64}}

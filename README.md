@@ -11,14 +11,17 @@
 Mobile CI let's you check your CI builds on the go.
 
 ## Supported CI Platforms
+
 - [Bitrise](https://www.bitrise.io)
 
 _More CI platforms support is coming soon!!! Stay tuned. Meanwhile you can generate [issue](https://github.com/kevalpatel2106/mobil-ci/issues/new) if you want to add support for other CI platforms._
 
-## Contribution:
+## Contribution
+
 Do you ❤️ this project? Found an issue 🐞? Want to add some ~crazy~ new features? Please contribute to the project by creating PR or generating [new issue](https://github.com/kevalpatel2106/pocket-ci/issues/new).</small>
 
 ## Questions?🤔
+
 Open a [discussion](https://github.com/kevalpatel2106/pocket-ci/discussions) or hit me on twitter [![Twitter](https://img.shields.io/badge/Twitter-@kevalpatel2106-blue.svg?style=flat)](https://twitter.com/kevalpatel2106)
 
 ## License
