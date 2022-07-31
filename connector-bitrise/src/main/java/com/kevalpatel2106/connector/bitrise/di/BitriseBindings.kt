@@ -7,6 +7,8 @@ import com.kevalpatel2106.connector.bitrise.network.mapper.BuildMapper
 import com.kevalpatel2106.connector.bitrise.network.mapper.BuildMapperImpl
 import com.kevalpatel2106.connector.bitrise.network.mapper.BuildStatusMapper
 import com.kevalpatel2106.connector.bitrise.network.mapper.BuildStatusMapperImpl
+import com.kevalpatel2106.connector.bitrise.network.mapper.IsoDateMapper
+import com.kevalpatel2106.connector.bitrise.network.mapper.IsoDateMapperImpl
 import com.kevalpatel2106.connector.bitrise.network.mapper.ProjectMapper
 import com.kevalpatel2106.connector.bitrise.network.mapper.ProjectMapperImpl
 import com.kevalpatel2106.connector.bitrise.usecase.ConvertProjectsWithLastUpdateTime
@@ -51,4 +53,8 @@ internal abstract class BitriseBindings {
     @Binds
     @ViewModelScoped
     abstract fun bindAccountMapper(impl: AccountMapperImpl): AccountMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindIsoDateMapper(impl: IsoDateMapperImpl): IsoDateMapper
 }
