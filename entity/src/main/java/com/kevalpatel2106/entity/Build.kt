@@ -10,20 +10,16 @@ import java.util.Date
 data class Build(
     val id: BuildId,
     val projectId: ProjectId,
-    val number: Int,
+    val number: Long,
 
     val triggeredAt: Date,
     val finishedAt: Date?,
     val triggeredBy: String?,
 
-    val workflow: String,
     val status: BuildStatus,
-
     val headBranch: String,
 
-    val commitHash: String,
-    val commitAt: Date?,
-    val commitAuthor: String?,
-    val commitMessage: String?,
-    val commitViewUrl: Url?,
+    val workflow: Workflow,
+    val pullRequest: PullRequest?,
+    val commit: Commit?
 ) : Parcelable

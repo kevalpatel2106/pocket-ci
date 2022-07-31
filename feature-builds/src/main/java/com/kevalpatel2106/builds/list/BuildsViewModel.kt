@@ -34,7 +34,7 @@ class BuildsViewModel @Inject constructor(
         .map { pagedData ->
             pagedData.map { build ->
                 @Suppress("USELESS_CAST")
-                BuildListItem.BuildItem(build) as BuildListItem
+                BuildListItem.BuildItem(build, build.number.toString()) as BuildListItem
             }
         }
         .cachedIn(viewModelScope)

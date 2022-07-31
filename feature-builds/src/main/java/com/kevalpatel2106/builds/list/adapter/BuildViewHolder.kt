@@ -12,7 +12,7 @@ internal class BuildViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(listItem: BuildItem) = with(binding) {
-        build = listItem.build
+        buildItem = listItem
         callback = adapterCallback
     }
 

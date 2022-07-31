@@ -9,6 +9,10 @@ import com.kevalpatel2106.connector.github.network.mapper.BuildMapper
 import com.kevalpatel2106.connector.github.network.mapper.BuildMapperImpl
 import com.kevalpatel2106.connector.github.network.mapper.BuildStatusMapper
 import com.kevalpatel2106.connector.github.network.mapper.BuildStatusMapperImpl
+import com.kevalpatel2106.connector.github.network.mapper.CommitMapper
+import com.kevalpatel2106.connector.github.network.mapper.CommitMapperImpl
+import com.kevalpatel2106.connector.github.network.mapper.IsoDateMapper
+import com.kevalpatel2106.connector.github.network.mapper.IsoDateMapperImpl
 import com.kevalpatel2106.connector.github.network.mapper.ProjectMapper
 import com.kevalpatel2106.connector.github.network.mapper.ProjectMapperImpl
 import com.kevalpatel2106.entity.CIType
@@ -43,4 +47,12 @@ internal abstract class GitHubBindings {
     @Binds
     @ViewModelScoped
     abstract fun bindBuildMapper(impl: BuildMapperImpl): BuildMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindCommitMapper(impl: CommitMapperImpl): CommitMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindIsoDateMapper(impl: IsoDateMapperImpl): IsoDateMapper
 }
