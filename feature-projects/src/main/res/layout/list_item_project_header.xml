@@ -13,7 +13,6 @@
         android:id="@+id/accountNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorOnSecondary"
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingHorizontal="@dimen/spacing_regular"

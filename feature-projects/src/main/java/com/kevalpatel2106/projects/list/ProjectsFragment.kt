@@ -7,8 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.kevalpatel2106.core.extentions.collectInFragment
 import com.kevalpatel2106.core.extentions.isEmptyList
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations
@@ -52,7 +50,6 @@ class ProjectsFragment : Fragment(R.layout.fragment_projects) {
             footer = NetworkStateAdapter(viewModel),
         )
         itemAnimator = DefaultItemAnimator().apply { supportsChangeAnimations = false }
-        addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     }
 
     private fun observeAdapterLoadState() {

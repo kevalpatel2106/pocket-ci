@@ -14,58 +14,64 @@
             type="com.kevalpatel2106.registration.ciSelection.adapter.CISelectionAdapterCallback" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/spacing_regular"
-        android:onClick="@{() -> callback.onCISelected(ciInfo)}"
-        android:paddingVertical="@dimen/spacing_small"
-        android:background="?selectableItemBackground">
+        android:layout_marginHorizontal="@dimen/spacing_regular"
+        android:layout_marginVertical="@dimen/spacing_small"
+        android:onClick="@{() -> callback.onCISelected(ciInfo)}">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ciInfoIconImageView"
-            android:layout_width="@dimen/spacing_huge"
-            android:layout_height="@dimen/spacing_huge"
-            android:contentDescription="@{ciInfo.name}"
-            android:src="@{ciInfo.icon}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"
-            tools:src="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/ciInfoNameTextView"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_regular"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@{ciInfo.name}"
-            android:textAppearance="@style/MediumText.Primary"
-            app:layout_constraintBottom_toTopOf="@+id/ciInfoUrlTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/ciInfoIconImageView"
-            app:layout_constraintTop_toTopOf="@+id/ciInfoIconImageView"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="@tools:sample/lorem/random" />
+            android:padding="@dimen/spacing_small"
+            android:background="?selectableItemBackground">
 
-        <TextView
-            android:id="@+id/ciInfoUrlTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_regular"
-            android:layout_marginTop="@dimen/spacing_micro"
-            android:autoLink="web"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@{ciInfo.infoUrl.value}"
-            android:textAppearance="@style/SmallText.Secondary"
-            app:layout_constraintBottom_toBottomOf="@+id/ciInfoIconImageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@id/ciInfoIconImageView"
-            app:layout_constraintTop_toBottomOf="@+id/ciInfoNameTextView"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="@tools:sample/lorem/random" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ciInfoIconImageView"
+                android:layout_width="@dimen/spacing_huge"
+                android:layout_height="@dimen/spacing_huge"
+                android:contentDescription="@{ciInfo.name}"
+                android:src="@{ciInfo.icon}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/ciInfoNameTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_regular"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{ciInfo.name}"
+                android:textAppearance="@style/MediumText.Primary"
+                app:layout_constraintBottom_toTopOf="@+id/ciInfoUrlTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ciInfoIconImageView"
+                app:layout_constraintTop_toTopOf="@+id/ciInfoIconImageView"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="@tools:sample/lorem/random" />
+
+            <TextView
+                android:id="@+id/ciInfoUrlTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_regular"
+                android:layout_marginTop="@dimen/spacing_micro"
+                android:autoLink="web"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{ciInfo.infoUrl.value}"
+                android:textAppearance="@style/SmallText.Secondary"
+                app:layout_constraintBottom_toBottomOf="@+id/ciInfoIconImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/ciInfoIconImageView"
+                app:layout_constraintTop_toBottomOf="@+id/ciInfoNameTextView"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="@tools:sample/lorem/random" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

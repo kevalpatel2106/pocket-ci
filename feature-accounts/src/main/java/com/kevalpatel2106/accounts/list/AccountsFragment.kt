@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kevalpatel2106.accounts.R
 import com.kevalpatel2106.accounts.databinding.FragmentAccountsBinding
@@ -56,7 +54,6 @@ class AccountsFragment : Fragment(R.layout.fragment_accounts) {
             header = NetworkStateAdapter(viewModel),
             footer = NetworkStateAdapter(viewModel),
         )
-        addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     }
 
     private fun observeAdapterLoadState() {

@@ -31,6 +31,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
+                android:paddingTop="@dimen/spacing_small"
+                android:paddingBottom="@dimen/spacing_huge"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_account" />
 
@@ -59,9 +61,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/spacing_regular"
-            android:src="@drawable/ic_add"
             android:onClick="@{() -> model.onAddAccountClicked()}"
-            app:ensureMinTouchTargetSize="true"
+            android:src="@drawable/ic_add"
+             app:ensureMinTouchTargetSize="true"
             app:fabSize="normal" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

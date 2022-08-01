@@ -5,7 +5,7 @@
 # Setting the build versions for dead code elemination.
 # https://jakewharton.com/digging-into-d8-and-r8/
 -assumevalues class android.os.Build$VERSION {
-    int SDK_INT return 21..2147483647;
+    int SDK_INT return 23..2147483647;
 }
 
 # Proguard configuration for removing logs

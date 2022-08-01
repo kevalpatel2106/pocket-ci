@@ -29,21 +29,7 @@
     <color name="gray11">@color/gray100</color>
 
     <!-- Material Theme -->
-    <color name="colorError">@color/red</color>
-    <color name="colorOnBackground">@color/gray9</color>
-    <color name="colorOnError">@color/gray50</color>
-    <color name="colorOnPrimary">@color/gray50</color>
-    <color name="colorOnSecondary">@color/gray2</color>
-    <color name="colorOnSurface">@color/gray9</color>
-    <color name="colorPrimary">@color/orange</color>
-    <color name="colorPrimaryDark">@color/orange300</color>
-    <color name="colorSecondary">@color/gray9</color>
-    <color name="colorSecondaryDark">@color/gray6</color>
-    <color name="primaryBackground">@color/gray900</color>
-    <color name="secondaryBackground">@color/gray1</color>
     <color name="primaryText">@color/gray9</color>
     <color name="secondaryText">@color/gray7</color>
-    <color name="lightText">@color/gray8</color>
     <color name="dividerColor">@color/gray7</color>
-    <color name="rippleColor">#29000000</color>
 </resources>
