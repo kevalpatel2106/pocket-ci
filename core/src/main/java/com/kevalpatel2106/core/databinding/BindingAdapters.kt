@@ -52,7 +52,9 @@ fun setImageUrl(
     error: Drawable?,
 ) {
     val options = RequestOptions()
-        .placeholder(placeholder ?: imgView.context.getDrawable(R.drawable.ic_place_holder))
-        .error(error ?: imgView.context.getDrawable(R.drawable.ic_place_holder))
+        .placeholder(
+            placeholder ?: imgView.context.getDrawable(R.drawable.ic_account_place_holder)
+        )
+        .error(error ?: imgView.context.getDrawable(R.drawable.ic_account_place_holder))
     Glide.with(imgView.context).load(imgUrl?.value).apply(options).into(imgView)
 }

@@ -12,7 +12,7 @@ ext {
     sdk = [
             'compileSdk': 32,
             'targetSdk' : 32,
-            'minSdk'    : 21,
+            'minSdk'    : 23,
     ]
 
     playStoreVersion = [

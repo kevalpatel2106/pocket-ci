@@ -32,6 +32,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
+                android:paddingTop="@dimen/spacing_micro"
+                android:paddingBottom="@dimen/spacing_huge"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_project" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -48,8 +50,8 @@
             android:id="@+id/projectListEmptyView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:headlineText="@string/projects_empty_view_headline"
             app:descriptionText="@string/projects_empty_view_description"
-            app:showCallToAction="false"/>
+            app:headlineText="@string/projects_empty_view_headline"
+            app:showCallToAction="false" />
     </ViewFlipper>
 </layout>

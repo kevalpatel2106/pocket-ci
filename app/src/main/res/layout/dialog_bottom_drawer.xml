@@ -21,8 +21,7 @@
             android:layout_gravity="center_horizontal"
             android:paddingVertical="@dimen/spacing_micro"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/ic_drag_handle"
-            app:tint="@color/colorOnBackground" />
+            app:srcCompat="@drawable/ic_drag_handle" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bottom_drawer_option_accounts"

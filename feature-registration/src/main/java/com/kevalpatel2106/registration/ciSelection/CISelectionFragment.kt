@@ -5,8 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.kevalpatel2106.core.extentions.collectInFragment
 import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.registration.R
@@ -38,7 +36,6 @@ class CISelectionFragment : Fragment(R.layout.fragment_selection) {
 
     private fun prepareRecyclerView() = with(binding.ciListRecyclerView) {
         adapter = CISelectionAdapter(viewModel)
-        addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     }
 
     private fun handleSingleEvent(event: CISelectionVMEvent) = when (event) {
