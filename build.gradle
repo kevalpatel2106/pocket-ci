@@ -146,13 +146,6 @@ subprojects {
                 androidTestImplementation 'androidx.test:rules:1.4.0'
                 androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
                 androidTestImplementation "com.flextrade.jfixture:kfixture:0.2.0"
-
-                // Debugging libraries
-                debugImplementation 'com.facebook.flipper:flipper:0.156.0'
-                debugImplementation 'com.facebook.soloader:soloader:0.10.4'
-                debugImplementation 'com.facebook.flipper:flipper-network-plugin:0.156.0'
-                debugImplementation 'wtf.s1.pudge:thread-inspector-flipper:1.1.2'
-                debugImplementation 'wtf.s1.pudge:thread-inspector-bhook:1.1.2'
             }
 
             // Unit tests
