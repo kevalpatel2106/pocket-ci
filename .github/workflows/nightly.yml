@@ -13,5 +13,5 @@ jobs:
       - name: Update Gradle Wrapper
         uses: gradle-update/update-gradle-wrapper-action@v1
         with:
-          reviewers: kevalpatel2106
           labels: Change type > dependencies
+          repo-token: ${{ secrets.PAT_GITHUB }}
