@@ -4,6 +4,7 @@ changelog:
       - ignore-in-changelog
     authors:
       - dependabot
+      - gradle-update-robot
   categories:
     - title: New Features 🎉
       labels:
