@@ -11,5 +11,5 @@ dependencies {
 
     // Debugging libraries
     debugImplementation 'com.facebook.flipper:flipper:0.156.0'
-    debugImplementation 'com.facebook.flipper:flipper-network-plugin:0.156.0'
+    debugImplementation 'com.facebook.flipper:flipper-network-plugin:0.157.0'
 }
