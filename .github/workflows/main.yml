@@ -1,4 +1,4 @@
-name: Main Checks
+name: Main branch workflow
 
 on:
   push:

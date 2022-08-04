@@ -1,4 +1,4 @@
-name: PR Checks
+name: PR workflow
 
 on:
   pull_request:
@@ -6,10 +6,6 @@ on:
       - '*/.creds/**'
       - .idea/**
       - LICENSE
-
-permissions:
-  contents: write
-  pull-requests: write
 
 jobs:
   quality:
@@ -50,23 +46,16 @@ jobs:
             **.yml
             .idea/**
 
-  dependabot:
+  check-run-automerge:
     runs-on: ubuntu-latest
     if: ${{ github.actor == 'dependabot[bot]' }}
     needs: [quality, test, build]
     steps:
-      - name: Dependabot metadata
-        id: metadata
-        uses: dependabot/fetch-metadata@v1.3.3
+      - name: Save the PR URL in an artifact to be reused by automerge workflow run
+        env:
+          PULL_REQUEST_URL: ${{ github.event.pull_request.html_url }}
+        run: echo $PULL_REQUEST_URL > pull_request_url.txt
+      - uses: actions/upload-artifact@v2
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Enable auto-merge for Dependabot PRs
-        run: gh pr merge --auto --merge "$PR_URL"
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.PAT_GITHUB}}
-      - name: Approve Dependabot PRs
-        run: gh pr review --approve "$PR_URL"
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.PAT_GITHUB}}
+          name: pull_request_url
+          path: ./pull_request_url.txt

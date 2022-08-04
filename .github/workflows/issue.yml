@@ -1,11 +1,14 @@
+name: Issue workflow
+
 on:
   issues:
     types: [opened]
+
 jobs:
   add-to-project:
     runs-on: ubuntu-latest
     steps:
       - uses: konradpabjan/actions-add-new-issue-to-column@v1.1
         with:
-          action-token: "${{ secrets.PAT_GITHUB }}"
+          action-token: ${{ secrets.PAT_GITHUB }}
           project-url: "https://github.com/users/kevalpatel2106/projects/1"

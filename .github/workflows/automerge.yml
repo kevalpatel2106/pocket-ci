@@ -1,0 +1,42 @@
+# cannot access PAT token in pull_request target triggered by dependabot so, had to create this workflow.
+# https://github.com/dependabot/dependabot-core/issues/3253#issuecomment-797125425
+name: PR Automerge
+
+on:
+  workflow_run:
+    workflows: ["PR workflow"]
+    types:
+      - completed
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Download workflow artifact
+        uses: dawidd6/action-download-artifact@v2.21.1
+        with:
+          workflow: android_pr.yml
+          run_id: ${{ github.event.workflow_run.id }}
+      - name: Read the pull_request_url.txt file
+        id: pull_request_url_reader
+        uses: juliangruber/read-file-action@v1.0.0
+        with:
+          path: ./pull_request_url/pull_request_url.txt
+      - name: Enable auto-merge for PR
+        run: gh pr merge --auto --merge $(echo $PR_URL|tr -d '\n')
+        env:
+          PR_URL: ${{ steps.pull_request_url_reader.outputs.content }}
+          GITHUB_TOKEN: ${{secrets.PAT_GITHUB}}
+      - name: Approve PR
+        run: gh pr review --approve $(echo $PR_URL|tr -d '\n')
+        env:
+          PR_URL: ${{ steps.pull_request_url_reader.outputs.content }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
