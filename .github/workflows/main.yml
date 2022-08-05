@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   quality:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_code_analysis.yml@main

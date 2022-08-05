@@ -7,6 +7,10 @@ on:
       - .idea/**
       - LICENSE
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   quality:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_code_analysis.yml@main
@@ -28,10 +32,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: PR labeler
-        uses: actions/labeler@main
+        uses: actions/labeler@v4
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-path: ".github/pull_request_labeler_filters.yml"
+          configuration-path: ".github/labeler.yml"
           sync-labels: true
       - name: PR size check
         uses: ookami-kb/gh-pr-size-watcher@v1.1.0
