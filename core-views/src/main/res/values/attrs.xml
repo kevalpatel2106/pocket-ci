@@ -8,4 +8,8 @@
         <attr name="image" format="reference" />
         <attr name="showImage" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="TimeDifferenceTextView">
+        <attr name="appendText" format="string" />
+        <attr name="displayAccurate" format="boolean" />
+    </declare-styleable>
 </resources>
