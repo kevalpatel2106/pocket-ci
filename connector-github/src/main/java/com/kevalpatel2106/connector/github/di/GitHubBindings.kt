@@ -15,6 +15,8 @@ import com.kevalpatel2106.connector.github.network.mapper.IsoDateMapper
 import com.kevalpatel2106.connector.github.network.mapper.IsoDateMapperImpl
 import com.kevalpatel2106.connector.github.network.mapper.ProjectMapper
 import com.kevalpatel2106.connector.github.network.mapper.ProjectMapperImpl
+import com.kevalpatel2106.connector.github.network.mapper.PullRequestMapper
+import com.kevalpatel2106.connector.github.network.mapper.PullRequestMapperImpl
 import com.kevalpatel2106.entity.CIType
 import dagger.Binds
 import dagger.Module
@@ -55,4 +57,8 @@ internal abstract class GitHubBindings {
     @Binds
     @ViewModelScoped
     abstract fun bindIsoDateMapper(impl: IsoDateMapperImpl): IsoDateMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindPullRequestMapper(impl: PullRequestMapperImpl): PullRequestMapper
 }

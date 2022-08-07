@@ -21,6 +21,7 @@ internal class BuildStatusMapperImpl @Inject constructor() : BuildStatusMapper {
         CONCLUSION_SUCCESS -> BuildStatus.SUCCESS
         CONCLUSION_FAILURE -> BuildStatus.FAIL
         CONCLUSION_CANCELED -> BuildStatus.ABORT
+        CONCLUSION_SKIPPED -> BuildStatus.SKIPPED
         CONCLUSION_NOT_READY -> BuildStatus.UNKNOWN
         else -> {
             Timber.w("Unknown build conclusion for status $STATUS_COMPLETED: $conclusion")
@@ -36,5 +37,6 @@ internal class BuildStatusMapperImpl @Inject constructor() : BuildStatusMapper {
         private const val STATUS_COMPLETED = "completed"
         private const val STATUS_QUEUED = "queued"
         private const val STATUS_IN_PROGRESS = "in_progress"
+        private const val CONCLUSION_SKIPPED = "skipped"
     }
 }

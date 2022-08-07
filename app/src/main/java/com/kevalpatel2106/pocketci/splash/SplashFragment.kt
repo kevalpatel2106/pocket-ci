@@ -1,5 +1,6 @@
 package com.kevalpatel2106.pocketci.splash
 
+import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
@@ -19,8 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class SplashFragment : Fragment() {
     private val viewModel by viewModels<SplashViewModel>()
 
-    override fun onStart() {
-        super.onStart()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         viewModel.viewState.collectInFragment(this, ::handleViewState)
         viewModel.vmEventsFlow.collectInFragment(this, ::handleSingleViewState)
     }

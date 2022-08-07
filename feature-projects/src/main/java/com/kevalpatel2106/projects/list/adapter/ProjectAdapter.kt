@@ -17,7 +17,8 @@ internal class ProjectAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return getItem(position)?.listItemType?.ordinal ?: RecyclerView.INVALID_TYPE
+        return getItem(position)?.listItemType?.ordinal
+            ?: error("Invalid position: $position. Current list size is $itemCount.")
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

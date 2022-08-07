@@ -11,8 +11,14 @@ import com.kevalpatel2106.connector.bitrise.network.mapper.IsoDateMapper
 import com.kevalpatel2106.connector.bitrise.network.mapper.IsoDateMapperImpl
 import com.kevalpatel2106.connector.bitrise.network.mapper.ProjectMapper
 import com.kevalpatel2106.connector.bitrise.network.mapper.ProjectMapperImpl
+import com.kevalpatel2106.connector.bitrise.usecase.CommitMapper
+import com.kevalpatel2106.connector.bitrise.usecase.CommitMapperImpl
 import com.kevalpatel2106.connector.bitrise.usecase.ConvertProjectsWithLastUpdateTime
 import com.kevalpatel2106.connector.bitrise.usecase.ConvertProjectsWithLastUpdateTimeImpl
+import com.kevalpatel2106.connector.bitrise.usecase.PullRequestMapper
+import com.kevalpatel2106.connector.bitrise.usecase.PullRequestMapperImpl
+import com.kevalpatel2106.connector.bitrise.usecase.SanitizeTriggeredBy
+import com.kevalpatel2106.connector.bitrise.usecase.SanitizeTriggeredByImpl
 import com.kevalpatel2106.connector.ci.CIConnector
 import com.kevalpatel2106.connector.ci.internal.CIConnectorBindingKey
 import com.kevalpatel2106.entity.CIType
@@ -57,4 +63,16 @@ internal abstract class BitriseBindings {
     @Binds
     @ViewModelScoped
     abstract fun bindIsoDateMapper(impl: IsoDateMapperImpl): IsoDateMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindSanitizeTriggeredBy(impl: SanitizeTriggeredByImpl): SanitizeTriggeredBy
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindCommitMapper(impl: CommitMapperImpl): CommitMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindPullRequestMapper(impl: PullRequestMapperImpl): PullRequestMapper
 }

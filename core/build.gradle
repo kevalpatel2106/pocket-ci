@@ -5,17 +5,7 @@ plugins {
     id 'de.mannodermaus.android-junit5'
 }
 
-android {
-    // Import resources from theme
-    sourceSets {
-        main {
-            res.srcDirs = ['../core-resources/src/main/res', 'src/main/res']
-        }
-    }
-}
-
 dependencies {
     setup_glide(this)
     implementation project(':entity')
-    implementation project(':core-resources')
 }

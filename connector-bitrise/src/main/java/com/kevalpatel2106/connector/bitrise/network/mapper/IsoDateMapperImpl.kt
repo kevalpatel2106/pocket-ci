@@ -1,12 +1,15 @@
 package com.kevalpatel2106.connector.bitrise.network.mapper
 
 import java.text.SimpleDateFormat
+import java.util.TimeZone
 import javax.inject.Inject
 
 internal class IsoDateMapperImpl @Inject constructor() : IsoDateMapper {
+    private val sdf = SimpleDateFormat(ISO_8601_TIME_FORMAT)
+        .apply { timeZone = TimeZone.getTimeZone("UTC") }
 
     override fun invoke(isoTime: String?) = if (isoTime != null) {
-        SimpleDateFormat(ISO_8601_TIME_FORMAT).parse(isoTime)
+        sdf.parse(isoTime)
     } else {
         null
     }

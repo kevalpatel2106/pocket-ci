@@ -73,6 +73,7 @@ class AccountsFragment : Fragment(R.layout.fragment_accounts) {
         when (event) {
             is OpenProjects -> findNavController().navigateToInAppDeeplink(
                 DeepLinkDestinations.ProjectsList(event.accountId),
+                cleanUpStack = true
             )
             RetryLoading -> accountsAdapter.retry()
             RefreshAccounts -> accountsAdapter.refresh()

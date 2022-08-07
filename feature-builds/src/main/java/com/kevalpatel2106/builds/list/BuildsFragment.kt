@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.kevalpatel2106.builds.R
 import com.kevalpatel2106.builds.databinding.FragmentBuildsBinding
 import com.kevalpatel2106.builds.list.BuildsVMEvent.OpenBuild
@@ -16,12 +15,13 @@ import com.kevalpatel2106.builds.list.BuildsVMEvent.ShowErrorView
 import com.kevalpatel2106.builds.list.adapter.BuildsAdapter
 import com.kevalpatel2106.core.extentions.collectInFragment
 import com.kevalpatel2106.core.extentions.isEmptyList
+import com.kevalpatel2106.core.extentions.showSnack
 import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BuildsFragment : Fragment(R.layout.fragment_builds) {
+internal class BuildsFragment : Fragment(R.layout.fragment_builds) {
     private val viewModel by viewModels<BuildsViewModel>()
     private val binding by viewBinding(FragmentBuildsBinding::bind) {
         buildListRecyclerView.adapter = null
@@ -48,7 +48,6 @@ class BuildsFragment : Fragment(R.layout.fragment_builds) {
             footer = NetworkStateAdapter(viewModel),
         )
         itemAnimator = DefaultItemAnimator().apply { supportsChangeAnimations = false }
-        addItemDecoration(DividerItemDecoration(context, androidx.recyclerview.widget.RecyclerView.VERTICAL))
     }
 
     private fun observeAdapterLoadState() {
@@ -67,7 +66,7 @@ class BuildsFragment : Fragment(R.layout.fragment_builds) {
 
     private fun handleSingleEvent(event: BuildsVMEvent) {
         when (event) {
-            is OpenBuild -> TODO("Not implemented")
+            is OpenBuild -> showSnack("Not implemented")
             RetryLoading -> buildsAdapter.retry()
             RefreshBuilds -> buildsAdapter.refresh()
             ShowErrorView -> binding.buildsViewFlipper.displayedChild = POS_ERROR

@@ -3,13 +3,14 @@ package com.kevalpatel2106.coreViews
 import android.content.Context
 import android.graphics.PorterDuff
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
+import com.kevalpatel2106.coreViews.databinding.ViewBuildStatusBinding
 import com.kevalpatel2106.coreViews.useCase.GetBuildStatusImage
 import com.kevalpatel2106.coreViews.useCase.GetBuildStatusImageTint
 import com.kevalpatel2106.entity.BuildStatus
@@ -31,7 +32,7 @@ class BuildStatusView @JvmOverloads constructor(
     @Inject
     internal lateinit var getBuildStatusImageTint: GetBuildStatusImageTint
 
-    private val view = View.inflate(context, R.layout.view_build_status, this)
+    private val binding = ViewBuildStatusBinding.inflate(LayoutInflater.from(context), this, true)
 
     var status: BuildStatus = BuildStatus.UNKNOWN
         set(value) {
@@ -39,28 +40,26 @@ class BuildStatusView @JvmOverloads constructor(
             onBuildStatusChanged()
         }
 
-    init {
-        onBuildStatusChanged()
-        view.findViewById<View>(R.id.buildStatusRunningDot)
-            .startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_build_status_dot))
-    }
-
-    private fun onBuildStatusChanged() = with(view) {
-        findViewById<View>(R.id.buildStatusRunningLoader).isVisible =
-            status == BuildStatus.RUNNING
-        findViewById<View>(R.id.buildStatusRunningDot).isVisible = status.isInProgress()
-        findViewById<ImageView>(R.id.buildStatusImageView).updateBuildStatusImage()
-    }
-
-    private fun ImageView.updateBuildStatusImage() {
-        isVisible = !status.isInProgress()
-        if (!isVisible) return
-
-        setImageResource(getBuildStatusImage(status))
-        setColorFilter(
-            ContextCompat.getColor(context, getBuildStatusImageTint(status)),
-            PorterDuff.Mode.SRC_IN
-        )
+    private fun onBuildStatusChanged() = with(binding) {
+        buildStatusRunningLoader.isVisible = status == BuildStatus.RUNNING
+        buildStatusRunningDot.apply {
+            isVisible = status.isInProgress()
+            if (isVisible) {
+                startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_build_status_dot))
+            } else {
+                clearAnimation()
+            }
+        }
+        buildStatusImageView.apply {
+            isVisible = !status.isInProgress()
+            if (isVisible) {
+                setImageResource(getBuildStatusImage(status))
+                setColorFilter(
+                    ContextCompat.getColor(context, getBuildStatusImageTint(status)),
+                    PorterDuff.Mode.SRC_IN
+                )
+            }
+        }
     }
 
     companion object {

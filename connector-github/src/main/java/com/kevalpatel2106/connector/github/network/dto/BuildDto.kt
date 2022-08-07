@@ -30,6 +30,9 @@ internal data class BuildDto(
     @Json(name = "run_started_at")
     val runStartedAt: String? = null,
 
+    @Json(name = "updated_at")
+    val updatedAt: String? = null,
+
     @Json(name = "repository")
     val repository: ProjectDto? = null,
 
