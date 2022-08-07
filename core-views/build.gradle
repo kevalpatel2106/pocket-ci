@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
     id 'de.mannodermaus.android-junit5'
 }
 
@@ -16,4 +17,5 @@ android {
 dependencies {
     implementation project(':core-resources')
     implementation 'androidx.preference:preference-ktx:1.2.0'
+    testImplementation project(':core-test')
 }

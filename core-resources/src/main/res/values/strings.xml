@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--Brand resources-->
     <string name="app_name" translatable="false">Pocket CI</string>
 
@@ -73,7 +73,7 @@
 
     <!--Share dialog-->
     <string name="app_invite_title">Invitation to install "%s"</string>
-    <string name="app_invite_message">Hey! I would like to invite you to use "%s" that I have been using on my phone lately. Check it out! Click here to download %s.</string>
+    <string name="app_invite_message">Hey! I would like to invite you to use "%1$s" that I have been using on my phone lately. Check it out! Click here to download %2$s.</string>
     <string name="title_feature_settings">Settings</string>
     <string name="splash_error_loading_theme">Error loading theme. Falling back to system default theme.</string>
     <string name="settings_error_loading_them">Cannot load the theme. Falling back to system default.</string>
@@ -82,6 +82,39 @@
     <string name="title_builds_screen">Builds</string>
     <string name="builds_empty_view_description">Please check you have at least one build triggered in this project. Also verify the token has read access to builds.</string>
     <string name="builds_empty_view_headline">No builds found in this project.</string>
+    <plurals name="time_format_second" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d second %2$s</item>
+        <item quantity="other">%1$d seconds %2$s</item>
+    </plurals>
+    <plurals name="time_format_minute" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d minute %2$s</item>
+        <item quantity="other">%1$d minutes %2$s</item>
+    </plurals>
+    <plurals name="time_format_hour" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d hour %2$s</item>
+        <item quantity="other">%1$d hours %2$s</item>
+    </plurals>
+    <plurals name="time_format_day" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d day %2$s</item>
+        <item quantity="other">%1$d days %2$s</item>
+    </plurals>
+    <plurals name="time_format_week" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d week %2$s</item>
+        <item quantity="other">%1$d weeks %2$s</item>
+    </plurals>
+    <plurals name="time_format_month" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d month %2$s</item>
+        <item quantity="other">%1$d months %2$s</item>
+    </plurals>
+    <plurals name="time_format_year" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d year %2$s</item>
+        <item quantity="other">%1$d years %2$s</item>
+    </plurals>
+    <string name="time_format_minute_second">%1$dm %2$ds %3$s</string>
+    <string name="time_format_hour_minute">%1$dh %2$dm %3$s</string>
+    <string name="time_format_day_hour">%1$dd %2$dh %3$s</string>
+    <string name="time_format_second_short">%1$ds %2$s</string>
+    <string name="ago">ago</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 
