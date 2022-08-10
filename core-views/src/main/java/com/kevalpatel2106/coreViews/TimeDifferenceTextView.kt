@@ -34,20 +34,14 @@ class TimeDifferenceTextView @JvmOverloads constructor(
     @Inject
     internal lateinit var liveTimeDifferenceTicker: LiveTimeDifferenceTicker
 
-    var dateOfEventStart: Date? = null
-        set(value) {
-            field = value
-            updateTimeDifference()
-        }
-
-    var dateOfEventEnd: Date? = null
+    var dates: TimeDifferenceData? = null
         set(value) {
             field = value
             updateTimeDifference()
         }
 
     private val showLiveTimeDifference: Boolean
-        get() = dateOfEventEnd == null
+        get() = dates?.dateOfEventEnd == null
 
     var textAppend: String? = null
         set(value) {
@@ -78,8 +72,8 @@ class TimeDifferenceTextView @JvmOverloads constructor(
     }
 
     private fun updateTimeDifference() {
-        val dateStart = dateOfEventStart
-        val dateEnd = dateOfEventEnd
+        val dateStart = dates?.dateOfEventStart
+        val dateEnd = dates?.dateOfEventEnd
         tickJob?.cancel()
         tickJob = null
 
@@ -111,18 +105,17 @@ class TimeDifferenceTextView @JvmOverloads constructor(
         tickJob = null
     }
 
+    data class TimeDifferenceData(
+        val dateOfEventStart: Date,
+        val dateOfEventEnd: Date?,
+    )
+
     companion object {
 
         @JvmStatic
-        @BindingAdapter("app:dateStart")
-        fun setDateStart(view: View, date: Date) {
-            (view as? TimeDifferenceTextView)?.dateOfEventStart = date
-        }
-
-        @JvmStatic
-        @BindingAdapter("app:dateEnd")
-        fun setDateEnd(view: View, date: Date?) {
-            (view as? TimeDifferenceTextView)?.dateOfEventEnd = date
+        @BindingAdapter("app:dates")
+        fun setDateStart(view: View, timeDifferenceData: TimeDifferenceData) {
+            (view as? TimeDifferenceTextView)?.dates = timeDifferenceData
         }
     }
 }

@@ -29,7 +29,7 @@ internal class GitHubBuildInfoProvider @Inject constructor(
 
         val buildsDto = retrofitClient
             .getService(baseUrl = url, token = token)
-            .getBuildsTriggeredAtDesc(projectOwner, projectName, pageNumber, limit)
+            .getBuildsTriggeredAtDesc(projectOwner, projectName, limit, pageNumber)
 
         val nextCursor = if (buildsDto.workflowRuns.isEmpty()) {
             null

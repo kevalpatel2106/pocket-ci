@@ -13,7 +13,6 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.textfield.TextInputLayout
-import com.kevalpatel2106.core.R
 import com.kevalpatel2106.entity.Url
 
 @BindingAdapter("app:displayChild")
@@ -52,9 +51,7 @@ fun setImageUrl(
     error: Drawable?,
 ) {
     val options = RequestOptions()
-        .placeholder(
-            placeholder ?: imgView.context.getDrawable(R.drawable.ic_account_place_holder)
-        )
-        .error(error ?: imgView.context.getDrawable(R.drawable.ic_account_place_holder))
+        .placeholder(placeholder)
+        .error(error)
     Glide.with(imgView.context).load(imgUrl?.value).apply(options).into(imgView)
 }

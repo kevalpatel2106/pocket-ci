@@ -14,9 +14,6 @@ internal data class ProjectDto(
     @Json(name = "full_name")
     val fullName: String,
 
-    @Json(name = "size")
-    val size: Int,
-
     @Json(name = "name")
     val name: String,
 
@@ -26,14 +23,11 @@ internal data class ProjectDto(
     @Json(name = "html_url")
     val htmlUrl: String,
 
-    @Json(name = "created_at")
-    val createdAt: String,
-
     @Json(name = "updated_at")
-    val updatedAt: String,
+    val updatedAt: String?,
 
     @Json(name = "disabled")
-    val disabled: Boolean,
+    val disabled: Boolean = false,
 
     @Json(name = "owner")
     val owner: BaseUserDto,

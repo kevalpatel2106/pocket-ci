@@ -14,28 +14,198 @@
             type="com.kevalpatel2106.builds.list.adapter.BuildsAdapterCallback" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Material3.CardView.Outlined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?selectableItemBackground"
-        android:onClick="@{() -> callback.onBuildSelected(buildItem.build)}"
-        android:paddingHorizontal="@dimen/spacing_regular"
-        android:paddingVertical="@dimen/spacing_small">
+        android:layout_marginHorizontal="@dimen/spacing_regular"
+        android:layout_marginVertical="@dimen/spacing_small"
+        android:onClick="@{() -> callback.onBuildSelected(buildItem.build)}">
 
-        <TextView
-            android:id="@+id/buildNameTextView"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_regular"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@{buildItem.numberText}"
-            android:textAppearance="@style/MediumText.Primary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="@tools:sample/lorem/random" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:background="?selectableItemBackground"
+            android:padding="@dimen/spacing_small">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/verticalGuide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.55" />
+
+            <com.kevalpatel2106.coreViews.BuildStatusView
+                android:id="@+id/buildStatusView"
+                android:layout_width="@dimen/spacing_large"
+                android:layout_height="@dimen/spacing_large"
+                app:buildStatus="@{buildItem.build.status}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingClass" />
+
+            <TextView
+                android:id="@+id/buildNumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_small"
+                android:maxEms="10"
+                android:maxLines="1"
+                android:text="@{buildItem.numberText}"
+                android:textAppearance="@style/LargeText.Orange"
+                app:layout_constraintStart_toEndOf="@id/buildStatusView"
+                app:layout_constraintTop_toTopOf="@id/buildStatusView"
+                tools:text="#1234567890" />
+
+            <TextView
+                android:id="@+id/buildWorkflowNameTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_regular"
+                android:drawableStart="@drawable/ic_workflow"
+                android:drawablePadding="@dimen/spacing_micro"
+                android:drawableTint="?colorOnBackground"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="@{buildItem.build.workflow.name}"
+                android:textAppearance="@style/MediumText.Primary"
+                app:layout_constraintBottom_toBottomOf="@+id/buildNumberTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/buildNumberTextView"
+                app:layout_constraintTop_toTopOf="@id/buildNumberTextView"
+                tools:text="workflow-name-long" />
+
+            <TextView
+                android:id="@+id/buildCommitTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_small"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{buildItem.build.commit.message}"
+                android:textAppearance="@style/MediumText.Secondary"
+                android:visibility="@{buildItem.build.commit.message == null}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/buildStatusView"
+                app:layout_constraintTop_toBottomOf="@id/buildNumberTextView"
+                tools:text="@tools:sample/lorem/random" />
+
+            <HorizontalScrollView
+                android:id="@+id/buildChipGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/buildStatusView"
+                app:layout_constraintStart_toStartOf="@id/buildNumberTextView"
+                app:layout_constraintTop_toBottomOf="@id/buildCommitTextView">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/buildStatusChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_micro"
+                        android:text="@{buildItem.status}"
+                        android:textAppearance="@style/MediumText.Primary"
+                        android:textColor="@color/white"
+                        app:chipIcon="@drawable/ic_history"
+                        app:chipIconTint="@color/white"
+                        app:ensureMinTouchTargetSize="false"
+                        tools:text="@tools:sample/full_names" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/buildTriggeredByChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_micro"
+                        android:text="@{buildItem.build.triggeredBy}"
+                        android:textAppearance="@style/MediumText.Primary"
+                        android:textColor="@color/white"
+                        app:chipIcon="@drawable/ic_person"
+                        app:chipIconTint="@color/white"
+                        app:ensureMinTouchTargetSize="false"
+                        tools:text="@tools:sample/full_names" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/buildCommitHashChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_micro"
+                        android:text="@{buildItem.commitHash}"
+                        android:textAppearance="@style/MediumText.Primary"
+                        android:textColor="@color/white"
+                        android:visibility="@{buildItem.commitHash == null}"
+                        app:chipIcon="@drawable/ic_commit"
+                        app:chipIconTint="@color/white"
+                        app:ensureMinTouchTargetSize="false"
+                        tools:text="425ba3901a126874d78f9d4a2bad427a35086742" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/buildBranchChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_micro"
+                        android:text="@{buildItem.build.headBranch}"
+                        android:textAppearance="@style/MediumText.Primary"
+                        android:textColor="@color/white"
+                        android:visibility="@{buildItem.build.headBranch == null}"
+                        app:chipIcon="@drawable/ic_branch"
+                        app:chipIconTint="@color/white"
+                        app:ensureMinTouchTargetSize="false"
+                        tools:text="425ba3901a126874d78f9d4a2bad427a35086742" />
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
+            <com.kevalpatel2106.coreViews.TimeDifferenceTextView
+                android:id="@+id/buildTriggeredTimeTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_marginEnd="@dimen/spacing_micro"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="@dimen/spacing_micro"
+                android:drawableTint="?colorOnBackground"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textAppearance="@style/SmallText.Primary"
+                app:appendText="@string/ago"
+                app:dates="@{buildItem.triggeredTimeDifference}"
+                app:displayAccurate="false"
+                app:layout_constraintEnd_toStartOf="@+id/verticalGuide"
+                app:layout_constraintStart_toEndOf="@id/buildStatusView"
+                app:layout_constraintStart_toStartOf="@id/buildNumberTextView"
+                app:layout_constraintTop_toBottomOf="@id/buildChipGroup"
+                tools:ignore="MissingClass"
+                tools:text="18 hours ago" />
+
+            <com.kevalpatel2106.coreViews.TimeDifferenceTextView
+                android:id="@+id/buildExecutionTimeTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_micro"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:drawableStart="@drawable/ic_watch_later"
+                android:drawablePadding="@dimen/spacing_micro"
+                android:drawableTint="?colorAccent"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textAppearance="@style/SmallText.Secondary"
+                app:dates="@{buildItem.executionTimeDifference}"
+                app:displayAccurate="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/verticalGuide"
+                app:layout_constraintTop_toBottomOf="@id/buildChipGroup"
+                tools:ignore="MissingClass"
+                tools:text="18 hours 10 min" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -22,5 +22,20 @@
         <!--Components-->
         <item name="cardViewStyle">@style/Widget.Material3.CardView.Filled</item>
         <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Filled</item>
+        <item name="chipStyle">@style/Theme.PocketCI.Chip.Action</item>
+        <item name="chipGroupStyle">@style/Theme.PocketCI.ChipGroup</item>
+    </style>
+
+    <style name="Theme.PocketCI.Chip.Action" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">@color/brown</item>
+        <item name="chipIconTint">@color/white</item>
+        <item name="chipSurfaceColor">@color/tan</item>
+        <item name="marginHorizontal">@dimen/spacing_micro</item>
+        <item name="checkedIconVisible">false</item>
+    </style>
+
+    <style name="Theme.PocketCI.ChipGroup" parent="Widget.MaterialComponents.ChipGroup">
+        <item name="chipSpacingVertical">@dimen/spacing_micro</item>
+        <item name="chipSpacingHorizontal">@dimen/spacing_small</item>
     </style>
 </resources>

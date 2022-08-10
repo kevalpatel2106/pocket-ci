@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BuildsViewModel @Inject constructor(
+internal class BuildsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     buildRepo: BuildRepo,
 ) : BaseViewModel<BuildsVMEvent>(), NetworkStateCallback, BuildsAdapterCallback {
@@ -34,7 +34,7 @@ class BuildsViewModel @Inject constructor(
         .map { pagedData ->
             pagedData.map { build ->
                 @Suppress("USELESS_CAST")
-                BuildListItem.BuildItem(build, build.number.toString()) as BuildListItem
+                BuildListItem.BuildItem(build) as BuildListItem
             }
         }
         .cachedIn(viewModelScope)
