@@ -8,17 +8,27 @@ internal class VersionNameInterceptor private constructor() : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        val url = request.url
-        val versionedUrl = url.toString().replace(url.host, "${url.host}/$BITRISE_API_VERSION")
+        val apiVersion = request.header(API_VERSION_HEADER_KEY)
+
+        val finalUrl = if (apiVersion == null) {
+            request.url
+        } else {
+            val host = request.url.host
+            request.url.toString()
+                .replace(host, "$host/$apiVersion")
+                .toHttpUrlOrNull() ?: request.url
+        }
         return chain.proceed(
             request.newBuilder()
-                .url(versionedUrl.toHttpUrlOrNull() ?: request.url)
+                .removeHeader(API_VERSION_HEADER_KEY)
+                .url(finalUrl)
                 .build(),
         )
     }
 
     companion object {
-        private const val BITRISE_API_VERSION = "v0.1"
+        const val API_VERSION_HEADER_KEY = "api-version"
+        const val BITRISE_API_VERSION = "v0.1"
         fun create() = VersionNameInterceptor()
     }
 }

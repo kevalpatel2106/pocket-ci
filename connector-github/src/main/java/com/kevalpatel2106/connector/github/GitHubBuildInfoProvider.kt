@@ -1,13 +1,14 @@
 package com.kevalpatel2106.connector.github
 
-import com.kevalpatel2106.connector.ci.entity.PagedData
 import com.kevalpatel2106.connector.ci.internal.CIBuildInfoProvider
 import com.kevalpatel2106.connector.github.network.GitHubRetrofitClient
 import com.kevalpatel2106.connector.github.network.endpoint.GitHubEndpoint
 import com.kevalpatel2106.connector.github.network.mapper.BuildMapper
 import com.kevalpatel2106.entity.Build
+import com.kevalpatel2106.entity.PagedData
 import com.kevalpatel2106.entity.Token
 import com.kevalpatel2106.entity.Url
+import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.entity.id.ProjectId
 import javax.inject.Inject
 
@@ -40,5 +41,16 @@ internal class GitHubBuildInfoProvider @Inject constructor(
             data = buildsDto.workflowRuns.map { buildMapper(projectId, it) },
             nextCursor = nextCursor?.toString(),
         )
+    }
+
+    override suspend fun getBuildLogs(
+        url: Url,
+        token: Token,
+        projectId: ProjectId,
+        projectName: String,
+        projectOwner: String,
+        buildId: BuildId,
+    ): String {
+        error("GitHub doesn't support build logs.")
     }
 }

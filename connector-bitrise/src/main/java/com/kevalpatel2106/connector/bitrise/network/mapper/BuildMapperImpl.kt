@@ -34,6 +34,7 @@ internal class BuildMapperImpl @Inject constructor(
             headBranch = branch,
             triggeredBy = sanitizeTriggeredBy(triggeredBy),
             pullRequest = pullRequestMapper(this),
+            abortReason = abortReason,
         )
     }
 

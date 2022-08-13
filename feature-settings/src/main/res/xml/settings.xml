@@ -2,56 +2,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.preference.PreferenceCategory
-        android:title="@string/general_header"
+        android:title="@string/settings_general_header"
         app:iconSpaceReserved="false">
         <androidx.preference.ListPreference
             android:defaultValue="@string/pref_value_theme_system_default"
-            android:entries="@array/theme_mode_titles"
+            android:entries="@array/settings_theme_mode_titles"
             android:entryValues="@array/theme_mode_values"
             android:key="@string/pref_key_theme"
-            android:title="@string/pref_title_theme"
+            android:title="@string/settings_title_theme"
             app:iconSpaceReserved="false" />
     </androidx.preference.PreferenceCategory>
 
     <androidx.preference.PreferenceCategory
-        android:title="@string/legal_header"
+        android:title="@string/settings_legal_header"
         app:iconSpaceReserved="false">
 
         <androidx.preference.Preference
             android:key="@string/pref_key_privacy_policy"
-            android:title="@string/pref_title_privacy_policy"
+            android:title="@string/settings_title_privacy_policy"
             app:iconSpaceReserved="false" />
 
         <androidx.preference.Preference
             android:key="@string/pref_key_open_source_licences"
-            android:title="@string/pref_title_open_source_licences"
+            android:title="@string/settings_title_open_source_licences"
             app:iconSpaceReserved="false" />
     </androidx.preference.PreferenceCategory>
 
     <androidx.preference.PreferenceCategory
-        android:title="@string/about_header"
+        android:title="@string/settings_about_header"
         app:iconSpaceReserved="false">
 
         <androidx.preference.Preference
             android:key="@string/pref_key_version"
-            android:title="@string/pref_title_version"
+            android:title="@string/settings_title_version"
             app:iconSpaceReserved="false" />
 
         <androidx.preference.Preference
             android:key="@string/pref_key_changelog"
-            android:title="@string/pref_title_changelog"
+            android:title="@string/settings_title_changelog"
             app:iconSpaceReserved="false" />
 
         <androidx.preference.Preference
             android:key="@string/pref_key_contact"
-            android:title="@string/pref_title_contact"
+            android:title="@string/settings_title_contact"
             app:iconSpaceReserved="false" />
 
         <androidx.preference.Preference
             android:key="@string/pref_key_share_friends"
-            android:title="@string/pref_title_share_friend"
+            android:title="@string/settings_title_share_friend"
             app:iconSpaceReserved="false" />
     </androidx.preference.PreferenceCategory>
 
-    <com.kevalpatel2106.coreViews.CentralTitlePreference android:summary="@string/pref_title_made_love_with_uk" />
+    <com.kevalpatel2106.coreViews.CentralTitlePreference android:summary="@string/settings_title_made_love_with_uk" />
 </androidx.preference.PreferenceScreen>

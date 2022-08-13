@@ -11,6 +11,6 @@
         tools:layout="@layout/fragment_accounts"
         android:label="@string/title_accounts_screen" >
 
-        <deepLink app:uri="pocket-ci://accounts-list/" />
+        <deepLink app:uri="pocket-ci://accounts-list" />
     </fragment>
 </navigation>

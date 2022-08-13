@@ -32,4 +32,6 @@
     <color name="primaryText">@color/gray9</color>
     <color name="secondaryText">@color/gray7</color>
     <color name="dividerColor">@color/gray7</color>
+    <color name="abortCardColor">@color/transparent</color>
+    <color name="abortCardStroke">@color/yellow600</color>
 </resources>

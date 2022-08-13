@@ -5,7 +5,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.kevalpatel2106.entity.Build
 import com.kevalpatel2106.entity.id.AccountId
+import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.entity.id.ProjectId
+import com.kevalpatel2106.entity.toToken
 import com.kevalpatel2106.repository.BuildRepo
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
@@ -36,6 +38,24 @@ internal class BuildRepoImpl @Inject constructor(
                 )
             }.flow
         }
+
+    override suspend fun getBuildLogs(
+        accountId: AccountId,
+        projectId: ProjectId,
+        buildId: BuildId,
+    ): String {
+        val accountDto = accountDao.getAccount(accountId.getValue())
+        val ciConnector = ciConnectorFactory.get(accountDto.type)
+        val projectDto = projectDao.getProject(projectId.getValue(), accountId.getValue())
+        return ciConnector.getBuildLogs(
+            url = accountDto.baseUrl,
+            token = accountDto.token.toToken(),
+            projectId = projectId,
+            projectName = projectDto.name,
+            projectOwner = projectDto.owner,
+            buildId = buildId,
+        )
+    }
 
     companion object {
         internal const val PAGE_SIZE = 40

@@ -2,8 +2,8 @@ package com.kevalpatel2106.connector.bitrise
 
 import com.kevalpatel2106.connector.bitrise.network.BitriseRetrofitClient
 import com.kevalpatel2106.connector.bitrise.usecase.ConvertProjectsWithLastUpdateTime
-import com.kevalpatel2106.connector.ci.entity.PagedData
 import com.kevalpatel2106.connector.ci.internal.CIProjectInfoProvider
+import com.kevalpatel2106.entity.PagedData
 import com.kevalpatel2106.entity.Project
 import com.kevalpatel2106.entity.Token
 import com.kevalpatel2106.entity.Url

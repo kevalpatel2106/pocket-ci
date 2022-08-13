@@ -13,5 +13,5 @@ data class BuildId(private val value: String) : Parcelable {
     fun getValue() = value
 }
 
-fun String?.toBuildIdIdOrNull() = if (this != null) BuildId(this) else null
+fun String?.toBuildIdIdOrNull() = if (!this.isNullOrBlank()) BuildId(this) else null
 fun String.toBuildId() = BuildId(this)

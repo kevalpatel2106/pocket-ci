@@ -13,5 +13,5 @@ data class ProjectId(private val value: String) : Parcelable {
     fun getValue() = value
 }
 
-fun String?.toProjectIdOrNull() = if (this != null) ProjectId(this) else null
+fun String?.toProjectIdOrNull() = if (!this.isNullOrBlank()) ProjectId(this) else null
 fun String.toProjectId() = ProjectId(this)

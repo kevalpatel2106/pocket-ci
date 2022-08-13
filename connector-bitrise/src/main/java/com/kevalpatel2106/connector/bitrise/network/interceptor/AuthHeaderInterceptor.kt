@@ -8,19 +8,16 @@ internal class AuthHeaderInterceptor private constructor(private val token: Stri
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val builder = request.newBuilder().apply {
-            header(ACCEPT_HEADER_KEY, ACCEPT_HEADER_VALUE)
-            if (request.header(ADD_AUTH) != null && token != null) {
-                header(AUTHENTICATION, token).removeHeader(ADD_AUTH)
+            if (request.header(ADD_AUTH_KEY) != null && token != null) {
+                header(AUTHENTICATION, token).removeHeader(ADD_AUTH_KEY)
             }
         }
         return chain.proceed(builder.build())
     }
 
     companion object {
-        internal const val ADD_AUTH = "Add-Auth"
+        const val ADD_AUTH_KEY = "Add-Auth"
         private const val AUTHENTICATION = "Authorization"
-        private const val ACCEPT_HEADER_KEY = "Accept"
-        private const val ACCEPT_HEADER_VALUE = "application/json"
 
         fun create(token: String?) = AuthHeaderInterceptor(token)
     }

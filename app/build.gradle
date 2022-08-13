@@ -25,7 +25,9 @@ dependencies {
     implementation project(':feature-registration')
     implementation project(':feature-projects')
     implementation project(':feature-accounts')
-    implementation project(':feature-builds')
+    implementation project(':feature-build')
+    implementation project(':feature-logs')
+    implementation project(':feature-jobs')
 
     // Core modules
     implementation project(':entity')
@@ -39,16 +41,15 @@ dependencies {
 
     // Implementation module
     implementation project(':repository-impl')
-    implementation project(':connector-bitrise')
-    implementation project(':connector-github')
-
-    implementation 'androidx.startup:startup-runtime:1.1.1'
-    setup_glide(this)
 
     // Crashalytics
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
     releaseImplementation 'com.google.firebase:firebase-crashlytics'
     releaseImplementation 'com.google.firebase:firebase-analytics'
+
+    // Other dependencies
+    implementation 'androidx.startup:startup-runtime:1.1.1'
+    setup_glide(this)
 
     // Debugging libraries
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
@@ -57,5 +58,4 @@ dependencies {
     debugImplementation 'com.facebook.soloader:soloader:0.10.4'
     debugImplementation 'wtf.s1.pudge:thread-inspector-flipper:1.1.2'
     debugImplementation 'wtf.s1.pudge:thread-inspector-bhook:1.1.2'
-
 }

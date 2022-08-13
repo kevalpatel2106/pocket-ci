@@ -31,16 +31,14 @@ internal class PrepareContactUsIntentImpl @Inject constructor(
                 putExtra(Intent.EXTRA_EMAIL, SUPPORT_EMAIL)
                 putExtra(Intent.EXTRA_SUBJECT, emailTitle)
                 putExtra(Intent.EXTRA_TEXT, emailText)
-                addFlags(
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                            or Intent.FLAG_ACTIVITY_NEW_TASK,
-                )
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
 
         return Intent.createChooser(
             emailIntent,
-            application.getString(R.string.contact_us_chooser_text),
+            application.getString(R.string.settings_contact_us_chooser_text),
         )
     }
 

@@ -18,5 +18,4 @@ data class AccountId(private val value: Long) : Parcelable {
 }
 
 fun Long?.toAccountIdOrNull() = if (this != null) AccountId(this) else null
-
 fun Long.toAccountId() = AccountId(this)

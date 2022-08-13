@@ -13,10 +13,14 @@ import com.kevalpatel2106.connector.github.network.mapper.CommitMapper
 import com.kevalpatel2106.connector.github.network.mapper.CommitMapperImpl
 import com.kevalpatel2106.connector.github.network.mapper.IsoDateMapper
 import com.kevalpatel2106.connector.github.network.mapper.IsoDateMapperImpl
+import com.kevalpatel2106.connector.github.network.mapper.JobMapper
+import com.kevalpatel2106.connector.github.network.mapper.JobMapperImpl
 import com.kevalpatel2106.connector.github.network.mapper.ProjectMapper
 import com.kevalpatel2106.connector.github.network.mapper.ProjectMapperImpl
 import com.kevalpatel2106.connector.github.network.mapper.PullRequestMapper
 import com.kevalpatel2106.connector.github.network.mapper.PullRequestMapperImpl
+import com.kevalpatel2106.connector.github.network.mapper.StepMapper
+import com.kevalpatel2106.connector.github.network.mapper.StepMapperImpl
 import com.kevalpatel2106.entity.CIType
 import dagger.Binds
 import dagger.Module
@@ -61,4 +65,12 @@ internal abstract class GitHubBindings {
     @Binds
     @ViewModelScoped
     abstract fun bindPullRequestMapper(impl: PullRequestMapperImpl): PullRequestMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindJobMapper(impl: JobMapperImpl): JobMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindStepMapper(impl: StepMapperImpl): StepMapper
 }

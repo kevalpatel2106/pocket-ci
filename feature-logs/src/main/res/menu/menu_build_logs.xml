@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
+        <item
+            android:id="@+id/menuBuildLogTextSizeUp"
+            android:icon="@drawable/ic_text_increase"
+            android:orderInCategory="1"
+            android:title="@string/build_logs_menu_increase_text_size"
+            app:iconTint="?colorOnBackground"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/menuBuildLogTextSizeDown"
+            android:icon="@drawable/ic_text_decrease"
+            android:orderInCategory="1"
+            android:title="@string/build_logs_menu_decrease_text_size"
+            app:iconTint="?colorOnBackground"
+            app:showAsAction="always" />
+    </group>
+</menu>

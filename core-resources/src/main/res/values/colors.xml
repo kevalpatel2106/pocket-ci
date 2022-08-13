@@ -33,6 +33,8 @@
     <color name="secondaryText">@color/gray7</color>
     <color name="dividerColor">@color/gray7</color>
     <color name="linkColor">@color/blue500</color>
+    <color name="abortCardColor">@color/yellow200</color>
+    <color name="abortCardStroke">@color/yellow200</color>
 
     <!--Override material color https://stackoverflow.com/a/52194924-->
     <color name="mtrl_textinput_default_box_stroke_color">@color/gray7</color>
