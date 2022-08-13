@@ -11,6 +11,8 @@ import com.kevalpatel2106.entity.Url
 import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.entity.id.JobId
 import com.kevalpatel2106.entity.id.ProjectId
+import retrofit2.HttpException
+import java.net.HttpURLConnection.HTTP_GONE
 import javax.inject.Inject
 
 internal class GitHubJobsProvider @Inject constructor(
@@ -55,6 +57,13 @@ internal class GitHubJobsProvider @Inject constructor(
         jobId: JobId,
     ): String {
         val client = retrofitClient.getService(baseUrl = url, token = token)
-        return client.getJobLogs(projectOwner, projectName, jobId.getValue())
+        var logs = ""
+        runCatching { client.getJobLogs(projectOwner, projectName, jobId.getValue()) }
+            .onFailure { error ->
+                val areLogsDeleted = (error as? HttpException)?.code() == HTTP_GONE
+                if (!areLogsDeleted) throw error
+            }
+            .onSuccess { logs = it }
+        return logs
     }
 }
