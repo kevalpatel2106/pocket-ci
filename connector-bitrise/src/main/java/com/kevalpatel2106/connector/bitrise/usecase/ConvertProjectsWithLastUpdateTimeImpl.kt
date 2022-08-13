@@ -8,7 +8,7 @@ import java.util.Date
 import javax.inject.Inject
 
 internal class ConvertProjectsWithLastUpdateTimeImpl @Inject constructor(
-    private val projectMapper: ProjectMapper
+    private val projectMapper: ProjectMapper,
 ) :
     ConvertProjectsWithLastUpdateTime {
 

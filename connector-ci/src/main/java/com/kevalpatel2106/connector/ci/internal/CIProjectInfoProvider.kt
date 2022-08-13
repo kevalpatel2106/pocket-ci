@@ -1,6 +1,6 @@
 package com.kevalpatel2106.connector.ci.internal
 
-import com.kevalpatel2106.connector.ci.entity.PagedData
+import com.kevalpatel2106.entity.PagedData
 import com.kevalpatel2106.entity.Project
 import com.kevalpatel2106.entity.Token
 import com.kevalpatel2106.entity.Url

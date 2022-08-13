@@ -20,8 +20,6 @@ dependencies {
     implementation project(':entity')
     implementation project(':core')
     implementation project(':core-views')
-    testImplementation project(':core-test')
-
-    // Data handling protocols modules
     implementation project(':repository')
+    testImplementation project(':core-test')
 }

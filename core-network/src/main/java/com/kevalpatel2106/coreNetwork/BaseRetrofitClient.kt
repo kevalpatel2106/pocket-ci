@@ -1,5 +1,6 @@
 package com.kevalpatel2106.coreNetwork
 
+import com.kevalpatel2106.coreNetwork.converter.StringConverter
 import com.kevalpatel2106.coreNetwork.moshi.MoshiFactory
 import com.kevalpatel2106.coreNetwork.okHttp.FlavouredInterceptor
 import com.kevalpatel2106.coreNetwork.okHttp.OkHttpClientFactory
@@ -29,6 +30,7 @@ abstract class BaseRetrofitClient(
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(modifiedClient)
+            .addConverterFactory(StringConverter.create())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(service)

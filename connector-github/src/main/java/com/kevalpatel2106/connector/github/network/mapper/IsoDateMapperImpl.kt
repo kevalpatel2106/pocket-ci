@@ -5,16 +5,21 @@ import java.util.TimeZone
 import javax.inject.Inject
 
 internal class IsoDateMapperImpl @Inject constructor() : IsoDateMapper {
-    private val sdf = SimpleDateFormat(ISO_8601_TIME_FORMAT)
+    private val sdfWithoutTimeZone = SimpleDateFormat(ISO_8601_TIME_FORMAT_WITHOUT_TIME_ZONE)
         .apply { timeZone = TimeZone.getTimeZone("UTC") }
 
-    override fun invoke(isoTime: String?) = if (isoTime != null) {
-        sdf.parse(isoTime)
-    } else {
+    private val sdfWithTimeZone = SimpleDateFormat(ISO_8601_TIME_FORMAT_WITH_TIME_ZONE)
+
+    override fun invoke(isoTime: String?) = if (isoTime == null) {
         null
+    } else if (isoTime.contains("+")) {
+        sdfWithTimeZone.parse(isoTime)
+    } else {
+        sdfWithoutTimeZone.parse(isoTime)
     }
 
     companion object {
-        private const val ISO_8601_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        private const val ISO_8601_TIME_FORMAT_WITH_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        private const val ISO_8601_TIME_FORMAT_WITHOUT_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ss'Z'"
     }
 }

@@ -21,5 +21,6 @@ data class Build(
 
     val workflow: Workflow,
     val pullRequest: PullRequest?,
-    val commit: Commit?
+    val commit: Commit?,
+    val abortReason: String?,
 ) : Parcelable

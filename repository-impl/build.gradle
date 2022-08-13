@@ -15,6 +15,10 @@ dependencies {
     implementation project(':entity')
     testImplementation project(':core-test')
 
+    // implementation modules / connectors
+    implementation project(':connector-bitrise')
+    implementation project(':connector-github')
+
     // Room
     api "androidx.room:room-runtime:2.4.3"
     implementation "androidx.room:room-ktx:2.4.3"

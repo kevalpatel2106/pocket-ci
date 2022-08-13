@@ -4,6 +4,7 @@ import com.kevalpatel2106.repository.AccountRepo
 import com.kevalpatel2106.repository.AppConfigRepo
 import com.kevalpatel2106.repository.BuildRepo
 import com.kevalpatel2106.repository.CIInfoRepo
+import com.kevalpatel2106.repository.JobRepo
 import com.kevalpatel2106.repository.ProjectRepo
 import com.kevalpatel2106.repository.SettingsRepo
 import com.kevalpatel2106.repositoryImpl.account.AccountRepoImpl
@@ -20,6 +21,7 @@ import com.kevalpatel2106.repositoryImpl.cache.db.mapper.ProjectMapperImpl
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactoryImpl
 import com.kevalpatel2106.repositoryImpl.ciInfo.CIInfoRepoImpl
+import com.kevalpatel2106.repositoryImpl.job.JobRepoImpl
 import com.kevalpatel2106.repositoryImpl.project.ProjectRepoImpl
 import com.kevalpatel2106.repositoryImpl.project.usecase.IsProjectCacheExpired
 import com.kevalpatel2106.repositoryImpl.project.usecase.IsProjectCacheExpiredImpl
@@ -73,4 +75,7 @@ internal abstract class RepositoryModuleBindings {
 
     @Binds
     abstract fun bindBuildRepo(impl: BuildRepoImpl): BuildRepo
+
+    @Binds
+    abstract fun bindJobRepo(impl: JobRepoImpl): JobRepo
 }

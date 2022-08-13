@@ -40,4 +40,7 @@ fun getCIInfoFixture(fixture: KFixture) = CIInfo(
     icon = fixture(),
     sampleAuthToken = fixture(),
     supportCustomBaseUrl = fixture(),
+    supportJobLogs = fixture(),
+    supportBuildLogs = fixture(),
+    supportJobs = fixture(),
 )

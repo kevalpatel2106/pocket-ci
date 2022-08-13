@@ -5,6 +5,45 @@
 
     <!--Other-->
     <string name="back">Back</string>
+    <string name="genaric_error">Something went wrong! Please retry.</string>
+
+    <!--Time difference formatter view-->
+    <plurals name="time_format_second" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d second %2$s</item>
+        <item quantity="other">%1$d seconds %2$s</item>
+    </plurals>
+    <plurals name="time_format_minute" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d minute %2$s</item>
+        <item quantity="other">%1$d minutes %2$s</item>
+    </plurals>
+    <plurals name="time_format_hour" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d hour %2$s</item>
+        <item quantity="other">%1$d hours %2$s</item>
+    </plurals>
+    <plurals name="time_format_day" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d day %2$s</item>
+        <item quantity="other">%1$d days %2$s</item>
+    </plurals>
+    <plurals name="time_format_week" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d week %2$s</item>
+        <item quantity="other">%1$d weeks %2$s</item>
+    </plurals>
+    <plurals name="time_format_month" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d month %2$s</item>
+        <item quantity="other">%1$d months %2$s</item>
+    </plurals>
+    <plurals name="time_format_year" tools:ignore="MissingDefaultResource">
+        <item quantity="one">%1$d year %2$s</item>
+        <item quantity="other">%1$d years %2$s</item>
+    </plurals>
+    <string name="time_format_minute_second">%1$dm %2$ds %3$s</string>
+    <string name="time_format_hour_minute">%1$dh %2$dm %3$s</string>
+    <string name="time_format_day_hour">%1$dd %2$dh %3$s</string>
+    <string name="time_format_second_short">%1$ds %2$s</string>
+    <string name="ago">ago</string>
+
+    <!--Splash screen-->
+    <string name="splash_error_loading_theme">Error loading theme. Falling back to system default theme.</string>
 
     <!--CI selection screen-->
     <string name="title_ci_selection_screen">Select CI service</string>
@@ -53,69 +92,49 @@
 
     <!--Settings screen-->
     <string name="title_settings_screen">Settings</string>
-    <string name="about_header">About</string>
-    <string name="legal_header">Legal</string>
-    <string name="general_header">General</string>
-    <string name="contact_us_chooser_text">Contact us</string>
-    <string name="pref_title_privacy_policy">Privacy Policy</string>
-    <string name="pref_title_version">Version</string>
-    <string name="pref_title_contact">Contact us</string>
-    <string name="pref_title_changelog">Changelog</string>
-    <string name="pref_title_theme">Theme</string>
-    <string name="pref_title_open_source_licences">Open-source licences</string>
-    <string name="pref_title_share_friend">Share with friends</string>
-    <string name="pref_title_made_love_with_uk">Made with ❤ from UK 🇬🇧</string>
-    <string-array name="theme_mode_titles">
+    <string name="settings_about_header">About</string>
+    <string name="settings_legal_header">Legal</string>
+    <string name="settings_general_header">General</string>
+    <string name="settings_contact_us_chooser_text">Contact us</string>
+    <string name="settings_title_privacy_policy">Privacy Policy</string>
+    <string name="settings_title_version">Version</string>
+    <string name="settings_title_contact">Contact us</string>
+    <string name="settings_title_changelog">Changelog</string>
+    <string name="settings_title_theme">Theme</string>
+    <string name="settings_title_open_source_licences">Open-source licences</string>
+    <string name="settings_title_share_friend">Share with friends</string>
+    <string name="settings_title_made_love_with_uk">Made with ❤ from UK 🇬🇧</string>
+    <string-array name="settings_theme_mode_titles">
         <item>Light</item>
         <item>Dark</item>
         <item>System default</item>
     </string-array>
-
-    <!--Share dialog-->
-    <string name="app_invite_title">Invitation to install "%s"</string>
-    <string name="app_invite_message">Hey! I would like to invite you to use "%1$s" that I have been using on my phone lately. Check it out! Click here to download %2$s.</string>
-    <string name="title_feature_settings">Settings</string>
-    <string name="splash_error_loading_theme">Error loading theme. Falling back to system default theme.</string>
+    <string name="settings_app_invite_title">Invitation to install "%s"</string>
+    <string name="settings_app_invite_message">Hey! I would like to invite you to use "%1$s" that I have been using on my phone lately. Check it out! Click here to download %2$s.</string>
     <string name="settings_error_loading_them">Cannot load the theme. Falling back to system default.</string>
 
     <!--Builds listing-->
     <string name="title_builds_screen">Builds</string>
     <string name="builds_empty_view_description">Please check you have at least one build triggered in this project. Also verify the token has read access to builds.</string>
     <string name="builds_empty_view_headline">No builds found in this project.</string>
-    <plurals name="time_format_second" tools:ignore="MissingDefaultResource">
-        <item quantity="one">%1$d second %2$s</item>
-        <item quantity="other">%1$d seconds %2$s</item>
-    </plurals>
-    <plurals name="time_format_minute" tools:ignore="MissingDefaultResource">
-        <item quantity="one">%1$d minute %2$s</item>
-        <item quantity="other">%1$d minutes %2$s</item>
-    </plurals>
-    <plurals name="time_format_hour" tools:ignore="MissingDefaultResource">
-        <item quantity="one">%1$d hour %2$s</item>
-        <item quantity="other">%1$d hours %2$s</item>
-    </plurals>
-    <plurals name="time_format_day" tools:ignore="MissingDefaultResource">
-        <item quantity="one">%1$d day %2$s</item>
-        <item quantity="other">%1$d days %2$s</item>
-    </plurals>
-    <plurals name="time_format_week" tools:ignore="MissingDefaultResource">
-        <item quantity="one">%1$d week %2$s</item>
-        <item quantity="other">%1$d weeks %2$s</item>
-    </plurals>
-    <plurals name="time_format_month" tools:ignore="MissingDefaultResource">
-        <item quantity="one">%1$d month %2$s</item>
-        <item quantity="other">%1$d months %2$s</item>
-    </plurals>
-    <plurals name="time_format_year" tools:ignore="MissingDefaultResource">
-        <item quantity="one">%1$d year %2$s</item>
-        <item quantity="other">%1$d years %2$s</item>
-    </plurals>
-    <string name="time_format_minute_second">%1$dm %2$ds %3$s</string>
-    <string name="time_format_hour_minute">%1$dh %2$dm %3$s</string>
-    <string name="time_format_day_hour">%1$dd %2$dh %3$s</string>
-    <string name="time_format_second_short">%1$ds %2$s</string>
-    <string name="ago">ago</string>
 
+    <!--Build detail screen-->
+    <string name="title_build_detail">Build detail</string>
+    <string name="build_detail_commit_markdown_view_title">Build message</string>
+    <string name="build_detail_jobs_list_label">Jobs</string>
+
+    <!--Build logs screen-->
+    <string name="title_build_logs_screen">Build logs</string>
+    <string name="title_job_logs_screen">Job logs</string>
+    <string name="build_logs_menu_increase_text_size">Increase text size</string>
+    <string name="build_logs_menu_decrease_text_size">Decrease text size</string>
+    <string name="build_log_empty_state_message">This can happen if your build is not concluded yet or logs are deleted from your CI server depending on your archive settings.</string>
+    <string name="build_log_empty_state_title">No logs found.</string>
+
+    <!--Jobs list-->
+    <string name="title_jobs_list_screen">Jobs</string>
+    <string name="jobs_list_empty_view_description">This build has no job triggered.</string>
+    <string name="jobs_list_empty_view_headline">No jobs found for build!</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

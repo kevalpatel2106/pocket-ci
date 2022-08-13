@@ -63,7 +63,7 @@
             android:layout_margin="@dimen/spacing_regular"
             android:onClick="@{() -> model.onAddAccountClicked()}"
             android:src="@drawable/ic_add"
-             app:ensureMinTouchTargetSize="true"
+            app:ensureMinTouchTargetSize="true"
             app:fabSize="normal" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

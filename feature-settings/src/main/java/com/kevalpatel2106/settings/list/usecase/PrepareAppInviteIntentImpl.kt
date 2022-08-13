@@ -20,11 +20,11 @@ internal class PrepareAppInviteIntentImpl @Inject constructor(
         )
         putExtra(
             Intent.EXTRA_TEXT,
-            application.getString(R.string.app_invite_message, appName, INVITATION_URL),
+            application.getString(R.string.settings_app_invite_message, appName, INVITATION_URL),
         )
         putExtra(
             Intent.EXTRA_SUBJECT,
-            application.getString(R.string.app_invite_title, appName),
+            application.getString(R.string.settings_app_invite_title, appName),
         )
     }
 

@@ -12,6 +12,6 @@
         <argument
             android:name="accountId"
             app:argType="long" />
-        <deepLink app:uri="pocket-ci://projects/{accountId}" />
+        <deepLink app:uri="pocket-ci://projects?accountId={accountId}" />
     </fragment>
 </navigation>

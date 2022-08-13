@@ -14,5 +14,9 @@ data class CIInfo(
     val defaultBaseUrl: Url,
     val authTokenExplainLink: Url,
     val sampleAuthToken: Token,
+
     val supportCustomBaseUrl: Boolean,
+    val supportJobs: Boolean,
+    val supportBuildLogs: Boolean,
+    val supportJobLogs: Boolean,
 ) : Parcelable

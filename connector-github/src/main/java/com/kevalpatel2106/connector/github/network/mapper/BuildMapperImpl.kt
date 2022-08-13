@@ -17,7 +17,7 @@ internal class BuildMapperImpl @Inject constructor(
 ) : BuildMapper {
 
     override operator fun invoke(projectId: ProjectId, dto: BuildDto): Build = with(dto) {
-        val buildStatus = buildStatusMapper(this)
+        val buildStatus = buildStatusMapper(conclusion, status)
         Build(
             id = id.toString().toBuildId(),
             projectId = projectId,
@@ -30,6 +30,7 @@ internal class BuildMapperImpl @Inject constructor(
             headBranch = headBranch,
             triggeredBy = triggeringActor.login,
             pullRequest = pullRequests.firstOrNull()?.let { pullRequestMapper(it) },
+            abortReason = null, // Not supported in GitHub
         )
     }
 

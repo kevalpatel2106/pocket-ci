@@ -17,7 +17,11 @@ internal class GithubInfoProvider @Inject constructor() : CIInfoProvider {
         authTokenExplainLink = Url(TOKEN_EXPLAIN_LINK),
         sampleAuthToken = SAMPLE_AUTH_TOKEN.toToken(),
         icon = R.drawable.logo_github,
-        supportCustomBaseUrl = false
+
+        supportCustomBaseUrl = false,
+        supportJobs = true,
+        supportBuildLogs = false,
+        supportJobLogs = true,
     )
 
     companion object {

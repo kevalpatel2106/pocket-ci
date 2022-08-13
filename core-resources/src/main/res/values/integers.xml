@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="build_number_max_digits">10</integer>
+    <integer name="short_commit_message_max_lines">2</integer>
+    <integer name="detail_commit_message_max_lines">10</integer>
+    <integer name="detail_abort_message_max_lines">10</integer>
+    <integer name="detail_branch_name_max_lines">2</integer>
+</resources>

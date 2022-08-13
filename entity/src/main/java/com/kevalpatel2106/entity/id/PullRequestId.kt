@@ -4,12 +4,14 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class PullRequestId(val value: String) : Parcelable {
+data class PullRequestId(private val value: String) : Parcelable {
 
     init {
         assert(value.isNotBlank()) { "PR id cannot be blank value!" }
     }
+
+    fun getValue() = value
 }
 
-fun String?.toPullRequestIdOrNull() = if (this != null) PullRequestId(this) else null
+fun String?.toPullRequestIdOrNull() = if (!this.isNullOrBlank()) PullRequestId(this) else null
 fun String.toPullRequestId() = PullRequestId(this)

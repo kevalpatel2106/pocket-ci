@@ -17,7 +17,11 @@ internal class BitriseInfoInfoProvider @Inject constructor() : CIInfoProvider {
         authTokenExplainLink = Url(TOKEN_EXPLAIN_LINK),
         sampleAuthToken = SAMPLE_AUTH_TOKEN.toToken(),
         icon = R.drawable.logo_bitrise,
-        supportCustomBaseUrl = false
+
+        supportCustomBaseUrl = false,
+        supportJobs = false,
+        supportBuildLogs = true,
+        supportJobLogs = false,
     )
 
     companion object {

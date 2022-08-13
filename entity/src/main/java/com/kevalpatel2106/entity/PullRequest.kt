@@ -9,5 +9,5 @@ data class PullRequest(
     val id: PullRequestId,
     val number: Long?,
     val headBranch: String,
-    val baseBranch: String
+    val baseBranch: String,
 ) : Parcelable

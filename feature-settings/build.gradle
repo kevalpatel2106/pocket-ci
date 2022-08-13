@@ -20,8 +20,8 @@ dependencies {
     implementation project(':entity')
     implementation project(':core')
     implementation project(':core-views')
-    testImplementation project(':core-test')
     implementation project(':repository')
+    testImplementation project(':core-test')
 
     implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'

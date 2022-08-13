@@ -1,18 +1,17 @@
 package com.kevalpatel2106.connector.github.network.mapper
 
-import com.kevalpatel2106.connector.github.network.dto.BuildDto
 import com.kevalpatel2106.entity.BuildStatus
 import timber.log.Timber
 import javax.inject.Inject
 
 internal class BuildStatusMapperImpl @Inject constructor() : BuildStatusMapper {
 
-    override operator fun invoke(dto: BuildDto) = when (dto.status) {
-        STATUS_COMPLETED -> handleCompleted(dto.conclusion)
+    override operator fun invoke(conclusion: String?, status: String): BuildStatus = when (status) {
+        STATUS_COMPLETED -> handleCompleted(conclusion)
         STATUS_QUEUED -> BuildStatus.PENDING
         STATUS_IN_PROGRESS -> BuildStatus.RUNNING
         else -> {
-            Timber.w("Unknown build status: ${dto.status}")
+            Timber.w("Unknown build status: $status")
             BuildStatus.UNKNOWN
         }
     }
