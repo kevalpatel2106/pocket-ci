@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="error_view_title_max_line">2</integer>
+    <integer name="error_view_message_max_line">6</integer>
+</resources>

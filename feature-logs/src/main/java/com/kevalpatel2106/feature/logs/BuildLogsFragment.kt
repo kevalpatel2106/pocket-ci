@@ -5,9 +5,11 @@ import android.util.TypedValue
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kevalpatel2106.core.extentions.collectInFragment
 import com.kevalpatel2106.core.viewbinding.viewBinding
+import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.Close
 import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.ScrollToBottom
 import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.ScrollToTop
 import com.kevalpatel2106.feature.logs.BuildLogsViewState.Empty
@@ -16,6 +18,7 @@ import com.kevalpatel2106.feature.logs.BuildLogsViewState.Loading
 import com.kevalpatel2106.feature.logs.BuildLogsViewState.Success
 import com.kevalpatel2106.feature.logs.databinding.FragmentBuildLogsBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class BuildLogsFragment : Fragment(R.layout.fragment_build_logs) {
@@ -52,7 +55,10 @@ class BuildLogsFragment : Fragment(R.layout.fragment_build_logs) {
                 text = viewState.logs
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize * viewState.textScale)
             }
-            Error -> Unit
+            is Error -> {
+                Timber.e(viewState.error)
+                binding.buildListErrorView.setErrorThrowable(viewState.error)
+            }
             Loading -> Unit
             Empty -> Unit
         }
@@ -62,6 +68,7 @@ class BuildLogsFragment : Fragment(R.layout.fragment_build_logs) {
         when (event) {
             ScrollToBottom -> binding.buildLogsVerticalScroll.fullScroll(View.FOCUS_DOWN)
             ScrollToTop -> binding.buildLogsVerticalScroll.scrollTo(0, 0)
+            Close -> findNavController().navigateUp()
         }
     }
 }

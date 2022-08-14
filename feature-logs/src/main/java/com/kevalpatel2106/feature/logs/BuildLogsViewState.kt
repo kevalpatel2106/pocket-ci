@@ -3,7 +3,7 @@ package com.kevalpatel2106.feature.logs
 internal sealed class BuildLogsViewState(val viewFlipperPos: Int) {
     data class Success(val logs: String, val textScale: Float) : BuildLogsViewState(POS_LOGS)
     object Loading : BuildLogsViewState(POS_LOADER)
-    object Error : BuildLogsViewState(POS_ERROR)
+    data class Error(val error: Throwable) : BuildLogsViewState(POS_ERROR)
     object Empty : BuildLogsViewState(POS_EMPTY_VIEW)
 
     companion object {

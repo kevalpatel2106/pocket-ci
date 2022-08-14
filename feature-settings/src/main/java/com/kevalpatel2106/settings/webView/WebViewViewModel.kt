@@ -4,6 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.kevalpatel2106.core.BaseViewModel
 import com.kevalpatel2106.core.extentions.modify
+import com.kevalpatel2106.settings.webView.WebViewVMEvent.Close
+import com.kevalpatel2106.settings.webView.WebViewVMEvent.Reload
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -39,9 +41,9 @@ internal class WebViewViewModel @Inject constructor(
         }
     }
 
+    fun close() = viewModelScope.launch { _vmEventsFlow.emit(Close) }
+
     fun reload() {
-        viewModelScope.launch {
-            _vmEventsFlow.emit(WebViewVMEvent.Reload(navArgs.content.link))
-        }
+        viewModelScope.launch { _vmEventsFlow.emit(Reload(navArgs.content.link)) }
     }
 }

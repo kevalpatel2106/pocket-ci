@@ -11,6 +11,7 @@ import com.kevalpatel2106.entity.Job
 import com.kevalpatel2106.entity.id.toAccountId
 import com.kevalpatel2106.entity.id.toBuildId
 import com.kevalpatel2106.entity.id.toProjectId
+import com.kevalpatel2106.feature.jobs.list.JobListVMEvent.Close
 import com.kevalpatel2106.feature.jobs.list.JobListVMEvent.OpenLogs
 import com.kevalpatel2106.feature.jobs.list.JobListVMEvent.RefreshJobs
 import com.kevalpatel2106.feature.jobs.list.JobListVMEvent.RetryLoading
@@ -62,8 +63,10 @@ internal class JobListViewModel @Inject constructor(
         }
     }
 
-    fun reload() {
-        viewModelScope.launch { _vmEventsFlow.emit(RefreshJobs) }
+    fun reload() = viewModelScope.launch { _vmEventsFlow.emit(RefreshJobs) }
+
+    override fun close() {
+        viewModelScope.launch { _vmEventsFlow.emit(Close) }
     }
 
     override fun retryNextPage() {

@@ -37,22 +37,21 @@
                 tools:listitem="@layout/list_item_account" />
 
             <!-- 2. Error state -->
-            <com.kevalpatel2106.coreViews.ErrorStateView
+            <com.kevalpatel2106.coreViews.errorView.ErrorStateView
                 android:id="@+id/accountsErrorView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:onRetryButtonClick="@{() -> model.reload()}"
-                app:showImage="false" />
+                app:onCloseButtonClick="@{() -> model.close()}"
+                app:onRetryButtonClick="@{() -> model.reload()}" />
 
             <!-- 3. Empty state -->
-            <com.kevalpatel2106.coreViews.ErrorStateView
+            <com.kevalpatel2106.coreViews.errorView.ErrorStateView
                 android:id="@+id/accountsEmptyView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:descriptionText="@string/accounts_empty_state_description"
                 app:headlineText="@string/accounts_empty_state_headline"
-                app:showCallToAction="false"
-                app:showImage="false" />
+                app:showCallToAction="false" />
         </ViewFlipper>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

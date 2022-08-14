@@ -24,21 +24,19 @@ internal abstract class CoreViewBindings {
 
     @Binds
     abstract fun bindTimeDifferenceFormatter(
-        impl: TimeDifferenceFormatterImpl
+        impl: TimeDifferenceFormatterImpl,
     ): TimeDifferenceFormatter
 
     @Binds
     abstract fun bindLiveTimeDifferenceTicker(
-        impl: LiveTimeDifferenceTickerImpl
+        impl: LiveTimeDifferenceTickerImpl,
     ): LiveTimeDifferenceTicker
 
     @Binds
-    abstract fun bindGetBuildStatusImage(
-        impl: GetBuildStatusImageImpl
-    ): GetBuildStatusImage
+    abstract fun bindGetBuildStatusImage(impl: GetBuildStatusImageImpl): GetBuildStatusImage
 
     @Binds
     abstract fun bindGetBuildStatusImageTint(
-        impl: GetBuildStatusImageTintImpl
+        impl: GetBuildStatusImageTintImpl,
     ): GetBuildStatusImageTint
 }

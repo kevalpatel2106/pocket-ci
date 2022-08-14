@@ -47,7 +47,7 @@ class BuildDetailFragment : Fragment(R.layout.fragment_build_detail) {
                 ),
             )
             ShowErrorAndClose -> {
-                showSnack(getString(R.string.genaric_error))
+                showSnack(getString(R.string.error_unknown_message_short))
                 findNavController().navigateUp()
             }
             is BuildDetailVMEvent.OpenJobs -> findNavController().navigateToInAppDeeplink(

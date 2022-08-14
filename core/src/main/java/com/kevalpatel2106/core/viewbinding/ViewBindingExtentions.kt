@@ -11,8 +11,10 @@ fun <T : ViewBinding> Fragment.viewBinding(
     disposeCallback: T.() -> Unit = {},
 ) = FragmentViewBindingDelegate(this, viewBindingFactory, disposeCallback)
 
-inline fun <T : ViewBinding> Fragment.viewBinding(crossinline bindingInflater: (LayoutInflater) -> T) =
-    lazy(LazyThreadSafetyMode.NONE) { bindingInflater.invoke(layoutInflater) }
+inline fun <T : ViewBinding> Fragment.viewBinding(
+    crossinline bindingInflater: (LayoutInflater) -> T
+) = lazy(LazyThreadSafetyMode.NONE) { bindingInflater.invoke(layoutInflater) }
 
-inline fun <T : ViewBinding> Activity.viewBinding(crossinline bindingInflater: (LayoutInflater) -> T) =
-    lazy(LazyThreadSafetyMode.NONE) { bindingInflater.invoke(layoutInflater) }
+inline fun <T : ViewBinding> Activity.viewBinding(
+    crossinline bindingInflater: (LayoutInflater) -> T
+) = lazy(LazyThreadSafetyMode.NONE) { bindingInflater.invoke(layoutInflater) }

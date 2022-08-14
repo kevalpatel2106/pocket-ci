@@ -5,7 +5,18 @@ plugins {
     id 'de.mannodermaus.android-junit5'
 }
 
+android {
+    sourceSets {
+        main {
+            res.srcDirs = ['../core-resources/src/main/res', 'src/main/res']
+        }
+    }
+}
+
 dependencies {
     setup_glide(this)
     implementation project(':entity')
+    implementation project(':core-resources')
+    implementation "com.squareup.moshi:moshi:1.13.0"
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
 }

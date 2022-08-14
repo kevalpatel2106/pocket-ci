@@ -31,8 +31,8 @@ internal class SplashViewModel @Inject constructor(
     private fun observeNightMode() {
         viewModelScope.launch {
             runCatching { settingsRepo.getNightMode() }
-                .onFailure {
-                    Timber.e(it)
+                .onFailure { error ->
+                    Timber.e(error)
                     _viewState.modify { copy(nightMode = NightMode.AUTO) }
                     _vmEventsFlow.emit(SplashVMEvent.ErrorLoadingTheme)
                 }

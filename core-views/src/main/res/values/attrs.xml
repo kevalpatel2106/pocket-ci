@@ -3,10 +3,8 @@
     <declare-styleable name="ErrorStateView">
         <attr name="headlineText" format="string" />
         <attr name="descriptionText" format="string" />
-        <attr name="callToActionText" format="string" />
         <attr name="showCallToAction" format="boolean" />
-        <attr name="image" format="reference" />
-        <attr name="showImage" format="boolean" />
+        <attr name="illustration" format="reference" />
     </declare-styleable>
     <declare-styleable name="TimeDifferenceTextView">
         <attr name="appendText" format="string" />
