@@ -20,7 +20,7 @@ dependencies {
     kaptAndroidTest "com.squareup.moshi:moshi-kotlin-codegen:1.13.0"
 
     // Debugging libraries
-    debugImplementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+    debugImplementation "com.squareup.okhttp3:logging-interceptor:4.10.0"
     debugImplementation 'com.facebook.flipper:flipper:0.157.0'
     debugImplementation 'com.facebook.flipper:flipper-network-plugin:0.157.0'
 }
