@@ -9,6 +9,8 @@ import com.kevalpatel2106.entity.id.toBuildId
 import com.kevalpatel2106.entity.id.toJobIdOrNull
 import com.kevalpatel2106.entity.id.toProjectId
 import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.Close
+import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.CreateLogFile
+import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.ErrorSavingLog
 import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.ScrollToBottom
 import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.ScrollToTop
 import com.kevalpatel2106.feature.logs.BuildLogsViewState.Empty
@@ -18,6 +20,7 @@ import com.kevalpatel2106.feature.logs.usecase.CalculateTextScale
 import com.kevalpatel2106.feature.logs.usecase.CalculateTextScale.Companion.DEFAULT_SCALE
 import com.kevalpatel2106.feature.logs.usecase.LogSourceSelector
 import com.kevalpatel2106.feature.logs.usecase.TextChangeDirection
+import com.kevalpatel2106.repository.ProjectRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,6 +31,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class BuildLogsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
+    private val projectRepo: ProjectRepo,
     private val logSourceSelector: LogSourceSelector,
     private val calculateTextScale: CalculateTextScale,
 ) : BaseViewModel<BuildLogsVMEvent>() {
@@ -73,11 +77,27 @@ internal class BuildLogsViewModel @Inject constructor(
 
     fun scrollToTop() = viewModelScope.launch { _vmEventsFlow.emit(ScrollToTop) }
 
+    fun onSaveLogs() = viewModelScope.launch {
+        runCatching {
+            val project = projectRepo.getProject(navArgs.projectId, navArgs.accountId.toAccountId())
+            project?.fullName ?: DEFAULT_LOG_FILE_NAME
+        }.onSuccess { fileName ->
+            _vmEventsFlow.emit(CreateLogFile("$fileName.txt", (viewState.value as Success).logs))
+        }.onFailure { error ->
+            Timber.e(error)
+            _vmEventsFlow.emit(ErrorSavingLog)
+        }
+    }
+
     fun onTextSizeChanged(@TextChangeDirection direction: Int) = _viewState.modify(viewModelScope) {
         if (this is Success) {
             copy(textScale = calculateTextScale(direction))
         } else {
             this
         }
+    }
+
+    companion object {
+        private const val DEFAULT_LOG_FILE_NAME = "build"
     }
 }

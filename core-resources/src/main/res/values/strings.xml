@@ -152,6 +152,7 @@
     <string name="title_job_logs_screen">Job logs</string>
     <string name="build_logs_menu_increase_text_size">Increase text size</string>
     <string name="build_logs_menu_decrease_text_size">Decrease text size</string>
+    <string name="build_logs_menu_save">Save logs</string>
     <string name="build_log_empty_state_message">This can happen if your build is not concluded yet or logs are deleted from your CI server depending on your archive settings.</string>
     <string name="build_log_empty_state_title">No logs found.</string>
 
@@ -159,6 +160,7 @@
     <string name="title_jobs_list_screen">Jobs</string>
     <string name="jobs_list_empty_view_description">This build has no job triggered.</string>
     <string name="jobs_list_empty_view_headline">No jobs found for build!</string>
+    <string name="build_log_error_writing_logs">Cannot save log file. Please try again.</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

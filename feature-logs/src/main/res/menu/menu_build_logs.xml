@@ -16,5 +16,12 @@
             android:title="@string/build_logs_menu_decrease_text_size"
             app:iconTint="?colorOnBackground"
             app:showAsAction="always" />
+        <item
+            android:id="@+id/menuBuildLogSave"
+            android:icon="@drawable/ic_save"
+            android:orderInCategory="1"
+            android:title="@string/build_logs_menu_save"
+            app:iconTint="?colorOnBackground"
+            app:showAsAction="ifRoom" />
     </group>
 </menu>
