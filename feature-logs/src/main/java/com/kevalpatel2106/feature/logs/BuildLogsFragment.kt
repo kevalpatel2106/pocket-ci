@@ -8,8 +8,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kevalpatel2106.core.extentions.collectInFragment
+import com.kevalpatel2106.core.extentions.showSnack
 import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.Close
+import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.CreateLogFile
+import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.ErrorSavingLog
 import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.ScrollToBottom
 import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.ScrollToTop
 import com.kevalpatel2106.feature.logs.BuildLogsViewState.Empty
@@ -25,6 +28,7 @@ class BuildLogsFragment : Fragment(R.layout.fragment_build_logs) {
     private val viewModel by viewModels<BuildLogsViewModel>()
     private val binding by viewBinding(FragmentBuildLogsBinding::bind)
     private val navArgs by navArgs<BuildLogsFragmentArgs>()
+    private lateinit var logFileSaveHelper: LogFileSaveHelper
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,7 +38,8 @@ class BuildLogsFragment : Fragment(R.layout.fragment_build_logs) {
         }
 
         setUpTitle()
-        BuildLogsMenuProvider.bind(this, viewModel)
+        BuildLogsMenuProvider.bindWithLifecycle(this, viewModel)
+        logFileSaveHelper = LogFileSaveHelper.bindWithLifecycle(this)
         viewModel.viewState.collectInFragment(this, ::handleViewState)
         viewModel.vmEventsFlow.collectInFragment(this, ::handleVMEvents)
     }
@@ -49,7 +54,7 @@ class BuildLogsFragment : Fragment(R.layout.fragment_build_logs) {
     }
 
     private fun handleViewState(viewState: BuildLogsViewState) {
-        setMenuVisibility(viewState is Success)
+        requireActivity().invalidateMenu()
         when (viewState) {
             is Success -> with(binding.buildLogsTextView) {
                 text = viewState.logs
@@ -68,6 +73,8 @@ class BuildLogsFragment : Fragment(R.layout.fragment_build_logs) {
         when (event) {
             ScrollToBottom -> binding.buildLogsVerticalScroll.fullScroll(View.FOCUS_DOWN)
             ScrollToTop -> binding.buildLogsVerticalScroll.scrollTo(0, 0)
+            is CreateLogFile -> logFileSaveHelper.createFile(event.fileName, event.logs)
+            ErrorSavingLog -> showSnack(getString(R.string.build_log_error_writing_logs))
             Close -> findNavController().navigateUp()
         }
     }
