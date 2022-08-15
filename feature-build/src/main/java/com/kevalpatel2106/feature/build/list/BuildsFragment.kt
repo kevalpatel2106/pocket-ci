@@ -13,12 +13,13 @@ import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
 import com.kevalpatel2106.feature.build.R
 import com.kevalpatel2106.feature.build.databinding.FragmentBuildsBinding
+import com.kevalpatel2106.feature.build.list.BuildsVMEvent.Close
 import com.kevalpatel2106.feature.build.list.BuildsVMEvent.OpenBuild
 import com.kevalpatel2106.feature.build.list.BuildsVMEvent.RefreshBuilds
 import com.kevalpatel2106.feature.build.list.BuildsVMEvent.RetryLoading
-import com.kevalpatel2106.feature.build.list.BuildsVMEvent.ShowErrorView
 import com.kevalpatel2106.feature.build.list.adapter.BuildsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 internal class BuildsFragment : Fragment(R.layout.fragment_builds) {
@@ -51,13 +52,17 @@ internal class BuildsFragment : Fragment(R.layout.fragment_builds) {
         itemAnimator = DefaultItemAnimator().apply { supportsChangeAnimations = false }
     }
 
-    private fun observeAdapterLoadState() {
-        buildsAdapter.loadStateFlow.collectInFragment(this) { loadState ->
-            binding.buildListSwipeRefresh.isRefreshing = false
+    private fun observeAdapterLoadState() = with(binding) {
+        buildsAdapter.loadStateFlow.collectInFragment(this@BuildsFragment) { loadState ->
+            buildListSwipeRefresh.isRefreshing = false
             val sourceStates = loadState.source
             val refreshStates = loadState.refresh
-            binding.buildsViewFlipper.displayedChild = when {
-                refreshStates is LoadState.Error -> POS_ERROR
+            buildsViewFlipper.displayedChild = when {
+                refreshStates is LoadState.Error -> {
+                    Timber.e(refreshStates.error)
+                    buildListErrorView.setErrorThrowable(refreshStates.error)
+                    POS_ERROR
+                }
                 sourceStates.refresh is LoadState.Loading -> POS_LOADER
                 sourceStates.isEmptyList(buildsAdapter) -> POS_EMPTY_VIEW
                 else -> POS_LIST
@@ -76,7 +81,7 @@ internal class BuildsFragment : Fragment(R.layout.fragment_builds) {
             )
             RetryLoading -> buildsAdapter.retry()
             RefreshBuilds -> buildsAdapter.refresh()
-            ShowErrorView -> binding.buildsViewFlipper.displayedChild = POS_ERROR
+            Close -> findNavController().navigateUp()
         }
     }
 

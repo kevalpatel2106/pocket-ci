@@ -8,7 +8,7 @@ internal class CalculateTickIntervalImpl @Inject constructor() : CalculateTickIn
 
     override operator fun invoke(pastDate: Date, showMorePrecise: Boolean, now: Date): Long {
         val difference = now.time - pastDate.time
-        require(difference > 0) { "$pastDate cannot be in the future." }
+        require(difference >= 0) { "$pastDate cannot be in the future." }
         return if (showMorePrecise) morePreciseTick(difference) else lessPreciseTick(difference)
     }
 

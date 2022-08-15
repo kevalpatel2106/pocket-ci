@@ -10,5 +10,12 @@ dependencies {
     implementation project(':connector-ci')
     implementation project(':entity')
     implementation project(':core-network')
-    setup_retrofit(this)
+    implementation project(':core')
+
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+
+    // Moshi
+    implementation("com.squareup.moshi:moshi:1.13.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
+    kaptAndroidTest("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
 }

@@ -19,9 +19,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
 
-        <com.kevalpatel2106.coreViews.ErrorStateView
+        <com.kevalpatel2106.coreViews.errorView.ErrorStateView
+            android:id="@+id/networkStateErrorView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:onCloseButtonClick="@{() -> callback.close()}"
             app:onRetryButtonClick="@{() -> callback.retryNextPage()}" />
     </ViewFlipper>
 </layout>

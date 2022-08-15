@@ -10,10 +10,10 @@ import com.kevalpatel2106.core.BaseViewModel
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateCallback
 import com.kevalpatel2106.entity.Project
 import com.kevalpatel2106.entity.id.toAccountId
+import com.kevalpatel2106.projects.list.ProjectVMEvent.Close
 import com.kevalpatel2106.projects.list.ProjectVMEvent.OpenBuildsList
 import com.kevalpatel2106.projects.list.ProjectVMEvent.RefreshProjects
 import com.kevalpatel2106.projects.list.ProjectVMEvent.RetryLoading
-import com.kevalpatel2106.projects.list.ProjectVMEvent.ShowErrorView
 import com.kevalpatel2106.projects.list.adapter.ProjectAdapterCallback
 import com.kevalpatel2106.projects.list.adapter.ProjectListItem
 import com.kevalpatel2106.projects.list.adapter.ProjectListItem.ProjectItem
@@ -21,7 +21,6 @@ import com.kevalpatel2106.projects.list.usecase.InsertProjectListHeaders
 import com.kevalpatel2106.repository.ProjectRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -44,7 +43,6 @@ internal class ProjectsViewModel @Inject constructor(
                 insertListSeparator(before?.project, after?.project)
             }
         }
-        .catch { _vmEventsFlow.emit(ShowErrorView) }
         .cachedIn(viewModelScope)
 
     override fun onProjectSelected(project: Project) {
@@ -53,8 +51,10 @@ internal class ProjectsViewModel @Inject constructor(
         }
     }
 
-    fun reload() {
-        viewModelScope.launch { _vmEventsFlow.emit(RefreshProjects) }
+    fun reload() = viewModelScope.launch { _vmEventsFlow.emit(RefreshProjects) }
+
+    override fun close() {
+        viewModelScope.launch { _vmEventsFlow.emit(Close) }
     }
 
     override fun retryNextPage() {

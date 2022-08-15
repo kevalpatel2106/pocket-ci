@@ -11,6 +11,7 @@ import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateCallback
 import com.kevalpatel2106.entity.Build
 import com.kevalpatel2106.entity.id.toAccountId
 import com.kevalpatel2106.entity.id.toProjectId
+import com.kevalpatel2106.feature.build.list.BuildsVMEvent.Close
 import com.kevalpatel2106.feature.build.list.BuildsVMEvent.OpenBuild
 import com.kevalpatel2106.feature.build.list.BuildsVMEvent.RefreshBuilds
 import com.kevalpatel2106.feature.build.list.BuildsVMEvent.RetryLoading
@@ -54,7 +55,10 @@ internal class BuildsViewModel @Inject constructor(
                 projectRepo.getProject(navArgs.projectId, navArgs.accountId.toAccountId())
             }.onSuccess { project ->
                 _viewState.modify { copy(toolbarTitle = project?.fullName.orEmpty()) }
-            }.onFailure(Timber::e)
+            }.onFailure { error ->
+                // Ignore error. Just log it.
+                Timber.e(error)
+            }
         }
     }
 
@@ -66,6 +70,10 @@ internal class BuildsViewModel @Inject constructor(
 
     fun reload() {
         viewModelScope.launch { _vmEventsFlow.emit(RefreshBuilds) }
+    }
+
+    override fun close() {
+        viewModelScope.launch { _vmEventsFlow.emit(Close) }
     }
 
     override fun retryNextPage() {

@@ -8,6 +8,7 @@ import com.kevalpatel2106.entity.id.toAccountId
 import com.kevalpatel2106.entity.id.toBuildId
 import com.kevalpatel2106.entity.id.toJobIdOrNull
 import com.kevalpatel2106.entity.id.toProjectId
+import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.Close
 import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.ScrollToBottom
 import com.kevalpatel2106.feature.logs.BuildLogsVMEvent.ScrollToTop
 import com.kevalpatel2106.feature.logs.BuildLogsViewState.Empty
@@ -59,7 +60,7 @@ internal class BuildLogsViewModel @Inject constructor(
                 }
             }.onFailure { error ->
                 Timber.e(error)
-                _viewState.emit(Error)
+                _viewState.emit(Error(error))
             }
         }
     }
@@ -67,6 +68,8 @@ internal class BuildLogsViewModel @Inject constructor(
     fun reload() = downloadLogs()
 
     fun scrollToBottom() = viewModelScope.launch { _vmEventsFlow.emit(ScrollToBottom) }
+
+    fun close() = viewModelScope.launch { _vmEventsFlow.emit(Close) }
 
     fun scrollToTop() = viewModelScope.launch { _vmEventsFlow.emit(ScrollToTop) }
 

@@ -37,14 +37,15 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <!-- 2. Error-->
-        <com.kevalpatel2106.coreViews.ErrorStateView
+        <com.kevalpatel2106.coreViews.errorView.ErrorStateView
             android:id="@+id/jobListErrorView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:onCloseButtonClick="@{() -> model.close()}"
             app:onRetryButtonClick="@{() -> model.reload()}" />
 
         <!-- 3. Empty view-->
-        <com.kevalpatel2106.coreViews.ErrorStateView
+        <com.kevalpatel2106.coreViews.errorView.ErrorStateView
             android:id="@+id/jobListEmptyView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

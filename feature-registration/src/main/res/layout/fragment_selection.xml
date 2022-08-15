@@ -30,10 +30,11 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/list_item_ci_selection_info" />
 
-        <com.kevalpatel2106.coreViews.ErrorStateView
+        <com.kevalpatel2106.coreViews.errorView.ErrorStateView
             android:id="@+id/ciListErrorView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:onCloseButtonClick="@{() -> model.close()}"
             app:onRetryButtonClick="@{() -> model.reload()}" />
     </ViewFlipper>
 </layout>

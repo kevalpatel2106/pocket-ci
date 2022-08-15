@@ -10,8 +10,8 @@ internal sealed class AccountsVMEvent {
     object AccountRemovedSuccess : AccountsVMEvent()
     object OpenCiSelection : AccountsVMEvent()
     object RefreshAccounts : AccountsVMEvent()
+    object Close : AccountsVMEvent()
     object RetryLoading : AccountsVMEvent()
     object ShowErrorSelectingAccount : AccountsVMEvent()
     object ShowErrorRemovingAccount : AccountsVMEvent()
-    object ShowErrorView : AccountsVMEvent()
 }

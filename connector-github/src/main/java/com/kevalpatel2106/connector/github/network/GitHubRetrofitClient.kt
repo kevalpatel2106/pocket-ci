@@ -3,16 +3,13 @@ package com.kevalpatel2106.connector.github.network
 import com.kevalpatel2106.connector.github.network.endpoint.GitHubEndpoint
 import com.kevalpatel2106.connector.github.network.interceptor.AuthHeaderInterceptor
 import com.kevalpatel2106.coreNetwork.BaseRetrofitClient
-import com.kevalpatel2106.coreNetwork.moshi.MoshiFactory
 import com.kevalpatel2106.coreNetwork.okHttp.OkHttpClientFactory
 import com.kevalpatel2106.entity.Token
 import com.kevalpatel2106.entity.Url
 import javax.inject.Inject
 
-internal class GitHubRetrofitClient @Inject constructor(
-    okHttpClientFactory: OkHttpClientFactory,
-    moshiFactory: MoshiFactory,
-) : BaseRetrofitClient(okHttpClientFactory, moshiFactory) {
+internal class GitHubRetrofitClient @Inject constructor(okHttpClientFactory: OkHttpClientFactory) :
+    BaseRetrofitClient(okHttpClientFactory) {
 
     override fun interceptors(baseUrl: String, token: String?) =
         listOf(AuthHeaderInterceptor.create(token))

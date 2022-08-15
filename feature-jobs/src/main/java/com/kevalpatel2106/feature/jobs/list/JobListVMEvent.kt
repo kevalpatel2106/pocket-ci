@@ -14,6 +14,6 @@ internal sealed class JobListVMEvent {
     ) : JobListVMEvent()
 
     object RefreshJobs : JobListVMEvent()
-    object ShowErrorView : JobListVMEvent()
+    object Close : JobListVMEvent()
     object RetryLoading : JobListVMEvent()
 }

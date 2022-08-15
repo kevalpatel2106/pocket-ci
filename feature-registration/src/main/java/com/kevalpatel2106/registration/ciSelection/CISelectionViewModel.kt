@@ -3,6 +3,7 @@ package com.kevalpatel2106.registration.ciSelection
 import androidx.lifecycle.viewModelScope
 import com.kevalpatel2106.core.BaseViewModel
 import com.kevalpatel2106.entity.CIInfo
+import com.kevalpatel2106.registration.ciSelection.CISelectionVMEvent.Close
 import com.kevalpatel2106.registration.ciSelection.CISelectionVMEvent.OpenRegisterAccount
 import com.kevalpatel2106.registration.ciSelection.CISelectionViewState.Companion.initialState
 import com.kevalpatel2106.registration.ciSelection.CISelectionViewState.ErrorState
@@ -40,6 +41,8 @@ internal class CISelectionViewModel @Inject constructor(
     override fun onCISelected(ci: CIInfo) {
         viewModelScope.launch { _vmEventsFlow.emit(OpenRegisterAccount(ci)) }
     }
+
+    fun close() = viewModelScope.launch { _vmEventsFlow.emit(Close) }
 
     fun reload() = loadSupportedCIInfo()
 }

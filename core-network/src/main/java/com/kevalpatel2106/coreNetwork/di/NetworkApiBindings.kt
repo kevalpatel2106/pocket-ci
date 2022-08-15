@@ -12,5 +12,5 @@ import dagger.hilt.components.SingletonComponent
 internal abstract class NetworkApiBindings {
 
     @Binds
-    abstract fun bindFlavouredInterceptors(factory: FlavouredInterceptorImpl): FlavouredInterceptor
+    abstract fun bindFlavouredInterceptors(impl: FlavouredInterceptorImpl): FlavouredInterceptor
 }

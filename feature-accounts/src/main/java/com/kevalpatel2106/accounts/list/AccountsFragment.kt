@@ -10,6 +10,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kevalpatel2106.accounts.R
 import com.kevalpatel2106.accounts.databinding.FragmentAccountsBinding
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.AccountRemovedSuccess
+import com.kevalpatel2106.accounts.list.AccountsVMEvent.Close
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.OpenCiSelection
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.OpenProjects
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.RefreshAccounts
@@ -17,7 +18,6 @@ import com.kevalpatel2106.accounts.list.AccountsVMEvent.RetryLoading
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.ShowDeleteConfirmation
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.ShowErrorRemovingAccount
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.ShowErrorSelectingAccount
-import com.kevalpatel2106.accounts.list.AccountsVMEvent.ShowErrorView
 import com.kevalpatel2106.accounts.list.adapter.AccountsAdapter
 import com.kevalpatel2106.core.extentions.collectInFragment
 import com.kevalpatel2106.core.extentions.isEmptyList
@@ -28,6 +28,7 @@ import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
 import com.kevalpatel2106.entity.id.AccountId
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class AccountsFragment : Fragment(R.layout.fragment_accounts) {
@@ -56,12 +57,16 @@ class AccountsFragment : Fragment(R.layout.fragment_accounts) {
         )
     }
 
-    private fun observeAdapterLoadState() {
-        accountsAdapter.loadStateFlow.collectInFragment(this) { loadState ->
+    private fun observeAdapterLoadState() = with(binding) {
+        accountsAdapter.loadStateFlow.collectInFragment(this@AccountsFragment) { loadState ->
             val sourceStates = loadState.source
             val refreshStates = loadState.refresh
-            binding.accountsViewFlipper.displayedChild = when {
-                refreshStates is LoadState.Error -> POS_ERROR
+            accountsViewFlipper.displayedChild = when {
+                refreshStates is LoadState.Error -> {
+                    Timber.e(refreshStates.error)
+                    accountsErrorView.setErrorThrowable(refreshStates.error)
+                    POS_ERROR
+                }
                 sourceStates.isEmptyList(accountsAdapter) -> POS_EMPTY_VIEW
                 sourceStates.refresh is LoadState.Loading -> POS_LOADER
                 else -> POS_LIST
@@ -73,21 +78,21 @@ class AccountsFragment : Fragment(R.layout.fragment_accounts) {
         when (event) {
             is OpenProjects -> findNavController().navigateToInAppDeeplink(
                 DeepLinkDestinations.ProjectsList(event.accountId),
-                cleanUpStack = true
+                cleanUpStack = true,
             )
             RetryLoading -> accountsAdapter.retry()
             RefreshAccounts -> accountsAdapter.refresh()
             ShowErrorRemovingAccount -> showSnack(getString(R.string.error_removing_account))
             ShowErrorSelectingAccount -> showSnack(getString(R.string.error_selecting_account))
             OpenCiSelection -> findNavController().navigateToInAppDeeplink(
-                DeepLinkDestinations.CiSelection
+                DeepLinkDestinations.CiSelection,
             )
             is ShowDeleteConfirmation -> showDeleteConfirmationDialog(event.accountId, event.name)
             AccountRemovedSuccess -> {
                 showSnack(getString(R.string.success_removing_account))
                 accountsAdapter.refresh()
             }
-            ShowErrorView -> binding.accountsViewFlipper.displayedChild = POS_ERROR
+            Close -> findNavController().navigateUp()
         }
     }
 

@@ -15,12 +15,13 @@ import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
 import com.kevalpatel2106.projects.R
 import com.kevalpatel2106.projects.databinding.FragmentProjectsBinding
+import com.kevalpatel2106.projects.list.ProjectVMEvent.Close
 import com.kevalpatel2106.projects.list.ProjectVMEvent.OpenBuildsList
 import com.kevalpatel2106.projects.list.ProjectVMEvent.RefreshProjects
 import com.kevalpatel2106.projects.list.ProjectVMEvent.RetryLoading
-import com.kevalpatel2106.projects.list.ProjectVMEvent.ShowErrorView
 import com.kevalpatel2106.projects.list.adapter.ProjectAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ProjectsFragment : Fragment(R.layout.fragment_projects) {
@@ -52,13 +53,17 @@ class ProjectsFragment : Fragment(R.layout.fragment_projects) {
         itemAnimator = DefaultItemAnimator().apply { supportsChangeAnimations = false }
     }
 
-    private fun observeAdapterLoadState() {
-        projectAdapter.loadStateFlow.collectInFragment(this) { loadState ->
-            binding.projectListSwipeRefresh.isRefreshing = false
+    private fun observeAdapterLoadState() = with(binding) {
+        projectAdapter.loadStateFlow.collectInFragment(this@ProjectsFragment) { loadState ->
+            projectListSwipeRefresh.isRefreshing = false
             val sourceStates = loadState.source
             val refreshStates = loadState.refresh
-            binding.projectsViewFlipper.displayedChild = when {
-                refreshStates is LoadState.Error -> POS_ERROR
+            projectsViewFlipper.displayedChild = when {
+                refreshStates is LoadState.Error -> {
+                    Timber.e(refreshStates.error)
+                    projectListErrorView.setErrorThrowable(refreshStates.error)
+                    POS_ERROR
+                }
                 sourceStates.refresh is LoadState.Loading -> POS_LOADER
                 sourceStates.isEmptyList(projectAdapter) -> POS_EMPTY_VIEW
                 else -> POS_LIST
@@ -73,7 +78,7 @@ class ProjectsFragment : Fragment(R.layout.fragment_projects) {
             )
             RetryLoading -> projectAdapter.retry()
             RefreshProjects -> projectAdapter.refresh()
-            ShowErrorView -> binding.projectsViewFlipper.displayedChild = POS_ERROR
+            Close -> findNavController().navigateUp()
         }
     }
 

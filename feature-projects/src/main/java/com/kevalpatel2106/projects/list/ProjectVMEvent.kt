@@ -6,6 +6,6 @@ import com.kevalpatel2106.entity.id.ProjectId
 internal sealed class ProjectVMEvent {
     data class OpenBuildsList(val accountId: AccountId, val projectId: ProjectId) : ProjectVMEvent()
     object RefreshProjects : ProjectVMEvent()
-    object ShowErrorView : ProjectVMEvent()
+    object Close : ProjectVMEvent()
     object RetryLoading : ProjectVMEvent()
 }

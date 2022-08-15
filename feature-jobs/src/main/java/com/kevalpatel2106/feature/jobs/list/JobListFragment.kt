@@ -15,12 +15,13 @@ import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
 import com.kevalpatel2106.feature.jobs.R
 import com.kevalpatel2106.feature.jobs.databinding.FragmentJobListBinding
+import com.kevalpatel2106.feature.jobs.list.JobListVMEvent.Close
 import com.kevalpatel2106.feature.jobs.list.JobListVMEvent.OpenLogs
 import com.kevalpatel2106.feature.jobs.list.JobListVMEvent.RefreshJobs
 import com.kevalpatel2106.feature.jobs.list.JobListVMEvent.RetryLoading
-import com.kevalpatel2106.feature.jobs.list.JobListVMEvent.ShowErrorView
 import com.kevalpatel2106.feature.jobs.list.adapter.JobsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class JobListFragment : Fragment(R.layout.fragment_job_list) {
@@ -56,13 +57,17 @@ class JobListFragment : Fragment(R.layout.fragment_job_list) {
         viewState.toolbarTitle?.let { requireActivity().title = it }
     }
 
-    private fun observeAdapterLoadState() {
-        jobsAdapter.loadStateFlow.collectInFragment(this) { loadState ->
-            binding.jobListSwipeRefresh.isRefreshing = false
+    private fun observeAdapterLoadState() = with(binding) {
+        jobsAdapter.loadStateFlow.collectInFragment(this@JobListFragment) { loadState ->
+            jobListSwipeRefresh.isRefreshing = false
             val sourceStates = loadState.source
             val refreshStates = loadState.refresh
-            binding.jobsViewFlipper.displayedChild = when {
-                refreshStates is LoadState.Error -> POS_ERROR
+            jobsViewFlipper.displayedChild = when {
+                refreshStates is LoadState.Error -> {
+                    Timber.e(refreshStates.error)
+                    jobListErrorView.setErrorThrowable(refreshStates.error)
+                    POS_ERROR
+                }
                 sourceStates.refresh is LoadState.Loading -> POS_LOADER
                 sourceStates.isEmptyList(jobsAdapter) -> POS_EMPTY_VIEW
                 else -> POS_LIST
@@ -77,7 +82,7 @@ class JobListFragment : Fragment(R.layout.fragment_job_list) {
             )
             RetryLoading -> jobsAdapter.retry()
             RefreshJobs -> jobsAdapter.refresh()
-            ShowErrorView -> binding.jobsViewFlipper.displayedChild = POS_ERROR
+            Close -> findNavController().navigateUp()
         }
     }
 

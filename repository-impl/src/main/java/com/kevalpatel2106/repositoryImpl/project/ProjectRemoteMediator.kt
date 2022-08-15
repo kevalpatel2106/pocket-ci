@@ -63,9 +63,9 @@ internal class ProjectRemoteMediator private constructor(
             pagedData.nextCursor.isNullOrBlank()
         }.onSuccess { endOfPaginationReached ->
             mediatorResult = MediatorResult.Success(endOfPaginationReached)
-        }.onFailure { throwable ->
-            Timber.e(throwable)
-            mediatorResult = MediatorResult.Error(throwable)
+        }.onFailure { error ->
+            Timber.e(error)
+            mediatorResult = MediatorResult.Error(error)
         }
         return mediatorResult
     }

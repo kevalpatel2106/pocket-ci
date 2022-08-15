@@ -5,7 +5,31 @@
 
     <!--Other-->
     <string name="back">Back</string>
-    <string name="genaric_error">Something went wrong! Please retry.</string>
+
+    <!--Error handling-->
+    <string name="error_view_retry_button_title">Retry</string>
+    <string name="error_view_close_button_title">Close</string>
+    <string name="error_snack_more_button_title">More</string>
+    <string name="error_debug_info_dialog_title">Debug information</string>
+    <string name="error_debug_info_dialog_copy_button">Copy</string>
+    <string name="error_debug_info_dialog_close_button">Close</string>
+    <string name="error_debug_info_copied">Copied to clipboard</string>
+    <string name="error_view_show_technical_detail_button_title">Show technical detail</string>
+    <string name="error_unknown_title">Something went wrong.</string>
+    <string name="error_unknown_message_short">Something went wrong while executing the request. Please try again.</string>
+    <string name="error_unknown_message">Unable to identify what went wrong while executing this request. Please try again. If the issue still persist, please contact us from settings.</string>
+    <string name="error_no_internet_title">No internet!</string>
+    <string name="error_no_internet_message">Pocket CI is unable to execute this action using the internet. Please check your internet connection.</string>
+    <string name="error_feature_not_supported_title">Feature not supported.</string>
+    <string name="error_feature_not_supported_message">Because of the limitations with how %1$s  works, this feature is not supported by %2$s.</string>
+    <string name="error_json_parsing_title">Unexpected response from server!</string>
+    <string name="error_json_parsing_message">Cannot read the response from server. JSON document doesn\'t match the data expected by the caller. Please file a bug report.</string>
+    <string name="error_unauthorized_message">Your token has expired and it\'s invalid now. Please register a new token for this account.</string>
+    <string name="error_unauthorized_title">Session expired.</string>
+    <string name="error_bad_request_title">Bad network request.</string>
+    <string name="error_bad_request_message">Network request or API request is malformed and not as per the API specification. Please retry.</string>
+    <string name="error_server_down_title">Server down.</string>
+    <string name="error_server_down_message">Unable to connect to the server. Either server is down or unable to accept new requests at this moment. Please retry after sometime.</string>
 
     <!--Time difference formatter view-->
     <plurals name="time_format_second" tools:ignore="MissingDefaultResource">

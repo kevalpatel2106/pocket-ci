@@ -5,6 +5,7 @@ import androidx.paging.cachedIn
 import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.AccountRemovedSuccess
+import com.kevalpatel2106.accounts.list.AccountsVMEvent.Close
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.OpenCiSelection
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.OpenProjects
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.RefreshAccounts
@@ -12,7 +13,6 @@ import com.kevalpatel2106.accounts.list.AccountsVMEvent.RetryLoading
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.ShowDeleteConfirmation
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.ShowErrorRemovingAccount
 import com.kevalpatel2106.accounts.list.AccountsVMEvent.ShowErrorSelectingAccount
-import com.kevalpatel2106.accounts.list.AccountsVMEvent.ShowErrorView
 import com.kevalpatel2106.accounts.list.adapter.AccountsAdapterCallback
 import com.kevalpatel2106.accounts.list.usecase.ConvertToAccountItem
 import com.kevalpatel2106.accounts.list.usecase.InsertAccountListHeaders
@@ -22,7 +22,6 @@ import com.kevalpatel2106.entity.Account
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.repository.AccountRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -42,7 +41,6 @@ internal class AccountsViewModel @Inject constructor(
         .mapNotNull { pagingData ->
             pagingData.insertSeparators { before, after -> insertAccountListHeaders(before, after) }
         }
-        .catch { _vmEventsFlow.emit(ShowErrorView) }
         .cachedIn(viewModelScope)
 
     override fun onAccountSelected(accountId: AccountId) {
@@ -75,13 +73,13 @@ internal class AccountsViewModel @Inject constructor(
         }
     }
 
-    fun reload() {
-        viewModelScope.launch { _vmEventsFlow.emit(RefreshAccounts) }
+    fun reload() = viewModelScope.launch { _vmEventsFlow.emit(RefreshAccounts) }
+
+    override fun close() {
+        viewModelScope.launch { _vmEventsFlow.emit(Close) }
     }
 
-    fun onAddAccountClicked() {
-        viewModelScope.launch { _vmEventsFlow.emit(OpenCiSelection) }
-    }
+    fun onAddAccountClicked() = viewModelScope.launch { _vmEventsFlow.emit(OpenCiSelection) }
 
     override fun retryNextPage() {
         viewModelScope.launch { _vmEventsFlow.emit(RetryLoading) }

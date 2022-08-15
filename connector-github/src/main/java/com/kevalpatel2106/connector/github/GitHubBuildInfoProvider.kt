@@ -4,7 +4,9 @@ import com.kevalpatel2106.connector.ci.internal.CIBuildInfoProvider
 import com.kevalpatel2106.connector.github.network.GitHubRetrofitClient
 import com.kevalpatel2106.connector.github.network.endpoint.GitHubEndpoint
 import com.kevalpatel2106.connector.github.network.mapper.BuildMapper
+import com.kevalpatel2106.core.extentions.notSupported
 import com.kevalpatel2106.entity.Build
+import com.kevalpatel2106.entity.CIType
 import com.kevalpatel2106.entity.PagedData
 import com.kevalpatel2106.entity.Token
 import com.kevalpatel2106.entity.Url
@@ -51,6 +53,6 @@ internal class GitHubBuildInfoProvider @Inject constructor(
         projectOwner: String,
         buildId: BuildId,
     ): String {
-        error("GitHub doesn't support build logs.")
+        notSupported(CIType.GITHUB, "GitHub doesn't support build logs.")
     }
 }

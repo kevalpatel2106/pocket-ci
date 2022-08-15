@@ -1,6 +1,8 @@
 package com.kevalpatel2106.connector.bitrise
 
 import com.kevalpatel2106.connector.ci.internal.CIJobsProvider
+import com.kevalpatel2106.core.extentions.notSupported
+import com.kevalpatel2106.entity.CIType
 import com.kevalpatel2106.entity.Job
 import com.kevalpatel2106.entity.PagedData
 import com.kevalpatel2106.entity.Token
@@ -22,7 +24,7 @@ internal class BitriseJobsProvider @Inject constructor() : CIJobsProvider {
         cursor: String?,
         limit: Int,
     ): PagedData<Job> {
-        error("Bitrise doesn't support Jobs.")
+        notSupported(CIType.BITRISE, "Bitrise doesn't support Jobs.")
     }
 
     override suspend fun getJobLogs(
@@ -34,6 +36,6 @@ internal class BitriseJobsProvider @Inject constructor() : CIJobsProvider {
         buildId: BuildId,
         jobId: JobId,
     ): String {
-        error("Bitrise doesn't support Jobs.")
+        notSupported(CIType.BITRISE, "Bitrise doesn't support Jobs.")
     }
 }

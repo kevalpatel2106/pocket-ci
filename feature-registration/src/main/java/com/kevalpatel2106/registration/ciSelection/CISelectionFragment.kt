@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.kevalpatel2106.core.extentions.collectInFragment
 import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.registration.R
+import com.kevalpatel2106.registration.ciSelection.CISelectionVMEvent.Close
 import com.kevalpatel2106.registration.ciSelection.CISelectionVMEvent.OpenRegisterAccount
 import com.kevalpatel2106.registration.ciSelection.CISelectionViewState.ErrorState
 import com.kevalpatel2106.registration.ciSelection.CISelectionViewState.LoadingState
@@ -15,6 +16,7 @@ import com.kevalpatel2106.registration.ciSelection.CISelectionViewState.SuccessS
 import com.kevalpatel2106.registration.ciSelection.adapter.CISelectionAdapter
 import com.kevalpatel2106.registration.databinding.FragmentSelectionBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CISelectionFragment : Fragment(R.layout.fragment_selection) {
@@ -38,17 +40,24 @@ class CISelectionFragment : Fragment(R.layout.fragment_selection) {
         adapter = CISelectionAdapter(viewModel)
     }
 
-    private fun handleSingleEvent(event: CISelectionVMEvent) = when (event) {
-        is OpenRegisterAccount -> findNavController().navigate(
-            CISelectionFragmentDirections.actionCiSelectionToRegister(event.ciInfo),
-        )
+    private fun handleSingleEvent(event: CISelectionVMEvent) {
+        when (event) {
+            is OpenRegisterAccount -> findNavController().navigate(
+                CISelectionFragmentDirections.actionCiSelectionToRegister(event.ciInfo),
+            )
+            Close -> findNavController().navigateUp()
+        }
     }
 
-    private fun handleViewState(state: CISelectionViewState) = when (state) {
+    private fun handleViewState(viewState: CISelectionViewState) = when (viewState) {
         is SuccessState -> {
-            (binding.ciListRecyclerView.adapter as CISelectionAdapter).submitList(state.listOfCi)
+            (binding.ciListRecyclerView.adapter as CISelectionAdapter)
+                .submitList(viewState.listOfCi)
         }
-        is ErrorState -> binding.ciListErrorView.setErrorThrowable(state.throwable)
+        is ErrorState -> {
+            Timber.e(viewState.error)
+            binding.ciListErrorView.setErrorThrowable(viewState.error)
+        }
         LoadingState -> Unit // No-op
     }
 }
