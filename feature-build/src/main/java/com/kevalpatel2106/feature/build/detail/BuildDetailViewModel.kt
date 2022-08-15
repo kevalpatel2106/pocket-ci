@@ -43,7 +43,7 @@ internal class BuildDetailViewModel @Inject constructor(
                 }
             }.onFailure { error ->
                 Timber.e(error)
-                _vmEventsFlow.emit(ShowErrorAndClose)
+                _vmEventsFlow.emit(ShowErrorAndClose(error))
             }
         }
     }

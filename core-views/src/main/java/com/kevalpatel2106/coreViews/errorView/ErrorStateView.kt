@@ -1,22 +1,19 @@
 package com.kevalpatel2106.coreViews.errorView
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.withStyledAttributes
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.coreViews.R
 import com.kevalpatel2106.coreViews.databinding.ViewErrorStateBinding
 import com.kevalpatel2106.coreViews.errorView.ActionButtonMode.Companion.ACTION_CLOSE
 import com.kevalpatel2106.coreViews.errorView.ActionButtonMode.Companion.ACTION_RETRY
+import com.kevalpatel2106.entity.DisplayError
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -31,9 +28,6 @@ class ErrorStateView @JvmOverloads constructor(
     @Inject
     internal lateinit var displayErrorMapper: DisplayErrorMapper
 
-    @Inject
-    internal lateinit var clipboardManager: ClipboardManager
-
     private val binding = ViewErrorStateBinding.inflate(LayoutInflater.from(context), this, true)
 
     var headlineText: String
@@ -43,9 +37,9 @@ class ErrorStateView @JvmOverloads constructor(
             binding.headlineTextView.text = value
         }
 
-    private var debugMessageText: String? = null
+    private var error: DisplayError? = null
         set(value) {
-            binding.debugInfoButton.isVisible = !value.isNullOrBlank()
+            binding.debugInfoButton.isVisible = !value?.technicalMessage.isNullOrBlank()
             field = value
         }
 
@@ -86,27 +80,10 @@ class ErrorStateView @JvmOverloads constructor(
 
     init {
         setupAttrs(attrs)
+        error = null
         binding.debugInfoButton.setOnClickListener {
-            debugMessageText?.let { msg -> showDebugInfoDialog(msg) }
+            error?.let { e -> DebugInfoAlertDialogBuilder(context).show(e) }
         }
-    }
-
-    private fun showDebugInfoDialog(message: String) {
-        MaterialAlertDialogBuilder(context)
-            .setTitle(R.string.error_debug_info_dialog_title)
-            .setMessage(message)
-            .setPositiveButton(R.string.error_debug_info_dialog_copy_button) { _, _ ->
-                val clip = ClipData.newPlainText(
-                    context.getString(R.string.error_debug_info_dialog_title),
-                    message,
-                )
-                clipboardManager.setPrimaryClip(clip)
-                Toast.makeText(context, R.string.error_debug_info_copied, Toast.LENGTH_SHORT).show()
-            }
-            .setNegativeButton(R.string.error_debug_info_dialog_close_button) { dialogInterface, _ ->
-                dialogInterface.dismiss()
-            }
-            .show()
     }
 
     private fun setupAttrs(attrs: AttributeSet?) {
@@ -116,7 +93,6 @@ class ErrorStateView @JvmOverloads constructor(
             descriptionText = getString(R.styleable.ErrorStateView_descriptionText)
                 ?: context.getString(R.string.error_unknown_message)
             showActionButtons = getBoolean(R.styleable.ErrorStateView_showCallToAction, true)
-            debugMessageText = null
         }
     }
 
@@ -124,7 +100,7 @@ class ErrorStateView @JvmOverloads constructor(
         val displayError = displayErrorMapper(throwable)
         headlineText = displayError.headline
         descriptionText = displayError.message
-        debugMessageText = displayError.toString()
+        error = displayError
         actionButtonMode = if (displayError.nonRecoverable) ACTION_CLOSE else ACTION_RETRY
     }
 

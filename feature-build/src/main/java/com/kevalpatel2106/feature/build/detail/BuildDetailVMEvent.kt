@@ -6,7 +6,7 @@ import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.entity.id.ProjectId
 
 internal sealed class BuildDetailVMEvent {
-    object ShowErrorAndClose : BuildDetailVMEvent()
+    data class ShowErrorAndClose(val error: Throwable) : BuildDetailVMEvent()
 
     class OpenBuildLogs(
         val accountId: AccountId,

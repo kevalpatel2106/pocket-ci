@@ -16,19 +16,69 @@ internal class DisplayErrorMapperImpl @Inject constructor(
     private val httpErrorMessageMapper: HttpErrorMessageMapper,
 ) : DisplayErrorMapper {
 
-    override operator fun invoke(throwable: Throwable): DisplayError = when (throwable) {
+    override operator fun invoke(throwable: Throwable, shortMessage: Boolean) = when (throwable) {
         is NoInternetException, is SocketTimeoutException, is NoRouteToHostException -> {
             DisplayError(
                 throwable = throwable,
-                headline = application.getString(R.string.error_no_internet_message_title),
-                message = application.getString(R.string.error_no_internet_message_message),
+                headline = application.getString(R.string.error_no_internet_title),
+                message = application.getString(R.string.error_no_internet_message),
                 technicalMessage = throwable.message,
                 url = (throwable as? NoInternetException)?.url,
                 nonRecoverable = false,
                 unableToTriage = false,
             )
         }
-        is FeatureNotSupportedException -> DisplayError(
+        is FeatureNotSupportedException -> mapFeatureNotSupported(throwable)
+        is HttpException -> mapHttpException(throwable)
+        is JsonDataException -> mapJsonDataException(throwable)
+        else -> mapNotTriageException(shortMessage, throwable)
+    }
+
+    private fun mapNotTriageException(
+        shortMessage: Boolean,
+        throwable: Throwable,
+    ): DisplayError {
+        val msgRes = if (shortMessage) {
+            R.string.error_unknown_message_short
+        } else {
+            R.string.error_unknown_message
+        }
+        return DisplayError(
+            throwable = throwable,
+            headline = application.getString(R.string.error_unknown_title),
+            message = application.getString(msgRes),
+            technicalMessage = throwable.message,
+            nonRecoverable = throwable is IllegalStateException,
+            unableToTriage = true,
+        )
+    }
+
+    private fun mapJsonDataException(throwable: Throwable) = DisplayError(
+        throwable = throwable,
+        headline = application.getString(R.string.error_json_parsing_title),
+        message = application.getString(R.string.error_json_parsing_message),
+        technicalMessage = throwable.message,
+        nonRecoverable = true,
+        unableToTriage = false,
+    )
+
+    private fun mapHttpException(throwable: HttpException): DisplayError {
+        val (title, message) = httpErrorMessageMapper(throwable.code())
+        return DisplayError(
+            throwable = throwable,
+            headline = application.getString(title),
+            message = application.getString(message),
+            httpResponseCode = throwable.code(),
+            url = throwable.response()?.raw()?.request()?.url().toString(),
+            httpResponse = throwable.response()?.errorBody()?.string(),
+            technicalMessage = throwable.message,
+            nonRecoverable = false,
+            unableToTriage = false,
+        )
+    }
+
+    private fun mapFeatureNotSupported(throwable: FeatureNotSupportedException) =
+        DisplayError(
             throwable = throwable,
             headline = application.getString(R.string.error_feature_not_supported_title),
             message = application.getString(
@@ -40,35 +90,4 @@ internal class DisplayErrorMapperImpl @Inject constructor(
             nonRecoverable = true,
             unableToTriage = false,
         )
-        is HttpException -> {
-            val (title, message) = httpErrorMessageMapper(throwable.code())
-            DisplayError(
-                throwable = throwable,
-                headline = application.getString(title),
-                message = application.getString(message),
-                httpResponseCode = throwable.code(),
-                url = throwable.response()?.raw()?.request()?.url().toString(),
-                httpResponse = throwable.response()?.errorBody()?.string(),
-                technicalMessage = throwable.message,
-                nonRecoverable = false,
-                unableToTriage = false,
-            )
-        }
-        is JsonDataException -> DisplayError(
-            throwable = throwable,
-            headline = application.getString(R.string.error_json_parsing_title),
-            message = application.getString(R.string.error_json_parsing_message),
-            technicalMessage = throwable.message,
-            nonRecoverable = true,
-            unableToTriage = false,
-        )
-        else -> DisplayError(
-            throwable = throwable,
-            headline = application.getString(R.string.error_unknown_title),
-            message = application.getString(R.string.error_unknown_message),
-            technicalMessage = throwable.message,
-            nonRecoverable = false,
-            unableToTriage = true,
-        )
-    }
 }

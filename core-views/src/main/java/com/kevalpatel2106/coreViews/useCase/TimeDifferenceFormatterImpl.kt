@@ -19,7 +19,7 @@ internal class TimeDifferenceFormatterImpl @Inject constructor(
         showMorePrecise: Boolean,
     ): String {
         val difference = TimeUnit.MILLISECONDS.toSeconds(dateEnd.time - dateStart.time)
-        require(difference > 0) { "$dateStart cannot be after $dateEnd." }
+        require(difference >= 0) { "$dateStart cannot be after $dateEnd." }
 
         return if (showMorePrecise) {
             morePrecise(difference, appendText.orEmpty())

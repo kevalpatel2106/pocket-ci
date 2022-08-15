@@ -3,5 +3,5 @@ package com.kevalpatel2106.core.errorHandling
 import com.kevalpatel2106.entity.DisplayError
 
 interface DisplayErrorMapper {
-    operator fun invoke(throwable: Throwable): DisplayError
+    operator fun invoke(throwable: Throwable, shortMessage: Boolean = false): DisplayError
 }
