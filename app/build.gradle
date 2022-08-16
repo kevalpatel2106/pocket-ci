@@ -28,6 +28,7 @@ dependencies {
     implementation project(':feature-build')
     implementation project(':feature-logs')
     implementation project(':feature-jobs')
+    implementation project(':feature-artifacts')
 
     // Core modules
     implementation project(':entity')

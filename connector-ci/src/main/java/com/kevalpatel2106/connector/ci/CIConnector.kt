@@ -1,5 +1,6 @@
 package com.kevalpatel2106.connector.ci
 
+import com.kevalpatel2106.connector.ci.internal.CIArtifactProvider
 import com.kevalpatel2106.connector.ci.internal.CIBuildInfoProvider
 import com.kevalpatel2106.connector.ci.internal.CIInfoProvider
 import com.kevalpatel2106.connector.ci.internal.CIJobsProvider
@@ -11,4 +12,5 @@ interface CIConnector :
     CIUserInfoProvider,
     CIProjectInfoProvider,
     CIBuildInfoProvider,
-    CIJobsProvider
+    CIJobsProvider,
+    CIArtifactProvider

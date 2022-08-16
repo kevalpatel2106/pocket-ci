@@ -13,7 +13,9 @@ import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.feature.build.R
 import com.kevalpatel2106.feature.build.databinding.FragmentBuildDetailBinding
+import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenBuildArtifacts
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenBuildLogs
+import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenJobs
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenMarkDownViewer
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.ShowErrorAndClose
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,8 +57,16 @@ class BuildDetailFragment : Fragment(R.layout.fragment_build_detail) {
                 showErrorSnack(event.error, displayErrorMapper)
                 findNavController().navigateUp()
             }
-            is BuildDetailVMEvent.OpenJobs -> findNavController().navigateToInAppDeeplink(
+            is OpenJobs -> findNavController().navigateToInAppDeeplink(
                 DeepLinkDestinations.JobsList(
+                    accountId = event.accountId,
+                    projectId = event.projectId,
+                    buildId = event.buildId,
+                    title = event.title,
+                ),
+            )
+            is OpenBuildArtifacts -> findNavController().navigateToInAppDeeplink(
+                DeepLinkDestinations.ArtifactList(
                     accountId = event.accountId,
                     projectId = event.projectId,
                     buildId = event.buildId,

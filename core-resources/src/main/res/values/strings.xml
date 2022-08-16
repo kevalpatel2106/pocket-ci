@@ -146,6 +146,16 @@
     <string name="title_build_detail">Build detail</string>
     <string name="build_detail_commit_markdown_view_title">Build message</string>
     <string name="build_detail_jobs_list_label">Jobs</string>
+    <string name="build_detail_open_artifacts">View Artifacts</string>
+    <string name="build_detail_open_jobs">View Jobs</string>
+    <string name="build_detail_open_logs">View Build Logs</string>
+    <string name="build_detail_abort_reason_title">Abort Message</string>
+    <string name="build_detail_commit_title">Commit</string>
+    <string name="build_detail_ran_for_label">Ran for</string>
+    <string name="build_detail_build_triggered_label">Build triggered</string>
+    <string name="build_detail_triggered_by_label">Triggered by</string>
+    <string name="build_detail_branch_label">Branch</string>
+    <string name="build_detail_build_status_label">Status</string>
 
     <!--Build logs screen-->
     <string name="title_build_logs_screen">Build logs</string>
@@ -155,12 +165,20 @@
     <string name="build_logs_menu_save">Save logs</string>
     <string name="build_log_empty_state_message">This can happen if your build is not concluded yet or logs are deleted from your CI server depending on your archive settings.</string>
     <string name="build_log_empty_state_title">No logs found.</string>
+    <string name="build_log_error_writing_logs">Cannot save log file. Please try again.</string>
 
     <!--Jobs list-->
     <string name="title_jobs_list_screen">Jobs</string>
     <string name="jobs_list_empty_view_description">This build has no job triggered.</string>
     <string name="jobs_list_empty_view_headline">No jobs found for build!</string>
-    <string name="build_log_error_writing_logs">Cannot save log file. Please try again.</string>
+
+    <!--Artifacts list-->
+    <string name="title_artifacts_list_screen">Artifacts</string>
+    <string name="artifacts_list_empty_state_message">This can happen if your build is not concluded yet or artifacts are deleted from your CI server depending on your archive settings.</string>
+    <string name="artifacts_list_empty_state_title">No artifacts found.</string>
+    <string name="artifact_list_create_label">Created:</string>
+    <string name="artifact_list_size_label">Size:</string>
+
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

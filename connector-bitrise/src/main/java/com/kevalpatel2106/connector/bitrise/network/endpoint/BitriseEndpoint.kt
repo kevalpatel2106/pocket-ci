@@ -1,5 +1,6 @@
 package com.kevalpatel2106.connector.bitrise.network.endpoint
 
+import com.kevalpatel2106.connector.bitrise.network.dto.ArtifactListItemDto
 import com.kevalpatel2106.connector.bitrise.network.dto.BuildDto
 import com.kevalpatel2106.connector.bitrise.network.dto.BuildLogsDto
 import com.kevalpatel2106.connector.bitrise.network.dto.MeDto
@@ -43,6 +44,15 @@ internal interface BitriseEndpoint {
         @Path("app_slug") appSlug: String,
         @Path("build_slug") buildSlug: String,
     ): BuildLogsDto
+
+    @Headers(ADD_AUTH_HEADER, API_VERSION_HEADER, ACCEPTS_HEADER)
+    @GET("apps/{app_slug}/builds/{build_slug}/artifacts")
+    suspend fun getArtifacts(
+        @Path("app_slug") appSlug: String,
+        @Path("build_slug") buildSlug: String,
+        @Query("next") next: String?,
+        @Query("limit") limit: Int,
+    ): ResponseDto<List<ArtifactListItemDto>>
 
     @GET
     suspend fun getRawBuildsLogs(@Url rawUrl: String): String

@@ -3,6 +3,10 @@ package com.kevalpatel2106.connector.bitrise.di
 import com.kevalpatel2106.connector.bitrise.BitriseConnector
 import com.kevalpatel2106.connector.bitrise.network.mapper.AccountMapper
 import com.kevalpatel2106.connector.bitrise.network.mapper.AccountMapperImpl
+import com.kevalpatel2106.connector.bitrise.network.mapper.ArtifactListItemMapper
+import com.kevalpatel2106.connector.bitrise.network.mapper.ArtifactListItemMapperImpl
+import com.kevalpatel2106.connector.bitrise.network.mapper.ArtifactTypeMapper
+import com.kevalpatel2106.connector.bitrise.network.mapper.ArtifactTypeMapperImpl
 import com.kevalpatel2106.connector.bitrise.network.mapper.BuildMapper
 import com.kevalpatel2106.connector.bitrise.network.mapper.BuildMapperImpl
 import com.kevalpatel2106.connector.bitrise.network.mapper.BuildStatusMapper
@@ -75,4 +79,14 @@ internal abstract class BitriseBindings {
     @Binds
     @ViewModelScoped
     abstract fun bindPullRequestMapper(impl: PullRequestMapperImpl): PullRequestMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindArtifactListItemMapper(
+        impl: ArtifactListItemMapperImpl
+    ): ArtifactListItemMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindArtifactTypeMapper(impl: ArtifactTypeMapperImpl): ArtifactTypeMapper
 }
