@@ -25,6 +25,8 @@ import com.kevalpatel2106.connector.github.network.mapper.PullRequestMapper
 import com.kevalpatel2106.connector.github.network.mapper.PullRequestMapperImpl
 import com.kevalpatel2106.connector.github.network.mapper.StepMapper
 import com.kevalpatel2106.connector.github.network.mapper.StepMapperImpl
+import com.kevalpatel2106.connector.github.usecase.TokenHeaderValueBuilder
+import com.kevalpatel2106.connector.github.usecase.TokenHeaderValueBuilderImpl
 import com.kevalpatel2106.entity.CIType
 import dagger.Binds
 import dagger.Module
@@ -81,10 +83,16 @@ internal abstract class GitHubBindings {
     @Binds
     @ViewModelScoped
     abstract fun bindArtifactListItemMapper(
-        impl: ArtifactListItemMapperImpl
+        impl: ArtifactListItemMapperImpl,
     ): ArtifactListItemMapper
 
     @Binds
     @ViewModelScoped
     abstract fun bindArtifactTypeMapper(impl: ArtifactTypeMapperImpl): ArtifactTypeMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindTokenHeaderValueBuilder(
+        impl: TokenHeaderValueBuilderImpl
+    ): TokenHeaderValueBuilder
 }

@@ -5,9 +5,9 @@ import com.kevalpatel2106.connector.bitrise.network.mapper.ArtifactListItemMappe
 import com.kevalpatel2106.connector.ci.internal.CIArtifactProvider
 import com.kevalpatel2106.entity.AccountBasic
 import com.kevalpatel2106.entity.Artifact
+import com.kevalpatel2106.entity.ArtifactDownloadData
 import com.kevalpatel2106.entity.PagedData
 import com.kevalpatel2106.entity.ProjectBasic
-import com.kevalpatel2106.entity.Url
 import com.kevalpatel2106.entity.id.ArtifactId
 import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.entity.toUrl
@@ -45,7 +45,7 @@ internal class BitriseArtifactProvider @Inject constructor(
         accountBasic: AccountBasic,
         buildId: BuildId,
         artifactId: ArtifactId
-    ): Url {
+    ): ArtifactDownloadData {
         val response = retrofitClient
             .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
             .getArtifactDetail(
@@ -54,6 +54,6 @@ internal class BitriseArtifactProvider @Inject constructor(
                 artifactSlug = artifactId.getValue()
             )
         requireNotNull(response.data)
-        return response.data.downloadUrl.toUrl()
+        return ArtifactDownloadData(response.data.downloadUrl.toUrl(), mutableMapOf())
     }
 }

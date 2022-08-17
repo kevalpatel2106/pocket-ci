@@ -2,7 +2,7 @@ package com.kevalpatel2106.repositoryImpl.artifact
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.kevalpatel2106.entity.Url
+import com.kevalpatel2106.entity.ArtifactDownloadData
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.ArtifactId
 import com.kevalpatel2106.entity.id.BuildId
@@ -51,7 +51,7 @@ internal class ArtifactRepoImpl @Inject constructor(
         projectId: ProjectId,
         buildId: BuildId,
         artifactId: ArtifactId,
-    ): Url {
+    ): ArtifactDownloadData {
         val accountDto = accountDao.getAccountBasic(accountId.getValue())
         val projectDto = projectDao.getProjectBasic(projectId.getValue(), accountId.getValue())
         return ciConnectorFactory.get(accountDto.type)

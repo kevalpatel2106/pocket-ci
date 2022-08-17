@@ -2,7 +2,7 @@ package com.kevalpatel2106.repository
 
 import androidx.paging.PagingData
 import com.kevalpatel2106.entity.Artifact
-import com.kevalpatel2106.entity.Url
+import com.kevalpatel2106.entity.ArtifactDownloadData
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.ArtifactId
 import com.kevalpatel2106.entity.id.BuildId
@@ -22,5 +22,5 @@ interface ArtifactRepo {
         projectId: ProjectId,
         buildId: BuildId,
         artifactId: ArtifactId
-    ): Url
+    ): ArtifactDownloadData
 }

@@ -82,14 +82,12 @@ internal class ArtifactListViewModel @Inject constructor(
         viewModelScope.launch {
             _viewState.modify { copy(showDownloadingLoader = true) }
             runCatching {
-                val url = artifactRepo.getArtifactDownloadUrl(
+                artifactRepo.getArtifactDownloadUrl(
                     accountId = navArgs.accountId.toAccountId(),
                     projectId = navArgs.projectId.toProjectId(),
                     buildId = navArgs.buildId.toBuildId(),
                     artifactId = artifact.id,
                 )
-                Timber.i(url.value)
-                url
             }.onSuccess { url ->
                 downloadFileFromUrl(url, artifact.name)
                 _viewState.modify { copy(showDownloadingLoader = false) }

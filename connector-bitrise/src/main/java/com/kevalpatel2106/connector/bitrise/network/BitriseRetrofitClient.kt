@@ -9,17 +9,18 @@ import com.kevalpatel2106.entity.Token
 import com.kevalpatel2106.entity.Url
 import javax.inject.Inject
 
-internal class BitriseRetrofitClient @Inject constructor(okHttpClientFactory: OkHttpClientFactory) :
-    BaseRetrofitClient(okHttpClientFactory) {
+internal class BitriseRetrofitClient @Inject constructor(
+    okHttpClientFactory: OkHttpClientFactory
+) : BaseRetrofitClient(okHttpClientFactory) {
 
-    override fun interceptors(baseUrl: String, token: String?) = listOf(
+    override fun interceptors(baseUrl: Url, token: Token) = listOf(
         AuthHeaderInterceptor.create(token),
         VersionNameInterceptor.create(),
     )
 
-    fun getService(baseUrl: Url, token: Token?) = getService(
-        baseUrl = baseUrl.value,
-        token = token?.getValue(),
+    fun getService(baseUrl: Url, token: Token) = getService(
+        baseUrl = baseUrl,
+        token = token,
         service = BitriseEndpoint::class.java,
     )
 }

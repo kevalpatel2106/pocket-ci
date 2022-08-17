@@ -75,8 +75,8 @@ internal interface GitHubEndpoint {
 
     companion object {
         private const val API_VERSION = "v3"
-        private const val ACCEPT_HEADER_KEY = "Accept"
-        private const val ACCEPT_HEADER_VALUE = "application/vnd.github.$API_VERSION+json"
+        internal const val ACCEPT_HEADER_KEY = "Accept"
+        internal const val ACCEPT_HEADER_VALUE = "application/vnd.github.$API_VERSION+json"
         private const val API_VERSION_HEADER = "$ACCEPT_HEADER_KEY: $ACCEPT_HEADER_VALUE"
         private const val ADD_AUTH_HEADER = "$ADD_AUTH_KEY: true"
 
