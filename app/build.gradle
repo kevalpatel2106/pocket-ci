@@ -20,15 +20,15 @@ android {
 }
 
 dependencies {
+    implementation project(':feature-setting')
     // feature modules
-    implementation project(':feature-settings')
     implementation project(':feature-registration')
-    implementation project(':feature-projects')
-    implementation project(':feature-accounts')
+    implementation project(':feature-project')
+    implementation project(':feature-account')
     implementation project(':feature-build')
-    implementation project(':feature-logs')
-    implementation project(':feature-jobs')
-    implementation project(':feature-artifacts')
+    implementation project(':feature-log')
+    implementation project(':feature-job')
+    implementation project(':feature-artifact')
 
     // Core modules
     implementation project(':entity')

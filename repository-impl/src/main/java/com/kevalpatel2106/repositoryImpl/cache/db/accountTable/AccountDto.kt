@@ -5,22 +5,21 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.kevalpatel2106.entity.CIType
+import com.kevalpatel2106.entity.Token
 import com.kevalpatel2106.entity.Url
+import com.kevalpatel2106.entity.id.AccountId
 import java.util.Date
 
 @Entity(
     tableName = AccountTableInfo.TABLE_NAME,
     indices = [
-        Index(
-            value = [AccountTableInfo.EMAIL, AccountTableInfo.AUTH_TOKEN],
-            unique = true,
-        ),
+        Index(value = [AccountTableInfo.EMAIL, AccountTableInfo.AUTH_TOKEN], unique = true),
     ],
 )
 internal data class AccountDto(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = AccountTableInfo.ID)
-    var id: Long = 0,
+    var id: AccountId,
 
     @ColumnInfo(name = AccountTableInfo.NAME)
     val name: String,
@@ -38,7 +37,7 @@ internal data class AccountDto(
     val baseUrl: Url,
 
     @ColumnInfo(name = AccountTableInfo.AUTH_TOKEN)
-    val token: String,
+    val token: Token,
 
     @ColumnInfo(name = AccountTableInfo.NEXT_PAGE_CURSOR)
     val nextProjectCursor: String?,

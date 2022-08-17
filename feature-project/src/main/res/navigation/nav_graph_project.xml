@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_project"
+    app:startDestination="@id/projectList">
+
+    <fragment
+        android:id="@+id/projectList"
+        android:name="com.kevalpatel2106.feature.project.list.ProjectListFragment"
+        tools:layout="@layout/fragment_project_list"
+        android:label="@string/title_projects_screen">
+        <argument
+            android:name="accountId"
+            app:argType="long" />
+        <deepLink app:uri="pocket-ci://project-list?accountId={accountId}" />
+    </fragment>
+</navigation>

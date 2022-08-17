@@ -11,7 +11,7 @@
 
         <variable
             name="callback"
-            type="com.kevalpatel2106.feature.build.list.adapter.BuildsAdapterCallback" />
+            type="com.kevalpatel2106.feature.build.list.adapter.BuildListAdapterCallback" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -130,6 +130,7 @@
                         android:text="@{buildItem.build.triggeredBy}"
                         android:textAppearance="@style/MediumText.Primary"
                         android:textColor="@color/white"
+                        android:visibility="@{buildItem.hideTriggeredBy}"
                         app:chipIcon="@drawable/ic_person"
                         app:chipIconTint="@color/white"
                         app:ensureMinTouchTargetSize="false"
@@ -187,8 +188,7 @@
                 app:layout_constraintStart_toEndOf="@id/buildStatusView"
                 app:layout_constraintStart_toStartOf="@id/buildNumberTextView"
                 app:layout_constraintTop_toBottomOf="@id/buildChipGroup"
-                tools:ignore="MissingClass"
-                tools:text="18 hours ago" />
+                tools:ignore="MissingClass" />
 
             <com.kevalpatel2106.coreViews.TimeDifferenceTextView
                 android:id="@+id/buildExecutionTimeTextView"
@@ -208,8 +208,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/verticalGuide"
                 app:layout_constraintTop_toBottomOf="@id/buildChipGroup"
-                tools:ignore="MissingClass"
-                tools:text="18 hours 10 min" />
+                tools:ignore="MissingClass" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -7,6 +7,11 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDto
+import com.kevalpatel2106.repositoryImpl.cache.db.converter.CITypeConverter
+import com.kevalpatel2106.repositoryImpl.cache.db.converter.DateConverter
+import com.kevalpatel2106.repositoryImpl.cache.db.converter.IdConverter
+import com.kevalpatel2106.repositoryImpl.cache.db.converter.TokenConverter
+import com.kevalpatel2106.repositoryImpl.cache.db.converter.UrlConverter
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDto
 
@@ -18,7 +23,15 @@ import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDto
     version = 1,
     exportSchema = true,
 )
-@TypeConverters(DbTypeConverter::class)
+@TypeConverters(
+    value = [
+        DateConverter::class,
+        UrlConverter::class,
+        TokenConverter::class,
+        CITypeConverter::class,
+        IdConverter::class,
+    ],
+)
 internal abstract class AppDb : RoomDatabase() {
 
     abstract fun getAccountDao(): AccountDao
@@ -27,18 +40,14 @@ internal abstract class AppDb : RoomDatabase() {
 
     companion object {
         private const val DB_NAME = "pocket_ci.db"
-        private lateinit var instance: AppDb
 
         internal fun create(
             application: Context,
             inMemory: Boolean,
-        ): AppDb {
-            instance = if (inMemory) {
-                Room.inMemoryDatabaseBuilder(application, AppDb::class.java)
-            } else {
-                Room.databaseBuilder(application, AppDb::class.java, DB_NAME)
-            }.build()
-            return instance
-        }
+        ) = if (inMemory) {
+            Room.inMemoryDatabaseBuilder(application, AppDb::class.java)
+        } else {
+            Room.databaseBuilder(application, AppDb::class.java, DB_NAME)
+        }.build()
     }
 }

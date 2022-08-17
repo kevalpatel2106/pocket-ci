@@ -3,12 +3,11 @@ package com.kevalpatel2106.connector.bitrise
 import com.kevalpatel2106.connector.bitrise.network.BitriseRetrofitClient
 import com.kevalpatel2106.connector.bitrise.network.mapper.BuildMapper
 import com.kevalpatel2106.connector.ci.internal.CIBuildInfoProvider
+import com.kevalpatel2106.entity.AccountBasic
 import com.kevalpatel2106.entity.Build
 import com.kevalpatel2106.entity.PagedData
-import com.kevalpatel2106.entity.Token
-import com.kevalpatel2106.entity.Url
+import com.kevalpatel2106.entity.ProjectBasic
 import com.kevalpatel2106.entity.id.BuildId
-import com.kevalpatel2106.entity.id.ProjectId
 import javax.inject.Inject
 
 internal class BitriseBuildInfoProvider @Inject constructor(
@@ -17,35 +16,36 @@ internal class BitriseBuildInfoProvider @Inject constructor(
 ) : CIBuildInfoProvider {
 
     override suspend fun getBuildsByCreatedDesc(
-        projectId: ProjectId,
-        projectName: String,
-        projectOwner: String,
-        url: Url,
-        token: Token,
+        projectBasic: ProjectBasic,
+        accountBasic: AccountBasic,
         cursor: String?,
         limit: Int,
     ): PagedData<Build> {
         val response = retrofitClient
-            .getService(baseUrl = url, token = token)
-            .getBuildsByCreatedAt(appSlug = projectId.getValue(), next = cursor, limit = limit)
+            .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
+            .getBuildsByCreatedAt(
+                appSlug = projectBasic.remoteId.getValue(),
+                next = cursor,
+                limit = limit,
+            )
         requireNotNull(response.data)
         return PagedData(
-            data = response.data.map { buildMapper(projectId, it) },
+            data = response.data.map { buildMapper(projectBasic.remoteId, it) },
             nextCursor = response.paging?.nextCursor,
         )
     }
 
     override suspend fun getBuildLogs(
-        url: Url,
-        token: Token,
-        projectId: ProjectId,
-        projectName: String,
-        projectOwner: String,
+        projectBasic: ProjectBasic,
+        accountBasic: AccountBasic,
         buildId: BuildId,
     ): String {
-        val client = retrofitClient.getService(baseUrl = url, token = token)
+        val client = retrofitClient.getService(
+            baseUrl = accountBasic.baseUrl,
+            token = accountBasic.authToken,
+        )
         val response = client.getBuildsLogs(
-            appSlug = projectId.getValue(),
+            appSlug = projectBasic.remoteId.getValue(),
             buildSlug = buildId.getValue(),
         )
         return if (!response.isArchived) {

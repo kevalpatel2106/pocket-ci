@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4f1eccf20e082fa13d979fa1696af006",
+    "identityHash": "2ee3018f702672a1aeb60b98fba1e55e",
     "entities": [
       {
         "tableName": "account",
@@ -161,14 +161,25 @@
           ],
           "autoGenerate": false
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_projects_remote_id_account_id",
+            "unique": true,
+            "columnNames": [
+              "remote_id",
+              "account_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_projects_remote_id_account_id` ON `${TABLE_NAME}` (`remote_id`, `account_id`)"
+          }
+        ],
         "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4f1eccf20e082fa13d979fa1696af006')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2ee3018f702672a1aeb60b98fba1e55e')"
     ]
   }
 }

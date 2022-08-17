@@ -60,7 +60,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             is HandleAuthSuccess -> {
                 showSnack(getString(R.string.register_success_message, event.accountName))
                 findNavController().navigateToInAppDeeplink(
-                    DeepLinkDestinations.ProjectsList(event.accountId),
+                    DeepLinkDestinations.ProjectList(event.accountId),
                     cleanUpStack = true
                 )
             }

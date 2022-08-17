@@ -8,7 +8,7 @@ import com.kevalpatel2106.feature.build.list.adapter.BuildListItem.BuildItem
 
 internal class BuildViewHolder(
     private val binding: ListItemBuildBinding,
-    private val adapterCallback: BuildsAdapterCallback,
+    private val adapterCallback: BuildListAdapterCallback,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(listItem: BuildItem) = with(binding) {
@@ -17,7 +17,7 @@ internal class BuildViewHolder(
     }
 
     companion object {
-        fun create(parent: ViewGroup, callback: BuildsAdapterCallback): BuildViewHolder {
+        fun create(parent: ViewGroup, callback: BuildListAdapterCallback): BuildViewHolder {
             val binding = ListItemBuildBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
             return BuildViewHolder(binding, callback)

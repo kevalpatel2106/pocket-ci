@@ -58,7 +58,7 @@ class BuildDetailFragment : Fragment(R.layout.fragment_build_detail) {
                 findNavController().navigateUp()
             }
             is OpenJobs -> findNavController().navigateToInAppDeeplink(
-                DeepLinkDestinations.JobsList(
+                DeepLinkDestinations.JobList(
                     accountId = event.accountId,
                     projectId = event.projectId,
                     buildId = event.buildId,

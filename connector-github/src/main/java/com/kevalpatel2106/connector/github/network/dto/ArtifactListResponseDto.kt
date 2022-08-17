@@ -9,5 +9,5 @@ internal data class ArtifactListResponseDto(
     val totalCount: Int,
 
     @Json(name = "artifacts")
-    val artifacts: List<ArtifactListDto>,
+    val artifacts: List<ArtifactDto>,
 )

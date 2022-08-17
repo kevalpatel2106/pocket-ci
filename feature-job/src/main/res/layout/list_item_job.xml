@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="jobItem"
+            type="com.kevalpatel2106.feature.job.list.adapter.JobListItem.JobItem" />
+
+        <variable
+            name="callback"
+            type="com.kevalpatel2106.feature.job.list.adapter.JobsAdapterCallback" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Material3.CardView.Outlined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_regular"
+        android:layout_marginVertical="@dimen/spacing_small"
+        android:onClick="@{() -> callback.onJobSelected(jobItem.job)}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:padding="@dimen/spacing_small">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/verticalGuide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.55" />
+
+            <com.kevalpatel2106.coreViews.BuildStatusView
+                android:id="@+id/jobStatusView"
+                android:layout_width="@dimen/spacing_large"
+                android:layout_height="@dimen/spacing_large"
+                app:buildStatus="@{jobItem.job.status}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/yellow"
+                tools:ignore="MissingClass" />
+
+            <TextView
+                android:id="@+id/jobNameTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_regular"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="@{jobItem.job.name}"
+                android:textAppearance="@style/MediumText.Primary"
+                app:layout_constraintBottom_toBottomOf="@+id/jobStatusView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/jobStatusView"
+                app:layout_constraintTop_toTopOf="@id/jobStatusView"
+                tools:text="workflow-name-long" />
+
+            <com.kevalpatel2106.coreViews.TimeDifferenceTextView
+                android:id="@+id/buildTriggeredTimeTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_marginEnd="@dimen/spacing_micro"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="@dimen/spacing_micro"
+                android:drawableTint="?colorOnBackground"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textAppearance="@style/SmallText.Primary"
+                app:appendText="@string/ago"
+                app:dates="@{jobItem.triggeredTimeDifference}"
+                app:displayAccurate="false"
+                app:layout_constraintEnd_toStartOf="@+id/verticalGuide"
+                app:layout_constraintStart_toEndOf="@id/jobStatusView"
+                app:layout_constraintStart_toStartOf="@id/jobNameTextView"
+                app:layout_constraintTop_toBottomOf="@id/jobNameTextView"
+                tools:ignore="MissingClass"
+                tools:text="18 hours ago" />
+
+            <com.kevalpatel2106.coreViews.TimeDifferenceTextView
+                android:id="@+id/buildExecutionTimeTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_micro"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:drawableStart="@drawable/ic_watch_later"
+                android:drawablePadding="@dimen/spacing_micro"
+                android:drawableTint="?colorAccent"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textAppearance="@style/SmallText.Secondary"
+                app:dates="@{jobItem.executionTimeDifference}"
+                app:displayAccurate="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/verticalGuide"
+                app:layout_constraintTop_toBottomOf="@id/jobNameTextView"
+                tools:ignore="MissingClass"
+                tools:text="18 hours 10 min" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

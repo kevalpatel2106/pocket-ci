@@ -33,10 +33,10 @@ internal class BottomDrawerDialog : BottomSheetDialogFragment(), View.OnClickLis
     override fun onClick(viewClicked: View?) {
         when (viewClicked?.id) {
             R.id.bottom_drawer_option_settings -> {
-                findNavController().navigateToInAppDeeplink(DeepLinkDestinations.Settings)
+                findNavController().navigateToInAppDeeplink(DeepLinkDestinations.SettingList)
             }
             R.id.bottom_drawer_option_accounts -> {
-                findNavController().navigateToInAppDeeplink(DeepLinkDestinations.AccountsList)
+                findNavController().navigateToInAppDeeplink(DeepLinkDestinations.AccountList)
             }
         }
         dismiss()

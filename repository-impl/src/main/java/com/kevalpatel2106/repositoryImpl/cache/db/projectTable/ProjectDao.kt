@@ -16,6 +16,9 @@ internal interface ProjectDao {
     @Query("SELECT * FROM ${ProjectTableInfo.TABLE_NAME} WHERE ${ProjectTableInfo.REMOTE_ID} = :remoteId AND ${ProjectTableInfo.ACCOUNT_ID} = :accountId")
     suspend fun getProject(remoteId: String, accountId: Long): ProjectDto
 
+    @Query("SELECT * FROM ${ProjectTableInfo.TABLE_NAME} WHERE ${ProjectTableInfo.REMOTE_ID} = :remoteId AND ${ProjectTableInfo.ACCOUNT_ID} = :accountId")
+    suspend fun getProjectBasic(remoteId: String, accountId: Long): ProjectBasicDto
+
     @Query("SELECT * FROM ${ProjectTableInfo.TABLE_NAME} WHERE ${ProjectTableInfo.ACCOUNT_ID} = :accountId ORDER BY ${ProjectTableInfo.UPDATED_AT} DESC")
     fun getProjectsUpdatedDesc(accountId: Long): PagingSource<Int, ProjectDto>
 

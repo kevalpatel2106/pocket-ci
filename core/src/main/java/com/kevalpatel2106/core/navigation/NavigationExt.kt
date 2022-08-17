@@ -3,6 +3,7 @@ package com.kevalpatel2106.core.navigation
 import android.net.Uri
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import com.kevalpatel2106.core.R
 import timber.log.Timber
 
 fun NavController.navigateToInAppDeeplink(
@@ -19,21 +20,26 @@ fun NavController.navigateToInAppDeeplink(
         }
         .build()
     Timber.i("Navigating deeplink: $uri")
-    if (cleanUpStack) {
-        val homeNavGraphResourceId = context.resources.getIdentifier(
-            SPLASH_ID,
-            RESOURCE_ID,
-            context.packageName,
-        )
-        val navigationOptions = NavOptions.Builder()
-            .setPopUpTo(destinationId = homeNavGraphResourceId, inclusive = true)
-            .build()
-        navigate(uri, navigationOptions)
-    } else {
-        navigate(uri)
-    }
+    val navigationOptions = NavOptions.Builder()
+        .setLaunchSingleTop(true)
+        .setEnterAnim(R.anim.slide_in_right)
+        .setExitAnim(R.anim.slide_out_left)
+        .setPopEnterAnim(R.anim.slide_in_left)
+        .setPopExitAnim(R.anim.slide_out_right)
+        .apply {
+            if (cleanUpStack) {
+                val mainNavGraphId = context.resources.getIdentifier(
+                    MAIN_NAV_GRAPH_ID,
+                    RESOURCE_ID,
+                    context.packageName,
+                )
+                setPopUpTo(mainNavGraphId, inclusive = true)
+            }
+        }
+        .build()
+    navigate(uri, navigationOptions)
 }
 
-private const val SPLASH_ID = "splash"
+private const val MAIN_NAV_GRAPH_ID = "nav_graph" // From nav_graph.xml
 private const val RESOURCE_ID = "id"
 private const val URI_SCHEMA = "pocket-ci"

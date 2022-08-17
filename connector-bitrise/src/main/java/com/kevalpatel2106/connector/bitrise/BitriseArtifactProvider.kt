@@ -3,12 +3,14 @@ package com.kevalpatel2106.connector.bitrise
 import com.kevalpatel2106.connector.bitrise.network.BitriseRetrofitClient
 import com.kevalpatel2106.connector.bitrise.network.mapper.ArtifactListItemMapper
 import com.kevalpatel2106.connector.ci.internal.CIArtifactProvider
+import com.kevalpatel2106.entity.AccountBasic
 import com.kevalpatel2106.entity.Artifact
 import com.kevalpatel2106.entity.PagedData
-import com.kevalpatel2106.entity.Token
+import com.kevalpatel2106.entity.ProjectBasic
 import com.kevalpatel2106.entity.Url
+import com.kevalpatel2106.entity.id.ArtifactId
 import com.kevalpatel2106.entity.id.BuildId
-import com.kevalpatel2106.entity.id.ProjectId
+import com.kevalpatel2106.entity.toUrl
 import javax.inject.Inject
 
 internal class BitriseArtifactProvider @Inject constructor(
@@ -17,19 +19,16 @@ internal class BitriseArtifactProvider @Inject constructor(
 ) : CIArtifactProvider {
 
     override suspend fun getArtifacts(
-        projectId: ProjectId,
-        projectName: String,
-        projectOwner: String,
+        projectBasic: ProjectBasic,
+        accountBasic: AccountBasic,
         buildId: BuildId,
-        url: Url,
-        token: Token,
         cursor: String?,
-        limit: Int,
+        limit: Int
     ): PagedData<Artifact> {
         val response = retrofitClient
-            .getService(baseUrl = url, token = token)
+            .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
             .getArtifacts(
-                appSlug = projectId.getValue(),
+                appSlug = projectBasic.remoteId.getValue(),
                 buildSlug = buildId.getValue(),
                 next = cursor,
                 limit = limit,
@@ -39,5 +38,22 @@ internal class BitriseArtifactProvider @Inject constructor(
             data = response.data.map { artifactListItemMapper(it, buildId) },
             nextCursor = response.paging?.nextCursor,
         )
+    }
+
+    override suspend fun getArtifactDownloadUrl(
+        projectBasic: ProjectBasic,
+        accountBasic: AccountBasic,
+        buildId: BuildId,
+        artifactId: ArtifactId
+    ): Url {
+        val response = retrofitClient
+            .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
+            .getArtifactDetail(
+                appSlug = projectBasic.remoteId.getValue(),
+                buildSlug = buildId.getValue(),
+                artifactSlug = artifactId.getValue()
+            )
+        requireNotNull(response.data)
+        return response.data.downloadUrl.toUrl()
     }
 }

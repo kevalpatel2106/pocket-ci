@@ -178,6 +178,9 @@
     <string name="artifacts_list_empty_state_title">No artifacts found.</string>
     <string name="artifact_list_create_label">Created:</string>
     <string name="artifact_list_size_label">Size:</string>
+    <string name="artifact_list_download_queued_successfully">Download added to queue. Check notification for more info.</string>
+    <string name="artifact_list_download_queue_error">Cannot initiate download.</string>
+    <string name="artifact_list_downloading_in_progress_message">Downloading</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

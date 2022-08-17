@@ -1,0 +1,8 @@
+package com.kevalpatel2106.feature.account.list.usecase
+
+import com.kevalpatel2106.entity.Account
+import com.kevalpatel2106.feature.account.list.adapter.AccountsListItem
+
+interface ConvertToAccountItem {
+    suspend operator fun invoke(account: Account): AccountsListItem.AccountItem
+}

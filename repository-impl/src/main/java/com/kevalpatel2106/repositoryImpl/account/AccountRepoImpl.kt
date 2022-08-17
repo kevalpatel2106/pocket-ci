@@ -44,11 +44,11 @@ internal class AccountRepoImpl @Inject constructor(
         // cache
         val accountDto = with(account) {
             AccountDto(
-                id = AccountId.EMPTY.getValue(), // New account
+                id = AccountId.EMPTY, // New account
                 name = name,
                 baseUrl = baseUrl,
                 savedAt = Date(),
-                token = authToken.getValue(),
+                token = authToken,
                 type = type,
                 email = email,
                 avatar = avatar,
@@ -72,7 +72,7 @@ internal class AccountRepoImpl @Inject constructor(
     override suspend fun getAccount(accountId: AccountId): Account {
         val accountDto = accountDao.getAccount(accountId.getValue())
         val activeId = appDataStore.getSelectedAccountId()
-        return accountMapper(accountDto, isSelected = activeId?.getValue() == accountDto.id)
+        return accountMapper(accountDto, isSelected = activeId == accountDto.id)
     }
 
     override fun getAccounts(): Flow<PagingData<Account>> {
@@ -81,7 +81,7 @@ internal class AccountRepoImpl @Inject constructor(
             pagingSourceFactory = { accountDao.getAccounts() },
         ).flow.map { accountDtos ->
             val activeId = appDataStore.getSelectedAccountId()
-            accountDtos.map { accountMapper(it, isSelected = activeId?.getValue() == it.id) }
+            accountDtos.map { accountMapper(it, isSelected = activeId == it.id) }
         }
     }
 
@@ -95,7 +95,7 @@ internal class AccountRepoImpl @Inject constructor(
                     val firstAccountDto = accountDao.getFirstAccount()
                     requireNotNull(firstAccountDto) { "There are no accounts in the database." }
 
-                    appDataStore.updateSelectedAccountId(firstAccountDto.id.toAccountId())
+                    appDataStore.updateSelectedAccountId(firstAccountDto.id)
                     accountMapper(firstAccountDto, isSelected = true)
                 } else {
                     val accountDto = accountDao.getAccount(selectedAccountId.getValue())

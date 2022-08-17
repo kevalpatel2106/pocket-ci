@@ -23,6 +23,9 @@ internal interface AccountDao {
     @Query("SELECT * FROM ${AccountTableInfo.TABLE_NAME} WHERE ${AccountTableInfo.ID} = :accountId")
     suspend fun getAccount(accountId: Long): AccountDto
 
+    @Query("SELECT * FROM ${AccountTableInfo.TABLE_NAME} WHERE ${AccountTableInfo.ID} = :accountId")
+    suspend fun getAccountBasic(accountId: Long): AccountBasicDto
+
     @Query("SELECT * FROM ${AccountTableInfo.TABLE_NAME} ORDER BY ${AccountTableInfo.TYPE} ASC")
     fun getAccounts(): PagingSource<Int, AccountDto>
 

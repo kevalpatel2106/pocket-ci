@@ -5,7 +5,6 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.kevalpatel2106.entity.id.AccountId
-import com.kevalpatel2106.entity.toToken
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDto
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
@@ -54,7 +53,7 @@ internal class ProjectRemoteMediator private constructor(
             val pagedData = ciRepo.getProjectsUpdatedDesc(
                 accountId = accountId,
                 url = account.baseUrl,
-                token = account.token.toToken(),
+                token = account.token,
                 cursor = cursorToLoad,
                 limit = PAGE_SIZE,
             )

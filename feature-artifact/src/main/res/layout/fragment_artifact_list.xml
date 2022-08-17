@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.kevalpatel2106.feature.artifact.list.ArtifactListViewModel" />
+    </data>
+
+    <ViewFlipper
+        android:id="@+id/artifactListViewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 0. Loader -->
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <!-- 1. Artifacts list -->
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/artifactListSwipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/artifactListRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/spacing_small"
+                android:paddingBottom="@dimen/spacing_huge"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_item_artifact" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <!-- 2. Error state -->
+        <com.kevalpatel2106.coreViews.errorView.ErrorStateView
+            android:id="@+id/artifactListErrorView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:onCloseButtonClick="@{() -> model.close()}"
+            app:onRetryButtonClick="@{() -> model.reload()}" />
+
+        <!-- 3. Empty state -->
+        <com.kevalpatel2106.coreViews.errorView.ErrorStateView
+            android:id="@+id/artifactListEmptyView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:descriptionText="@string/artifacts_list_empty_state_message"
+            app:headlineText="@string/artifacts_list_empty_state_title"
+            app:showCallToAction="false" />
+    </ViewFlipper>
+</layout>

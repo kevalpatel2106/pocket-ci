@@ -6,20 +6,20 @@ import com.kevalpatel2106.entity.id.JobId
 import com.kevalpatel2106.entity.id.ProjectId
 
 sealed class DeepLinkDestinations(val value: String, val navArgs: Map<String, String?>) {
-    object Settings : DeepLinkDestinations("settings", emptyMap())
+    object SettingList : DeepLinkDestinations("setting-list", emptyMap())
     object CiSelection : DeepLinkDestinations("ci-selection", emptyMap())
-    object AccountsList : DeepLinkDestinations("accounts-list", emptyMap())
+    object AccountList : DeepLinkDestinations("account-list", emptyMap())
 
-    data class ProjectsList(private val accountId: AccountId) : DeepLinkDestinations(
-        value = "projects",
+    data class ProjectList(private val accountId: AccountId) : DeepLinkDestinations(
+        value = "project-list",
         navArgs = mapOf("accountId" to accountId.getValue().toString()),
     )
 
-    data class BuildsList(
+    data class BuildList(
         private val accountId: AccountId,
         private val projectId: ProjectId,
     ) : DeepLinkDestinations(
-        value = "builds-list",
+        value = "build-list",
         navArgs = mapOf(
             "accountId" to accountId.getValue().toString(),
             "projectId" to projectId.getValue(),
@@ -56,7 +56,7 @@ sealed class DeepLinkDestinations(val value: String, val navArgs: Map<String, St
         ),
     )
 
-    data class JobsList(
+    data class JobList(
         private val accountId: AccountId,
         private val projectId: ProjectId,
         private val buildId: BuildId,

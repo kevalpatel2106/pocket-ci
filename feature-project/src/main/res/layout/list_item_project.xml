@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="project"
+            type="com.kevalpatel2106.entity.Project" />
+
+        <variable
+            name="callback"
+            type="com.kevalpatel2106.feature.project.list.adapter.ProjectListAdapterCallback" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_regular"
+        android:layout_marginVertical="@dimen/spacing_micro"
+        android:clickable="@{!project.disabled}"
+        android:onClick="@{() -> callback.onProjectSelected(project)}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_small">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/projectIconImageView"
+                android:layout_width="@dimen/spacing_xlarge"
+                android:layout_height="@dimen/spacing_xlarge"
+                android:contentDescription="@{project.name}"
+                app:imageUrl="@{project.image}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"
+                tools:src="@tools:sample/avatars" />
+
+            <CheckBox
+                android:id="@+id/projectFavoriteCheckBox"
+                android:layout_width="@dimen/spacing_large"
+                android:layout_height="@dimen/spacing_large"
+                android:button="@drawable/selectable_start"
+                android:buttonTint="@color/orange"
+                android:checked="@{project.favourite}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/projectOwnerTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_regular"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{project.owner}"
+                android:textAppearance="@style/SmallText.Orange"
+                app:layout_constraintBottom_toTopOf="@+id/projectNameTextView"
+                app:layout_constraintEnd_toStartOf="@id/projectFavoriteCheckBox"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/projectIconImageView"
+                app:layout_constraintTop_toTopOf="@+id/projectIconImageView"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="@tools:sample/first_names" />
+
+            <TextView
+                android:id="@+id/projectNameTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_regular"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{project.name}"
+                android:textAppearance="@style/MediumText.Primary"
+                app:layout_constraintBottom_toBottomOf="@id/projectIconImageView"
+                app:layout_constraintEnd_toStartOf="@id/projectFavoriteCheckBox"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/projectIconImageView"
+                app:layout_constraintTop_toBottomOf="@+id/projectOwnerTextView"
+                tools:text="@tools:sample/full_names" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

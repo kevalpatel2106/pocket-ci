@@ -10,8 +10,8 @@ internal class ProjectDtoMapperImpl @Inject constructor() : ProjectDtoMapper {
     override operator fun invoke(project: Project) = with(project) {
         ProjectDto(
             name = name,
-            remoteId = remoteId.getValue(),
-            accountId = accountId.getValue(),
+            remoteId = remoteId,
+            accountId = accountId,
             image = image,
             repoUrl = repoUrl,
             isDisabled = isDisabled,

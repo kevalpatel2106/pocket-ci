@@ -3,27 +3,18 @@ package com.kevalpatel2106.repositoryImpl.artifact
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.kevalpatel2106.connector.ci.CIConnector
+import com.kevalpatel2106.entity.AccountBasic
 import com.kevalpatel2106.entity.Artifact
-import com.kevalpatel2106.entity.Token
-import com.kevalpatel2106.entity.Url
+import com.kevalpatel2106.entity.ProjectBasic
 import com.kevalpatel2106.entity.id.BuildId
-import com.kevalpatel2106.entity.id.ProjectId
-import com.kevalpatel2106.entity.id.toProjectId
-import com.kevalpatel2106.entity.toToken
 import com.kevalpatel2106.repositoryImpl.build.BuildRepoImpl.Companion.PAGE_SIZE
-import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDto
-import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDto
 import timber.log.Timber
 import javax.inject.Inject
 
-@Suppress("LongParameterList")
 internal class ArtifactsPagingSource(
-    private val projectId: ProjectId,
-    private val projectName: String,
-    private val projectOwner: String,
+    private val projectBasic: ProjectBasic,
+    private val accountBasic: AccountBasic,
     private val buildId: BuildId,
-    private val baseUrl: Url,
-    private val authToken: Token,
     private val ciConnector: CIConnector,
 ) : PagingSource<String, Artifact>() {
 
@@ -32,12 +23,9 @@ internal class ArtifactsPagingSource(
 
         runCatching {
             ciConnector.getArtifacts(
-                projectId = projectId,
-                projectName = projectName,
-                projectOwner = projectOwner,
+                projectBasic = projectBasic,
+                accountBasic = accountBasic,
                 buildId = buildId,
-                url = baseUrl,
-                token = authToken,
                 cursor = params.key,
                 limit = PAGE_SIZE,
             )
@@ -64,19 +52,17 @@ internal class ArtifactsPagingSource(
     }
 
     class Factory @Inject constructor() {
+
         fun create(
-            accountDto: AccountDto,
-            projectDto: ProjectDto,
+            accountBasic: AccountBasic,
+            projectBasic: ProjectBasic,
             buildId: BuildId,
             ciConnector: CIConnector,
         ) = ArtifactsPagingSource(
-            projectId = projectDto.remoteId.toProjectId(),
-            projectName = projectDto.name,
-            projectOwner = projectDto.owner,
+            projectBasic = projectBasic,
+            accountBasic = accountBasic,
             buildId = buildId,
-            baseUrl = accountDto.baseUrl,
-            authToken = accountDto.token.toToken(),
-            ciConnector,
+            ciConnector = ciConnector,
         )
     }
 

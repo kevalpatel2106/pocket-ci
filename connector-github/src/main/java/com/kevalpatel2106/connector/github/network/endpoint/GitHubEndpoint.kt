@@ -1,5 +1,6 @@
 package com.kevalpatel2106.connector.github.network.endpoint
 
+import com.kevalpatel2106.connector.github.network.dto.ArtifactDto
 import com.kevalpatel2106.connector.github.network.dto.ArtifactListResponseDto
 import com.kevalpatel2106.connector.github.network.dto.BuildListDto
 import com.kevalpatel2106.connector.github.network.dto.JobListDto
@@ -63,6 +64,14 @@ internal interface GitHubEndpoint {
         @Path("repo") repo: String,
         @Path("job_id") jobId: String,
     ): String
+
+    @Headers(ADD_AUTH_HEADER, API_VERSION_HEADER)
+    @GET("/repos/{owner}/{repo}/actions/artifacts/{artifact_id}")
+    suspend fun getArtifactDetail(
+        @Path("owner") owner: String,
+        @Path("repo") repo: String,
+        @Path("artifact_id") artifactId: String,
+    ): ArtifactDto
 
     companion object {
         private const val API_VERSION = "v3"

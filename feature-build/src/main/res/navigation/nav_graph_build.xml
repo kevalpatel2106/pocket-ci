@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_build"
+    app:startDestination="@id/buildList">
+
+    <fragment
+        android:id="@+id/buildList"
+        android:name="com.kevalpatel2106.feature.build.list.BuildListFragment"
+        android:label="@string/title_builds_screen"
+        tools:layout="@layout/fragment_build_list">
+        <argument
+            android:name="projectId"
+            app:argType="string" />
+        <argument
+            android:name="accountId"
+            app:argType="long" />
+        <deepLink app:uri="pocket-ci://build-list?accountId={accountId}&amp;projectId={projectId}" />
+
+        <action
+            android:id="@+id/action_build_list_to_detail"
+            app:destination="@id/buildDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/buildDetail"
+        android:name="com.kevalpatel2106.feature.build.detail.BuildDetailFragment"
+        android:label="@string/title_build_detail"
+        tools:layout="@layout/fragment_build_detail">
+        <argument
+            android:name="accountId"
+            app:argType="com.kevalpatel2106.entity.id.AccountId" />
+        <argument
+            android:name="build"
+            app:argType="com.kevalpatel2106.entity.Build" />
+        <action
+            android:id="@+id/action_build_detail_to_markdown_view"
+            app:destination="@id/markdownViewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/markdownViewFragment"
+        android:name="com.kevalpatel2106.feature.build.markdownView.MarkdownViewerFragment"
+        tools:layout="@layout/fragment_markdown_viewer">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="message"
+            app:argType="string" />
+    </fragment>
+</navigation>

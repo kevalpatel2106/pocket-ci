@@ -5,13 +5,12 @@ import com.kevalpatel2106.connector.github.network.GitHubRetrofitClient
 import com.kevalpatel2106.connector.github.network.endpoint.GitHubEndpoint
 import com.kevalpatel2106.connector.github.network.mapper.BuildMapper
 import com.kevalpatel2106.core.extentions.notSupported
+import com.kevalpatel2106.entity.AccountBasic
 import com.kevalpatel2106.entity.Build
 import com.kevalpatel2106.entity.CIType
 import com.kevalpatel2106.entity.PagedData
-import com.kevalpatel2106.entity.Token
-import com.kevalpatel2106.entity.Url
+import com.kevalpatel2106.entity.ProjectBasic
 import com.kevalpatel2106.entity.id.BuildId
-import com.kevalpatel2106.entity.id.ProjectId
 import javax.inject.Inject
 
 internal class GitHubBuildInfoProvider @Inject constructor(
@@ -20,19 +19,16 @@ internal class GitHubBuildInfoProvider @Inject constructor(
 ) : CIBuildInfoProvider {
 
     override suspend fun getBuildsByCreatedDesc(
-        projectId: ProjectId,
-        projectName: String,
-        projectOwner: String,
-        url: Url,
-        token: Token,
+        projectBasic: ProjectBasic,
+        accountBasic: AccountBasic,
         cursor: String?,
-        limit: Int,
+        limit: Int
     ): PagedData<Build> {
         val pageNumber = cursor?.toInt() ?: GitHubEndpoint.FIRST_PAGE_CURSOR
 
         val buildsDto = retrofitClient
-            .getService(baseUrl = url, token = token)
-            .getBuildsTriggeredAtDesc(projectOwner, projectName, limit, pageNumber)
+            .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
+            .getBuildsTriggeredAtDesc(projectBasic.owner, projectBasic.name, limit, pageNumber)
 
         val nextCursor = if (buildsDto.workflowRuns.isEmpty()) {
             null
@@ -40,18 +36,15 @@ internal class GitHubBuildInfoProvider @Inject constructor(
             pageNumber + 1
         }
         return PagedData(
-            data = buildsDto.workflowRuns.map { buildMapper(projectId, it) },
+            data = buildsDto.workflowRuns.map { buildMapper(projectBasic.remoteId, it) },
             nextCursor = nextCursor?.toString(),
         )
     }
 
     override suspend fun getBuildLogs(
-        url: Url,
-        token: Token,
-        projectId: ProjectId,
-        projectName: String,
-        projectOwner: String,
-        buildId: BuildId,
+        projectBasic: ProjectBasic,
+        accountBasic: AccountBasic,
+        buildId: BuildId
     ): String {
         notSupported(CIType.GITHUB, "GitHub doesn't support build logs.")
     }

@@ -35,7 +35,7 @@ class SplashFragment : Fragment() {
     private fun handleSingleViewState(event: SplashVMEvent) = when (event) {
         CloseApplication -> activity?.finish()
         is OpenProjects -> findNavController().navigateToInAppDeeplink(
-            DeepLinkDestinations.ProjectsList(event.accountId),
+            DeepLinkDestinations.ProjectList(event.accountId),
             cleanUpStack = true,
         )
         OpenRegisterAccount -> findNavController().navigateToInAppDeeplink(

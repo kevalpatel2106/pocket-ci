@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.kevalpatel2106.feature.log.BuildLogViewModel" />
+    </data>
+
+    <ViewFlipper
+        android:id="@+id/buildLogViewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:displayChild="@{model.viewState.viewFlipperPos}">
+
+        <!-- 0. Loader-->
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <!-- 1. List-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/buildLogVerticalScroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/buildLogTextView"
+                        style="@style/SmallText.Primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/spacing_small" />
+                </HorizontalScrollView>
+            </androidx.core.widget.NestedScrollView>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/buildLogScrollDownFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_regular"
+                android:onClick="@{() -> model.scrollToBottom()}"
+                android:src="@drawable/ic_arrow_down"
+                app:ensureMinTouchTargetSize="true"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/buildLogScrollUpFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> model.scrollToTop()}"
+                android:src="@drawable/ic_arrow_up"
+                app:ensureMinTouchTargetSize="true"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toBottomOf="@id/buildLogScrollDownFab"
+                app:layout_constraintEnd_toStartOf="@id/buildLogScrollDownFab" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 2. Error-->
+        <com.kevalpatel2106.coreViews.errorView.ErrorStateView
+            android:id="@+id/buildListErrorView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:onCloseButtonClick="@{() -> model.close()}"
+            app:onRetryButtonClick="@{() -> model.reload()}" />
+
+        <!-- 3. Empty view-->
+        <com.kevalpatel2106.coreViews.errorView.ErrorStateView
+            android:id="@+id/buildListEmptyView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:descriptionText="@string/build_log_empty_state_message"
+            app:headlineText="@string/build_log_empty_state_title"
+            app:showCallToAction="false" />
+    </ViewFlipper>
+</layout>
