@@ -41,6 +41,21 @@ sealed class DeepLinkDestinations(val value: String, val navArgs: Map<String, St
         ),
     )
 
+    data class ArtifactList(
+        private val accountId: AccountId,
+        private val projectId: ProjectId,
+        private val buildId: BuildId,
+        private val title: String?,
+    ) : DeepLinkDestinations(
+        value = "artifact-list",
+        navArgs = mapOf(
+            "accountId" to accountId.getValue().toString(),
+            "projectId" to projectId.getValue(),
+            "buildId" to buildId.getValue(),
+            "title" to title,
+        ),
+    )
+
     data class JobsList(
         private val accountId: AccountId,
         private val projectId: ProjectId,

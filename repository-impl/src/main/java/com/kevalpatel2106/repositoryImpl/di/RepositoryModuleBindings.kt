@@ -2,6 +2,7 @@ package com.kevalpatel2106.repositoryImpl.di
 
 import com.kevalpatel2106.repository.AccountRepo
 import com.kevalpatel2106.repository.AppConfigRepo
+import com.kevalpatel2106.repository.ArtifactRepo
 import com.kevalpatel2106.repository.BuildRepo
 import com.kevalpatel2106.repository.CIInfoRepo
 import com.kevalpatel2106.repository.JobRepo
@@ -9,6 +10,7 @@ import com.kevalpatel2106.repository.ProjectRepo
 import com.kevalpatel2106.repository.SettingsRepo
 import com.kevalpatel2106.repositoryImpl.account.AccountRepoImpl
 import com.kevalpatel2106.repositoryImpl.appConfig.AppConfigRepoImpl
+import com.kevalpatel2106.repositoryImpl.artifact.ArtifactRepoImpl
 import com.kevalpatel2106.repositoryImpl.build.BuildRepoImpl
 import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStore
 import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStoreImpl
@@ -78,4 +80,7 @@ internal abstract class RepositoryModuleBindings {
 
     @Binds
     abstract fun bindJobRepo(impl: JobRepoImpl): JobRepo
+
+    @Binds
+    abstract fun bindArtifactRepo(impl: ArtifactRepoImpl): ArtifactRepo
 }

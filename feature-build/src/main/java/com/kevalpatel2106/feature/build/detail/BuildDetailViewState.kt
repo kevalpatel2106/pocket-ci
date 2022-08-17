@@ -2,10 +2,12 @@ package com.kevalpatel2106.feature.build.detail
 
 import com.kevalpatel2106.coreViews.TimeDifferenceTextView.TimeDifferenceData
 import com.kevalpatel2106.entity.Build
+import com.kevalpatel2106.entity.isInProgress
 
 data class BuildDetailViewState(
     val hideBuildLogButton: Boolean,
     val hideJobsListButton: Boolean,
+    val hideArtifactsButton: Boolean,
     val build: Build,
 ) {
     val hideActorInfo = build.triggeredBy.isNullOrBlank()
@@ -32,6 +34,7 @@ data class BuildDetailViewState(
         fun initialState(build: Build) = BuildDetailViewState(
             hideBuildLogButton = true,
             hideJobsListButton = true,
+            hideArtifactsButton = build.status.isInProgress(),
             build = build,
         )
     }

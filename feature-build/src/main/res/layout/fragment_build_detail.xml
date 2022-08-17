@@ -84,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:drawableStart="@drawable/ic_history"
-                        android:text="Status"
+                        android:text="@string/build_detail_build_status_label"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -122,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:drawableStart="@drawable/ic_branch"
-                        android:text="Branch"
+                        android:text="@string/build_detail_branch_label"
                         app:layout_constraintBottom_toBottomOf="@+id/buildHeadBranchTextView"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/buildHeadBranchTextView"
@@ -150,7 +150,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_person"
-                        android:text="Triggered by"
+                        android:text="@string/build_detail_triggered_by_label"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/buildHeadBranchTextView" />
 
@@ -182,7 +182,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_calendar"
-                        android:text="Build triggered"
+                        android:text="@string/build_detail_build_triggered_label"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/buildActorTextView" />
 
@@ -211,7 +211,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_watch_later"
-                        android:text="Ran for"
+                        android:text="@string/build_detail_ran_for_label"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/buildTriggeredTimeLabel" />
 
@@ -263,7 +263,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:drawableStart="@drawable/ic_commit"
-                        android:text="Commit"
+                        android:text="@string/build_detail_commit_title"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -322,7 +322,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:drawableStart="@drawable/ic_delete"
-                        android:text="Abort Message"
+                        android:text="@string/build_detail_abort_reason_title"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -363,7 +363,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_regular"
                 android:onClick="@{() -> model.onOpenBuildLogs()}"
-                android:text="View Build Logs"
+                android:text="@string/build_detail_open_logs"
                 android:visibility="@{model.viewState.hideBuildLogButton}"
                 app:layout_constraintEnd_toEndOf="@id/buildDetailRightEdgeGuideline"
                 app:layout_constraintStart_toStartOf="@+id/buildDetailLeftEdgeGuideline"
@@ -375,12 +375,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_regular"
                 android:onClick="@{() -> model.onOpenJobs()}"
-                android:text="View Jobs"
+                android:text="@string/build_detail_open_jobs"
                 android:visibility="@{model.viewState.hideJobsListButton}"
                 app:layout_constraintEnd_toEndOf="@id/buildDetailRightEdgeGuideline"
                 app:layout_constraintStart_toStartOf="@+id/buildDetailLeftEdgeGuideline"
                 app:layout_constraintTop_toBottomOf="@id/buildLogsButton" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/openArtifactsButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_regular"
+                android:onClick="@{() -> model.onOpenArtifacts()}"
+                android:text="@string/build_detail_open_artifacts"
+                android:visibility="@{model.viewState.hideArtifactsButton}"
+                app:layout_constraintEnd_toEndOf="@id/buildDetailRightEdgeGuideline"
+                app:layout_constraintStart_toStartOf="@+id/buildDetailLeftEdgeGuideline"
+                app:layout_constraintTop_toBottomOf="@id/openJobsButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

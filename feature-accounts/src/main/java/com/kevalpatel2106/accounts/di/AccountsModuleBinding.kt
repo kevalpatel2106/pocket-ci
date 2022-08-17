@@ -1,4 +1,4 @@
-package com.kevalpatel2106.accounts.list.di
+package com.kevalpatel2106.accounts.di
 
 import com.kevalpatel2106.accounts.list.usecase.ConvertToAccountItem
 import com.kevalpatel2106.accounts.list.usecase.ConvertToAccountItemImpl

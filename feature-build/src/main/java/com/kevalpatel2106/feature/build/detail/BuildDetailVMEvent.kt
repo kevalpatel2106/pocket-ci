@@ -14,6 +14,13 @@ internal sealed class BuildDetailVMEvent {
         val buildId: BuildId,
     ) : BuildDetailVMEvent()
 
+    class OpenBuildArtifacts(
+        val accountId: AccountId,
+        val projectId: ProjectId,
+        val buildId: BuildId,
+        val title: String,
+    ) : BuildDetailVMEvent()
+
     class OpenJobs(
         val accountId: AccountId,
         val projectId: ProjectId,

@@ -5,6 +5,10 @@ import com.kevalpatel2106.connector.ci.internal.CIConnectorBindingKey
 import com.kevalpatel2106.connector.github.GitHubConnector
 import com.kevalpatel2106.connector.github.network.mapper.AccountMapper
 import com.kevalpatel2106.connector.github.network.mapper.AccountMapperImpl
+import com.kevalpatel2106.connector.github.network.mapper.ArtifactListItemMapper
+import com.kevalpatel2106.connector.github.network.mapper.ArtifactListItemMapperImpl
+import com.kevalpatel2106.connector.github.network.mapper.ArtifactTypeMapper
+import com.kevalpatel2106.connector.github.network.mapper.ArtifactTypeMapperImpl
 import com.kevalpatel2106.connector.github.network.mapper.BuildMapper
 import com.kevalpatel2106.connector.github.network.mapper.BuildMapperImpl
 import com.kevalpatel2106.connector.github.network.mapper.BuildStatusMapper
@@ -73,4 +77,14 @@ internal abstract class GitHubBindings {
     @Binds
     @ViewModelScoped
     abstract fun bindStepMapper(impl: StepMapperImpl): StepMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindArtifactListItemMapper(
+        impl: ArtifactListItemMapperImpl
+    ): ArtifactListItemMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindArtifactTypeMapper(impl: ArtifactTypeMapperImpl): ArtifactTypeMapper
 }

@@ -1,5 +1,6 @@
 package com.kevalpatel2106.connector.github.network.endpoint
 
+import com.kevalpatel2106.connector.github.network.dto.ArtifactListResponseDto
 import com.kevalpatel2106.connector.github.network.dto.BuildListDto
 import com.kevalpatel2106.connector.github.network.dto.JobListDto
 import com.kevalpatel2106.connector.github.network.dto.ProjectDto
@@ -44,6 +45,16 @@ internal interface GitHubEndpoint {
         @Query("per_page") perPage: Int,
         @Query("page") page: Int,
     ): JobListDto
+
+    @Headers(ADD_AUTH_HEADER, API_VERSION_HEADER)
+    @GET("/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts")
+    suspend fun getArtifacts(
+        @Path("owner") owner: String,
+        @Path("repo") repo: String,
+        @Path("run_id") buildId: String,
+        @Query("per_page") perPage: Int,
+        @Query("page") page: Int,
+    ): ArtifactListResponseDto
 
     @Headers(ADD_AUTH_HEADER, API_VERSION_HEADER)
     @GET("/repos/{owner}/{repo}/actions/jobs/{job_id}/logs")

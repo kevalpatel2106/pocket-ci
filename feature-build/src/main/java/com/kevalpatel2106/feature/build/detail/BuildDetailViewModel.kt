@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.kevalpatel2106.core.BaseViewModel
 import com.kevalpatel2106.core.extentions.modify
 import com.kevalpatel2106.feature.build.R
+import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenBuildArtifacts
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenBuildLogs
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenJobs
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenMarkDownViewer
@@ -61,6 +62,17 @@ internal class BuildDetailViewModel @Inject constructor(
     fun onOpenJobs() = viewModelScope.launch {
         _vmEventsFlow.emit(
             OpenJobs(
+                accountId = navArgs.accountId,
+                projectId = navArgs.build.projectId,
+                buildId = navArgs.build.id,
+                title = "${viewState.value.build.workflow.name} (#${viewState.value.build.number})",
+            ),
+        )
+    }
+
+    fun onOpenArtifacts() = viewModelScope.launch {
+        _vmEventsFlow.emit(
+            OpenBuildArtifacts(
                 accountId = navArgs.accountId,
                 projectId = navArgs.build.projectId,
                 buildId = navArgs.build.id,

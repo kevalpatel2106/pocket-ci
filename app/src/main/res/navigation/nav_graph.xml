@@ -11,6 +11,7 @@
     <include app:graph="@navigation/nav_graph_builds" />
     <include app:graph="@navigation/nav_graph_logs" />
     <include app:graph="@navigation/nav_graph_jobs" />
+    <include app:graph="@navigation/nav_graph_artifacts" />
 
     <fragment
         android:id="@+id/splash"
