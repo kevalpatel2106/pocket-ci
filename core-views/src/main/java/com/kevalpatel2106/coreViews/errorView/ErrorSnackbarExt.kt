@@ -1,18 +1,23 @@
 package com.kevalpatel2106.coreViews.errorView
 
+import android.content.res.Resources
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.core.extentions.showSnack
 import com.kevalpatel2106.coreViews.R
+import com.kevalpatel2106.entity.DisplayError
 
 fun Fragment.showErrorSnack(
-    throwable: Throwable,
-    displayErrorMapper: DisplayErrorMapper,
+    displayError: DisplayError,
+    @StringRes messageRes: Int = Resources.ID_NULL,
 ): Snackbar {
-    val displayError = displayErrorMapper(throwable, shortMessage = true)
     return showSnack(
-        message = displayError.message,
+        message = if (messageRes == Resources.ID_NULL) {
+            displayError.message
+        } else {
+            getString(messageRes)
+        },
         actonTitle = R.string.error_snack_more_button_title,
         actionListener = { DebugInfoAlertDialogBuilder(requireContext()).show(displayError) },
     )

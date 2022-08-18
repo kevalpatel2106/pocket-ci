@@ -6,12 +6,12 @@ import com.kevalpatel2106.feature.account.list.adapter.AccountsListItem.AccountI
 import com.kevalpatel2106.repository.CIInfoRepo
 import javax.inject.Inject
 
-class ConvertToAccountItemImpl @Inject constructor(
+class AccountItemMapperImpl @Inject constructor(
     private val ciInfoRepo: CIInfoRepo,
-) : ConvertToAccountItem {
+) : AccountItemMapper {
 
     override suspend fun invoke(account: Account): AccountItem {
-        val ciRepo = ciInfoRepo.getCI(account.type)
+        val ciRepo = ciInfoRepo.getCIInfo(account.type)
         val strokeWidth = if (account.isSelected) {
             R.dimen.selected_account_stroke_width
         } else {

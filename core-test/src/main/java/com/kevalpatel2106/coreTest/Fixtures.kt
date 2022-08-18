@@ -43,4 +43,6 @@ fun getCIInfoFixture(fixture: KFixture) = CIInfo(
     supportJobLogs = fixture(),
     supportBuildLogs = fixture(),
     supportJobs = fixture(),
+    supportDownloadArtifacts = fixture(),
+    supportViewArtifacts = fixture(),
 )

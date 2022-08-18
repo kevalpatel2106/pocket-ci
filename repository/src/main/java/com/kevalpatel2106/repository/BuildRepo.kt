@@ -9,10 +9,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface BuildRepo {
     fun getBuilds(accountId: AccountId, projectId: ProjectId): Flow<PagingData<Build>>
-
-    suspend fun getBuildLogs(
-        accountId: AccountId,
-        projectId: ProjectId,
-        buildId: BuildId,
-    ): String
+    suspend fun getBuildLogs(accountId: AccountId, projectId: ProjectId, buildId: BuildId): String
 }

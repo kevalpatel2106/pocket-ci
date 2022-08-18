@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.core.extentions.collectInFragment
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
@@ -19,15 +18,11 @@ import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenJobs
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenMarkDownViewer
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.ShowErrorAndClose
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class BuildDetailFragment : Fragment(R.layout.fragment_build_detail) {
     private val viewModel by viewModels<BuildDetailViewModel>()
     private val binding by viewBinding(FragmentBuildDetailBinding::bind)
-
-    @Inject
-    lateinit var displayErrorMapper: DisplayErrorMapper
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +49,7 @@ class BuildDetailFragment : Fragment(R.layout.fragment_build_detail) {
                 ),
             )
             is ShowErrorAndClose -> {
-                showErrorSnack(event.error, displayErrorMapper)
+                showErrorSnack(event.error)
                 findNavController().navigateUp()
             }
             is OpenJobs -> findNavController().navigateToInAppDeeplink(

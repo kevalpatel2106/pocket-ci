@@ -9,8 +9,8 @@ import com.kevalpatel2106.entity.Project
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.ProjectId
 import com.kevalpatel2106.repository.ProjectRepo
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.ProjectMapper
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
+import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

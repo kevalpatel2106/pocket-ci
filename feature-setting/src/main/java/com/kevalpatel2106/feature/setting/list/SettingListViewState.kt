@@ -8,11 +8,9 @@ internal data class SettingListViewState(
 ) {
 
     companion object {
-        fun initialState(appVersion: String, appVersionCode: Int): SettingListViewState {
-            return SettingListViewState(
-                versionPreferenceSummary = "$appVersion ($appVersionCode)",
-                themeValue = NightMode.AUTO,
-            )
-        }
+        fun initialState(appVersion: String, appVersionCode: Int) = SettingListViewState(
+            versionPreferenceSummary = "$appVersion ($appVersionCode)",
+            themeValue = NightMode.AUTO,
+        )
     }
 }

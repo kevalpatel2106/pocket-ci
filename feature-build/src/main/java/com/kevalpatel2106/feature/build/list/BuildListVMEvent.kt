@@ -1,6 +1,7 @@
 package com.kevalpatel2106.feature.build.list
 
 import com.kevalpatel2106.entity.Build
+import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.id.AccountId
 
 internal sealed class BuildListVMEvent {
@@ -8,4 +9,5 @@ internal sealed class BuildListVMEvent {
     object RefreshBuildList : BuildListVMEvent()
     object Close : BuildListVMEvent()
     object RetryLoading : BuildListVMEvent()
+    data class ShowErrorLoadingBuilds(val error: DisplayError) : BuildListVMEvent()
 }

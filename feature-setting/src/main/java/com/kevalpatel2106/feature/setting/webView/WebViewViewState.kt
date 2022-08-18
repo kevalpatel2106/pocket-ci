@@ -8,15 +8,10 @@ internal data class WebViewViewState(
     val flipperPosition: WebViewFlipperPosition,
 ) {
     companion object {
-        fun initialState(
-            @StringRes title: Int,
-            @StringRes linkUrl: Int,
-        ): WebViewViewState {
-            return WebViewViewState(
-                title = title,
-                linkUrl = linkUrl,
-                flipperPosition = WebViewFlipperPosition.POS_LOADING,
-            )
-        }
+        fun initialState(@StringRes title: Int, @StringRes linkUrl: Int) = WebViewViewState(
+            title = title,
+            linkUrl = linkUrl,
+            flipperPosition = WebViewFlipperPosition.POS_LOADING,
+        )
     }
 }

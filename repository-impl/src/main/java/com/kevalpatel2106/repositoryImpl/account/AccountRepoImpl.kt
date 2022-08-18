@@ -11,16 +11,15 @@ import com.kevalpatel2106.entity.Url
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.toAccountId
 import com.kevalpatel2106.repository.AccountRepo
+import com.kevalpatel2106.repositoryImpl.account.usecase.AccountDtoMapper
+import com.kevalpatel2106.repositoryImpl.account.usecase.AccountMapper
 import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStore
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
-import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDto
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.AccountMapper
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import java.util.Date
 import javax.inject.Inject
 
 internal class AccountRepoImpl @Inject constructor(
@@ -28,6 +27,7 @@ internal class AccountRepoImpl @Inject constructor(
     private val projectDao: ProjectDao,
     private val appDataStore: AppDataStore,
     private val accountMapper: AccountMapper,
+    private val accountDtoMapper: AccountDtoMapper,
     private val connectorFactory: CIConnectorFactory,
 ) : AccountRepo {
 
@@ -42,20 +42,7 @@ internal class AccountRepoImpl @Inject constructor(
         val account = connectorFactory.get(ciType).getMyAccountInfo(url, token)
 
         // cache
-        val accountDto = with(account) {
-            AccountDto(
-                id = AccountId.EMPTY, // New account
-                name = name,
-                baseUrl = baseUrl,
-                savedAt = Date(),
-                token = authToken,
-                type = type,
-                email = email,
-                avatar = avatar,
-                nextProjectCursor = null,
-                projectCacheLastUpdated = 0,
-            )
-        }
+        val accountDto = accountDtoMapper(account.copy(localId = AccountId.EMPTY))
         val newId = accountDao.addUpdateAccount(accountDto).toAccountId()
 
         // retrieve

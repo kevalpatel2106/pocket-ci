@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import com.kevalpatel2106.core.extentions.collectInFragment
 import com.kevalpatel2106.core.extentions.isEmptyList
 import com.kevalpatel2106.core.viewbinding.viewBinding
+import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
 import com.kevalpatel2106.feature.build.R
 import com.kevalpatel2106.feature.build.databinding.FragmentBuildListBinding
@@ -17,6 +18,7 @@ import com.kevalpatel2106.feature.build.list.BuildListVMEvent.Close
 import com.kevalpatel2106.feature.build.list.BuildListVMEvent.OpenBuild
 import com.kevalpatel2106.feature.build.list.BuildListVMEvent.RefreshBuildList
 import com.kevalpatel2106.feature.build.list.BuildListVMEvent.RetryLoading
+import com.kevalpatel2106.feature.build.list.BuildListVMEvent.ShowErrorLoadingBuilds
 import com.kevalpatel2106.feature.build.list.adapter.BuildListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -82,6 +84,14 @@ internal class BuildListFragment : Fragment(R.layout.fragment_build_list) {
             RetryLoading -> buildListAdapter.retry()
             RefreshBuildList -> buildListAdapter.refresh()
             Close -> findNavController().navigateUp()
+            is ShowErrorLoadingBuilds -> {
+                if (buildListAdapter.itemCount == 0) {
+                    binding.buildListErrorView.setErrorThrowable(event.error.throwable)
+                    binding.buildsViewFlipper.displayedChild = POS_ERROR
+                } else {
+                    showErrorSnack(event.error)
+                }
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package com.kevalpatel2106.repositoryImpl.cache.db.mapper
+package com.kevalpatel2106.repositoryImpl.project.usecase
 
 import com.kevalpatel2106.entity.ProjectBasic
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectBasicDto

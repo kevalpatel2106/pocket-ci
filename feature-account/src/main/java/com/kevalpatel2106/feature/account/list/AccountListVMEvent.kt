@@ -1,5 +1,6 @@
 package com.kevalpatel2106.feature.account.list
 
+import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.id.AccountId
 
 internal sealed class AccountListVMEvent {
@@ -12,6 +13,7 @@ internal sealed class AccountListVMEvent {
     object RefreshAccountList : AccountListVMEvent()
     object Close : AccountListVMEvent()
     object RetryLoading : AccountListVMEvent()
-    object ShowErrorSelectingAccount : AccountListVMEvent()
-    object ShowErrorRemovingAccount : AccountListVMEvent()
+    data class ShowErrorLoadingAccounts(val error: DisplayError) : AccountListVMEvent()
+    data class ShowErrorSelectingAccount(val error: DisplayError) : AccountListVMEvent()
+    data class ShowErrorRemovingAccount(val error: DisplayError) : AccountListVMEvent()
 }

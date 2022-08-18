@@ -1,7 +1,7 @@
 package com.kevalpatel2106.feature.account.di
 
-import com.kevalpatel2106.feature.account.list.usecase.ConvertToAccountItem
-import com.kevalpatel2106.feature.account.list.usecase.ConvertToAccountItemImpl
+import com.kevalpatel2106.feature.account.list.usecase.AccountItemMapper
+import com.kevalpatel2106.feature.account.list.usecase.AccountItemMapperImpl
 import com.kevalpatel2106.feature.account.list.usecase.InsertAccountListHeaders
 import com.kevalpatel2106.feature.account.list.usecase.InsertAccountListHeadersImpl
 import dagger.Binds
@@ -22,7 +22,5 @@ internal abstract class ViewModelComponentBinding {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindConvertToAccountItem(
-        impl: ConvertToAccountItemImpl,
-    ): ConvertToAccountItem
+    abstract fun bindAccountItemMapper(impl: AccountItemMapperImpl): AccountItemMapper
 }

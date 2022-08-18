@@ -13,7 +13,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.kevalpatel2106.core.extentions.collectInFragment
-import com.kevalpatel2106.core.extentions.showSnack
+import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.feature.setting.R
 import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.ErrorChangingTheme
 import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenAppInvite
@@ -90,7 +90,9 @@ class SettingListFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
             is OpenContactUs -> {
                 startActivity(prepareContactUsIntent(event.versionName, event.versionCode))
             }
-            ErrorChangingTheme -> showSnack(getString(R.string.settings_error_loading_them))
+            is ErrorChangingTheme -> {
+                showErrorSnack(event.error, R.string.settings_error_loading_them)
+            }
             is OpenAppInvite -> startActivity(prepareAppInviteIntent())
             OpenOpenSourceLicences -> showOpenSourceLicences()
             OpenChangelog -> findNavController().navigate(

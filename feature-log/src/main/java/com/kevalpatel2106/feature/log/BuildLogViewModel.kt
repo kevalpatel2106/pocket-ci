@@ -3,6 +3,7 @@ package com.kevalpatel2106.feature.log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.kevalpatel2106.core.BaseViewModel
+import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.core.extentions.modify
 import com.kevalpatel2106.entity.id.toAccountId
 import com.kevalpatel2106.entity.id.toBuildId
@@ -18,6 +19,7 @@ import com.kevalpatel2106.feature.log.BuildLogViewState.Error
 import com.kevalpatel2106.feature.log.BuildLogViewState.Success
 import com.kevalpatel2106.feature.log.usecase.CalculateTextScale
 import com.kevalpatel2106.feature.log.usecase.CalculateTextScale.Companion.DEFAULT_SCALE
+import com.kevalpatel2106.feature.log.usecase.ConvertToPaddedLogs
 import com.kevalpatel2106.feature.log.usecase.LogSourceSelector
 import com.kevalpatel2106.feature.log.usecase.TextChangeDirection
 import com.kevalpatel2106.repository.ProjectRepo
@@ -34,6 +36,8 @@ internal class BuildLogViewModel @Inject constructor(
     private val projectRepo: ProjectRepo,
     private val logSourceSelector: LogSourceSelector,
     private val calculateTextScale: CalculateTextScale,
+    private val displayErrorMapper: DisplayErrorMapper,
+    private val convertToPaddedLogs: ConvertToPaddedLogs,
 ) : BaseViewModel<BuildLogVMEvent>() {
     private val navArgs = BuildLogFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
@@ -55,11 +59,10 @@ internal class BuildLogViewModel @Inject constructor(
                     jobId = navArgs.jobId.toJobIdOrNull(),
                 )
             }.onSuccess { logs ->
-                val paddedLogs = "\n\n$logs\n\n\n\n"
                 if (logs.isBlank()) {
                     _viewState.emit(Empty)
                 } else {
-                    _viewState.emit(Success(paddedLogs, DEFAULT_SCALE))
+                    _viewState.emit(Success(convertToPaddedLogs(logs), DEFAULT_SCALE))
                     _vmEventsFlow.emit(ScrollToTop)
                 }
             }.onFailure { error ->
@@ -88,7 +91,7 @@ internal class BuildLogViewModel @Inject constructor(
             _vmEventsFlow.emit(CreateLogFile("$fileName.txt", (viewState.value as Success).logs))
         }.onFailure { error ->
             Timber.e(error)
-            _vmEventsFlow.emit(ErrorSavingLog)
+            _vmEventsFlow.emit(ErrorSavingLog(displayErrorMapper(error)))
         }
     }
 

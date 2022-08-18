@@ -1,16 +1,26 @@
 package com.kevalpatel2106.feature.account.list
 
 import com.flextrade.kfixture.KFixture
+import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.coreTest.TestCoroutineExtension
 import com.kevalpatel2106.coreTest.getAccountFixture
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
+import com.kevalpatel2106.entity.DisplayError
+import com.kevalpatel2106.feature.account.list.AccountListVMEvent.AccountRemovedSuccess
+import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenCiSelection
+import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenProjects
+import com.kevalpatel2106.feature.account.list.AccountListVMEvent.RefreshAccountList
+import com.kevalpatel2106.feature.account.list.AccountListVMEvent.RetryLoading
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowDeleteConfirmation
-import com.kevalpatel2106.feature.account.list.usecase.ConvertToAccountItem
+import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorRemovingAccount
+import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorSelectingAccount
+import com.kevalpatel2106.feature.account.list.usecase.AccountItemMapper
 import com.kevalpatel2106.feature.account.list.usecase.InsertAccountListHeaders
 import com.kevalpatel2106.repository.AccountRepo
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
@@ -19,17 +29,22 @@ import org.mockito.kotlin.whenever
 @ExtendWith(TestCoroutineExtension::class)
 class AccountListViewModelTest {
     private val kFixture = KFixture()
+    private val displayError = kFixture<DisplayError>()
+    private val displayErrorMapper = mock<DisplayErrorMapper> {
+        on { invoke(any(), any()) } doReturn displayError
+    }
     private val accountRepo = mock<AccountRepo>()
     private val insertAccountListHeaders = mock<InsertAccountListHeaders> {
         on { invoke(anyOrNull(), anyOrNull()) } doReturn null
     }
-    private val convertToAccountItem = mock<ConvertToAccountItem>()
+    private val accountItemMapper = mock<AccountItemMapper>()
 
     private val subject by lazy {
         AccountListViewModel(
             accountRepo,
             insertAccountListHeaders,
-            convertToAccountItem,
+            accountItemMapper,
+            displayErrorMapper,
         )
     }
 
@@ -41,10 +56,7 @@ class AccountListViewModelTest {
 
             subject.onAccountSelected(accountToSelect.localId)
 
-            assertEquals(
-                AccountListVMEvent.OpenProjects(accountToSelect.localId),
-                flowTurbine.awaitItem(),
-            )
+            assertEquals(OpenProjects(accountToSelect.localId), flowTurbine.awaitItem())
         }
 
     @Test
@@ -56,7 +68,7 @@ class AccountListViewModelTest {
 
             subject.onAccountSelected(accountToSelect.localId)
 
-            assertEquals(AccountListVMEvent.ShowErrorSelectingAccount, flowTurbine.awaitItem())
+            assertEquals(ShowErrorSelectingAccount(displayError), flowTurbine.awaitItem())
         }
 
     @Test
@@ -80,7 +92,7 @@ class AccountListViewModelTest {
 
             subject.onAccountDeleteConfirmed(accountToRemove.localId)
 
-            assertEquals(AccountListVMEvent.AccountRemovedSuccess, flowTurbine.awaitItem())
+            assertEquals(AccountRemovedSuccess, flowTurbine.awaitItem())
         }
 
     @Test
@@ -92,7 +104,7 @@ class AccountListViewModelTest {
 
             subject.onAccountDeleteConfirmed(accountToRemove.localId)
 
-            assertEquals(AccountListVMEvent.ShowErrorRemovingAccount, flowTurbine.awaitItem())
+            assertEquals(ShowErrorRemovingAccount(displayError), flowTurbine.awaitItem())
         }
 
     @Test
@@ -100,7 +112,7 @@ class AccountListViewModelTest {
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
             subject.reload()
 
-            assertEquals(AccountListVMEvent.RefreshAccountList, flowTurbine.awaitItem())
+            assertEquals(RefreshAccountList, flowTurbine.awaitItem())
         }
 
     @Test
@@ -108,7 +120,7 @@ class AccountListViewModelTest {
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
             subject.onAddAccountClicked()
 
-            assertEquals(AccountListVMEvent.OpenCiSelection, flowTurbine.awaitItem())
+            assertEquals(OpenCiSelection, flowTurbine.awaitItem())
         }
 
     @Test
@@ -116,6 +128,6 @@ class AccountListViewModelTest {
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
             subject.retryNextPage()
 
-            assertEquals(AccountListVMEvent.RetryLoading, flowTurbine.awaitItem())
+            assertEquals(RetryLoading, flowTurbine.awaitItem())
         }
 }

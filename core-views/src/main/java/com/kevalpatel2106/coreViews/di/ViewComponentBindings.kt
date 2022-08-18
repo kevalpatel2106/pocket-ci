@@ -17,7 +17,7 @@ import dagger.hilt.android.components.ViewComponent
 
 @Module
 @InstallIn(ViewComponent::class)
-internal abstract class CoreViewBindings {
+internal abstract class ViewComponentBindings {
 
     @Binds
     abstract fun bindCalculateTickInterval(impl: CalculateTickIntervalImpl): CalculateTickInterval

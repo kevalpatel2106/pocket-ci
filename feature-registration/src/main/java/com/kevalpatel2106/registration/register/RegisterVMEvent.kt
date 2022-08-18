@@ -1,5 +1,6 @@
 package com.kevalpatel2106.registration.register
 
+import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.id.AccountId
 
 internal sealed class RegisterVMEvent {
@@ -7,5 +8,5 @@ internal sealed class RegisterVMEvent {
         RegisterVMEvent()
 
     object AccountAlreadyAdded : RegisterVMEvent()
-    object ShowErrorAddingAccount : RegisterVMEvent()
+    data class ShowErrorAddingAccount(val displayError: DisplayError) : RegisterVMEvent()
 }

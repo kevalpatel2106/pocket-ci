@@ -15,7 +15,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class HostViewModel @Inject constructor() : BaseViewModel<HostVMEvents>() {
+internal class HostViewModel @Inject constructor() : BaseViewModel<HostVMEvents>() {
 
     private val _viewState = MutableStateFlow(HostViewState.initialState())
     val viewState = _viewState.asStateFlow()
@@ -36,11 +36,7 @@ class HostViewModel @Inject constructor() : BaseViewModel<HostVMEvents>() {
         }
     }
 
-    fun trackNavEvent(
-        previousDst: String?,
-        nextDst: String?,
-        arguments: Bundle?,
-    ) {
+    fun trackNavEvent(previousDst: String?, nextDst: String?, arguments: Bundle?) {
         Timber.i("NavTracker: $previousDst to $nextDst: $arguments")
     }
 

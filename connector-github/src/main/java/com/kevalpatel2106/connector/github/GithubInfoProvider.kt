@@ -18,6 +18,8 @@ internal class GithubInfoProvider @Inject constructor() : CIInfoProvider {
         sampleAuthToken = SAMPLE_AUTH_TOKEN.toToken(),
         icon = R.drawable.logo_github,
 
+        supportViewArtifacts = true,
+        supportDownloadArtifacts = true,
         supportCustomBaseUrl = false,
         supportJobs = true,
         supportBuildLogs = false,

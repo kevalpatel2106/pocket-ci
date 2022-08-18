@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.kevalpatel2106.feature.artifact.list.ArtifactListViewModel" />
+            type="com.kevalpatel2106.feature.artifact.list.ArtifactListListViewModel" />
     </data>
 
     <ViewFlipper

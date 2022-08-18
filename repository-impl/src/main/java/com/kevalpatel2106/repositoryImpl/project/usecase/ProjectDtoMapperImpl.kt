@@ -1,13 +1,14 @@
-package com.kevalpatel2106.repositoryImpl.cache.db.mapper
+package com.kevalpatel2106.repositoryImpl.project.usecase
 
 import com.kevalpatel2106.entity.Project
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDto
+import java.util.Date
 import javax.inject.Inject
 
-internal class ProjectMapperImpl @Inject constructor() : ProjectMapper {
+internal class ProjectDtoMapperImpl @Inject constructor() : ProjectDtoMapper {
 
-    override operator fun invoke(dto: ProjectDto) = with(dto) {
-        Project(
+    override operator fun invoke(project: Project) = with(project) {
+        ProjectDto(
             name = name,
             remoteId = remoteId,
             accountId = accountId,
@@ -16,8 +17,8 @@ internal class ProjectMapperImpl @Inject constructor() : ProjectMapper {
             isDisabled = isDisabled,
             isPublic = isPublic,
             owner = owner,
-            isFavourite = false,
             lastUpdatedAt = lastUpdatedAt,
+            savedAt = Date(), // Mark current time.
         )
     }
 }

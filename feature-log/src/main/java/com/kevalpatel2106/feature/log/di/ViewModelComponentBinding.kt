@@ -2,6 +2,8 @@ package com.kevalpatel2106.feature.log.di
 
 import com.kevalpatel2106.feature.log.usecase.CalculateTextScale
 import com.kevalpatel2106.feature.log.usecase.CalculateTextScaleImpl
+import com.kevalpatel2106.feature.log.usecase.ConvertToPaddedLogs
+import com.kevalpatel2106.feature.log.usecase.ConvertToPaddedLogsImpl
 import com.kevalpatel2106.feature.log.usecase.LogSourceSelector
 import com.kevalpatel2106.feature.log.usecase.LogSourceSelectorImpl
 import dagger.Binds
@@ -21,4 +23,8 @@ internal abstract class ViewModelComponentBinding {
     @Binds
     @ViewModelScoped
     abstract fun bindDownloadLog(impl: LogSourceSelectorImpl): LogSourceSelector
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindConvertToPaddedLogs(impl: ConvertToPaddedLogsImpl): ConvertToPaddedLogs
 }

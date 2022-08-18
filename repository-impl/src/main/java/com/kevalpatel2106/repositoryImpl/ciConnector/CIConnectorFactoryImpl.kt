@@ -8,7 +8,7 @@ internal class CIConnectorFactoryImpl @Inject constructor(
     private val map: Map<CIType, @JvmSuppressWildcards CIConnector>,
 ) : CIConnectorFactory {
 
-    override fun get(type: CIType): CIConnector =
+    override fun get(type: CIType) =
         map[type] ?: error("Looks like CI repo for type $type not set up yet.")
 
     override fun getAll(): List<CIConnector> = map.values.toList()

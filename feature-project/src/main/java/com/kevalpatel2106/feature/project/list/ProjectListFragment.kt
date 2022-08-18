@@ -12,6 +12,7 @@ import com.kevalpatel2106.core.extentions.isEmptyList
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
 import com.kevalpatel2106.core.viewbinding.viewBinding
+import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
 import com.kevalpatel2106.feature.project.R
 import com.kevalpatel2106.feature.project.databinding.FragmentProjectListBinding
@@ -19,6 +20,7 @@ import com.kevalpatel2106.feature.project.list.ProjectListVMEvent.Close
 import com.kevalpatel2106.feature.project.list.ProjectListVMEvent.OpenBuildsList
 import com.kevalpatel2106.feature.project.list.ProjectListVMEvent.RefreshProjects
 import com.kevalpatel2106.feature.project.list.ProjectListVMEvent.RetryLoading
+import com.kevalpatel2106.feature.project.list.ProjectListVMEvent.ShowErrorLoadingProjects
 import com.kevalpatel2106.feature.project.list.adapter.ProjectListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -79,6 +81,14 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
             RetryLoading -> projectListAdapter.retry()
             RefreshProjects -> projectListAdapter.refresh()
             Close -> findNavController().navigateUp()
+            is ShowErrorLoadingProjects -> {
+                if (projectListAdapter.itemCount == 0) {
+                    binding.projectListErrorView.setErrorThrowable(event.error.throwable)
+                    binding.projectsViewFlipper.displayedChild = POS_ERROR
+                } else {
+                    showErrorSnack(event.error)
+                }
+            }
         }
     }
 

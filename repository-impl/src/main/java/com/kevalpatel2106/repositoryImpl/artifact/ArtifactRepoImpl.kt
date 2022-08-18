@@ -8,12 +8,12 @@ import com.kevalpatel2106.entity.id.ArtifactId
 import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.entity.id.ProjectId
 import com.kevalpatel2106.repository.ArtifactRepo
+import com.kevalpatel2106.repositoryImpl.account.usecase.AccountBasicMapper
 import com.kevalpatel2106.repositoryImpl.build.BuildRepoImpl
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.AccountBasicMapper
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.ProjectBasicMapper
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
+import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectBasicMapper
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -27,11 +27,7 @@ internal class ArtifactRepoImpl @Inject constructor(
     private val accountBasicMapper: AccountBasicMapper,
 ) : ArtifactRepo {
 
-    override fun getArtifacts(
-        accountId: AccountId,
-        projectId: ProjectId,
-        buildId: BuildId,
-    ) = flow {
+    override fun getArtifacts(accountId: AccountId, projectId: ProjectId, buildId: BuildId) = flow {
         val projectDto = projectDao.getProjectBasic(projectId.getValue(), accountId.getValue())
         val accountDto = accountDao.getAccountBasic(accountId.getValue())
         emit(accountDto to projectDto)

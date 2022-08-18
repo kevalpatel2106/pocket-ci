@@ -9,21 +9,17 @@ import com.kevalpatel2106.repository.JobRepo
 import com.kevalpatel2106.repository.ProjectRepo
 import com.kevalpatel2106.repository.SettingsRepo
 import com.kevalpatel2106.repositoryImpl.account.AccountRepoImpl
+import com.kevalpatel2106.repositoryImpl.account.usecase.AccountBasicMapper
+import com.kevalpatel2106.repositoryImpl.account.usecase.AccountBasicMapperImpl
+import com.kevalpatel2106.repositoryImpl.account.usecase.AccountDtoMapper
+import com.kevalpatel2106.repositoryImpl.account.usecase.AccountDtoMapperImpl
+import com.kevalpatel2106.repositoryImpl.account.usecase.AccountMapper
+import com.kevalpatel2106.repositoryImpl.account.usecase.AccountMapperImpl
 import com.kevalpatel2106.repositoryImpl.appConfig.AppConfigRepoImpl
 import com.kevalpatel2106.repositoryImpl.artifact.ArtifactRepoImpl
 import com.kevalpatel2106.repositoryImpl.build.BuildRepoImpl
 import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStore
 import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStoreImpl
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.AccountBasicMapper
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.AccountBasicMapperImpl
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.AccountMapper
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.AccountMapperImpl
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.ProjectBasicMapper
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.ProjectBasicMapperImpl
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.ProjectDtoMapper
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.ProjectDtoMapperImpl
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.ProjectMapper
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.ProjectMapperImpl
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactoryImpl
 import com.kevalpatel2106.repositoryImpl.ciInfo.CIInfoRepoImpl
@@ -31,6 +27,12 @@ import com.kevalpatel2106.repositoryImpl.job.JobRepoImpl
 import com.kevalpatel2106.repositoryImpl.project.ProjectRepoImpl
 import com.kevalpatel2106.repositoryImpl.project.usecase.IsProjectCacheExpired
 import com.kevalpatel2106.repositoryImpl.project.usecase.IsProjectCacheExpiredImpl
+import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectBasicMapper
+import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectBasicMapperImpl
+import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectDtoMapper
+import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectDtoMapperImpl
+import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectMapper
+import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectMapperImpl
 import com.kevalpatel2106.repositoryImpl.project.usecase.SaveProjectsToCache
 import com.kevalpatel2106.repositoryImpl.project.usecase.SaveProjectsToCacheImpl
 import com.kevalpatel2106.repositoryImpl.setting.SettingsRepoImpl
@@ -93,4 +95,7 @@ internal abstract class ViewModelComponentBindings {
 
     @Binds
     abstract fun bindAccountBasicMapper(impl: AccountBasicMapperImpl): AccountBasicMapper
+
+    @Binds
+    abstract fun bindAccountDtoMapper(impl: AccountDtoMapperImpl): AccountDtoMapper
 }

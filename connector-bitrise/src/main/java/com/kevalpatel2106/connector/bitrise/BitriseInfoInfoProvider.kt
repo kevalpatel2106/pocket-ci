@@ -19,6 +19,8 @@ internal class BitriseInfoInfoProvider @Inject constructor() : CIInfoProvider {
         icon = R.drawable.logo_bitrise,
 
         supportCustomBaseUrl = false,
+        supportViewArtifacts = true,
+        supportDownloadArtifacts = true,
         supportJobs = false,
         supportBuildLogs = true,
         supportJobLogs = false,

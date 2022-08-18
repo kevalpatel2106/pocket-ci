@@ -15,7 +15,7 @@ import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 
 @ExtendWith(TestCoroutineExtension::class)
-class HostViewModelTest {
+internal class HostViewModelTest {
     private val subject by lazy { HostViewModel() }
 
     @ParameterizedTest(name = "given previous destination id {0} and next destination id {1} when on destination changed called check navigation icon is {2}")

@@ -3,14 +3,15 @@ package com.kevalpatel2106.feature.build.detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.kevalpatel2106.core.BaseViewModel
+import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.core.extentions.modify
+import com.kevalpatel2106.entity.isInProgress
 import com.kevalpatel2106.feature.build.R
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenBuildArtifacts
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenBuildLogs
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenJobs
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenMarkDownViewer
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.ShowErrorAndClose
-import com.kevalpatel2106.repository.AccountRepo
 import com.kevalpatel2106.repository.CIInfoRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +24,7 @@ import javax.inject.Inject
 internal class BuildDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     ciInfoRepo: CIInfoRepo,
-    accountRepo: AccountRepo,
+    private val displayErrorMapper: DisplayErrorMapper,
 ) : BaseViewModel<BuildDetailVMEvent>() {
     private val navArgs = BuildDetailFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
@@ -33,18 +34,19 @@ internal class BuildDetailViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             runCatching {
-                val account = accountRepo.getAccount(navArgs.accountId)
-                ciInfoRepo.getCI(account.type)
-            }.onSuccess {
+                ciInfoRepo.getCIInfo(navArgs.accountId)
+            }.onSuccess { ciInfo ->
                 _viewState.modify {
                     copy(
-                        hideBuildLogButton = !it.supportBuildLogs,
-                        hideJobsListButton = !it.supportJobs,
+                        hideBuildLogButton = !ciInfo.supportBuildLogs,
+                        hideJobsListButton = !ciInfo.supportJobs,
+                        hideArtifactsButton = build.status.isInProgress() ||
+                                !ciInfo.supportViewArtifacts,
                     )
                 }
             }.onFailure { error ->
                 Timber.e(error)
-                _vmEventsFlow.emit(ShowErrorAndClose(error))
+                _vmEventsFlow.emit(ShowErrorAndClose(displayErrorMapper(error)))
             }
         }
     }

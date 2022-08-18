@@ -14,6 +14,6 @@ internal sealed class ArtifactListItem(
         val artifact: Artifact,
         val humanReadableSize: String?,
         @DrawableRes val artifactIcon: Int,
-        val createdTimeDifferenceData: TimeDifferenceData?
+        val createdTimeDifferenceData: TimeDifferenceData?,
     ) : ArtifactListItem(ARTIFACT_ITEM, artifact.id.getValue())
 }

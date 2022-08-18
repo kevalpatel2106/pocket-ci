@@ -10,18 +10,5 @@ internal sealed class JobListItem(val listItemType: JobListItemType, val compare
         val job: Job,
         val triggeredTimeDifference: TimeDifferenceData,
         val executionTimeDifference: TimeDifferenceData,
-    ) : JobListItem(JOB_ITEM, job.id.toString()) {
-
-        constructor(job: Job) : this(
-            job = job,
-            triggeredTimeDifference = TimeDifferenceData(
-                dateOfEventStart = job.triggeredAt,
-                dateOfEventEnd = null,
-            ),
-            executionTimeDifference = TimeDifferenceData(
-                dateOfEventStart = job.triggeredAt,
-                dateOfEventEnd = job.finishedAt,
-            ),
-        )
-    }
+    ) : JobListItem(JOB_ITEM, job.id.toString())
 }

@@ -3,6 +3,7 @@ package com.kevalpatel2106.core.extentions
 import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -42,3 +43,17 @@ fun Fragment.showSnack(
     snackBar.show()
     return snackBar
 }
+
+fun Fragment.showSnack(
+    @StringRes messageRes: Int,
+    duration: Int = SNACK_BAR_DURATION,
+    actonTitle: Int = ResourcesCompat.ID_NULL,
+    actionListener: ((View) -> Unit)? = null,
+    dismissListener: (() -> Unit)? = null,
+) = showSnack(
+    requireContext().getString(messageRes),
+    duration,
+    actonTitle,
+    actionListener,
+    dismissListener,
+)

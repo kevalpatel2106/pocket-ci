@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kevalpatel2106.feature.artifact.list.adapter.ArtifactListItem.ArtifactItem
 import com.kevalpatel2106.feature.artifact.list.adapter.ArtifactListItemType.ARTIFACT_ITEM
 
-internal class ArtifactAdapter(
-    private val callback: ArtifactAdapterCallback,
+internal class ArtifactListAdapter(
+    private val callback: ArtifactListAdapterCallback,
 ) : PagingDataAdapter<ArtifactListItem, RecyclerView.ViewHolder>(ArtifactListItemDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {

@@ -16,6 +16,8 @@ data class CIInfo(
     val sampleAuthToken: Token,
 
     val supportCustomBaseUrl: Boolean,
+    val supportViewArtifacts: Boolean,
+    val supportDownloadArtifacts: Boolean,
     val supportJobs: Boolean,
     val supportBuildLogs: Boolean,
     val supportJobLogs: Boolean,

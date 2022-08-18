@@ -1,8 +1,10 @@
 package com.kevalpatel2106.feature.setting.list
 
 import com.flextrade.kfixture.KFixture
+import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.coreTest.TestCoroutineExtension
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
+import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.NightMode
 import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.ErrorChangingTheme
 import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenAppInvite
@@ -29,6 +31,10 @@ import org.mockito.kotlin.whenever
 @ExtendWith(TestCoroutineExtension::class)
 class SettingListViewModelTest {
     private val fixture = KFixture()
+    private val displayError = fixture<DisplayError>()
+    private val displayErrorMapper = mock<DisplayErrorMapper> {
+        on { invoke(any(), any()) } doReturn displayError
+    }
     private val versionName = fixture<String>()
     private val versionCode = fixture<Int>()
     private val prefValueToNightMode = mock<ConvertPrefValueToNightMode>()
@@ -44,6 +50,7 @@ class SettingListViewModelTest {
             settingsRepo,
             prefValueToNightMode,
             appConfigRepo,
+            displayErrorMapper,
         )
     }
 
@@ -54,6 +61,7 @@ class SettingListViewModelTest {
                 settingsRepo,
                 prefValueToNightMode,
                 appConfigRepo,
+                displayErrorMapper,
             )
             advanceUntilIdle()
 
@@ -71,6 +79,7 @@ class SettingListViewModelTest {
                 settingsRepo,
                 prefValueToNightMode,
                 appConfigRepo,
+                displayErrorMapper,
             )
             advanceUntilIdle()
 
@@ -88,7 +97,7 @@ class SettingListViewModelTest {
         }
         runTestObservingSharedFlow(subject.vmEventsFlow) { testScope, flowTurbine ->
             testScope.advanceUntilIdle()
-            assertEquals(ErrorChangingTheme, flowTurbine.awaitItem())
+            assertEquals(ErrorChangingTheme(displayError), flowTurbine.awaitItem())
         }
     }
 

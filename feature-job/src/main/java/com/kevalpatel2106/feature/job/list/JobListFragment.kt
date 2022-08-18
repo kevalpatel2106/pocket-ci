@@ -12,6 +12,7 @@ import com.kevalpatel2106.core.extentions.isEmptyList
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations.BuildLog
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
 import com.kevalpatel2106.core.viewbinding.viewBinding
+import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
 import com.kevalpatel2106.feature.job.R
 import com.kevalpatel2106.feature.job.databinding.FragmentJobListBinding
@@ -19,6 +20,7 @@ import com.kevalpatel2106.feature.job.list.JobListVMEvent.Close
 import com.kevalpatel2106.feature.job.list.JobListVMEvent.OpenLogs
 import com.kevalpatel2106.feature.job.list.JobListVMEvent.RefreshJobs
 import com.kevalpatel2106.feature.job.list.JobListVMEvent.RetryLoading
+import com.kevalpatel2106.feature.job.list.JobListVMEvent.ShowErrorLoadingJobs
 import com.kevalpatel2106.feature.job.list.adapter.JobsListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -83,6 +85,14 @@ class JobListFragment : Fragment(R.layout.fragment_job_list) {
             RetryLoading -> jobsListAdapter.retry()
             RefreshJobs -> jobsListAdapter.refresh()
             Close -> findNavController().navigateUp()
+            is ShowErrorLoadingJobs -> {
+                if (jobsListAdapter.itemCount == 0) {
+                    binding.jobListErrorView.setErrorThrowable(event.displayError.throwable)
+                    binding.jobListViewFlipper.displayedChild = POS_ERROR
+                } else {
+                    showErrorSnack(event.displayError)
+                }
+            }
         }
     }
 

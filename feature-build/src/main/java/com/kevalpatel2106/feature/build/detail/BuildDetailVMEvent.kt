@@ -1,12 +1,13 @@
 package com.kevalpatel2106.feature.build.detail
 
 import androidx.annotation.StringRes
+import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.entity.id.ProjectId
 
 internal sealed class BuildDetailVMEvent {
-    data class ShowErrorAndClose(val error: Throwable) : BuildDetailVMEvent()
+    data class ShowErrorAndClose(val error: DisplayError) : BuildDetailVMEvent()
 
     class OpenBuildLogs(
         val accountId: AccountId,

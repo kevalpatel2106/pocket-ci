@@ -1,14 +1,19 @@
 package com.kevalpatel2106.registration.register
 
 import com.flextrade.kfixture.KFixture
+import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.coreTest.TestCoroutineExtension
 import com.kevalpatel2106.coreTest.getAccountFixture
 import com.kevalpatel2106.coreTest.getCIInfoFixture
 import com.kevalpatel2106.coreTest.latestValue
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
+import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.toToken
 import com.kevalpatel2106.entity.toUrl
 import com.kevalpatel2106.registration.R
+import com.kevalpatel2106.registration.register.RegisterVMEvent.AccountAlreadyAdded
+import com.kevalpatel2106.registration.register.RegisterVMEvent.HandleAuthSuccess
+import com.kevalpatel2106.registration.register.RegisterVMEvent.ShowErrorAddingAccount
 import com.kevalpatel2106.registration.register.usecase.SanitiseRegisterInput
 import com.kevalpatel2106.registration.register.usecase.ValidateRegisterInput
 import com.kevalpatel2106.repository.AccountRepo
@@ -21,6 +26,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.kotlin.any
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
@@ -33,6 +39,11 @@ class RegisterViewModelTest {
 
     private val navArgs = RegisterFragmentArgs(selectedCI = getCIInfoFixture(kFixture()))
     private val accountRepo = mock<AccountRepo>()
+    private val displayError = kFixture<DisplayError>()
+    private val displayErrorMapper = mock<DisplayErrorMapper> {
+        on { invoke(any(), any()) } doReturn displayError
+    }
+
     private val sanitiseRegisterInput = mock<SanitiseRegisterInput>()
     private val validateRegisterInput = mock<ValidateRegisterInput>()
     private val subject by lazy {
@@ -41,6 +52,7 @@ class RegisterViewModelTest {
             accountRepo,
             sanitiseRegisterInput,
             validateRegisterInput,
+            displayErrorMapper
         )
     }
 
@@ -126,7 +138,7 @@ class RegisterViewModelTest {
 
             assertFalse(subject.viewState.latestValue(testScope).enableAddAccountBtn)
             assertEquals(
-                RegisterVMEvent.HandleAuthSuccess(savedAccount.localId, savedAccount.name),
+                HandleAuthSuccess(savedAccount.localId, savedAccount.name),
                 flowTurbine.awaitItem(),
             )
         }
@@ -172,7 +184,7 @@ class RegisterViewModelTest {
 
             subject.submit("http://example.com/", "83726347623")
 
-            assertEquals(RegisterVMEvent.AccountAlreadyAdded, flowTurbine.awaitItem())
+            assertEquals(AccountAlreadyAdded, flowTurbine.awaitItem())
         }
 
     @Test
@@ -199,7 +211,7 @@ class RegisterViewModelTest {
             subject.submit("http://example.com/", "83726347623")
 
             assertTrue(subject.viewState.latestValue(testScope).enableAddAccountBtn)
-            assertEquals(RegisterVMEvent.ShowErrorAddingAccount, flowTurbine.awaitItem())
+            assertEquals(ShowErrorAddingAccount(displayError), flowTurbine.awaitItem())
         }
 
     @Test
@@ -213,7 +225,7 @@ class RegisterViewModelTest {
             subject.submit("http://example.com/", "83726347623")
 
             assertTrue(subject.viewState.latestValue(testScope).enableAddAccountBtn)
-            assertEquals(RegisterVMEvent.ShowErrorAddingAccount, flowTurbine.awaitItem())
+            assertEquals(ShowErrorAddingAccount(displayError), flowTurbine.awaitItem())
         }
 
     @Test

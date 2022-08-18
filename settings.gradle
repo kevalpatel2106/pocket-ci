@@ -1,4 +1,4 @@
-rootProject.name = "Mobile CI"
+rootProject.name = "Pocket CI"
 include ':core-views'
 include ':connector-bitrise'
 include ':connector-ci'

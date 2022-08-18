@@ -5,6 +5,7 @@ import androidx.paging.cachedIn
 import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.kevalpatel2106.core.BaseViewModel
+import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateCallback
 import com.kevalpatel2106.entity.Account
 import com.kevalpatel2106.entity.id.AccountId
@@ -15,13 +16,15 @@ import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenProjects
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.RefreshAccountList
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.RetryLoading
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowDeleteConfirmation
+import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorLoadingAccounts
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorRemovingAccount
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorSelectingAccount
 import com.kevalpatel2106.feature.account.list.adapter.AccountListAdapterCallback
-import com.kevalpatel2106.feature.account.list.usecase.ConvertToAccountItem
+import com.kevalpatel2106.feature.account.list.usecase.AccountItemMapper
 import com.kevalpatel2106.feature.account.list.usecase.InsertAccountListHeaders
 import com.kevalpatel2106.repository.AccountRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -31,16 +34,16 @@ import javax.inject.Inject
 internal class AccountListViewModel @Inject constructor(
     private val accountRepo: AccountRepo,
     insertAccountListHeaders: InsertAccountListHeaders,
-    convertToAccountItem: ConvertToAccountItem,
+    accountItemMapper: AccountItemMapper,
+    private val displayErrorMapper: DisplayErrorMapper,
 ) : BaseViewModel<AccountListVMEvent>(), AccountListAdapterCallback, NetworkStateCallback {
 
     val pageViewState = accountRepo.getAccounts()
-        .mapNotNull { pagingData ->
-            pagingData.map { account -> convertToAccountItem(account) }
-        }
+        .mapNotNull { pagingData -> pagingData.map { account -> accountItemMapper(account) } }
         .mapNotNull { pagingData ->
             pagingData.insertSeparators { before, after -> insertAccountListHeaders(before, after) }
         }
+        .catch { _vmEventsFlow.emit(ShowErrorLoadingAccounts(displayErrorMapper(it))) }
         .cachedIn(viewModelScope)
 
     override fun onAccountSelected(accountId: AccountId) {
@@ -48,7 +51,7 @@ internal class AccountListViewModel @Inject constructor(
             runCatching { accountRepo.setSelectedAccount(accountId = accountId) }
                 .onFailure { error ->
                     Timber.e(error)
-                    _vmEventsFlow.emit(ShowErrorSelectingAccount)
+                    _vmEventsFlow.emit(ShowErrorSelectingAccount(displayErrorMapper(error)))
                 }.onSuccess {
                     _vmEventsFlow.emit(OpenProjects(accountId))
                 }
@@ -66,7 +69,7 @@ internal class AccountListViewModel @Inject constructor(
             runCatching { accountRepo.removeAccount(accountId = accountId) }
                 .onFailure { error ->
                     Timber.e(error)
-                    _vmEventsFlow.emit(ShowErrorRemovingAccount)
+                    _vmEventsFlow.emit(ShowErrorRemovingAccount(displayErrorMapper(error)))
                 }.onSuccess {
                     _vmEventsFlow.emit(AccountRemovedSuccess)
                 }

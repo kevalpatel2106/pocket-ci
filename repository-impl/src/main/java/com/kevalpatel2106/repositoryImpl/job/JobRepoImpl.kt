@@ -2,20 +2,17 @@ package com.kevalpatel2106.repositoryImpl.job
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import com.kevalpatel2106.entity.Job
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.entity.id.JobId
 import com.kevalpatel2106.entity.id.ProjectId
 import com.kevalpatel2106.repository.JobRepo
+import com.kevalpatel2106.repositoryImpl.account.usecase.AccountBasicMapper
 import com.kevalpatel2106.repositoryImpl.build.BuildRepoImpl
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.AccountBasicMapper
-import com.kevalpatel2106.repositoryImpl.cache.db.mapper.ProjectBasicMapper
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
-import kotlinx.coroutines.flow.Flow
+import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectBasicMapper
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -29,11 +26,7 @@ internal class JobRepoImpl @Inject constructor(
     private val pagingSourceFactory: JobsPagingSource.Factory,
 ) : JobRepo {
 
-    override fun getJobs(
-        accountId: AccountId,
-        projectId: ProjectId,
-        buildId: BuildId,
-    ): Flow<PagingData<Job>> = flow {
+    override fun getJobs(accountId: AccountId, projectId: ProjectId, buildId: BuildId) = flow {
         val accountDto = accountDao.getAccountBasic(accountId.getValue())
         val projectDto = projectDao.getProjectBasic(projectId.getValue(), accountId.getValue())
         emit(Triple(accountDto, projectDto, buildId))

@@ -14,22 +14,5 @@ internal sealed class BuildListItem(val listItemType: BuildListItemType, val com
         val hideTriggeredBy: Boolean,
         val triggeredTimeDifference: TimeDifferenceData,
         val executionTimeDifference: TimeDifferenceData,
-    ) : BuildListItem(BUILD_ITEM, build.id.toString()) {
-
-        constructor(build: Build) : this(
-            build = build,
-            numberText = "#${build.number}",
-            commitHash = build.commit?.hash?.shortHash,
-            status = build.status.name.lowercase(),
-            hideTriggeredBy = build.triggeredBy.isNullOrBlank(),
-            triggeredTimeDifference = TimeDifferenceData(
-                dateOfEventStart = build.triggeredAt,
-                dateOfEventEnd = null,
-            ),
-            executionTimeDifference = TimeDifferenceData(
-                dateOfEventStart = build.triggeredAt,
-                dateOfEventEnd = build.finishedAt,
-            ),
-        )
-    }
+    ) : BuildListItem(BUILD_ITEM, build.id.toString())
 }

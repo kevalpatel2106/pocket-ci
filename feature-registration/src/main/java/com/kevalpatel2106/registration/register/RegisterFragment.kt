@@ -12,9 +12,12 @@ import com.kevalpatel2106.core.extentions.showSnack
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
 import com.kevalpatel2106.core.viewbinding.viewBinding
+import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.registration.R
 import com.kevalpatel2106.registration.databinding.FragmentRegisterBinding
+import com.kevalpatel2106.registration.register.RegisterVMEvent.AccountAlreadyAdded
 import com.kevalpatel2106.registration.register.RegisterVMEvent.HandleAuthSuccess
+import com.kevalpatel2106.registration.register.RegisterVMEvent.ShowErrorAddingAccount
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -64,11 +67,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     cleanUpStack = true
                 )
             }
-            RegisterVMEvent.AccountAlreadyAdded -> {
-                showSnack(getString(R.string.register_error_account_already_added))
-            }
-            RegisterVMEvent.ShowErrorAddingAccount -> {
-                showSnack(getString(R.string.error_adding_account))
+            AccountAlreadyAdded -> showSnack(R.string.register_error_account_already_added)
+            is ShowErrorAddingAccount -> {
+                showErrorSnack(event.displayError, R.string.error_adding_account)
             }
         }
     }

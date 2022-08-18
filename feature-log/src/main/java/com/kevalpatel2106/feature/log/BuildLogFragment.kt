@@ -8,8 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kevalpatel2106.core.extentions.collectInFragment
-import com.kevalpatel2106.core.extentions.showSnack
 import com.kevalpatel2106.core.viewbinding.viewBinding
+import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.feature.log.BuildLogVMEvent.Close
 import com.kevalpatel2106.feature.log.BuildLogVMEvent.CreateLogFile
 import com.kevalpatel2106.feature.log.BuildLogVMEvent.ErrorSavingLog
@@ -36,7 +36,6 @@ class BuildLogFragment : Fragment(R.layout.fragment_build_log) {
             lifecycleOwner = viewLifecycleOwner
             model = viewModel
         }
-
         setUpTitle()
         BuildLogMenuProvider.bindWithLifecycle(this, viewModel)
         logFileSaveHelper = LogFileSaveHelper.bindWithLifecycle(this)
@@ -74,7 +73,7 @@ class BuildLogFragment : Fragment(R.layout.fragment_build_log) {
             ScrollToBottom -> binding.buildLogVerticalScroll.fullScroll(View.FOCUS_DOWN)
             ScrollToTop -> binding.buildLogVerticalScroll.scrollTo(0, 0)
             is CreateLogFile -> logFileSaveHelper.createFile(event.fileName, event.logs)
-            ErrorSavingLog -> showSnack(getString(R.string.build_log_error_writing_logs))
+            is ErrorSavingLog -> showErrorSnack(event.error, R.string.build_log_error_writing_logs)
             Close -> findNavController().navigateUp()
         }
     }

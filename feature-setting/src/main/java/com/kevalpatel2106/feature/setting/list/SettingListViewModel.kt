@@ -2,6 +2,7 @@ package com.kevalpatel2106.feature.setting.list
 
 import androidx.lifecycle.viewModelScope
 import com.kevalpatel2106.core.BaseViewModel
+import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.core.extentions.modify
 import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.ErrorChangingTheme
 import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenAppInvite
@@ -28,6 +29,7 @@ internal class SettingListViewModel @Inject constructor(
     private val settingsRepo: SettingsRepo,
     private val prefValueToNightMode: ConvertPrefValueToNightMode,
     private val appConfigRepo: AppConfigRepo,
+    private val displayErrorMapper: DisplayErrorMapper,
 ) : BaseViewModel<SettingListVMEvent>() {
 
     private val _viewState = MutableStateFlow(
@@ -47,9 +49,9 @@ internal class SettingListViewModel @Inject constructor(
             settingsRepo.observeNightMode()
                 .distinctUntilChanged()
                 .filter { it != _viewState.value.themeValue }
-                .catch {
-                    Timber.e(it)
-                    _vmEventsFlow.emit(ErrorChangingTheme)
+                .catch { error ->
+                    Timber.e(error)
+                    _vmEventsFlow.emit(ErrorChangingTheme(displayErrorMapper(error)))
                 }
                 .collectLatest { _viewState.modify { copy(themeValue = it) } }
         }

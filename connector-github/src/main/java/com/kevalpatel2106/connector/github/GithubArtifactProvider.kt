@@ -11,9 +11,12 @@ import com.kevalpatel2106.entity.Artifact
 import com.kevalpatel2106.entity.ArtifactDownloadData
 import com.kevalpatel2106.entity.PagedData
 import com.kevalpatel2106.entity.ProjectBasic
+import com.kevalpatel2106.entity.Url
 import com.kevalpatel2106.entity.id.ArtifactId
 import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.entity.toUrl
+import retrofit2.HttpException
+import java.net.HttpURLConnection
 import javax.inject.Inject
 
 internal class GithubArtifactProvider @Inject constructor(
@@ -54,11 +57,19 @@ internal class GithubArtifactProvider @Inject constructor(
         buildId: BuildId,
         artifactId: ArtifactId,
     ): ArtifactDownloadData {
-        val responseDto = retrofitClient
-            .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
-            .getArtifactDetail(projectBasic.owner, projectBasic.name, artifactId.getValue())
+        var downloadUrl = Url.EMPTY
+        runCatching {
+            retrofitClient
+                .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
+                .getArtifactDetail(projectBasic.owner, projectBasic.name, artifactId.getValue())
+        }.onFailure { error ->
+            val isArtifactDeleted = (error as? HttpException)?.code() == HttpURLConnection.HTTP_GONE
+            if (!isArtifactDeleted) throw error
+        }.onSuccess { responseDto ->
+            downloadUrl = responseDto.downloadUrl.toUrl()
+        }
         return ArtifactDownloadData(
-            url = responseDto.downloadUrl.toUrl(),
+            url = downloadUrl,
             headers = mapOf(AUTHENTICATION to tokenHeaderValueBuilder(accountBasic.authToken)),
         )
     }

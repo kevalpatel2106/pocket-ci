@@ -12,6 +12,8 @@ import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.pocketci.R
 import com.kevalpatel2106.pocketci.bottomDrawer.BottomDrawerDialog
 import com.kevalpatel2106.pocketci.databinding.ActivityHostBinding
+import com.kevalpatel2106.pocketci.host.HostVMEvents.NavigateUp
+import com.kevalpatel2106.pocketci.host.HostVMEvents.ShowBottomDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,8 +49,8 @@ class HostActivity : AppCompatActivity() {
 
     private fun handleViewEvent(event: HostVMEvents) {
         when (event) {
-            HostVMEvents.ShowBottomDialog -> BottomDrawerDialog.show(supportFragmentManager)
-            HostVMEvents.NavigateUp -> navController.navigateUp()
+            ShowBottomDialog -> BottomDrawerDialog.show(supportFragmentManager)
+            NavigateUp -> navController.navigateUp()
         }
     }
 

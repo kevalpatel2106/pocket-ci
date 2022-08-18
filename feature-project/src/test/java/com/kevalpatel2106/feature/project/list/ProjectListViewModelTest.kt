@@ -1,9 +1,11 @@
 package com.kevalpatel2106.feature.project.list
 
 import com.flextrade.kfixture.KFixture
+import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.coreTest.TestCoroutineExtension
 import com.kevalpatel2106.coreTest.getProjectFixture
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
+import com.kevalpatel2106.feature.project.list.ProjectListVMEvent.OpenBuildsList
 import com.kevalpatel2106.feature.project.list.usecase.InsertProjectListHeaders
 import com.kevalpatel2106.repository.ProjectRepo
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -17,6 +19,7 @@ import org.mockito.kotlin.mock
 class ProjectListViewModelTest {
     private val kFixture = KFixture()
     private val projectRepo = mock<ProjectRepo>()
+    private val displayErrorMapper = mock<DisplayErrorMapper>()
     private val navArgs = kFixture<ProjectListFragmentArgs>()
     private val insertProjectListHeaders = mock<InsertProjectListHeaders> {
         on { invoke(anyOrNull(), anyOrNull()) } doReturn null
@@ -27,6 +30,7 @@ class ProjectListViewModelTest {
             navArgs.toSavedStateHandle(),
             projectRepo,
             insertProjectListHeaders,
+            displayErrorMapper,
         )
     }
 
@@ -38,7 +42,7 @@ class ProjectListViewModelTest {
             subject.onProjectSelected(selectedProject)
 
             assertEquals(
-                ProjectListVMEvent.OpenBuildsList(selectedProject.accountId, selectedProject.remoteId),
+                OpenBuildsList(selectedProject.accountId, selectedProject.remoteId),
                 flowTurbine.awaitItem(),
             )
         }

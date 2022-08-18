@@ -11,7 +11,7 @@
 
         <variable
             name="callback"
-            type="com.kevalpatel2106.feature.artifact.list.adapter.ArtifactAdapterCallback" />
+            type="com.kevalpatel2106.feature.artifact.list.adapter.ArtifactListAdapterCallback" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

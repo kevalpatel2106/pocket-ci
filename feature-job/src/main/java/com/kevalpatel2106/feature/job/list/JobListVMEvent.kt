@@ -1,5 +1,6 @@
 package com.kevalpatel2106.feature.job.list
 
+import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.entity.id.JobId
@@ -16,4 +17,5 @@ internal sealed class JobListVMEvent {
     object RefreshJobs : JobListVMEvent()
     object Close : JobListVMEvent()
     object RetryLoading : JobListVMEvent()
+    data class ShowErrorLoadingJobs(val displayError: DisplayError) : JobListVMEvent()
 }

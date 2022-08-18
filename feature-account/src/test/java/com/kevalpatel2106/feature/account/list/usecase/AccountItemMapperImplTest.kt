@@ -11,16 +11,16 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
-class ConvertToAccountItemImplTest {
+class AccountItemMapperImplTest {
     private val kFixture = KFixture()
     private val testCIInfo = getCIInfoFixture(kFixture())
     private val mockCiRepo = mock<CIInfoRepo>()
-    private val subject = ConvertToAccountItemImpl(mockCiRepo)
+    private val subject = AccountItemMapperImpl(mockCiRepo)
 
     @Test
     fun `given account when invoke then check account in AccountItem`() = runTest {
         val account = getAccountFixture(kFixture)
-        whenever(mockCiRepo.getCI(account.type)).thenReturn(testCIInfo)
+        whenever(mockCiRepo.getCIInfo(account.type)).thenReturn(testCIInfo)
 
         val result = subject.invoke(account)
 
@@ -30,7 +30,7 @@ class ConvertToAccountItemImplTest {
     @Test
     fun `given account when invoke then check ci icon in AccountItem`() = runTest {
         val account = getAccountFixture(kFixture)
-        whenever(mockCiRepo.getCI(account.type)).thenReturn(testCIInfo)
+        whenever(mockCiRepo.getCIInfo(account.type)).thenReturn(testCIInfo)
 
         val result = subject.invoke(account)
 
@@ -40,7 +40,7 @@ class ConvertToAccountItemImplTest {
     @Test
     fun `given account when invoke then check ci name in AccountItem`() = runTest {
         val account = getAccountFixture(kFixture)
-        whenever(mockCiRepo.getCI(account.type)).thenReturn(testCIInfo)
+        whenever(mockCiRepo.getCIInfo(account.type)).thenReturn(testCIInfo)
 
         val result = subject.invoke(account)
 
@@ -50,7 +50,7 @@ class ConvertToAccountItemImplTest {
     @Test
     fun `given account which is selected when invoke then check stroke width is 2dp`() = runTest {
         val account = getAccountFixture(kFixture).copy(isSelected = true)
-        whenever(mockCiRepo.getCI(account.type)).thenReturn(testCIInfo)
+        whenever(mockCiRepo.getCIInfo(account.type)).thenReturn(testCIInfo)
 
         val result = subject.invoke(account)
 
@@ -61,7 +61,7 @@ class ConvertToAccountItemImplTest {
     fun `given account which is not selected when invoke then check stroke width is 0dp`() =
         runTest {
             val account = getAccountFixture(kFixture).copy(isSelected = false)
-            whenever(mockCiRepo.getCI(account.type)).thenReturn(testCIInfo)
+            whenever(mockCiRepo.getCIInfo(account.type)).thenReturn(testCIInfo)
 
             val result = subject.invoke(account)
 

@@ -1,5 +1,7 @@
 package com.kevalpatel2106.feature.artifact.di
 
+import com.kevalpatel2106.feature.artifact.list.usecase.ArtifactItemMapper
+import com.kevalpatel2106.feature.artifact.list.usecase.ArtifactItemMapperImpl
 import com.kevalpatel2106.feature.artifact.usecase.ArtifactIconMapper
 import com.kevalpatel2106.feature.artifact.usecase.ArtifactIconMapperImpl
 import com.kevalpatel2106.feature.artifact.usecase.ArtifactSizeConverter
@@ -27,4 +29,8 @@ internal abstract class ViewModelComponentBinding {
     @Binds
     @ViewModelScoped
     abstract fun bindDownloadFileFromUrl(impl: DownloadFileFromUrlImpl): DownloadFileFromUrl
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindArtifactItemMapper(impl: ArtifactItemMapperImpl): ArtifactItemMapper
 }

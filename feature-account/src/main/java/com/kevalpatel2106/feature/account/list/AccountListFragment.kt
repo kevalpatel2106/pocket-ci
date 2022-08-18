@@ -13,6 +13,7 @@ import com.kevalpatel2106.core.extentions.showSnack
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
 import com.kevalpatel2106.core.viewbinding.viewBinding
+import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.feature.account.R
@@ -24,6 +25,7 @@ import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenProjects
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.RefreshAccountList
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.RetryLoading
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowDeleteConfirmation
+import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorLoadingAccounts
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorRemovingAccount
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorSelectingAccount
 import com.kevalpatel2106.feature.account.list.adapter.AccountListAdapter
@@ -82,17 +84,22 @@ class AccountListFragment : Fragment(R.layout.fragment_account_list) {
             )
             RetryLoading -> accountListAdapter.retry()
             RefreshAccountList -> accountListAdapter.refresh()
-            ShowErrorRemovingAccount -> showSnack(getString(R.string.error_removing_account))
-            ShowErrorSelectingAccount -> showSnack(getString(R.string.error_selecting_account))
+            is ShowErrorRemovingAccount -> {
+                showErrorSnack(event.error, R.string.error_removing_account)
+            }
+            is ShowErrorSelectingAccount -> {
+                showErrorSnack(event.error, R.string.error_selecting_account)
+            }
             OpenCiSelection -> findNavController().navigateToInAppDeeplink(
                 DeepLinkDestinations.CiSelection,
             )
             is ShowDeleteConfirmation -> showDeleteConfirmationDialog(event.accountId, event.name)
             AccountRemovedSuccess -> {
-                showSnack(getString(R.string.success_removing_account))
+                showSnack(R.string.success_removing_account)
                 accountListAdapter.refresh()
             }
             Close -> findNavController().navigateUp()
+            is ShowErrorLoadingAccounts -> showErrorSnack(event.error)
         }
     }
 
