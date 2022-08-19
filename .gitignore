@@ -4,6 +4,7 @@
 .externalNativeBuild
 .cxx
 /local.properties
+/.creds/keystore.jks
 /.creds/keystore.properties
 /build
 /*/build

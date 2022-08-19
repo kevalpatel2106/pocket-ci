@@ -47,7 +47,8 @@ subprojects {
 
                     buildTypes {
                         debug {
-                            versionNameSuffix ".debug"
+                            versionNameSuffix "-debug"
+                            applicationIdSuffix ".debug"
 
                             debuggable true
                             zipAlignEnabled true

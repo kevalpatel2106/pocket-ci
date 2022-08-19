@@ -1,7 +1,7 @@
 ext {
     debugDetail = [
             'name'       : "Pocket CI Debug",
-            'packageName': "com.kevalpatel2106.pocketci",
+            'packageName': "com.kevalpatel2106.pocketci.debug",
     ]
 
     releaseDetail = [
@@ -108,10 +108,9 @@ ext {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += [
-                        "room.schemaLocation"                         : "$projectDir/repository/schema".toString(),
-                        "room.incremental"                            : "true",
-                        "room.expandProjection"                       : "true",
-                        "dagger.hilt.disableModulesHaveInstallInCheck": "true"
+                        "room.schemaLocation"  : "$projectDir/repository/schema".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true",
                 ]
             }
         }
@@ -178,13 +177,6 @@ ext {
         config = files("./detekt-config.yml")
         baseline = file("detekt/baseline.xmk")
         autoCorrect = true
-    }
-
-    ktlintOption = {
-        filter {
-            exclude("**/generated/**")
-            include("**/kotlin/**")
-        }
     }
 }
 
