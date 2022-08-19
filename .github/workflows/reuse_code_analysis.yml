@@ -2,9 +2,6 @@ name: Code check
 
 on:
   workflow_call:
-    secrets:
-      CACHE_VERSION:
-        required: true
 
 jobs:
   gradle-validation:
@@ -18,20 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'adopt'
-          java-version: 11
-      - uses: actions/cache@v3
-        continue-on-error: true
-        with:
-          path: |
-            ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-${{ secrets.CACHE_VERSION }}-
       - name: Run detekt
-        run: ./gradlew detekt --stacktrace --scan
+        uses: gradle/gradle-build-action@v2.2.5
+        with:
+          arguments: |
+            detekt
+            --scan
+            --stacktrace
       - name: Upload results Artifact
         uses: actions/upload-artifact@v3
         if: failure()
@@ -40,10 +30,6 @@ jobs:
           path: |
             **/build/reports/detekt/**/*
           if-no-files-found: error
-      - name: Cleanup Gradle Cache
-        run: |
-          rm -f ~/.gradle/caches/modules-2/modules-2.lock
-          rm -f ~/.gradle/caches/modules-2/gc.properties
 
   lint:
     name: android lint
@@ -54,16 +40,13 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: 11
-      - uses: actions/cache@v3
-        continue-on-error: true
-        with:
-          path: |
-            ~/.gradle/caches
-          key: ${{ runner.os }}-${{ secrets.CACHE_VERSION }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-${{ secrets.CACHE_VERSION }}-
       - name: Run lint
-        run: ./gradlew app:lintRelease --stacktrace --scan
+        uses: gradle/gradle-build-action@v2.2.5
+        with:
+          arguments: |
+            app:lintRelease
+            --scan
+            --stacktrace
       - name: Generate annotations from lint report
         if: success() || failure()
         uses: yutailang0119/action-android-lint@v3
@@ -79,10 +62,6 @@ jobs:
             **/build/reports/lint-results-*.html
             **/build/reports/lint-results-*.xml
           if-no-files-found: error
-      - name: Cleanup Gradle Cache
-        run: |
-          rm -f ~/.gradle/caches/modules-2/modules-2.lock
-          rm -f ~/.gradle/caches/modules-2/gc.properties
 
   ktlint:
     name: ktlint

@@ -5,8 +5,6 @@ on:
     secrets:
       CODECOV_TOKEN:
         required: true
-      CACHE_VERSION:
-        required: true
 
 jobs:
   unit-test:
@@ -15,22 +13,18 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Set up JDK 1.8
+      - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: 11
-      - name: Find cache
-        uses: actions/cache@v3
-        continue-on-error: true
+      - name: Run Unit tests
+        uses: gradle/gradle-build-action@v2.2.5
         with:
-          path: |
-            ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-${{ secrets.CACHE_VERSION }}-
-      - name: Run Unit tests with coverage
-        run: bash ./gradlew testDebugUnitTest --stacktrace
+          arguments: |
+            testDebugUnitTest
+            --scan
+            --stacktrace
       - name: Upload test results Artifact
         uses: actions/upload-artifact@v3
         if: success() || failure()
@@ -40,7 +34,3 @@ jobs:
             **/build/reports/tests/**/*
             **/build/reports/test-results/**/*
           if-no-files-found: warn
-      - name: Cleanup Gradle Cache
-        run: |
-          rm -f ~/.gradle/caches/modules-2/modules-2.lock
-          rm -f ~/.gradle/caches/modules-2/gc.properties

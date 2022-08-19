@@ -1,4 +1,4 @@
-# cannot access PAT token in pull_request target triggered by dependabot so, had to create this workflow.
+# cannot access PAT token in pull_request target triggered by dependabot so, created this workflow.
 # https://github.com/dependabot/dependabot-core/issues/3253#issuecomment-797125425
 name: PR Automerge
 

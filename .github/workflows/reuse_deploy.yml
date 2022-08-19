@@ -1,0 +1,73 @@
+name: Deploy
+
+on:
+  workflow_call:
+    secrets:
+      PLAY_SERVICE_ACCOUNT_JSON:
+        required: true
+
+jobs:
+  create-release:
+    name: Create Github Release
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: 11
+      - name: Download AAB
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: bundle-release
+      - name: Download bundle mapping file
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: mapping-bundle-release
+      - name: Download Release APK
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: apk-release
+      - name: Create release for tag
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
+          files: |
+            ./app-release.apk
+            ./app-release.aab
+            ./mapping.txt
+
+  deploy-playstore:
+    name: Deploy to Playstore
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v') }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download AAB to upload
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: bundle-release
+      - name: Download mapping file to upload
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: mapping-bundle-release
+      - name: Display structure of downloaded files   # For debugging purposes
+        run: git rev-list HEAD --count
+      - name: Publish to internal track
+        uses: r0adkll/upload-google-play@v1.0.17
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.kevalpatel2106.pocketci
+          track: internal
+          releaseFiles: ./app-release.aab
+          mappingFile: ./mapping.txt
+      - name: Publish to alpha track
+        if: startsWith(github.ref, 'refs/tags/v')   # Only if building for release tag.
+        uses: r0adkll/upload-google-play@v1.0.17
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.kevalpatel2106.pocketci
+          track: alpha
+          releaseFiles: ./app-release.aab
+          mappingFile: ./mapping.txt

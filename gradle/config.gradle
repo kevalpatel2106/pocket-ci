@@ -40,6 +40,10 @@ ext {
         exclude 'META-INF/rxjava.properties'
         exclude 'protobuf.meta'
         exclude 'licenses/javolution.license.TXT'
+
+        pickFirst '**/libjsc.so'
+        pickFirst '**/libc++_shared.so'
+        pickFirst '**/libbytehook.so'
     }
 
     signingConfig = {
@@ -200,7 +204,10 @@ def get_prod_key_creds() {
 
 static def getVersionCode() {
     if (System.getenv().containsKey("CI")) {
-        return "git rev-list HEAD --count".execute().text.trim().toInteger()
+        def base = 10000
+        def code = System.getenv().getOrDefault("GITHUB_RUN_NUMBER", "1").toInteger() + base
+        println("CI Version code is: $code")
+        return code
     } else  {
         return 1
     }
