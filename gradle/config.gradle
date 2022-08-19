@@ -1,7 +1,7 @@
 ext {
     debugDetail = [
             'name'       : "Pocket CI Debug",
-            'packageName': "com.kevalpatel2106.pocketci",
+            'packageName': "com.kevalpatel2106.pocketci.debug",
     ]
 
     releaseDetail = [
@@ -16,7 +16,7 @@ ext {
     ]
 
     playStoreVersion = [
-            "version_code": 1,
+            "version_code": getVersionCode(),
             "major"       : 0,
             "minor"       : 1,
             "patch"       : 0
@@ -40,10 +40,6 @@ ext {
         exclude 'META-INF/rxjava.properties'
         exclude 'protobuf.meta'
         exclude 'licenses/javolution.license.TXT'
-
-        pickFirst '**/libjsc.so'
-        pickFirst '**/libc++_shared.so'
-        pickFirst '**/libbytehook.so'
     }
 
     signingConfig = {
@@ -108,10 +104,9 @@ ext {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += [
-                        "room.schemaLocation"                         : "$projectDir/repository/schema".toString(),
-                        "room.incremental"                            : "true",
-                        "room.expandProjection"                       : "true",
-                        "dagger.hilt.disableModulesHaveInstallInCheck": "true"
+                        "room.schemaLocation"  : "$projectDir/repository/schema".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true",
                 ]
             }
         }
@@ -179,13 +174,6 @@ ext {
         baseline = file("detekt/baseline.xmk")
         autoCorrect = true
     }
-
-    ktlintOption = {
-        filter {
-            exclude("**/generated/**")
-            include("**/kotlin/**")
-        }
-    }
 }
 
 def get_debug_key_creds() {
@@ -207,5 +195,13 @@ def get_prod_key_creds() {
         return properties
     } else {
         return null
+    }
+}
+
+static def getVersionCode() {
+    if (System.getenv().containsKey("CI")) {
+        return "git rev-list HEAD --count".execute().text.trim().toInteger()
+    } else  {
+        return 1
     }
 }

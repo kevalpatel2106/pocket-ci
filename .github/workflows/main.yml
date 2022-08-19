@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - v*
 
 permissions:
   contents: write
@@ -16,7 +18,7 @@ jobs:
       CACHE_VERSION: ${{secrets.CACHE_VERSION}}
 
   test:
-    uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_tests.yml@main
+    uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_test.yml@main
     needs: [quality]
     secrets:
       CACHE_VERSION: ${{secrets.CACHE_VERSION}}
@@ -27,7 +29,15 @@ jobs:
     needs: [test]
     secrets:
       CACHE_VERSION: ${{secrets.CACHE_VERSION}}
+
+  deploy:
+    uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_deploy.yml@main
+    needs: [build]
+    if: ${{ github.repository == 'kevalpatel2106/pocket-ci' }}
+    secrets:
+      CACHE_VERSION: ${{secrets.CACHE_VERSION}}
       ANDROID_KEYSTORE_BASE64: ${{secrets.ANDROID_KEYSTORE_BASE64}}
       ANDROID_KEYSTORE_ALIAS: ${{secrets.ANDROID_KEYSTORE_ALIAS}}
       ANDROID_KEYSTORE_PASSWORD: ${{secrets.ANDROID_KEYSTORE_PASSWORD}}
       ANDROID_ALIAS_PASSWORD: ${{secrets.ANDROID_ALIAS_PASSWORD}}
+      PLAY_SERVICE_ACCOUNT_JSON: ${{secrets.PLAY_SERVICE_ACCOUNT_JSON}}

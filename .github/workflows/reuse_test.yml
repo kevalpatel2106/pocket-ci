@@ -1,4 +1,4 @@
-name: Tests
+name: Test
 
 on:
   workflow_call:
@@ -7,6 +7,7 @@ on:
         required: true
       CACHE_VERSION:
         required: true
+
 jobs:
   unit-test:
     name: unit tests
