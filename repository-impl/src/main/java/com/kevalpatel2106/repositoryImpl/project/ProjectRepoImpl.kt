@@ -1,6 +1,5 @@
 package com.kevalpatel2106.repositoryImpl.project
 
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -30,7 +29,6 @@ internal class ProjectRepoImpl @Inject constructor(
         }
     }
 
-    @OptIn(ExperimentalPagingApi::class)
     override fun getProjects(accountId: AccountId): Flow<PagingData<Project>> {
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE),

@@ -3,8 +3,10 @@ package com.kevalpatel2106.repositoryImpl.di
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStoreImpl.Companion.appPreferenceDataStore
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.security.crypto.MasterKeys
 import com.kevalpatel2106.repositoryImpl.cache.db.AppDb
+import com.kevalpatel2106.repositoryImpl.cache.sharedPrefs.SharedPrefFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +17,19 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal class SingletonComponentModule {
+    private val Context.appPreferenceDataStore by preferencesDataStore(
+        name = DATASTORE_PREFERENCES_NAME
+    )
+
+    @Singleton
+    @Provides
+    @EnableEncryption
+    fun provideEnableEncryption(@IsDebug isDebug: Boolean) = !isDebug
+
+    @Provides
+    @Singleton
+    @MasterKey
+    fun provideEncryptionMasterKey() = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 
     @Singleton
     @Provides
@@ -24,8 +39,11 @@ internal class SingletonComponentModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext application: Context) =
-        AppDb.create(application, inMemory = false)
+    fun provideSharedPreferences(factory: SharedPrefFactory) = factory.create()
+
+    @Provides
+    @Singleton
+    fun provideDatabase(factory: AppDb.Factory) = factory.create(inMemory = false)
 
     @Provides
     @Singleton
@@ -34,4 +52,8 @@ internal class SingletonComponentModule {
     @Provides
     @Singleton
     fun provideProjectDao(db: AppDb) = db.getProjectDao()
+
+    companion object {
+        private const val DATASTORE_PREFERENCES_NAME = "app_preferences"
+    }
 }
