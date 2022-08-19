@@ -1,6 +1,5 @@
 package com.kevalpatel2106.repositoryImpl.project
 
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
@@ -15,7 +14,6 @@ import com.kevalpatel2106.repositoryImpl.project.usecase.SaveProjectsToCacheImpl
 import timber.log.Timber
 import javax.inject.Inject
 
-@OptIn(ExperimentalPagingApi::class)
 internal class ProjectRemoteMediator private constructor(
     private val accountId: AccountId,
     private val accountDao: AccountDao,

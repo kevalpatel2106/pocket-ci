@@ -32,6 +32,11 @@
 -dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
 # End of Glide
 
+# sqlcipher: https://github.com/sqlcipher/android-database-sqlcipher#proguard
+-keep,includedescriptorclasses class net.sqlcipher.** { *; }
+-keep,includedescriptorclasses interface net.sqlcipher.** { *; }
+# End of sqlcipher
+
 # Navigation
 # We need to prevent Parcelable, Serializable, and Enum class names from being obfuscated if they
 # are used by SafeArs plugin.

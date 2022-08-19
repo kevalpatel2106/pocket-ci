@@ -151,7 +151,10 @@ ext {
     }
 
     kotlinOption = {
-        freeCompilerArgs += ["-Xinline-classes", "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"]
+        freeCompilerArgs += [
+                "-Xinline-classes",
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi,androidx.paging.ExperimentalPagingApi"
+        ]
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
 

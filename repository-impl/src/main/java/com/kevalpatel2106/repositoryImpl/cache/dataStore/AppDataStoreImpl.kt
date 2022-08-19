@@ -1,6 +1,5 @@
 package com.kevalpatel2106.repositoryImpl.cache.dataStore
 
-import android.content.Context
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
@@ -9,7 +8,6 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.toAccountIdOrNull
 import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStoreImpl.PreferencesKeys.SELECTED_ACCOUNT
@@ -68,9 +66,6 @@ internal class AppDataStoreImpl @Inject constructor(
     }
 
     companion object {
-        private const val APP_PREFERENCES_NAME = "app_preferences"
         private const val DEFAULT_NIGHT_MODE = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-
-        internal val Context.appPreferenceDataStore by preferencesDataStore(name = APP_PREFERENCES_NAME)
     }
 }
