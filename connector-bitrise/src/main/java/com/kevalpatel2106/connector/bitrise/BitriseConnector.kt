@@ -10,7 +10,7 @@ import com.kevalpatel2106.connector.ci.internal.CIUserInfoProvider
 import javax.inject.Inject
 
 internal class BitriseConnector @Inject constructor(
-    private val ciInfoProvider: BitriseInfoInfoProvider,
+    private val ciInfoProvider: BitriseInfoProvider,
     private val userInfoProvider: BitriseUserInfoProvider,
     private val projectInfoProvider: BitriseProjectInfoProvider,
     private val buildInfoProvider: BitriseBuildInfoProvider,

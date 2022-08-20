@@ -1,6 +1,5 @@
 # Issue Guide
 
-
 > If your change is substantial, please raise an issue first to discuss it
 
 ## How to file new bug?
@@ -17,3 +16,6 @@
 - You can attach screenshots from the other app, you think it has the feature.
 
 Happy coding.:-)
+
+----
+> If you have any questions or suggestions about this page, feel free to open a [discussion under `documentation`](https://github.com/kevalpatel2106/pocket-ci/discussions/new?category=documentation).
