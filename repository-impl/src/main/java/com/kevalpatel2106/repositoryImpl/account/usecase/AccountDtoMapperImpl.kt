@@ -7,12 +7,12 @@ import javax.inject.Inject
 
 internal class AccountDtoMapperImpl @Inject constructor() : AccountDtoMapper {
 
-    override operator fun invoke(account: Account) = with(account) {
+    override operator fun invoke(account: Account, savedAt: Date) = with(account) {
         AccountDto(
-            id = account.localId,
+            id = localId,
             name = name,
             baseUrl = baseUrl,
-            savedAt = Date(),
+            savedAt = savedAt,
             token = authToken,
             type = type,
             email = email,

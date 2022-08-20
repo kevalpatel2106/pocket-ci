@@ -1,6 +1,5 @@
-package com.kevalpatel2106.repositoryImpl.cache.db
+package com.kevalpatel2106.repositoryImpl.cache.db.converter
 
-import com.kevalpatel2106.repositoryImpl.cache.db.converter.DateConverter
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.Date

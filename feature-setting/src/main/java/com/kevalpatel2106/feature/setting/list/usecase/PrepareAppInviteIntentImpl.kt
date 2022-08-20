@@ -29,8 +29,7 @@ internal class PrepareAppInviteIntentImpl @Inject constructor(
     }
 
     companion object {
-        // TODO Replace with original url
-        private const val INVITATION_URL = "http://app_invitation_url.com"
+        private const val INVITATION_URL = "https://pocketci.page.link/app-invite"
         private const val INTENT_TYPE_TEXT = "text/plain"
     }
 }

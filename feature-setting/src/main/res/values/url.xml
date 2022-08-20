@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--TODO change urls-->
-    <string name="privacy_policy_url" translatable="false">https://year-in-progress.firebaseapp.com/privacy_policy.html</string>
-    <string name="changelog_url" translatable="false">https://year-in-progress.firebaseapp.com/changelog.html</string>
+    <string name="privacy_policy_url" translatable="false">https://pocketci.page.link/privacy</string>
+    <string name="changelog_url" translatable="false">https://pocketci.page.link/changelog</string>
 </resources>

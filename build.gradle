@@ -176,3 +176,5 @@ task installGitHooks(type: Copy) {
 }
 
 tasks.getByPath(':app:preBuild').dependsOn installGitHooks
+
+apply plugin: 'android-reporting'

@@ -7,7 +7,7 @@ import com.kevalpatel2106.entity.Url
 import com.kevalpatel2106.entity.toToken
 import javax.inject.Inject
 
-internal class BitriseInfoInfoProvider @Inject constructor() : CIInfoProvider {
+internal class BitriseInfoProvider @Inject constructor() : CIInfoProvider {
 
     override suspend fun getCIInfo(): CIInfo = CIInfo(
         type = CIType.BITRISE,
@@ -29,9 +29,7 @@ internal class BitriseInfoInfoProvider @Inject constructor() : CIInfoProvider {
     companion object {
         private const val DEFAULT_BASE_URL = "https://api.bitrise.io/"
         private const val BITRISE_ABOUT_URL = "https://www.bitrise.io"
-        private const val SAMPLE_AUTH_TOKEN = "ABC" // TODO Replace with sample token
-
-        // TODO Create webpage
+        private const val SAMPLE_AUTH_TOKEN = "MeVlWeGdkIwGEqV-XWnSt9XtiPtZEDt9wqICyfmVutt93reh_agFt2sEd6l5QDPs"
         private const val TOKEN_EXPLAIN_LINK = "https://pocketci.page.link/bitrise-setup"
     }
 }

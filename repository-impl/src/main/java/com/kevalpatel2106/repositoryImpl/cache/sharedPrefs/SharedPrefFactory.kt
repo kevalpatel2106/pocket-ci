@@ -14,19 +14,16 @@ internal class SharedPrefFactory @Inject constructor(
     @EnableEncryption private val encryptionEnabled: Boolean,
 ) {
 
-    fun create(): SharedPreferences = if (encryptionEnabled) {
+    fun create(name: String = SHARED_PREFERENCES_NAME): SharedPreferences = if (encryptionEnabled) {
         EncryptedSharedPreferences.create(
-            SHARED_PREFERENCES_NAME,
+            name,
             masterKey,
             application,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM,
         )
     } else {
-        application.getSharedPreferences(
-            SHARED_PREFERENCES_NAME,
-            Context.MODE_PRIVATE,
-        )
+        application.getSharedPreferences(name, Context.MODE_PRIVATE)
     }
 
     companion object {

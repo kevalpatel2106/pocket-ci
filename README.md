@@ -10,6 +10,14 @@
 
 #### Pocket CI let's you check your CI builds on the go. Learn more at: [kevalpatel2106.github.io/pocket-ci](https://kevalpatel2106.github.io/pocket-ci).
 
+## Download:
+
+<a href="https://play.google.com/store/apps/details?id=com.kevalpatel2106.pocketci" target="_blank">
+<img src="https://play.google.com/intl/en_gb/badges/static/images/badges/en_badge_web_generic.png" width=240 />
+</a>
+
+Download snapshot build from [play store](https://play.google.com/apps/internaltest/4701514788433255282).
+
 ## Contribution
 
 For contributions please read [contribution guide](https://kevalpatel2106.github.io/pocket-ci/contributions).

@@ -62,12 +62,12 @@ jobs:
           track: internal
           releaseFiles: ./app-release.aab
           mappingFile: ./mapping.txt
-      - name: Publish to alpha track
+      - name: Publish to beta track
         if: startsWith(github.ref, 'refs/tags/v')   # Only if building for release tag.
         uses: r0adkll/upload-google-play@v1.0.17
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
           packageName: com.kevalpatel2106.pocketci
-          track: alpha
+          track: beta
           releaseFiles: ./app-release.aab
           mappingFile: ./mapping.txt

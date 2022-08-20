@@ -52,6 +52,7 @@ jobs:
             --scan
             --stacktrace
       - uses: r0adkll/sign-android-release@v1.0.4
+        if: ${{ github.ref == 'refs/heads/main' }}
         id: sign_app
         name: Sign release APK
         with:
@@ -62,11 +63,18 @@ jobs:
           keyPassword: ${{ secrets.UPLOAD_ALIAS_PASSWORD }}
         env:
           BUILD_TOOLS_VERSION: "30.0.2"
-      - name: Upload APK
+      - name: Upload signed APK
+        if: ${{ github.ref == 'refs/heads/main' }}
         uses: actions/upload-artifact@v3
         with:
           name: apk-release
           path: ${{steps.sign_app.outputs.signedReleaseFile}}
+      - name: Upload un signed APK
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: apk-release-unsigned
+          path: app/build/outputs/apk/release/app-release-unsigned-aligned.apk
 
   aab:
     name: Build AAB to release

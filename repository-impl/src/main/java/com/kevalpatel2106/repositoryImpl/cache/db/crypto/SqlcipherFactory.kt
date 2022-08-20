@@ -1,6 +1,7 @@
 package com.kevalpatel2106.repositoryImpl.cache.db.crypto
 
 import android.content.SharedPreferences
+import androidx.annotation.VisibleForTesting
 import androidx.core.content.edit
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
@@ -33,7 +34,8 @@ internal class SqlcipherFactory @Inject constructor(
     }
 
     companion object {
-        private const val DB_ENCRYPT_PREF_KEY = "DB_KEY"
+        @VisibleForTesting
+        const val DB_ENCRYPT_PREF_KEY = "DB_KEY"
         private const val ALGORITHM_AES = "AES"
         private const val KEY_SIZE = 256
     }

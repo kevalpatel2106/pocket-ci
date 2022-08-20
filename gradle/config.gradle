@@ -91,7 +91,7 @@ ext {
         //strip other than english resources
         resConfigs "en"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.kevalpatel2106.pocketci.runner.UiTestsRunner"
     }
 
     defaultLibConfig = {

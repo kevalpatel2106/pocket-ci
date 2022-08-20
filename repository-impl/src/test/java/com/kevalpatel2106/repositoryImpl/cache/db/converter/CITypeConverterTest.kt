@@ -1,12 +1,11 @@
-package com.kevalpatel2106.repositoryImpl.cache.db
+package com.kevalpatel2106.repositoryImpl.cache.db.converter
 
 import com.kevalpatel2106.entity.CIType
-import com.kevalpatel2106.repositoryImpl.cache.db.converter.CITypeConverter
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 
-class CITypeConverter {
+class CITypeConverterTest {
 
     @ParameterizedTest(name = "given ci type {1} when converted from ci type check integer key is {0}")
     @MethodSource("provideValues")
@@ -17,9 +16,9 @@ class CITypeConverter {
         assertEquals(intValue, CITypeConverter.fromCIType(ciType))
     }
 
-    @ParameterizedTest(name = "given integer key {0} when converted to deadline type check CI type is {1}")
+    @ParameterizedTest(name = "given integer key {0} when converted to ci type check CI type is {1}")
     @MethodSource("provideValues")
-    fun `given integer key when converted to deadline type check deadline type`(
+    fun `given integer key when converted to ci type check ci type`(
         intValue: Int,
         ciType: CIType,
     ) {

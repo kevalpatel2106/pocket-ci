@@ -29,7 +29,7 @@ internal class GithubInfoProvider @Inject constructor() : CIInfoProvider {
     companion object {
         private const val DEFAULT_BASE_URL = "https://api.github.com/"
         private const val ACTIONS_ABOUT_URL = "https://github.com/features/actions"
-        private const val SAMPLE_AUTH_TOKEN = "70e98949b567d678f62ed81866a1cd54aaeee400"
-        private const val TOKEN_EXPLAIN_LINK = "https://github.com/features/actions"
+        private const val SAMPLE_AUTH_TOKEN = "ghp_8949b567d678f62ed81866a1cd54aaeee400"
+        private const val TOKEN_EXPLAIN_LINK = "https://pocketci.page.link/github-token"
     }
 }

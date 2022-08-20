@@ -7,12 +7,16 @@ import com.kevalpatel2106.entity.Project
 import com.kevalpatel2106.entity.Url
 import com.kevalpatel2106.entity.id.toAccountId
 
+fun getUrlFixture(kFixture: KFixture) = Url("https://${kFixture<String>()}.com/")
+
+fun getAccountIdFixture(kFixture: KFixture) = kFixture.range(0L..Long.MAX_VALUE).toAccountId()
+
 fun getAccountFixture(fixture: KFixture) = Account(
     localId = fixture.range(0L..Long.MAX_VALUE).toAccountId(),
     name = fixture(),
     type = fixture(),
-    baseUrl = Url("http://${fixture<String>()}.com/"),
-    avatar = Url("http://${fixture<String>()}.com"),
+    baseUrl = getUrlFixture(fixture),
+    avatar = getUrlFixture(fixture),
     email = fixture(),
     isSelected = fixture(),
     authToken = fixture(),
@@ -21,22 +25,22 @@ fun getAccountFixture(fixture: KFixture) = Account(
 fun getProjectFixture(fixture: KFixture) = Project(
     remoteId = fixture(),
     name = fixture(),
-    image = Url("http://${fixture<String>()}.com/image.png"),
+    image = getUrlFixture(fixture),
     lastUpdatedAt = fixture(),
-    repoUrl = Url("http://${fixture<String>()}.com/"),
+    repoUrl = getUrlFixture(fixture),
     isFavourite = fixture(),
     isPublic = fixture(),
     isDisabled = fixture(),
-    accountId = fixture.range(0L..Long.MAX_VALUE).toAccountId(),
+    accountId = getAccountIdFixture(fixture),
     owner = fixture(),
 )
 
 fun getCIInfoFixture(fixture: KFixture) = CIInfo(
     type = fixture(),
     name = fixture(),
-    defaultBaseUrl = Url("http://${fixture<String>()}.com/image.png"),
-    infoUrl = Url("http://${fixture<String>()}.com/"),
-    authTokenExplainLink = Url("http://${fixture<String>()}.com/"),
+    defaultBaseUrl = getUrlFixture(fixture),
+    infoUrl = getUrlFixture(fixture),
+    authTokenExplainLink = getUrlFixture(fixture),
     icon = fixture(),
     sampleAuthToken = fixture(),
     supportCustomBaseUrl = fixture(),
