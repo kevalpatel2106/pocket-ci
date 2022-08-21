@@ -17,8 +17,6 @@ jobs:
 
   test:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_test.yml@main
-    secrets:
-      CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
 
   build:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_build.yml@main

@@ -4,4 +4,5 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id 'de.mannodermaus.android-junit5'
+    id 'com.dicedmelon.gradle.jacoco-android'
 }

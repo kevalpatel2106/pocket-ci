@@ -15,5 +15,5 @@
 
     <fragment
         android:id="@+id/splash"
-        android:name="com.kevalpatel2106.pocketci.splash.SplashFragment"/>
+        android:name="com.kevalpatel2106.pocketci.splash.SplashFragment" />
 </navigation>

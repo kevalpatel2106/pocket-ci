@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/accountList"
         android:name="com.kevalpatel2106.feature.account.list.AccountListFragment"
-        tools:layout="@layout/fragment_account_list"
-        android:label="@string/title_accounts_screen" >
+        android:label="@string/title_accounts_screen"
+        tools:layout="@layout/fragment_account_list">
 
         <deepLink app:uri="pocket-ci://account-list" />
     </fragment>

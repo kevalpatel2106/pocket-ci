@@ -21,6 +21,6 @@ interface ArtifactRepo {
         accountId: AccountId,
         projectId: ProjectId,
         buildId: BuildId,
-        artifactId: ArtifactId
+        artifactId: ArtifactId,
     ): ArtifactDownloadData
 }

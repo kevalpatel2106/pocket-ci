@@ -10,7 +10,7 @@ import com.kevalpatel2106.entity.Url
 import javax.inject.Inject
 
 internal class BitriseRetrofitClient @Inject constructor(
-    okHttpClientFactory: OkHttpClientFactory
+    okHttpClientFactory: OkHttpClientFactory,
 ) : BaseRetrofitClient(okHttpClientFactory) {
 
     override fun interceptors(baseUrl: Url, token: Token) = listOf(

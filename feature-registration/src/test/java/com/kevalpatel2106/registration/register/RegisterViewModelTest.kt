@@ -52,7 +52,7 @@ class RegisterViewModelTest {
             accountRepo,
             sanitiseRegisterInput,
             validateRegisterInput,
-            displayErrorMapper
+            displayErrorMapper,
         )
     }
 

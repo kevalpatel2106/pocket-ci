@@ -11,11 +11,11 @@ import javax.inject.Inject
 
 internal class GitHubRetrofitClient @Inject constructor(
     okHttpClientFactory: OkHttpClientFactory,
-    private val tokenHeaderValueBuilder: TokenHeaderValueBuilder
+    private val tokenHeaderValueBuilder: TokenHeaderValueBuilder,
 ) : BaseRetrofitClient(okHttpClientFactory) {
 
     override fun interceptors(baseUrl: Url, token: Token) = listOf(
-        AuthHeaderInterceptor.create(token, tokenHeaderValueBuilder)
+        AuthHeaderInterceptor.create(token, tokenHeaderValueBuilder),
     )
 
     fun getService(baseUrl: Url, token: Token) = getService(

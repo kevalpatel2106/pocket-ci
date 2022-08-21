@@ -32,7 +32,9 @@ import timber.log.Timber
 class ArtifactListFragment : Fragment(R.layout.fragment_artifact_list) {
     private val binding by viewBinding(FragmentArtifactListBinding::bind)
     private val viewModel by viewModels<ArtifactListListViewModel>()
-    private val artifactListAdapter by lazy(LazyThreadSafetyMode.NONE) { ArtifactListAdapter(viewModel) }
+    private val artifactListAdapter by lazy(LazyThreadSafetyMode.NONE) {
+        ArtifactListAdapter(viewModel)
+    }
     private val downloadingSnackBar by lazy(LazyThreadSafetyMode.NONE) {
         Snackbar.make(
             binding.root,

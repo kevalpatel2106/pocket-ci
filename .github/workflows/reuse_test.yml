@@ -2,9 +2,6 @@ name: Test
 
 on:
   workflow_call:
-    secrets:
-      CODECOV_TOKEN:
-        required: true
 
 jobs:
   unit-test:
@@ -20,9 +17,13 @@ jobs:
         uses: gradle/gradle-build-action@v2.2.5
         with:
           arguments: |
-            testDebugUnitTest
+            jacocoTestReport
             --scan
             --stacktrace
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          verbose: true
       - name: Upload test results Artifact
         uses: actions/upload-artifact@v3
         if: success() || failure()

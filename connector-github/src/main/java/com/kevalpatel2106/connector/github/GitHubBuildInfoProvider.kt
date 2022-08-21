@@ -22,7 +22,7 @@ internal class GitHubBuildInfoProvider @Inject constructor(
         projectBasic: ProjectBasic,
         accountBasic: AccountBasic,
         cursor: String?,
-        limit: Int
+        limit: Int,
     ): PagedData<Build> {
         val pageNumber = cursor?.toInt() ?: GitHubEndpoint.FIRST_PAGE_CURSOR
 
@@ -44,7 +44,7 @@ internal class GitHubBuildInfoProvider @Inject constructor(
     override suspend fun getBuildLogs(
         projectBasic: ProjectBasic,
         accountBasic: AccountBasic,
-        buildId: BuildId
+        buildId: BuildId,
     ): String {
         notSupported(CIType.GITHUB, "GitHub doesn't support build logs.")
     }

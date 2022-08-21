@@ -31,7 +31,7 @@ internal class AccountRepoImpl @Inject constructor(
     private val connectorFactory: CIConnectorFactory,
 ) : AccountRepo {
 
-    override suspend fun hasAnyAccount() = accountDao.totalAccounts() > 0
+    override suspend fun hasAnyAccount() = accountDao.getTotalAccounts() > 0
 
     override suspend fun hasAccount(url: Url, token: Token): Boolean {
         return accountDao.getCount(url.value, token.getValue()) > 0

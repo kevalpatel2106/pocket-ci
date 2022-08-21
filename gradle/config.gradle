@@ -91,7 +91,7 @@ ext {
         //strip other than english resources
         resConfigs "en"
 
-        testInstrumentationRunner "com.kevalpatel2106.pocketci.runner.UiTestsRunner"
+        testInstrumentationRunner "com.kevalpatel2106.coreTest.runner.UiTestsRunner"
     }
 
     defaultLibConfig = {
@@ -103,7 +103,7 @@ ext {
 
         consumerProguardFiles '../proguard-rules.pro'
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.kevalpatel2106.coreTest.runner.UiTestsRunner"
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -208,7 +208,7 @@ static def getVersionCode() {
         def code = System.getenv().getOrDefault("GITHUB_RUN_NUMBER", "1").toInteger() + base
         println("CI Version code is: $code")
         return code
-    } else  {
+    } else {
         return 1
     }
 }

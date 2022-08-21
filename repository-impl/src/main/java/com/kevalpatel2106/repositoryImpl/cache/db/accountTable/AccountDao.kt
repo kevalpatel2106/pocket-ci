@@ -1,4 +1,4 @@
-@file:SuppressWarnings("MaxLineLength")
+@file:SuppressWarnings("MaxLineLength", "TooManyFunctions")
 
 package com.kevalpatel2106.repositoryImpl.cache.db.accountTable
 
@@ -8,7 +8,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
-@SuppressWarnings("TooManyFunctions")
 @Dao
 internal interface AccountDao {
     @Query("SELECT COUNT(${AccountTableInfo.ID}) FROM ${AccountTableInfo.TABLE_NAME} WHERE ${AccountTableInfo.ID} = :accountId")
@@ -18,7 +17,7 @@ internal interface AccountDao {
     suspend fun getCount(url: String, token: String): Int
 
     @Query("SELECT COUNT(${AccountTableInfo.ID}) FROM ${AccountTableInfo.TABLE_NAME}")
-    suspend fun totalAccounts(): Int
+    suspend fun getTotalAccounts(): Int
 
     @Query("SELECT * FROM ${AccountTableInfo.TABLE_NAME} WHERE ${AccountTableInfo.ID} = :accountId")
     suspend fun getAccount(accountId: Long): AccountDto
@@ -29,7 +28,7 @@ internal interface AccountDao {
     @Query("SELECT * FROM ${AccountTableInfo.TABLE_NAME} ORDER BY ${AccountTableInfo.TYPE} ASC")
     fun getAccounts(): PagingSource<Int, AccountDto>
 
-    @Query("SELECT * FROM ${AccountTableInfo.TABLE_NAME} LIMIT 1")
+    @Query("SELECT * FROM ${AccountTableInfo.TABLE_NAME} ORDER BY ${AccountTableInfo.ID} ASC LIMIT 1")
     suspend fun getFirstAccount(): AccountDto?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

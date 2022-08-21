@@ -56,7 +56,7 @@ class BuildStatusView @JvmOverloads constructor(
                 setImageResource(getBuildStatusImage(status))
                 setColorFilter(
                     ContextCompat.getColor(context, getBuildStatusImageTint(status)),
-                    PorterDuff.Mode.SRC_IN
+                    PorterDuff.Mode.SRC_IN,
                 )
             }
         }

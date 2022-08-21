@@ -93,6 +93,6 @@ internal abstract class GitHubBindings {
     @Binds
     @ViewModelScoped
     abstract fun bindTokenHeaderValueBuilder(
-        impl: TokenHeaderValueBuilderImpl
+        impl: TokenHeaderValueBuilderImpl,
     ): TokenHeaderValueBuilder
 }

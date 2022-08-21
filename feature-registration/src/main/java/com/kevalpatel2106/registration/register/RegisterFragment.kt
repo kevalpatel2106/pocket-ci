@@ -64,7 +64,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 showSnack(getString(R.string.register_success_message, event.accountName))
                 findNavController().navigateToInAppDeeplink(
                     DeepLinkDestinations.ProjectList(event.accountId),
-                    cleanUpStack = true
+                    cleanUpStack = true,
                 )
             }
             AccountAlreadyAdded -> showSnack(R.string.register_error_account_already_added)

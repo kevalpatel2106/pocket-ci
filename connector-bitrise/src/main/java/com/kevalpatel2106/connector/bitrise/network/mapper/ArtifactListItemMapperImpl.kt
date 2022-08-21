@@ -7,7 +7,7 @@ import com.kevalpatel2106.entity.id.toArtifactId
 import javax.inject.Inject
 
 internal class ArtifactListItemMapperImpl @Inject constructor(
-    private val artifactTypeMapper: ArtifactTypeMapper
+    private val artifactTypeMapper: ArtifactTypeMapper,
 ) : ArtifactListItemMapper {
 
     override operator fun invoke(dto: ArtifactListItemDto, buildId: BuildId) = with(dto) {

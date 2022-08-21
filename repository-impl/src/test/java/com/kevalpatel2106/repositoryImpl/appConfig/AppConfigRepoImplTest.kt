@@ -24,7 +24,7 @@ class AppConfigRepoImplTest {
     @ParameterizedTest(name = "given is debug {0} when is debug build invoked then returns {0}")
     @MethodSource("provideIsDebug")
     fun `given debug value when is debug build invoked then returned value matches`(
-        input: Boolean
+        input: Boolean,
     ) {
         val subject = AppConfigRepoImpl(fixture(), fixture(), input)
 

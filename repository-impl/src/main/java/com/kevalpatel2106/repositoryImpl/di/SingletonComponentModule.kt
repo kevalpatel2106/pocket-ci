@@ -18,7 +18,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 internal class SingletonComponentModule {
     private val Context.appPreferenceDataStore by preferencesDataStore(
-        name = DATASTORE_PREFERENCES_NAME
+        name = DATASTORE_PREFERENCES_NAME,
     )
 
     @Singleton

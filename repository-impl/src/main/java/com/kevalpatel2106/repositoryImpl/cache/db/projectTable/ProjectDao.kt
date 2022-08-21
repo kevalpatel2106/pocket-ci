@@ -2,6 +2,7 @@
 
 package com.kevalpatel2106.repositoryImpl.cache.db.projectTable
 
+import androidx.annotation.VisibleForTesting
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -27,4 +28,8 @@ internal interface ProjectDao {
 
     @Query("DELETE FROM ${ProjectTableInfo.TABLE_NAME} WHERE ${ProjectTableInfo.ACCOUNT_ID} = :accountId")
     suspend fun deleteProjects(accountId: Long)
+
+    @VisibleForTesting
+    @Query("SELECT COUNT(${ProjectTableInfo.REMOTE_ID}) FROM ${ProjectTableInfo.TABLE_NAME}")
+    suspend fun getTotalProjects(): Int
 }

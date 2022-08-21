@@ -22,7 +22,7 @@
         <argument
             android:name="title"
             app:argType="string"
-            app:nullable="true"/>
+            app:nullable="true" />
         <deepLink app:uri="pocket-ci://artifact-list?accountId={accountId}&amp;projectId={projectId}&amp;buildId={buildId}&amp;title={title}" />
     </fragment>
 </navigation>

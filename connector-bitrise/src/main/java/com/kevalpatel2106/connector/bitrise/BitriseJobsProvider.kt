@@ -18,7 +18,7 @@ internal class BitriseJobsProvider @Inject constructor() : CIJobsProvider {
         projectBasic: ProjectBasic,
         buildId: BuildId,
         cursor: String?,
-        limit: Int
+        limit: Int,
     ): PagedData<Job> {
         notSupported(CIType.BITRISE, "Bitrise doesn't support Jobs.")
     }
@@ -27,7 +27,7 @@ internal class BitriseJobsProvider @Inject constructor() : CIJobsProvider {
         accountBasic: AccountBasic,
         projectBasic: ProjectBasic,
         buildId: BuildId,
-        jobId: JobId
+        jobId: JobId,
     ): String {
         notSupported(CIType.BITRISE, "Bitrise doesn't support Jobs.")
     }

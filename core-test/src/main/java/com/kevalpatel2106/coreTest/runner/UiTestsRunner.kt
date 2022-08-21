@@ -1,4 +1,4 @@
-package com.kevalpatel2106.pocketci.runner
+package com.kevalpatel2106.coreTest.runner
 
 import android.app.Application
 import android.app.Instrumentation

@@ -83,7 +83,7 @@ internal abstract class BitriseBindings {
     @Binds
     @ViewModelScoped
     abstract fun bindArtifactListItemMapper(
-        impl: ArtifactListItemMapperImpl
+        impl: ArtifactListItemMapperImpl,
     ): ArtifactListItemMapper
 
     @Binds

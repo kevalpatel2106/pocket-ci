@@ -1,6 +1,6 @@
 package com.kevalpatel2106.feature.build.list.usecase
 
-import com.kevalpatel2106.coreViews.TimeDifferenceTextView
+import com.kevalpatel2106.coreViews.TimeDifferenceTextView.TimeDifferenceData
 import com.kevalpatel2106.entity.Build
 import com.kevalpatel2106.feature.build.list.adapter.BuildListItem.BuildItem
 import javax.inject.Inject
@@ -13,11 +13,11 @@ internal class BuildItemMapperImpl @Inject constructor() : BuildItemMapper {
         commitHash = build.commit?.hash?.shortHash,
         status = build.status.name.lowercase(),
         hideTriggeredBy = build.triggeredBy.isNullOrBlank(),
-        triggeredTimeDifference = TimeDifferenceTextView.TimeDifferenceData(
+        triggeredTimeDifference = TimeDifferenceData(
             dateOfEventStart = build.triggeredAt,
             dateOfEventEnd = null,
         ),
-        executionTimeDifference = TimeDifferenceTextView.TimeDifferenceData(
+        executionTimeDifference = TimeDifferenceData(
             dateOfEventStart = build.triggeredAt,
             dateOfEventEnd = build.finishedAt,
         ),

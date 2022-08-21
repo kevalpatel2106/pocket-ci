@@ -23,7 +23,7 @@ internal class BitriseArtifactProvider @Inject constructor(
         accountBasic: AccountBasic,
         buildId: BuildId,
         cursor: String?,
-        limit: Int
+        limit: Int,
     ): PagedData<Artifact> {
         val response = retrofitClient
             .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
@@ -44,14 +44,14 @@ internal class BitriseArtifactProvider @Inject constructor(
         projectBasic: ProjectBasic,
         accountBasic: AccountBasic,
         buildId: BuildId,
-        artifactId: ArtifactId
+        artifactId: ArtifactId,
     ): ArtifactDownloadData {
         val response = retrofitClient
             .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
             .getArtifactDetail(
                 appSlug = projectBasic.remoteId.getValue(),
                 buildSlug = buildId.getValue(),
-                artifactSlug = artifactId.getValue()
+                artifactSlug = artifactId.getValue(),
             )
         requireNotNull(response.data)
         return ArtifactDownloadData(response.data.downloadUrl.toUrl(), mutableMapOf())

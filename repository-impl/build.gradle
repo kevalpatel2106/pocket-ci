@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'de.mannodermaus.android-junit5'
+    id 'com.dicedmelon.gradle.jacoco-android'
 }
 
 dependencies {
@@ -14,6 +15,7 @@ dependencies {
     // core modules
     implementation project(':entity')
     testImplementation project(':core-test')
+    androidTestImplementation project(':core-test')
 
     // implementation modules / connectors
     implementation project(':connector-bitrise')

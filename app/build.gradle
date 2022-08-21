@@ -8,6 +8,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
     id 'de.mannodermaus.android-junit5'
+    id 'com.dicedmelon.gradle.jacoco-android'
 }
 
 android {
@@ -16,6 +17,13 @@ android {
         main {
             res.srcDirs = ['../core-resources/src/main/res', 'src/main/res']
         }
+    }
+    jacoco {
+        jacocoVersion = '0.8.8'
+    }
+    tasks.withType(Test) {
+        jacoco.includeNoLocationClasses = true
+        jacoco.excludes = ['jdk.internal.*']
     }
 }
 

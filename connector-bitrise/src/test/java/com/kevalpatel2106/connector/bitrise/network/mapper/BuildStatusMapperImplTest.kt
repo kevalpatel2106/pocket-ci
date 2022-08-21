@@ -16,7 +16,7 @@ internal class BuildStatusMapperImplTest {
     fun `check build status`(
         isOnHold: Boolean,
         buildStatus: Int,
-        expected: BuildStatus
+        expected: BuildStatus,
     ) {
         val dto = fixture<BuildDto>().copy(isOnHold = isOnHold, status = buildStatus)
 
