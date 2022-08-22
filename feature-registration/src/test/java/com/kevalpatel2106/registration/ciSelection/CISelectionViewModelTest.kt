@@ -5,6 +5,7 @@ import com.kevalpatel2106.coreTest.TestCoroutineExtension
 import com.kevalpatel2106.coreTest.latestValue
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
 import com.kevalpatel2106.entity.CIInfo
+import com.kevalpatel2106.registration.ciSelection.CISelectionVMEvent.Close
 import com.kevalpatel2106.repository.CIInfoRepo
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -76,5 +77,14 @@ class CISelectionViewModelTest {
                 CISelectionVMEvent.OpenRegisterAccount(supportedCIs.first()),
                 flowTurbine.awaitItem(),
             )
+        }
+
+    @Test
+    fun `given view model initialised when close then verify close event emit`() =
+        runTestObservingSharedFlow(subject.vmEventsFlow) { testScope, flowTurbine ->
+            subject.close()
+            testScope.advanceUntilIdle()
+
+            assertEquals(Close, flowTurbine.awaitItem())
         }
 }

@@ -4,5 +4,8 @@ import com.kevalpatel2106.entity.id.AccountId
 
 internal interface IsProjectCacheExpired {
 
-    suspend operator fun invoke(accountId: AccountId): Boolean
+    suspend operator fun invoke(
+        accountId: AccountId,
+        nowMills: Long = System.currentTimeMillis(),
+    ): Boolean
 }

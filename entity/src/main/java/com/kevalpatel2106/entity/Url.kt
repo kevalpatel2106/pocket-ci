@@ -9,7 +9,7 @@ import java.net.URL
 data class Url(val value: String) : Parcelable {
 
     init {
-        if (!isValidUrl(value)) throw AssertionError("Invalid url $value")
+        if (!isValidUrl(value)) throw MalformedURLException("Invalid url $value")
     }
 
     companion object {

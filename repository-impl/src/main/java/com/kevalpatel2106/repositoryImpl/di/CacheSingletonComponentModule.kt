@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.security.crypto.MasterKeys
 import com.kevalpatel2106.repositoryImpl.cache.db.AppDb
+import com.kevalpatel2106.repositoryImpl.cache.remoteConfig.FirebaseRemoteConfigCache
 import com.kevalpatel2106.repositoryImpl.cache.sharedPrefs.SharedPrefFactory
 import dagger.Module
 import dagger.Provides
@@ -16,7 +17,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal class SingletonComponentModule {
+internal class CacheSingletonComponentModule {
     private val Context.appPreferenceDataStore by preferencesDataStore(
         name = DATASTORE_PREFERENCES_NAME,
     )
@@ -52,6 +53,10 @@ internal class SingletonComponentModule {
     @Provides
     @Singleton
     fun provideProjectDao(db: AppDb) = db.getProjectDao()
+
+    @Provides
+    @Singleton
+    fun provideFirebaseRemoteConfig(factory: FirebaseRemoteConfigCache.Factory) = factory.create()
 
     companion object {
         private const val DATASTORE_PREFERENCES_NAME = "app_preferences"

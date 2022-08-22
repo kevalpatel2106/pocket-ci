@@ -7,6 +7,7 @@ import com.kevalpatel2106.coreTest.getAccountFixture
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
 import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.AccountRemovedSuccess
+import com.kevalpatel2106.feature.account.list.AccountListVMEvent.Close
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenCiSelection
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenProjects
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.RefreshAccountList
@@ -17,6 +18,7 @@ import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorSelec
 import com.kevalpatel2106.feature.account.list.usecase.AccountItemMapper
 import com.kevalpatel2106.feature.account.list.usecase.InsertAccountListHeaders
 import com.kevalpatel2106.repository.AccountRepo
+import kotlinx.coroutines.test.advanceUntilIdle
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -129,5 +131,14 @@ class AccountListViewModelTest {
             subject.retryNextPage()
 
             assertEquals(RetryLoading, flowTurbine.awaitItem())
+        }
+
+    @Test
+    fun `given view model initialised when close then verify close event emit`() =
+        runTestObservingSharedFlow(subject.vmEventsFlow) { testScope, flowTurbine ->
+            subject.close()
+            testScope.advanceUntilIdle()
+
+            assertEquals(Close, flowTurbine.awaitItem())
         }
 }

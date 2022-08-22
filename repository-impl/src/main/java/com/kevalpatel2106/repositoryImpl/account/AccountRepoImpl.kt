@@ -18,7 +18,6 @@ import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -72,23 +71,20 @@ internal class AccountRepoImpl @Inject constructor(
         }
     }
 
-    override suspend fun getSelectedAccount() = observeSelectedAccount().first()
+    override suspend fun getSelectedAccount(): Account {
+        val selectedAccountId = appDataStore.getSelectedAccountId()
+        return if (selectedAccountId == null || !hasAccount(selectedAccountId)) {
+            // No account selected.
+            val firstAccountDto = accountDao.getFirstAccount()
+            requireNotNull(firstAccountDto) { "There are no accounts in the database." }
 
-    override fun observeSelectedAccount(): Flow<Account> =
-        appDataStore.observeSelectedAccountId()
-            .map { selectedAccountId ->
-                if (selectedAccountId == null || !hasAccount(selectedAccountId)) {
-                    // No account selected.
-                    val firstAccountDto = accountDao.getFirstAccount()
-                    requireNotNull(firstAccountDto) { "There are no accounts in the database." }
-
-                    appDataStore.updateSelectedAccountId(firstAccountDto.id)
-                    accountMapper(firstAccountDto, isSelected = true)
-                } else {
-                    val accountDto = accountDao.getAccount(selectedAccountId.getValue())
-                    accountMapper(accountDto, isSelected = true)
-                }
-            }
+            appDataStore.updateSelectedAccountId(firstAccountDto.id)
+            accountMapper(firstAccountDto, isSelected = true)
+        } else {
+            val accountDto = accountDao.getAccount(selectedAccountId.getValue())
+            accountMapper(accountDto, isSelected = true)
+        }
+    }
 
     override suspend fun setSelectedAccount(accountId: AccountId) {
         appDataStore.updateSelectedAccountId(accountId)

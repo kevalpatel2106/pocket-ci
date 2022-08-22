@@ -17,13 +17,11 @@ internal class SaveProjectsToCacheImpl @Inject constructor(
         accountId: AccountId,
         projects: List<Project>,
         cursorLoaded: String?,
+        nowMills: Long
     ) {
         if (cursorLoaded == ProjectRemoteMediator.STARTING_PAGE_CURSOR) {
             projectDao.deleteProjects(accountId.getValue())
-            accountDao.updateLastProjectRefreshEpoch(
-                accountId.getValue(),
-                System.currentTimeMillis(),
-            )
+            accountDao.updateLastProjectRefreshEpoch(accountId.getValue(), nowMills)
         }
         projectDao.addUpdateProjects(projects.map { projectDtoMapper(it) })
     }

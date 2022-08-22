@@ -9,9 +9,9 @@ internal class IsProjectCacheExpiredImpl @Inject constructor(
     private val accountDao: AccountDao,
 ) : IsProjectCacheExpired {
 
-    override suspend operator fun invoke(accountId: AccountId): Boolean {
+    override suspend operator fun invoke(accountId: AccountId, nowMills: Long): Boolean {
         val lastCacheUpdate = accountDao.getLastProjectRefreshEpoch(accountId.getValue())
-        return System.currentTimeMillis() - lastCacheUpdate >= MAX_CACHE_AGE_MILLS
+        return nowMills - lastCacheUpdate >= MAX_CACHE_AGE_MILLS
     }
 
     companion object {

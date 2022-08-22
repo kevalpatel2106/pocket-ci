@@ -1,5 +1,6 @@
 package com.kevalpatel2106.repositoryImpl.project
 
+import androidx.annotation.VisibleForTesting
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
@@ -14,7 +15,7 @@ import com.kevalpatel2106.repositoryImpl.project.usecase.SaveProjectsToCacheImpl
 import timber.log.Timber
 import javax.inject.Inject
 
-internal class ProjectRemoteMediator private constructor(
+internal class ProjectRemoteMediator @VisibleForTesting constructor(
     private val accountId: AccountId,
     private val accountDao: AccountDao,
     private val ciConnectorFactory: CIConnectorFactory,
@@ -35,8 +36,6 @@ internal class ProjectRemoteMediator private constructor(
         state: PagingState<Int, ProjectDto>,
     ): MediatorResult {
         val account = accountDao.getAccount(accountId.getValue())
-        val ciRepo = ciConnectorFactory.get(account.type)
-
         val cursorToLoad: String? = when (loadType) {
             LoadType.REFRESH -> STARTING_PAGE_CURSOR
             LoadType.PREPEND -> {
@@ -48,6 +47,7 @@ internal class ProjectRemoteMediator private constructor(
 
         var mediatorResult: MediatorResult = MediatorResult.Success(false)
         runCatching {
+            val ciRepo = ciConnectorFactory.get(account.type)
             val pagedData = ciRepo.getProjectsUpdatedDesc(
                 accountId = accountId,
                 url = account.baseUrl,

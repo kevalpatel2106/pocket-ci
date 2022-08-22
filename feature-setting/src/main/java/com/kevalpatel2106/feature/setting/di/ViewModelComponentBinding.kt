@@ -2,6 +2,8 @@ package com.kevalpatel2106.feature.setting.di
 
 import com.kevalpatel2106.feature.setting.list.usecase.ConvertPrefValueToNightMode
 import com.kevalpatel2106.feature.setting.list.usecase.ConvertPrefValueToNightModeImpl
+import com.kevalpatel2106.feature.setting.webView.usecase.ContentToUrlMapper
+import com.kevalpatel2106.feature.setting.webView.usecase.ContentToUrlMapperImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -17,4 +19,8 @@ internal abstract class ViewModelComponentBinding {
     abstract fun bindConvertPrefValueToNightMode(
         impl: ConvertPrefValueToNightModeImpl,
     ): ConvertPrefValueToNightMode
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindContentToUrlMapper(impl: ContentToUrlMapperImpl): ContentToUrlMapper
 }

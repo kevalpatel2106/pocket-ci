@@ -9,7 +9,6 @@ import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.entity.id.ProjectId
 import com.kevalpatel2106.repository.ArtifactRepo
 import com.kevalpatel2106.repositoryImpl.account.usecase.AccountBasicMapper
-import com.kevalpatel2106.repositoryImpl.build.BuildRepoImpl
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
@@ -32,7 +31,7 @@ internal class ArtifactRepoImpl @Inject constructor(
         val accountDto = accountDao.getAccountBasic(accountId.getValue())
         emit(accountDto to projectDto)
     }.flatMapLatest { (accountDto, projectDto) ->
-        Pager(config = PagingConfig(pageSize = BuildRepoImpl.PAGE_SIZE)) {
+        Pager(config = PagingConfig(pageSize = PAGE_SIZE)) {
             pagingSourceFactory.create(
                 accountBasic = accountBasicMapper(accountDto),
                 projectBasic = projectBasicMapper(projectDto),
@@ -57,5 +56,9 @@ internal class ArtifactRepoImpl @Inject constructor(
                 artifactId = artifactId,
                 accountBasic = accountBasicMapper(accountDto),
             )
+    }
+
+    companion object {
+        internal const val PAGE_SIZE = 40
     }
 }

@@ -54,7 +54,7 @@ dependencies {
     // Crashalytics
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
     releaseImplementation 'com.google.firebase:firebase-crashlytics'
-    releaseImplementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-analytics'
 
     // Other dependencies
     implementation 'androidx.startup:startup-runtime:1.1.1'

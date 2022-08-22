@@ -18,6 +18,5 @@ interface AccountRepo {
     fun getAccounts(): Flow<PagingData<Account>>
 
     suspend fun getSelectedAccount(): Account
-    fun observeSelectedAccount(): Flow<Account>
     suspend fun setSelectedAccount(accountId: AccountId)
 }

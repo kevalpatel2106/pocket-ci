@@ -7,6 +7,7 @@ import com.kevalpatel2106.repository.BuildRepo
 import com.kevalpatel2106.repository.CIInfoRepo
 import com.kevalpatel2106.repository.JobRepo
 import com.kevalpatel2106.repository.ProjectRepo
+import com.kevalpatel2106.repository.RemoteConfigRepo
 import com.kevalpatel2106.repository.SettingsRepo
 import com.kevalpatel2106.repositoryImpl.account.AccountRepoImpl
 import com.kevalpatel2106.repositoryImpl.account.usecase.AccountBasicMapper
@@ -20,6 +21,8 @@ import com.kevalpatel2106.repositoryImpl.artifact.ArtifactRepoImpl
 import com.kevalpatel2106.repositoryImpl.build.BuildRepoImpl
 import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStore
 import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStoreImpl
+import com.kevalpatel2106.repositoryImpl.cache.remoteConfig.FirebaseRemoteConfigCache
+import com.kevalpatel2106.repositoryImpl.cache.remoteConfig.RemoteConfigCache
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactoryImpl
 import com.kevalpatel2106.repositoryImpl.ciInfo.CIInfoRepoImpl
@@ -35,6 +38,7 @@ import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectMapper
 import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectMapperImpl
 import com.kevalpatel2106.repositoryImpl.project.usecase.SaveProjectsToCache
 import com.kevalpatel2106.repositoryImpl.project.usecase.SaveProjectsToCacheImpl
+import com.kevalpatel2106.repositoryImpl.remoteConfig.RemoteConfigRepoImpl
 import com.kevalpatel2106.repositoryImpl.setting.SettingsRepoImpl
 import dagger.Binds
 import dagger.Module
@@ -98,4 +102,10 @@ internal abstract class ViewModelComponentBindings {
 
     @Binds
     abstract fun bindAccountDtoMapper(impl: AccountDtoMapperImpl): AccountDtoMapper
+
+    @Binds
+    abstract fun bindAppRemoteConfig(impl: FirebaseRemoteConfigCache): RemoteConfigCache
+
+    @Binds
+    abstract fun bindRemoteConfigRepo(impl: RemoteConfigRepoImpl): RemoteConfigRepo
 }

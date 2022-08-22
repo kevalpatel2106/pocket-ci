@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 internal class ProjectDtoMapperImpl @Inject constructor() : ProjectDtoMapper {
 
-    override operator fun invoke(project: Project) = with(project) {
+    override operator fun invoke(project: Project, now: Date) = with(project) {
         ProjectDto(
             name = name,
             remoteId = remoteId,
@@ -18,7 +18,7 @@ internal class ProjectDtoMapperImpl @Inject constructor() : ProjectDtoMapper {
             isPublic = isPublic,
             owner = owner,
             lastUpdatedAt = lastUpdatedAt,
-            savedAt = Date(), // Mark current time.
+            savedAt = now, // Mark current time.
         )
     }
 }

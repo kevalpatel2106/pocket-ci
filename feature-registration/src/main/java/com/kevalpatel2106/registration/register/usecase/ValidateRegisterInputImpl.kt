@@ -1,6 +1,7 @@
 package com.kevalpatel2106.registration.register.usecase
 
 import com.kevalpatel2106.entity.toUrl
+import java.net.MalformedURLException
 import javax.inject.Inject
 
 class ValidateRegisterInputImpl @Inject constructor() : ValidateRegisterInput {
@@ -10,7 +11,7 @@ class ValidateRegisterInputImpl @Inject constructor() : ValidateRegisterInput {
         val isValidUrl = try {
             url.toUrl()
             url.endsWith("/")
-        } catch (e: AssertionError) {
+        } catch (e: MalformedURLException) {
             false
         }
         val isValidToken = token.isNotBlank() && token == token.trim()

@@ -7,7 +7,7 @@ import com.kevalpatel2106.entity.AccountBasic
 import com.kevalpatel2106.entity.Artifact
 import com.kevalpatel2106.entity.ProjectBasic
 import com.kevalpatel2106.entity.id.BuildId
-import com.kevalpatel2106.repositoryImpl.build.BuildRepoImpl.Companion.PAGE_SIZE
+import com.kevalpatel2106.repositoryImpl.job.JobRepoImpl.Companion.PAGE_SIZE
 import timber.log.Timber
 import javax.inject.Inject
 

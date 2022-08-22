@@ -2,25 +2,37 @@ package com.kevalpatel2106.feature.setting.webView
 
 import com.flextrade.kfixture.KFixture
 import com.kevalpatel2106.coreTest.TestCoroutineExtension
+import com.kevalpatel2106.coreTest.getUrlFixture
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
+import com.kevalpatel2106.feature.setting.webView.WebViewVMEvent.Close
+import com.kevalpatel2106.feature.setting.webView.WebViewVMEvent.Reload
+import com.kevalpatel2106.feature.setting.webView.usecase.ContentToUrlMapper
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.kotlin.any
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
 
 @ExtendWith(TestCoroutineExtension::class)
 class WebViewViewModelTest {
     private val fixture = KFixture()
-    private val navArgs = fixture<WebViewFragmentArgs>()
-    private val subject = WebViewViewModel(navArgs.toSavedStateHandle())
+    private val fixedUrl = getUrlFixture(fixture)
+    private val navArgs = fixture<WebViewFragmentArgs>().copy(content = WebViewContent.CHANGELOG)
+    private val contentToUrlMapper = mock<ContentToUrlMapper> {
+        on { invoke(any()) } doReturn fixedUrl
+    }
+    private val subject = WebViewViewModel(navArgs.toSavedStateHandle(), contentToUrlMapper)
 
     @Test
     fun `when view model loaded then check initial view state`() = runTest {
         advanceUntilIdle()
+
         val expectedInitialState = WebViewViewState.initialState(
             title = navArgs.content.title,
-            linkUrl = navArgs.content.link,
+            url = fixedUrl,
         )
         assertEquals(expectedInitialState, subject.viewState.value)
     }
@@ -33,7 +45,7 @@ class WebViewViewModelTest {
 
             val expected = WebViewViewState(
                 title = navArgs.content.title,
-                linkUrl = navArgs.content.link,
+                linkUrl = fixedUrl,
                 flipperPosition = WebViewFlipperPosition.POS_LOADING,
             )
             assertEquals(expected, subject.viewState.value)
@@ -46,7 +58,7 @@ class WebViewViewModelTest {
 
         val expected = WebViewViewState(
             title = navArgs.content.title,
-            linkUrl = navArgs.content.link,
+            linkUrl = fixedUrl,
             flipperPosition = WebViewFlipperPosition.POS_WEB_VIEW,
         )
         assertEquals(expected, subject.viewState.value)
@@ -60,7 +72,7 @@ class WebViewViewModelTest {
 
             val expected = WebViewViewState(
                 title = navArgs.content.title,
-                linkUrl = navArgs.content.link,
+                linkUrl = fixedUrl,
                 flipperPosition = WebViewFlipperPosition.POS_ERROR,
             )
             assertEquals(expected, subject.viewState.value)
@@ -72,6 +84,15 @@ class WebViewViewModelTest {
             subject.reload()
             testScope.advanceUntilIdle()
 
-            assertEquals(WebViewVMEvent.Reload(navArgs.content.link), flowTurbine.awaitItem())
+            assertEquals(Reload(fixedUrl), flowTurbine.awaitItem())
+        }
+
+    @Test
+    fun `given view model initialised when close then verify close event emit`() =
+        runTestObservingSharedFlow(subject.vmEventsFlow) { testScope, flowTurbine ->
+            subject.close()
+            testScope.advanceUntilIdle()
+
+            assertEquals(Close, flowTurbine.awaitItem())
         }
 }

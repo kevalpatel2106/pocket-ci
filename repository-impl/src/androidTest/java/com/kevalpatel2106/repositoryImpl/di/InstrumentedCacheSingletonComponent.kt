@@ -5,7 +5,9 @@ import android.content.SharedPreferences
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.kevalpatel2106.repositoryImpl.cache.db.AppDb
+import com.kevalpatel2106.repositoryImpl.cache.remoteConfig.FirebaseRemoteConfigCache
 import com.kevalpatel2106.repositoryImpl.cache.sharedPrefs.SharedPrefFactory
 import dagger.Module
 import dagger.Provides
@@ -18,9 +20,9 @@ import javax.inject.Singleton
 @Module
 @TestInstallIn(
     components = [SingletonComponent::class],
-    replaces = [SingletonComponentModule::class],
+    replaces = [CacheSingletonComponentModule::class],
 )
-internal class InstrumentedSingletonComponent {
+internal class InstrumentedCacheSingletonComponent {
     private val Context.appPreferenceDataStore by preferencesDataStore(
         name = UUID.randomUUID().toString(), // Create new DataStore for each test
     )
@@ -58,4 +60,10 @@ internal class InstrumentedSingletonComponent {
     @Provides
     @Singleton
     fun provideProjectDao(db: AppDb) = db.getProjectDao()
+
+    @Provides
+    @Singleton
+    fun provideFirebaseRemoteConfig(): FirebaseRemoteConfig {
+        return FirebaseRemoteConfigCache.Factory(isDebug = false).create()
+    }
 }

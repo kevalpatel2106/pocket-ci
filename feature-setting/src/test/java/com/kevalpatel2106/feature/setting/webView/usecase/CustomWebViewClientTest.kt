@@ -1,4 +1,4 @@
-package com.kevalpatel2106.feature.setting.webView
+package com.kevalpatel2106.feature.setting.webView.usecase
 
 import com.flextrade.kfixture.KFixture
 import org.junit.jupiter.api.Test

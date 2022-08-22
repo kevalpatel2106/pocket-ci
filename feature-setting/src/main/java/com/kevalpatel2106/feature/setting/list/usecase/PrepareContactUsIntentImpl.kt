@@ -25,16 +25,18 @@ internal class PrepareContactUsIntentImpl @Inject constructor(
         ------------------------------
         """.trimIndent()
 
-        val emailIntent = Intent(Intent.ACTION_SENDTO)
-            .apply {
-                data = Uri.parse(EMAIL_URL_SCHEME)
-                putExtra(Intent.EXTRA_EMAIL, SUPPORT_EMAIL)
-                putExtra(Intent.EXTRA_SUBJECT, emailTitle)
-                putExtra(Intent.EXTRA_TEXT, emailText)
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
+        val selectorIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse(EMAIL_URL_SCHEME)
+        }
+        val emailIntent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(SUPPORT_EMAIL))
+            putExtra(Intent.EXTRA_SUBJECT, emailTitle)
+            putExtra(Intent.EXTRA_TEXT, emailText)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            selector = selectorIntent
+        }
 
         return Intent.createChooser(
             emailIntent,
