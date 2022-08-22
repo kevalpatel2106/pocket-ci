@@ -28,7 +28,7 @@ dependencies {
     kaptAndroidTest "androidx.room:room-compiler:2.4.2"
     implementation "androidx.room:room-paging:2.4.3"
     androidTestImplementation "androidx.room:room-testing:2.4.3"
-    implementation 'net.zetetic:android-database-sqlcipher:4.5.0'
+    implementation 'net.zetetic:android-database-sqlcipher:4.5.2'
 
     // Data store
     implementation "androidx.datastore:datastore-preferences:1.0.0"
