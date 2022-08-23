@@ -9,7 +9,6 @@ import com.kevalpatel2106.entity.ProjectBasic
 import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.repositoryImpl.job.JobRepoImpl.Companion.PAGE_SIZE
 import timber.log.Timber
-import javax.inject.Inject
 
 internal class ArtifactsPagingSource(
     private val projectBasic: ProjectBasic,
@@ -49,21 +48,6 @@ internal class ArtifactsPagingSource(
 
     private fun emptyResult(): LoadResult<String, Artifact> {
         return LoadResult.Page(data = emptyList(), prevKey = null, nextKey = null)
-    }
-
-    class Factory @Inject constructor() {
-
-        fun create(
-            accountBasic: AccountBasic,
-            projectBasic: ProjectBasic,
-            buildId: BuildId,
-            ciConnector: CIConnector,
-        ) = ArtifactsPagingSource(
-            projectBasic = projectBasic,
-            accountBasic = accountBasic,
-            buildId = buildId,
-            ciConnector = ciConnector,
-        )
     }
 
     companion object {

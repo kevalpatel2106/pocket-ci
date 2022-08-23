@@ -18,7 +18,6 @@ import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorSelec
 import com.kevalpatel2106.feature.account.list.usecase.AccountItemMapper
 import com.kevalpatel2106.feature.account.list.usecase.InsertAccountListHeaders
 import com.kevalpatel2106.repository.AccountRepo
-import kotlinx.coroutines.test.advanceUntilIdle
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -30,10 +29,10 @@ import org.mockito.kotlin.whenever
 
 @ExtendWith(TestCoroutineExtension::class)
 class AccountListViewModelTest {
-    private val kFixture = KFixture()
-    private val displayError = kFixture<DisplayError>()
+    private val fixture = KFixture()
+    private val displayError = fixture<DisplayError>()
     private val displayErrorMapper = mock<DisplayErrorMapper> {
-        on { invoke(any(), any()) } doReturn displayError
+        on { invoke(any(), any(), any()) } doReturn displayError
     }
     private val accountRepo = mock<AccountRepo>()
     private val insertAccountListHeaders = mock<InsertAccountListHeaders> {
@@ -53,7 +52,7 @@ class AccountListViewModelTest {
     @Test
     fun `when account selected successfully then projects screen opened`() =
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
-            val accountToSelect = getAccountFixture(kFixture)
+            val accountToSelect = getAccountFixture(fixture)
             whenever(accountRepo.setSelectedAccount(accountToSelect.localId)).thenReturn(Unit)
 
             subject.onAccountSelected(accountToSelect.localId)
@@ -64,7 +63,7 @@ class AccountListViewModelTest {
     @Test
     fun `when account selection fails then error message displayed`() =
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
-            val accountToSelect = getAccountFixture(kFixture)
+            val accountToSelect = getAccountFixture(fixture)
             whenever(accountRepo.setSelectedAccount(accountToSelect.localId))
                 .thenThrow(IllegalStateException("Error"))
 
@@ -76,7 +75,7 @@ class AccountListViewModelTest {
     @Test
     fun `when account removed then check delete confirmation dialog appears`() =
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
-            val accountToRemove = getAccountFixture(kFixture)
+            val accountToRemove = getAccountFixture(fixture)
 
             subject.onAccountRemoved(accountToRemove)
 
@@ -89,7 +88,7 @@ class AccountListViewModelTest {
     @Test
     fun `given account deletes successfully when account delete confirmed then success message displayed`() =
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
-            val accountToRemove = getAccountFixture(kFixture)
+            val accountToRemove = getAccountFixture(fixture)
             whenever(accountRepo.removeAccount(accountToRemove.localId)).thenReturn(Unit)
 
             subject.onAccountDeleteConfirmed(accountToRemove.localId)
@@ -100,7 +99,7 @@ class AccountListViewModelTest {
     @Test
     fun `given account deletes fails when account delete confirmed then error message displayed`() =
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
-            val accountToRemove = getAccountFixture(kFixture)
+            val accountToRemove = getAccountFixture(fixture)
             whenever(accountRepo.removeAccount(accountToRemove.localId))
                 .thenThrow(IllegalStateException("Error!"))
 
@@ -135,9 +134,8 @@ class AccountListViewModelTest {
 
     @Test
     fun `given view model initialised when close then verify close event emit`() =
-        runTestObservingSharedFlow(subject.vmEventsFlow) { testScope, flowTurbine ->
+        runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
             subject.close()
-            testScope.advanceUntilIdle()
 
             assertEquals(Close, flowTurbine.awaitItem())
         }

@@ -9,7 +9,6 @@ import com.kevalpatel2106.entity.ProjectBasic
 import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.repositoryImpl.job.JobRepoImpl.Companion.PAGE_SIZE
 import timber.log.Timber
-import javax.inject.Inject
 
 internal class JobsPagingSource(
     private val accountBasic: AccountBasic,
@@ -49,21 +48,6 @@ internal class JobsPagingSource(
 
     private fun emptyResult(): LoadResult<String, Job> {
         return LoadResult.Page(data = emptyList(), prevKey = null, nextKey = null)
-    }
-
-    class Factory @Inject constructor() {
-
-        fun create(
-            buildId: BuildId,
-            accountBasic: AccountBasic,
-            projectBasic: ProjectBasic,
-            ciConnector: CIConnector,
-        ) = JobsPagingSource(
-            projectBasic = projectBasic,
-            accountBasic = accountBasic,
-            ciConnector = ciConnector,
-            buildId = buildId,
-        )
     }
 
     companion object {

@@ -21,6 +21,7 @@ internal class RemoteConfigRepoImplTest {
     }
     private val subject = RemoteConfigRepoImpl(remoteConfigCache)
 
+    // region getPrivacyPolicy
     @Test
     fun `given privacy policy url in cache when get privacy policy then check url fetched from cache`() {
         subject.getPrivacyPolicy()
@@ -36,7 +37,9 @@ internal class RemoteConfigRepoImplTest {
             subject.getPrivacyPolicy()
         }
     }
+    // endregion
 
+    // region getChangelog
     @Test
     fun `given change url in cache when get changelog then check url fetched from cache`() {
         subject.getChangelog()
@@ -52,4 +55,5 @@ internal class RemoteConfigRepoImplTest {
             subject.getChangelog()
         }
     }
+    // endregion
 }

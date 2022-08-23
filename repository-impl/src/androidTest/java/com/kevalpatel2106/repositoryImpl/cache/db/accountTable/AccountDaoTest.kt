@@ -3,9 +3,8 @@ package com.kevalpatel2106.repositoryImpl.cache.db.accountTable
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.flextrade.kfixture.KFixture
-import com.kevalpatel2106.coreTest.getAccountIdFixture
-import com.kevalpatel2106.coreTest.getUrlFixture
 import com.kevalpatel2106.entity.id.AccountId
+import com.kevalpatel2106.repositoryImpl.getAccountDtoFixture
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
@@ -215,17 +214,4 @@ internal class AccountDaoTest {
 
         assertEquals(1, subject.getTotalAccounts())
     }
-
-    private fun getAccountDtoFixture(fixture: KFixture) = AccountDto(
-        id = getAccountIdFixture(fixture),
-        type = fixture(),
-        baseUrl = getUrlFixture(fixture),
-        token = fixture(),
-        avatar = getUrlFixture(fixture),
-        email = fixture(),
-        name = fixture(),
-        nextProjectCursor = fixture(),
-        savedAt = fixture(),
-        projectCacheLastUpdated = fixture(),
-    )
 }

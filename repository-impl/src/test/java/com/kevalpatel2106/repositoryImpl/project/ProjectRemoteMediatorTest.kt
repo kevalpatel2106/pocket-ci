@@ -40,13 +40,12 @@ internal class ProjectRemoteMediatorTest {
     private val saveProjectsToCache = mock<SaveProjectsToCache>()
     private val isProjectCacheExpired = mock<IsProjectCacheExpired>()
 
-    private val subject = ProjectRemoteMediator(
-        accountId,
+    private val subject = ProjectRemoteMediator.Factory(
         accountDao,
         ciConnectorFactory,
         saveProjectsToCache,
         isProjectCacheExpired,
-    )
+    ).create(accountId)
 
     @BeforeEach
     fun before() = runTest {
@@ -54,6 +53,7 @@ internal class ProjectRemoteMediatorTest {
             .thenReturn(account.copy(id = accountId))
     }
 
+    // region initialize
     @Test
     fun `given project cache expired when initialised then initialisation action is refresh`() =
         runTest {
@@ -73,7 +73,9 @@ internal class ProjectRemoteMediatorTest {
 
             assertEquals(RemoteMediator.InitializeAction.SKIP_INITIAL_REFRESH, actual)
         }
+    // endregion
 
+    // region load
     @Test
     fun `given load type prepend when page load then check result is success and end of pagination reached`() =
         runTest {
@@ -209,4 +211,5 @@ internal class ProjectRemoteMediatorTest {
 
             assertTrue(actual is MediatorResult.Error)
         }
+    // endregion
 }

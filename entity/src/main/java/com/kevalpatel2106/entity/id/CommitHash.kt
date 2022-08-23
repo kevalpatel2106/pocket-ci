@@ -8,10 +8,17 @@ import kotlinx.parcelize.Parcelize
 data class CommitHash(private val value: String) : Parcelable {
 
     @IgnoredOnParcel
-    val shortHash: String = value.substring(value.length - SHORT_COMMIT_HASH_LENGTH, value.length)
+    val shortHash: String by lazy {
+        value.substring(
+            startIndex = value.length - SHORT_COMMIT_HASH_LENGTH,
+            endIndex = value.length,
+        )
+    }
 
     init {
-        assert(value.isNotBlank()) { "Commit hash cannot be blank value!" }
+        assert(value.length >= SHORT_COMMIT_HASH_LENGTH && value.isNotBlank()) {
+            "Commit hash cannot be blank value!"
+        }
     }
 
     fun getValue() = value
@@ -20,6 +27,3 @@ data class CommitHash(private val value: String) : Parcelable {
         private const val SHORT_COMMIT_HASH_LENGTH = 8
     }
 }
-
-fun String?.toCommitHashOrNull() = if (!this.isNullOrBlank()) CommitHash(this) else null
-fun String.toCommitHash() = CommitHash(this)

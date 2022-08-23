@@ -21,7 +21,6 @@ internal class ArtifactRepoImpl @Inject constructor(
     private val projectDao: ProjectDao,
     private val accountDao: AccountDao,
     private val ciConnectorFactory: CIConnectorFactory,
-    private val pagingSourceFactory: ArtifactsPagingSource.Factory,
     private val projectBasicMapper: ProjectBasicMapper,
     private val accountBasicMapper: AccountBasicMapper,
 ) : ArtifactRepo {
@@ -32,7 +31,7 @@ internal class ArtifactRepoImpl @Inject constructor(
         emit(accountDto to projectDto)
     }.flatMapLatest { (accountDto, projectDto) ->
         Pager(config = PagingConfig(pageSize = PAGE_SIZE)) {
-            pagingSourceFactory.create(
+            ArtifactsPagingSource(
                 accountBasic = accountBasicMapper(accountDto),
                 projectBasic = projectBasicMapper(projectDto),
                 buildId = buildId,

@@ -12,6 +12,3 @@ data class StepId(private val value: String) : Parcelable {
 
     fun getValue() = value
 }
-
-fun String?.toStepIdOrNull() = if (!this.isNullOrBlank()) StepId(this) else null
-fun String.toStepId() = StepId(this)

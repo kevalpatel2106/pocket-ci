@@ -46,14 +46,13 @@ internal class SettingsRepoImplTest {
     @EnumSource(NightMode::class)
     fun `given night mode changed when observing night mode then verify new value emitted`(
         newNightMode: NightMode,
-    ) =
-        runTest {
-            nightModeDataStoreFlow.emit(newNightMode.value)
+    ) = runTest {
+        nightModeDataStoreFlow.emit(newNightMode.value)
 
-            subject.observeNightMode().test {
-                assertEquals(newNightMode, awaitItem())
-            }
+        subject.observeNightMode().test {
+            assertEquals(newNightMode, awaitItem())
         }
+    }
 
     companion object {
         @Suppress("unused")

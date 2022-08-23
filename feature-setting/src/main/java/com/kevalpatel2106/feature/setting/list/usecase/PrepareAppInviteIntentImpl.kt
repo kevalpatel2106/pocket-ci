@@ -2,6 +2,7 @@ package com.kevalpatel2106.feature.setting.list.usecase
 
 import android.app.Application
 import android.content.Intent
+import androidx.annotation.VisibleForTesting
 import com.kevalpatel2106.feature.setting.R
 import javax.inject.Inject
 
@@ -29,7 +30,8 @@ internal class PrepareAppInviteIntentImpl @Inject constructor(
     }
 
     companion object {
-        private const val INVITATION_URL = "https://pocketci.page.link/app-invite"
+        @VisibleForTesting
+        const val INVITATION_URL = "https://pocketci.page.link/app-invite"
         private const val INTENT_TYPE_TEXT = "text/plain"
     }
 }

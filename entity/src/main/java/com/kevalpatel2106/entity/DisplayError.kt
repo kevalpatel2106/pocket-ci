@@ -8,7 +8,7 @@ data class DisplayError(
     val message: String,
 
     // Debugging info
-    val time: Date = Date(),
+    val time: Date,
     val technicalMessage: String?,
     val nonRecoverable: Boolean,
     val unableToTriage: Boolean,
@@ -34,7 +34,7 @@ data class DisplayError(
             append("\n")
             append("Other info:\n")
             append("Triaged: ${!unableToTriage}\n")
-            append("Can recover: ${!unableToTriage}\n")
+            append("Can recover: ${!nonRecoverable}\n")
             append("\n")
         }
     }

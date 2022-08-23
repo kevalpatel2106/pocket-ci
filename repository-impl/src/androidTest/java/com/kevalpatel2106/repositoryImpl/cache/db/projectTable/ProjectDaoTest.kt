@@ -3,8 +3,8 @@ package com.kevalpatel2106.repositoryImpl.cache.db.projectTable
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.flextrade.kfixture.KFixture
-import com.kevalpatel2106.coreTest.getAccountIdFixture
 import com.kevalpatel2106.entity.id.AccountId
+import com.kevalpatel2106.repositoryImpl.getProjectDtoFixture
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
@@ -131,17 +131,4 @@ internal class ProjectDaoTest {
 
         assertEquals(projectDtos.size, subject.getTotalProjects())
     }
-
-    private fun getProjectDtoFixture(fixture: KFixture) = ProjectDto(
-        remoteId = fixture(),
-        name = fixture(),
-        owner = fixture(),
-        accountId = getAccountIdFixture(fixture),
-        repoUrl = fixture(),
-        image = fixture(),
-        isDisabled = fixture(),
-        isPublic = fixture(),
-        lastUpdatedAt = fixture(),
-        savedAt = fixture(),
-    )
 }

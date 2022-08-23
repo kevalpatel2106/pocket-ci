@@ -33,7 +33,7 @@ class SettingListViewModelTest {
     private val fixture = KFixture()
     private val displayError = fixture<DisplayError>()
     private val displayErrorMapper = mock<DisplayErrorMapper> {
-        on { invoke(any(), any()) } doReturn displayError
+        on { invoke(any(), any(), any()) } doReturn displayError
     }
     private val versionName = fixture<String>()
     private val versionCode = fixture<Int>()

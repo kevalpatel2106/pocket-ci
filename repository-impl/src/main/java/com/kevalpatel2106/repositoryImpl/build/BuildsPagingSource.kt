@@ -8,7 +8,6 @@ import com.kevalpatel2106.entity.Build
 import com.kevalpatel2106.entity.ProjectBasic
 import com.kevalpatel2106.repositoryImpl.build.BuildRepoImpl.Companion.PAGE_SIZE
 import timber.log.Timber
-import javax.inject.Inject
 
 internal class BuildsPagingSource(
     private val projectBasic: ProjectBasic,
@@ -46,18 +45,6 @@ internal class BuildsPagingSource(
 
     private fun emptyResult(): LoadResult<String, Build> {
         return LoadResult.Page(data = emptyList(), prevKey = null, nextKey = null)
-    }
-
-    class Factory @Inject constructor() {
-        fun create(
-            accountBasic: AccountBasic,
-            projectBasic: ProjectBasic,
-            ciConnector: CIConnector,
-        ) = BuildsPagingSource(
-            projectBasic = projectBasic,
-            accountBasic = accountBasic,
-            ciConnector = ciConnector,
-        )
     }
 
     companion object {

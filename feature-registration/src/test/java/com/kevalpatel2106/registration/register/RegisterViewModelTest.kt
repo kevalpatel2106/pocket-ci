@@ -41,7 +41,7 @@ class RegisterViewModelTest {
     private val accountRepo = mock<AccountRepo>()
     private val displayError = kFixture<DisplayError>()
     private val displayErrorMapper = mock<DisplayErrorMapper> {
-        on { invoke(any(), any()) } doReturn displayError
+        on { invoke(any(), any(), any()) } doReturn displayError
     }
 
     private val sanitiseRegisterInput = mock<SanitiseRegisterInput>()

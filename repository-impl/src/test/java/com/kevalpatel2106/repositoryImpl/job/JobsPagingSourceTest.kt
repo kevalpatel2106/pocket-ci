@@ -37,6 +37,7 @@ internal class JobsPagingSourceTest {
         ciConnector,
     )
 
+    // region load
     @Test
     fun `given empty jobs from network when load then verify load result success with next key null`() =
         runTest {
@@ -88,11 +89,14 @@ internal class JobsPagingSourceTest {
 
         assertTrue(actual is LoadResult.Error)
     }
+    // endregion
 
+    // region getRefreshKey
     @Test
     fun `verify refresh key is null`() = runTest {
         val actual = subject.getRefreshKey(getPagingStateFixture(fixture))
 
         assertNull(actual)
     }
+    // endregion
 }

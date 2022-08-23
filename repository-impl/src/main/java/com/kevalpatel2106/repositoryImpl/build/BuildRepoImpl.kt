@@ -22,7 +22,6 @@ internal class BuildRepoImpl @Inject constructor(
     private val projectDao: ProjectDao,
     private val accountDao: AccountDao,
     private val ciConnectorFactory: CIConnectorFactory,
-    private val pagingSourceFactory: BuildsPagingSource.Factory,
     private val projectBasicMapper: ProjectBasicMapper,
     private val accountBasicMapper: AccountBasicMapper,
 ) : BuildRepo {
@@ -34,7 +33,7 @@ internal class BuildRepoImpl @Inject constructor(
             emit(accountDto to projectDto)
         }.flatMapLatest { (accountDto, projectDto) ->
             Pager(config = PagingConfig(pageSize = PAGE_SIZE)) {
-                pagingSourceFactory.create(
+                BuildsPagingSource(
                     accountBasic = accountBasicMapper(accountDto),
                     projectBasic = projectBasicMapper(projectDto),
                     ciConnector = ciConnectorFactory.get(accountDto.type),

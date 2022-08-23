@@ -39,7 +39,9 @@ internal class AccountListViewModel @Inject constructor(
 ) : BaseViewModel<AccountListVMEvent>(), AccountListAdapterCallback, NetworkStateCallback {
 
     val pageViewState = accountRepo.getAccounts()
-        .mapNotNull { pagingData -> pagingData.map { account -> accountItemMapper(account) } }
+        .mapNotNull { pagingData ->
+            pagingData.map { account -> accountItemMapper(account) }
+        }
         .mapNotNull { pagingData ->
             pagingData.insertSeparators { before, after -> insertAccountListHeaders(before, after) }
         }

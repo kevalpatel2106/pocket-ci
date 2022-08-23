@@ -22,7 +22,6 @@ internal class JobRepoImpl @Inject constructor(
     private val accountDao: AccountDao,
     private val projectBasicMapper: ProjectBasicMapper,
     private val accountBasicMapper: AccountBasicMapper,
-    private val pagingSourceFactory: JobsPagingSource.Factory,
 ) : JobRepo {
 
     override fun getJobs(accountId: AccountId, projectId: ProjectId, buildId: BuildId) = flow {
@@ -31,7 +30,7 @@ internal class JobRepoImpl @Inject constructor(
         emit(Triple(accountDto, projectDto, buildId))
     }.flatMapLatest { (accountDto, projectDto, buildId) ->
         Pager(config = PagingConfig(pageSize = PAGE_SIZE)) {
-            pagingSourceFactory.create(
+            JobsPagingSource(
                 buildId = buildId,
                 accountBasic = accountBasicMapper(accountDto),
                 projectBasic = projectBasicMapper(projectDto),
