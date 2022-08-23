@@ -59,7 +59,7 @@ jobs:
           java-version: 11
       - uses: gradle/gradle-build-action@v2.2.5
       - name: AVD cache
-        uses: actions/cache@v3.0.7
+        uses: actions/cache@v3.0.8
         id: avd-cache
         with:
           path: |
