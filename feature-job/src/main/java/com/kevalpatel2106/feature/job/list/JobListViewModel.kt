@@ -66,7 +66,7 @@ internal class JobListViewModel @Inject constructor(
     override fun onJobSelected(job: Job) {
         viewModelScope.launch {
             val ciInfo = ciInfoRepo.getCIInfo(navArgs.accountId.toAccountId())
-            if (ciInfo.supportJobLogs) {
+            if (ciInfo.supportJobLevelLogs) {
                 _vmEventsFlow.emit(
                     OpenLogs(
                         accountId = navArgs.accountId.toAccountId(),

@@ -15,7 +15,7 @@ abstract class BaseRetrofitClient(private val okHttpFactory: OkHttpClientFactory
         .build()
 
     protected fun <T> getService(baseUrl: Url, token: Token, service: Class<T>): T {
-        val modifiedClient = okHttpFactory.client.newBuilder()
+        val modifiedClient = okHttpFactory.getOkHttpClient().newBuilder()
             .apply {
                 interceptors(baseUrl, token).forEach(::addInterceptor)
                 okHttpFactory.getFlavouredInterceptor().apply {

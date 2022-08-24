@@ -24,10 +24,10 @@ internal class LogSourceSelectorImpl @Inject constructor(
         val ciInfo = ciInfoRepo.getCIInfo(accountId)
 
         return when {
-            jobId != null && ciInfo.supportJobLogs -> {
+            jobId != null && ciInfo.supportJobLevelLogs -> {
                 jobRepo.getJobLogs(accountId, projectId, buildId, jobId)
             }
-            jobId == null && ciInfo.supportBuildLogs -> {
+            jobId == null && ciInfo.supportBuildLevelLogs -> {
                 buildRepo.getBuildLogs(accountId, projectId, buildId)
             }
             else -> error(

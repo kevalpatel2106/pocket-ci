@@ -15,7 +15,7 @@ internal class GitHubUserInfoProvider @Inject constructor(
 
     override suspend fun getMyAccountInfo(url: Url, token: Token): Account {
         val userDto = retrofitClient
-            .getService(baseUrl = url, token = token)
+            .getGithubService(baseUrl = url, token = token)
             .getUser()
         return accountMapper(userDto, url, token)
     }

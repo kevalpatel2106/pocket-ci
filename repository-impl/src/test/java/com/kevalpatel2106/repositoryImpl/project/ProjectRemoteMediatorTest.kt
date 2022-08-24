@@ -92,16 +92,14 @@ internal class ProjectRemoteMediatorTest {
                 data = listOf(getProjectFixture(fixture)),
                 nextCursor = "cursor",
             )
-            whenever(ciConnector.getProjectsUpdatedDesc(any(), any(), any(), anyOrNull(), any()))
+            whenever(ciConnector.getProjectsUpdatedDesc(any(), anyOrNull(), any()))
                 .thenReturn(pageData)
 
             subject.load(LoadType.REFRESH, getPagingStateFixture(fixture))
 
             inOrder(ciConnector, accountDao, saveProjectsToCache) {
                 verify(ciConnector).getProjectsUpdatedDesc(
-                    eq(accountId),
-                    eq(account.baseUrl),
-                    eq(account.token),
+                    any(),
                     eq(null),
                     eq(ProjectRepoImpl.PAGE_SIZE),
                 )
@@ -117,16 +115,14 @@ internal class ProjectRemoteMediatorTest {
                 data = listOf(getProjectFixture(fixture)),
                 nextCursor = "cursor",
             )
-            whenever(ciConnector.getProjectsUpdatedDesc(any(), any(), any(), anyOrNull(), any()))
+            whenever(ciConnector.getProjectsUpdatedDesc(any(), anyOrNull(), any()))
                 .thenReturn(pageData)
 
             subject.load(LoadType.APPEND, getPagingStateFixture(fixture))
 
             inOrder(ciConnector, accountDao, saveProjectsToCache) {
                 verify(ciConnector).getProjectsUpdatedDesc(
-                    eq(accountId),
-                    eq(account.baseUrl),
-                    eq(account.token),
+                    any(),
                     eq(account.nextProjectCursor),
                     eq(ProjectRepoImpl.PAGE_SIZE),
                 )
@@ -142,7 +138,7 @@ internal class ProjectRemoteMediatorTest {
                 data = listOf(getProjectFixture(fixture)),
                 nextCursor = null,
             )
-            whenever(ciConnector.getProjectsUpdatedDesc(any(), any(), any(), anyOrNull(), any()))
+            whenever(ciConnector.getProjectsUpdatedDesc(any(), anyOrNull(), any()))
                 .thenReturn(pageData)
 
             val actual = subject.load(LoadType.APPEND, getPagingStateFixture(fixture))
@@ -158,7 +154,7 @@ internal class ProjectRemoteMediatorTest {
                 data = listOf(getProjectFixture(fixture)),
                 nextCursor = null,
             )
-            whenever(ciConnector.getProjectsUpdatedDesc(any(), any(), any(), anyOrNull(), any()))
+            whenever(ciConnector.getProjectsUpdatedDesc(any(), anyOrNull(), any()))
                 .thenReturn(pageData)
 
             val actual = subject.load(LoadType.REFRESH, getPagingStateFixture(fixture))
@@ -170,7 +166,7 @@ internal class ProjectRemoteMediatorTest {
     @Test
     fun `given page load from network fails when page load check error result`() =
         runTest {
-            whenever(ciConnector.getProjectsUpdatedDesc(any(), any(), any(), anyOrNull(), any()))
+            whenever(ciConnector.getProjectsUpdatedDesc(any(), anyOrNull(), any()))
                 .thenThrow(IllegalStateException())
 
             val actual = subject.load(LoadType.REFRESH, getPagingStateFixture(fixture))
@@ -185,7 +181,7 @@ internal class ProjectRemoteMediatorTest {
                 data = listOf(getProjectFixture(fixture)),
                 nextCursor = fixture(),
             )
-            whenever(ciConnector.getProjectsUpdatedDesc(any(), any(), any(), anyOrNull(), any()))
+            whenever(ciConnector.getProjectsUpdatedDesc(any(), anyOrNull(), any()))
                 .thenReturn(pageData)
             whenever(saveProjectsToCache(any(), any(), anyOrNull(), any()))
                 .thenThrow(IllegalStateException())
@@ -202,7 +198,7 @@ internal class ProjectRemoteMediatorTest {
                 data = listOf(getProjectFixture(fixture)),
                 nextCursor = fixture(),
             )
-            whenever(ciConnector.getProjectsUpdatedDesc(any(), any(), any(), anyOrNull(), any()))
+            whenever(ciConnector.getProjectsUpdatedDesc(any(), anyOrNull(), any()))
                 .thenReturn(pageData)
             whenever(accountDao.updateNextPageCursor(any(), any()))
                 .thenThrow(IllegalStateException())

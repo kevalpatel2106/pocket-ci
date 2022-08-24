@@ -12,6 +12,8 @@ dependencies {
     implementation project(':entity')
     implementation project(':core-network')
     implementation project(':core')
+    testImplementation project(':core-test')
+    androidTestImplementation project(':core-test')
 
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
 

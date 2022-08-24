@@ -35,7 +35,7 @@ internal class LogSourceSelectorImplTest {
     fun `given ci supports job logs and job id is not null when invoked then job logs downloads`() =
         runTest {
             whenever(ciInfoRepo.getCIInfo(any<AccountId>()))
-                .thenReturn(ciInfo.copy(supportJobLogs = true, supportBuildLogs = false))
+                .thenReturn(ciInfo.copy(supportJobLevelLogs = true, supportBuildLevelLogs = false))
 
             subject(accountId, projectId, buildId, jobId)
 
@@ -46,7 +46,7 @@ internal class LogSourceSelectorImplTest {
     fun `given ci supports job logs and job id is null when invoked then then error thrown`() =
         runTest {
             whenever(ciInfoRepo.getCIInfo(any<AccountId>()))
-                .thenReturn(ciInfo.copy(supportJobLogs = true, supportBuildLogs = false))
+                .thenReturn(ciInfo.copy(supportJobLevelLogs = true, supportBuildLevelLogs = false))
 
             assertThrows<IllegalStateException> {
                 subject(accountId, projectId, buildId, null)
@@ -57,7 +57,7 @@ internal class LogSourceSelectorImplTest {
     fun `given ci supports build logs and job id is null when invoked then build logs downloads`() =
         runTest {
             whenever(ciInfoRepo.getCIInfo(any<AccountId>()))
-                .thenReturn(ciInfo.copy(supportBuildLogs = true, supportJobLogs = false))
+                .thenReturn(ciInfo.copy(supportBuildLevelLogs = true, supportJobLevelLogs = false))
 
             subject(accountId, projectId, buildId, null)
 
@@ -68,7 +68,7 @@ internal class LogSourceSelectorImplTest {
     fun `given ci supports build logs and job logs and job id is not null when invoked then job logs downloads`() =
         runTest {
             whenever(ciInfoRepo.getCIInfo(any<AccountId>()))
-                .thenReturn(ciInfo.copy(supportBuildLogs = true, supportJobLogs = true))
+                .thenReturn(ciInfo.copy(supportBuildLevelLogs = true, supportJobLevelLogs = true))
 
             subject(accountId, projectId, buildId, jobId)
 
@@ -79,7 +79,7 @@ internal class LogSourceSelectorImplTest {
     fun `given ci supports build logs and job logs and job id is null when invoked then build logs downloads`() =
         runTest {
             whenever(ciInfoRepo.getCIInfo(any<AccountId>()))
-                .thenReturn(ciInfo.copy(supportBuildLogs = true, supportJobLogs = true))
+                .thenReturn(ciInfo.copy(supportBuildLevelLogs = true, supportJobLevelLogs = true))
 
             subject(accountId, projectId, buildId, null)
 
@@ -90,7 +90,7 @@ internal class LogSourceSelectorImplTest {
     fun `given not ci support build logs and job logs when invoked then error thrown`() =
         runTest {
             whenever(ciInfoRepo.getCIInfo(any<AccountId>()))
-                .thenReturn(ciInfo.copy(supportBuildLogs = false, supportJobLogs = false))
+                .thenReturn(ciInfo.copy(supportBuildLevelLogs = false, supportJobLevelLogs = false))
 
             assertThrows<IllegalStateException> {
                 subject(accountId, projectId, buildId, jobId)
