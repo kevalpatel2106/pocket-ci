@@ -10,7 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-class ProjectListItemTest {
+internal class ProjectListItemTest {
 
     @ParameterizedTest(name = "given project list item {0} when item created them check compare id is {1}")
     @MethodSource("provideValuesForCompareIdTest")

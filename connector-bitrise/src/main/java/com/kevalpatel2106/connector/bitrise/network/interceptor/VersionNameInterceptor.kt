@@ -14,8 +14,9 @@ internal class VersionNameInterceptor private constructor() : Interceptor {
             request.url
         } else {
             val host = request.url.host
+            val port = request.url.port
             request.url.toString()
-                .replace(host, "$host/$apiVersion")
+                .replace(host, "$host:$port/$apiVersion")
                 .toHttpUrlOrNull() ?: request.url
         }
         return chain.proceed(

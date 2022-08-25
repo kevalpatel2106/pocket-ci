@@ -9,8 +9,7 @@ import javax.inject.Inject
 
 internal class ConvertProjectsWithLastUpdateTimeImpl @Inject constructor(
     private val projectMapper: ProjectMapper,
-) :
-    ConvertProjectsWithLastUpdateTime {
+) : ConvertProjectsWithLastUpdateTime {
 
     /**
      * Bitrise doesn't give us last updated time in API response. However because of sort
@@ -19,11 +18,12 @@ internal class ConvertProjectsWithLastUpdateTimeImpl @Inject constructor(
      * sure that in each entity lastUpdatedAt in two item is never same and is always less then
      * previous item making sure the order in the project db stays the same as returned from api.
      */
-    override suspend operator fun invoke(
+    override operator fun invoke(
         accountId: AccountId,
         dtos: List<ProjectDto>,
+        currentMills: Long
     ): List<Project> {
-        var epochMills = System.currentTimeMillis()
+        var epochMills = currentMills
         return dtos.map {
             epochMills -= 1
             projectMapper(it, accountId, lastUpdatedAt = Date(epochMills))

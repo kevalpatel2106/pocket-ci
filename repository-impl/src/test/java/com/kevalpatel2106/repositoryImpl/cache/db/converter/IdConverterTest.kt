@@ -8,7 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-class IdConverterTest {
+internal class IdConverterTest {
 
     @ParameterizedTest(name = "given long {0} when converted to account id then check account id is {1}")
     @MethodSource("provideAccountIdValues")

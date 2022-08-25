@@ -5,7 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-class SanitiseRegisterInputImplTest {
+internal class SanitiseRegisterInputImplTest {
 
     @ParameterizedTest(name = "given url {0} and token {1} when sanitise inputs then check sanitised values")
     @MethodSource("provideValues")

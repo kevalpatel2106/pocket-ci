@@ -19,7 +19,7 @@ internal class BitriseProjectInfoProvider @Inject constructor(
         limit: Int
     ): PagedData<Project> {
         val response = retrofitClient
-            .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
+            .getBitriseService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
             .getProjectsLastBuildAt(next = cursor, limit = limit)
         requireNotNull(response.data)
         return PagedData(

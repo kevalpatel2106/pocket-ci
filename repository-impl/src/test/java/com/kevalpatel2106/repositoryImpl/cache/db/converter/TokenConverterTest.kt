@@ -8,7 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-class TokenConverterTest {
+internal class TokenConverterTest {
 
     @ParameterizedTest(name = "given string {0} when converted to token then check converted token {1}")
     @MethodSource("provideTokenValues")

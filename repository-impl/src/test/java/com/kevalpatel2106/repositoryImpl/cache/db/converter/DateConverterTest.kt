@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.Date
 
-class DateConverterTest {
+internal class DateConverterTest {
 
     @Test
     fun `given date when date converted to long check long value is unix mills`() {

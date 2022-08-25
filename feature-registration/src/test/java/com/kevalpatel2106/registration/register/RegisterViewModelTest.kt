@@ -32,7 +32,7 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 @ExtendWith(TestCoroutineExtension::class)
-class RegisterViewModelTest {
+internal class RegisterViewModelTest {
     private val kFixture = KFixture()
     private val sanitisedUrl = "http://example1.com/"
     private val sanitisedToken = "token"

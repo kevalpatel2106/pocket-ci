@@ -23,6 +23,6 @@ internal class GitHubRetrofitClientImplTest {
 
         val actual = subject.interceptors(baseUrl, token)
 
-        assertTrue(actual.any { it is AuthHeaderInterceptor })
+        assertTrue(actual.first() is AuthHeaderInterceptor)
     }
 }

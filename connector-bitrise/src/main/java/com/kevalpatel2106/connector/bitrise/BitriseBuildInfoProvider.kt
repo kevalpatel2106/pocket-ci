@@ -22,7 +22,7 @@ internal class BitriseBuildInfoProvider @Inject constructor(
         limit: Int,
     ): PagedData<Build> {
         val response = retrofitClient
-            .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
+            .getBitriseService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
             .getBuildsByCreatedAt(
                 appSlug = projectBasic.remoteId.getValue(),
                 next = cursor,
@@ -40,7 +40,7 @@ internal class BitriseBuildInfoProvider @Inject constructor(
         accountBasic: AccountBasic,
         buildId: BuildId,
     ): String {
-        val client = retrofitClient.getService(
+        val client = retrofitClient.getBitriseService(
             baseUrl = accountBasic.baseUrl,
             token = accountBasic.authToken,
         )

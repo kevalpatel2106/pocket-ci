@@ -16,7 +16,7 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 
 @ExtendWith(TestCoroutineExtension::class)
-class ProjectListViewModelTest {
+internal class ProjectListViewModelTest {
     private val kFixture = KFixture()
     private val projectRepo = mock<ProjectRepo>()
     private val displayErrorMapper = mock<DisplayErrorMapper>()

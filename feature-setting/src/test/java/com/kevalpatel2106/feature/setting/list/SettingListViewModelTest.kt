@@ -29,7 +29,7 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 @ExtendWith(TestCoroutineExtension::class)
-class SettingListViewModelTest {
+internal class SettingListViewModelTest {
     private val fixture = KFixture()
     private val displayError = fixture<DisplayError>()
     private val displayErrorMapper = mock<DisplayErrorMapper> {

@@ -11,7 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-class InsertProjectListHeadersImplTest {
+internal class InsertProjectListHeadersImplTest {
 
     @ParameterizedTest(name = "given before and after in the list when invoke then check {2} separator item added")
     @MethodSource("provideValues")

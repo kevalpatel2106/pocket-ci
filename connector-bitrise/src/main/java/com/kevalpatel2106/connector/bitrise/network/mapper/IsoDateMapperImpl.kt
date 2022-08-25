@@ -8,10 +8,10 @@ internal class IsoDateMapperImpl @Inject constructor() : IsoDateMapper {
     private val sdf = SimpleDateFormat(ISO_8601_TIME_FORMAT)
         .apply { timeZone = TimeZone.getTimeZone("UTC") }
 
-    override fun invoke(isoTime: String?) = if (isoTime != null) {
-        sdf.parse(isoTime)
-    } else {
+    override fun invoke(isoTime: String?) = if (isoTime.isNullOrBlank()) {
         null
+    } else {
+        sdf.parse(isoTime)
     }
 
     companion object {

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
-class AccountItemMapperImplTest {
+internal class AccountItemMapperImplTest {
     private val kFixture = KFixture()
     private val testCIInfo = getCIInfoFixture(kFixture())
     private val mockCiRepo = mock<CIInfoRepo>()
