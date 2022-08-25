@@ -24,6 +24,8 @@ internal class SanitizeTriggeredByImplTest {
         fun provideValues() = listOf(
             // Format: input triggered by, sanitized triggered by
             arguments("trigger", "trigger"),
+            arguments("", null),
+            arguments("    ", null),
             arguments("/", null),
             arguments("github/kevalpatel2106", "kevalpatel2106"),
             arguments("github/kevalpatel2106/pocket-ci", "pocket-ci"),

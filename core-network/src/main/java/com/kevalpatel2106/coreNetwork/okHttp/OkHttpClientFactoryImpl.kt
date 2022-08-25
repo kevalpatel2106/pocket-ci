@@ -1,12 +1,12 @@
 package com.kevalpatel2106.coreNetwork.okHttp
 
-import android.net.ConnectivityManager
+import com.kevalpatel2106.coreNetwork.usecase.IsNetworkConnectedCheck
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 internal class OkHttpClientFactoryImpl @Inject internal constructor(
-    private val connectivityManager: ConnectivityManager,
+    private val isNetworkConnectedCheck: IsNetworkConnectedCheck,
     private val flavouredInterceptor: FlavouredInterceptor,
 ) : OkHttpClientFactory {
 
@@ -18,7 +18,7 @@ internal class OkHttpClientFactoryImpl @Inject internal constructor(
             .writeTimeout(OkHttpConfig.WRITE_TIMEOUT, TimeUnit.MINUTES)
             .connectTimeout(OkHttpConfig.CONNECTION_TIMEOUT, TimeUnit.MINUTES)
             // Not injecting through constructor to keep NetworkConnectionInterceptor internal
-            .addInterceptor(NetworkConnectionInterceptor(connectivityManager))
+            .addInterceptor(NetworkConnectionInterceptor(isNetworkConnectedCheck))
             .build()
     }
 
