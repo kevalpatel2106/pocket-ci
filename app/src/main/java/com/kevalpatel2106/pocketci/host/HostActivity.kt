@@ -40,10 +40,13 @@ class HostActivity : AppCompatActivity() {
     private fun monitorNavigation() {
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             val previousDstId = controller.previousBackStackEntry?.destination?.id
-            val previousDst = previousDstId?.run { resources.getResourceEntryName(previousDstId) }
-            val nextDst = resources.getResourceEntryName(destination.id)
-            viewModel.onNavDestinationChanged(previousDstId, destination.id)
-            viewModel.trackNavEvent(previousDst, nextDst, arguments)
+            viewModel.onNavDestinationChanged(
+                previousDstId = previousDstId,
+                previousDst = previousDstId?.run { resources.getResourceEntryName(previousDstId) },
+                newDstId = destination.id,
+                nextDst = resources.getResourceEntryName(destination.id),
+                arguments = arguments,
+            )
         }
     }
 

@@ -25,7 +25,7 @@ internal class HostViewModelTest {
         nextDstId: Int,
         expected: Int?,
     ) = runTest {
-        subject.onNavDestinationChanged(previousDstId, nextDstId)
+        subject.onNavDestinationChanged(previousDstId, fixture(), nextDstId, fixture(), fixture())
         advanceUntilIdle()
 
         assertEquals(expected, subject.viewState.value.navigationIcon)
@@ -38,7 +38,7 @@ internal class HostViewModelTest {
         nextDstId: Int,
         expected: Boolean,
     ) = runTest {
-        subject.onNavDestinationChanged(previousDstId, nextDstId)
+        subject.onNavDestinationChanged(previousDstId, fixture(), nextDstId, fixture(), fixture())
         advanceUntilIdle()
 
         assertEquals(expected, subject.viewState.value.navigationIconVisible)

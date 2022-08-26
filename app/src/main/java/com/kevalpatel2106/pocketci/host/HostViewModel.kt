@@ -20,13 +20,20 @@ internal class HostViewModel @Inject constructor() : BaseViewModel<HostVMEvents>
     private val _viewState = MutableStateFlow(HostViewState.initialState())
     val viewState = _viewState.asStateFlow()
 
-    fun onNavDestinationChanged(previousDstId: Int?, newDstId: Int) {
+    fun onNavDestinationChanged(
+        previousDstId: Int?,
+        previousDst: String?,
+        newDstId: Int,
+        nextDst: String?,
+        arguments: Bundle?,
+    ) {
         val navigationIcon = when {
             newDstId in SCREENS_WITH_BOTTOM_DRAWER -> R.drawable.ic_hamburger
             previousDstId == null -> null
             else -> R.drawable.ic_arrow_back
         }
         val isNavigationIconVisible = newDstId !in SCREENS_WITH_NO_TOOLBAR
+        Timber.i("NavTracker: $previousDst to $nextDst: $arguments")
 
         _viewState.modify(viewModelScope) {
             copy(
@@ -34,10 +41,6 @@ internal class HostViewModel @Inject constructor() : BaseViewModel<HostVMEvents>
                 navigationIconVisible = isNavigationIconVisible,
             )
         }
-    }
-
-    fun trackNavEvent(previousDst: String?, nextDst: String?, arguments: Bundle?) {
-        Timber.i("NavTracker: $previousDst to $nextDst: $arguments")
     }
 
     fun onNavigateUpClicked(currentDestination: Int?) = viewModelScope.launch {

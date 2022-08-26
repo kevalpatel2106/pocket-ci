@@ -5,16 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.kevalpatel2106.core.extentions.collectInFragment
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
 import com.kevalpatel2106.core.viewbinding.viewBinding
-import com.kevalpatel2106.pocketci.R
+import com.kevalpatel2106.pocketci.bottomDrawer.BottomDrawerVMEvent.OpenAccountsAndClose
+import com.kevalpatel2106.pocketci.bottomDrawer.BottomDrawerVMEvent.OpenSettingsAndClose
 import com.kevalpatel2106.pocketci.databinding.DialogBottomDrawerBinding
 
-internal class BottomDrawerDialog : BottomSheetDialogFragment(), View.OnClickListener {
+internal class BottomDrawerDialog : BottomSheetDialogFragment() {
     private val binding by viewBinding(DialogBottomDrawerBinding::inflate)
+    private val viewModel by viewModels<BottomDrawerViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,25 +30,24 @@ internal class BottomDrawerDialog : BottomSheetDialogFragment(), View.OnClickLis
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
-            clickHandler = this@BottomDrawerDialog
+            model = viewModel
         }
+        viewModel.vmEventsFlow.collectInFragment(this, ::handleVmEvents)
     }
 
-    override fun onClick(viewClicked: View?) {
-        when (viewClicked?.id) {
-            R.id.bottom_drawer_option_settings -> {
-                findNavController().navigateToInAppDeeplink(DeepLinkDestinations.SettingList)
-            }
-            R.id.bottom_drawer_option_accounts -> {
-                findNavController().navigateToInAppDeeplink(DeepLinkDestinations.AccountList)
-            }
+    private fun handleVmEvents(event: BottomDrawerVMEvent) = when (event) {
+        OpenAccountsAndClose -> {
+            findNavController().navigateToInAppDeeplink(DeepLinkDestinations.AccountList)
+            dismiss()
         }
-        dismiss()
+        OpenSettingsAndClose -> {
+            findNavController().navigateToInAppDeeplink(DeepLinkDestinations.SettingList)
+            dismiss()
+        }
     }
 
     companion object {
-        fun show(fragmentManager: FragmentManager) {
-            BottomDrawerDialog().show(fragmentManager, BottomDrawerDialog::class.simpleName)
-        }
+        fun show(fragmentManager: FragmentManager) = BottomDrawerDialog()
+            .show(fragmentManager, BottomDrawerDialog::class.simpleName)
     }
 }
