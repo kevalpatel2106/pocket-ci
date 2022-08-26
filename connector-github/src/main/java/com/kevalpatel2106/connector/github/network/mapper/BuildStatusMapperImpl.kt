@@ -33,9 +33,9 @@ internal class BuildStatusMapperImpl @Inject constructor() : BuildStatusMapper {
         private const val CONCLUSION_SUCCESS = "success"
         private const val CONCLUSION_FAILURE = "failure"
         private const val CONCLUSION_CANCELED = "cancelled"
+        private const val CONCLUSION_SKIPPED = "skipped"
         private const val STATUS_COMPLETED = "completed"
         private const val STATUS_QUEUED = "queued"
         private const val STATUS_IN_PROGRESS = "in_progress"
-        private const val CONCLUSION_SKIPPED = "skipped"
     }
 }

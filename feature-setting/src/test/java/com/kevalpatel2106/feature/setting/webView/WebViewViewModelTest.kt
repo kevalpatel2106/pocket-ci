@@ -17,7 +17,7 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 
 @ExtendWith(TestCoroutineExtension::class)
-class WebViewViewModelTest {
+internal class WebViewViewModelTest {
     private val fixture = KFixture()
     private val fixedUrl = getUrlFixture(fixture)
     private val navArgs = fixture<WebViewFragmentArgs>().copy(content = WebViewContent.CHANGELOG)

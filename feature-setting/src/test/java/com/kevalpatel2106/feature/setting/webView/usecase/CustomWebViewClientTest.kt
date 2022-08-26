@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 
-class CustomWebViewClientTest {
+internal class CustomWebViewClientTest {
     private val fixture = KFixture()
     private val callback = mock<CustomWebViewClient.Callback>()
     private val subject = CustomWebViewClient(callback)

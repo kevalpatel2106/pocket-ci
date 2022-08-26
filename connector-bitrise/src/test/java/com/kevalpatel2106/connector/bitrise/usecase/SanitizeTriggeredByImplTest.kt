@@ -5,7 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-class SanitizeTriggeredByImplTest {
+internal class SanitizeTriggeredByImplTest {
 
     private val subject = SanitizeTriggeredByImpl()
 
@@ -24,6 +24,8 @@ class SanitizeTriggeredByImplTest {
         fun provideValues() = listOf(
             // Format: input triggered by, sanitized triggered by
             arguments("trigger", "trigger"),
+            arguments("", null),
+            arguments("    ", null),
             arguments("/", null),
             arguments("github/kevalpatel2106", "kevalpatel2106"),
             arguments("github/kevalpatel2106/pocket-ci", "pocket-ci"),

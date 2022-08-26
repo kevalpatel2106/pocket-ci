@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="clickHandler"
-            type="android.view.View.OnClickListener" />
+            name="model"
+            type="com.kevalpatel2106.pocketci.bottomDrawer.BottomDrawerViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,7 +27,7 @@
             android:id="@+id/bottom_drawer_option_accounts"
             style="@style/BottomDrawerOptions"
             android:drawableStart="@drawable/ic_add"
-            android:onClick="@{clickHandler::onClick}"
+            android:onClick="@{()-> model.onAccountsClicked()}"
             android:text="@string/navigation_title_accounts"
             app:drawableTint="@color/secondaryText" />
 
@@ -35,7 +35,7 @@
             android:id="@+id/bottom_drawer_option_settings"
             style="@style/BottomDrawerOptions"
             android:drawableStart="@drawable/ic_gear"
-            android:onClick="@{clickHandler::onClick}"
+            android:onClick="@{()-> model.onSettingsClicked()}"
             android:text="@string/navigation_title_settings"
             app:drawableTint="@color/secondaryText" />
     </LinearLayout>

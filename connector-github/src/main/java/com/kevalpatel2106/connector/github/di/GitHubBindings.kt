@@ -3,6 +3,8 @@ package com.kevalpatel2106.connector.github.di
 import com.kevalpatel2106.connector.ci.CIConnector
 import com.kevalpatel2106.connector.ci.internal.CIConnectorBindingKey
 import com.kevalpatel2106.connector.github.GitHubConnector
+import com.kevalpatel2106.connector.github.network.GitHubRetrofitClient
+import com.kevalpatel2106.connector.github.network.GitHubRetrofitClientImpl
 import com.kevalpatel2106.connector.github.network.mapper.AccountMapper
 import com.kevalpatel2106.connector.github.network.mapper.AccountMapperImpl
 import com.kevalpatel2106.connector.github.network.mapper.ArtifactListItemMapper
@@ -47,6 +49,10 @@ internal abstract class GitHubBindings {
     @Binds
     @ViewModelScoped
     abstract fun bindAccountMapper(impl: AccountMapperImpl): AccountMapper
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGitHubRetrofitClient(impl: GitHubRetrofitClientImpl): GitHubRetrofitClient
 
     @Binds
     @ViewModelScoped

@@ -38,7 +38,7 @@ internal class BuildDetailViewModel @Inject constructor(
             }.onSuccess { ciInfo ->
                 _viewState.modify {
                     copy(
-                        hideBuildLogButton = !ciInfo.supportBuildLogs,
+                        hideBuildLogButton = !ciInfo.supportBuildLevelLogs,
                         hideJobsListButton = !ciInfo.supportJobs,
                         hideArtifactsButton = build.status.isInProgress() ||
                                 !ciInfo.supportViewArtifacts,

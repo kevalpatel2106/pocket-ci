@@ -6,7 +6,7 @@ import com.kevalpatel2106.repositoryImpl.getAccountBasicDtoFixture
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class AccountBasicMapperImplTest {
+internal class AccountBasicMapperImplTest {
     private val fixture = KFixture()
     private val subject = AccountBasicMapperImpl()
 

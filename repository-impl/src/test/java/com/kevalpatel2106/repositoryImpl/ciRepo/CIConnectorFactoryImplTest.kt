@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 
-class CIConnectorFactoryImplTest {
+internal class CIConnectorFactoryImplTest {
     private val kFixture = KFixture()
     private val map: MutableMap<CIType, @JvmSuppressWildcards CIConnector> by lazy {
         val map = mutableMapOf<CIType, @JvmSuppressWildcards CIConnector>()

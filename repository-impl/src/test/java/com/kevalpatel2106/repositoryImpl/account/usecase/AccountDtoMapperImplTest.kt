@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.Date
 
-class AccountDtoMapperImplTest {
+internal class AccountDtoMapperImplTest {
     private val fixture = KFixture()
     private val subject = AccountDtoMapperImpl()
 

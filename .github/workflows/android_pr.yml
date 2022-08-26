@@ -31,17 +31,9 @@ jobs:
           configuration-path: ".github/labeler.yml"
           sync-labels: true
       - name: PR size check
-        uses: ookami-kb/gh-pr-size-watcher@v1.1.0
-        with:
-          githubToken: "${{ secrets.GITHUB_TOKEN }}"
-          warningSize: 500
-          warningMessage: More than **500 lines** added. Consider splitting into smaller PRs.
-          excludeTitle: '[SKIP_SIZE_CHECK]'
-          excludePaths: |
-            **.md
-            **.json
-            **.yml
-            .idea/**
+        uses: kkohtaka/gh-actions-pr-size@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   check-run-automerge:
     runs-on: ubuntu-latest

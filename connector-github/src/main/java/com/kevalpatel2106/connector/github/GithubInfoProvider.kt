@@ -22,8 +22,8 @@ internal class GithubInfoProvider @Inject constructor() : CIInfoProvider {
         supportDownloadArtifacts = true,
         supportCustomBaseUrl = false,
         supportJobs = true,
-        supportBuildLogs = false,
-        supportJobLogs = true,
+        supportBuildLevelLogs = false,
+        supportJobLevelLogs = true,
     )
 
     companion object {

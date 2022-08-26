@@ -9,7 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-class ProjectListDiffCallbackTest {
+internal class ProjectListDiffCallbackTest {
 
     @ParameterizedTest(name = "given old and new item when diff util called then check are content same {2}")
     @MethodSource("provideValuesForContentTest")

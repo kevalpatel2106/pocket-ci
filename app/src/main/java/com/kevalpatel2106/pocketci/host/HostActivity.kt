@@ -10,11 +10,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.kevalpatel2106.core.extentions.collectInActivity
 import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.pocketci.R
-import com.kevalpatel2106.pocketci.bottomDrawer.BottomDrawerDialog
 import com.kevalpatel2106.pocketci.databinding.ActivityHostBinding
-import com.kevalpatel2106.pocketci.host.HostVMEvents.NavigateUp
-import com.kevalpatel2106.pocketci.host.HostVMEvents.ShowBottomDialog
+import com.kevalpatel2106.pocketci.host.usecase.HandleHostVMEvents
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HostActivity : AppCompatActivity() {
@@ -27,30 +26,31 @@ class HostActivity : AppCompatActivity() {
         navHostFragment.navController
     }
 
+    @Inject
+    internal lateinit var handleHostVMEvents: HandleHostVMEvents
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.lifecycleOwner = this@HostActivity
         setUpToolbar()
         monitorNavigation()
-        viewModel.vmEventsFlow.collectInActivity(this, ::handleViewEvent)
+        viewModel.vmEventsFlow.collectInActivity(this) { event ->
+            handleHostVMEvents(event, navController)
+        }
         viewModel.viewState.collectInActivity(this, ::handleViewState)
     }
 
     private fun monitorNavigation() {
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             val previousDstId = controller.previousBackStackEntry?.destination?.id
-            val previousDst = previousDstId?.run { resources.getResourceEntryName(previousDstId) }
-            val nextDst = resources.getResourceEntryName(destination.id)
-            viewModel.onNavDestinationChanged(previousDstId, destination.id)
-            viewModel.trackNavEvent(previousDst, nextDst, arguments)
-        }
-    }
-
-    private fun handleViewEvent(event: HostVMEvents) {
-        when (event) {
-            ShowBottomDialog -> BottomDrawerDialog.show(supportFragmentManager)
-            NavigateUp -> navController.navigateUp()
+            viewModel.onNavDestinationChanged(
+                previousDstId = previousDstId,
+                previousDst = previousDstId?.run { resources.getResourceEntryName(previousDstId) },
+                newDstId = destination.id,
+                nextDst = resources.getResourceEntryName(destination.id),
+                arguments = arguments,
+            )
         }
     }
 

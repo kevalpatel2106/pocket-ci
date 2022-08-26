@@ -14,8 +14,8 @@ abstract class BaseRetrofitClient(private val okHttpFactory: OkHttpClientFactory
         .apply { addMoshiAdapters(this) }
         .build()
 
-    protected fun <T> getService(baseUrl: Url, token: Token, service: Class<T>): T {
-        val modifiedClient = okHttpFactory.client.newBuilder()
+    protected fun getRetrofit(baseUrl: Url, token: Token): Retrofit {
+        val modifiedClient = okHttpFactory.getOkHttpClient().newBuilder()
             .apply {
                 interceptors(baseUrl, token).forEach(::addInterceptor)
                 okHttpFactory.getFlavouredInterceptor().apply {
@@ -30,7 +30,10 @@ abstract class BaseRetrofitClient(private val okHttpFactory: OkHttpClientFactory
             .addConverterFactory(StringConverter.create())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
-            .create(service)
+    }
+
+    protected fun <T> getService(baseUrl: Url, token: Token, service: Class<T>): T {
+        return getRetrofit(baseUrl, token).create(service)
     }
 
     abstract fun interceptors(baseUrl: Url, token: Token): List<Interceptor>

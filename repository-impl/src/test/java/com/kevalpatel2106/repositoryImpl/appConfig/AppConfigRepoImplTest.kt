@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-class AppConfigRepoImplTest {
+internal class AppConfigRepoImplTest {
     private val fixture = KFixture()
 
     @ParameterizedTest(name = "given version name {0} when get version code invoked then check version name returned is {0}")

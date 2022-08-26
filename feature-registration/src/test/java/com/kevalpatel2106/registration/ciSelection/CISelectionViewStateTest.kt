@@ -3,7 +3,7 @@ package com.kevalpatel2106.registration.ciSelection
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class CISelectionViewStateTest {
+internal class CISelectionViewStateTest {
 
     @Test
     fun `check initial view state`() {

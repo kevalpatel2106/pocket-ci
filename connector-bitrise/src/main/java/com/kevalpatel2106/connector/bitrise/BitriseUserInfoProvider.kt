@@ -15,7 +15,7 @@ internal class BitriseUserInfoProvider @Inject constructor(
 
     override suspend fun getMyAccountInfo(url: Url, token: Token): Account {
         val response = retrofitClient
-            .getService(baseUrl = url, token = token)
+            .getBitriseService(baseUrl = url, token = token)
             .getMe()
         requireNotNull(response.data)
         return accountMapper(response.data, url, token)

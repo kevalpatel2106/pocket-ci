@@ -3,6 +3,7 @@ package com.kevalpatel2106.repositoryImpl.project
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import com.kevalpatel2106.entity.AccountBasic
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDto
@@ -34,6 +35,7 @@ internal class ProjectRemoteMediator private constructor(
         state: PagingState<Int, ProjectDto>,
     ): MediatorResult {
         val account = accountDao.getAccount(accountId.getValue())
+        val accountBasic = AccountBasic(account.id, account.baseUrl, account.token, account.type)
         val cursorToLoad: String? = when (loadType) {
             LoadType.REFRESH -> STARTING_PAGE_CURSOR
             LoadType.PREPEND -> {
@@ -47,9 +49,7 @@ internal class ProjectRemoteMediator private constructor(
         runCatching {
             val ciRepo = ciConnectorFactory.get(account.type)
             val pagedData = ciRepo.getProjectsUpdatedDesc(
-                accountId = accountId,
-                url = account.baseUrl,
-                token = account.token,
+                accountBasic = accountBasic,
                 cursor = cursorToLoad,
                 limit = PAGE_SIZE,
             )

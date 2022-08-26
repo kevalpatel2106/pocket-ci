@@ -1,15 +1,13 @@
 package com.kevalpatel2106.connector.github
 
 import com.kevalpatel2106.connector.ci.internal.CIArtifactProvider
+import com.kevalpatel2106.connector.github.extension.executePaginatedApiCall
 import com.kevalpatel2106.connector.github.network.GitHubRetrofitClient
-import com.kevalpatel2106.connector.github.network.endpoint.GitHubEndpoint
 import com.kevalpatel2106.connector.github.network.interceptor.AuthHeaderInterceptor.Companion.AUTHENTICATION
 import com.kevalpatel2106.connector.github.network.mapper.ArtifactListItemMapper
 import com.kevalpatel2106.connector.github.usecase.TokenHeaderValueBuilder
 import com.kevalpatel2106.entity.AccountBasic
-import com.kevalpatel2106.entity.Artifact
 import com.kevalpatel2106.entity.ArtifactDownloadData
-import com.kevalpatel2106.entity.PagedData
 import com.kevalpatel2106.entity.ProjectBasic
 import com.kevalpatel2106.entity.Url
 import com.kevalpatel2106.entity.id.ArtifactId
@@ -31,25 +29,23 @@ internal class GithubArtifactProvider @Inject constructor(
         buildId: BuildId,
         cursor: String?,
         limit: Int,
-    ): PagedData<Artifact> {
-        val pageNumber = cursor?.toInt() ?: GitHubEndpoint.FIRST_PAGE_CURSOR
-
-        val responseDto = retrofitClient
-            .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
-            .getArtifacts(
-                owner = projectBasic.owner,
-                repo = projectBasic.name,
-                buildId = buildId.getValue(),
-                perPage = limit,
-                page = pageNumber,
-            )
-
-        val nextCursor = if (responseDto.artifacts.isEmpty()) null else pageNumber + 1
-        return PagedData(
-            data = responseDto.artifacts.map { artifactListItemMapper(it, buildId) },
-            nextCursor = nextCursor?.toString(),
-        )
-    }
+    ) = executePaginatedApiCall(
+        currentCursor = cursor,
+        executeApiCall = { currentPage ->
+            retrofitClient
+                .getGithubService(accountBasic.baseUrl, accountBasic.authToken)
+                .getArtifacts(
+                    owner = projectBasic.owner,
+                    repo = projectBasic.name,
+                    buildId = buildId.getValue(),
+                    perPage = limit,
+                    page = currentPage,
+                )
+        },
+        pagedDataMapper = { responseDto ->
+            responseDto.artifacts.map { artifactListItemMapper(it, buildId) }
+        },
+    )
 
     override suspend fun getArtifactDownloadUrl(
         projectBasic: ProjectBasic,
@@ -60,7 +56,7 @@ internal class GithubArtifactProvider @Inject constructor(
         var downloadUrl = Url.EMPTY
         runCatching {
             retrofitClient
-                .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
+                .getGithubService(accountBasic.baseUrl, accountBasic.authToken)
                 .getArtifactDetail(projectBasic.owner, projectBasic.name, artifactId.getValue())
         }.onFailure { error ->
             val isArtifactDeleted = (error as? HttpException)?.code() == HttpURLConnection.HTTP_GONE

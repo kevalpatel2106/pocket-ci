@@ -5,7 +5,7 @@ import com.kevalpatel2106.coreTest.getUrlFixture
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class WebViewViewStateTest {
+internal class WebViewViewStateTest {
     private val fixture = KFixture()
 
     @Test

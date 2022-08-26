@@ -5,7 +5,7 @@ import com.kevalpatel2106.entity.NightMode
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class SettingListViewStateTest {
+internal class SettingListViewStateTest {
     private val fixture = KFixture()
     private val versionName = fixture<String>()
     private val versionCode = fixture<Int>()

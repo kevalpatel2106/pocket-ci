@@ -1,12 +1,10 @@
 package com.kevalpatel2106.connector.github
 
 import com.kevalpatel2106.connector.ci.internal.CIJobsProvider
+import com.kevalpatel2106.connector.github.extension.executePaginatedApiCall
 import com.kevalpatel2106.connector.github.network.GitHubRetrofitClient
-import com.kevalpatel2106.connector.github.network.endpoint.GitHubEndpoint
 import com.kevalpatel2106.connector.github.network.mapper.JobMapper
 import com.kevalpatel2106.entity.AccountBasic
-import com.kevalpatel2106.entity.Job
-import com.kevalpatel2106.entity.PagedData
 import com.kevalpatel2106.entity.ProjectBasic
 import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.entity.id.JobId
@@ -25,23 +23,21 @@ internal class GitHubJobsProvider @Inject constructor(
         buildId: BuildId,
         cursor: String?,
         limit: Int,
-    ): PagedData<Job> {
-        val pageNumber = cursor?.toInt() ?: GitHubEndpoint.FIRST_PAGE_CURSOR
-
-        val jobsDto = retrofitClient
-            .getService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
-            .getJobs(projectBasic.owner, projectBasic.name, buildId.getValue(), limit, pageNumber)
-
-        val nextCursor = if (jobsDto.jobs.isEmpty()) {
-            null
-        } else {
-            pageNumber + 1
-        }
-        return PagedData(
-            data = jobsDto.jobs.map { jobMapper(it, buildId) },
-            nextCursor = nextCursor?.toString(),
-        )
-    }
+    ) = executePaginatedApiCall(
+        currentCursor = cursor,
+        executeApiCall = { currentPage ->
+            retrofitClient
+                .getGithubService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)
+                .getJobs(
+                    owner = projectBasic.owner,
+                    repo = projectBasic.name,
+                    buildId = buildId.getValue(),
+                    perPage = limit,
+                    page = currentPage,
+                )
+        },
+        pagedDataMapper = { jobsDto -> jobsDto.jobs.map { jobMapper(it, buildId) } },
+    )
 
     override suspend fun getJobLogs(
         accountBasic: AccountBasic,
@@ -49,7 +45,7 @@ internal class GitHubJobsProvider @Inject constructor(
         buildId: BuildId,
         jobId: JobId,
     ): String {
-        val client = retrofitClient.getService(
+        val client = retrofitClient.getGithubService(
             baseUrl = accountBasic.baseUrl,
             token = accountBasic.authToken,
         )

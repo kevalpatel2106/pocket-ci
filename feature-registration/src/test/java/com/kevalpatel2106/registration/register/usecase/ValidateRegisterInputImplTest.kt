@@ -5,7 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-class ValidateRegisterInputImplTest {
+internal class ValidateRegisterInputImplTest {
 
     @ParameterizedTest(name = "given url {0} and token {1} when validating inputs then check validation results")
     @MethodSource("provideValues")

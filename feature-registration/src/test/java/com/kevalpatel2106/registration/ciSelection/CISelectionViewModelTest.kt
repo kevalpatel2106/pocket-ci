@@ -18,7 +18,7 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 @ExtendWith(TestCoroutineExtension::class)
-class CISelectionViewModelTest {
+internal class CISelectionViewModelTest {
     private val kFixture = KFixture()
     private val selectionRepo = mock<CIInfoRepo>()
     private val supportedCIs = listOf<CIInfo>(kFixture(), kFixture())

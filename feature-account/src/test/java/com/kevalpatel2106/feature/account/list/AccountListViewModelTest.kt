@@ -28,7 +28,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 @ExtendWith(TestCoroutineExtension::class)
-class AccountListViewModelTest {
+internal class AccountListViewModelTest {
     private val fixture = KFixture()
     private val displayError = fixture<DisplayError>()
     private val displayErrorMapper = mock<DisplayErrorMapper> {

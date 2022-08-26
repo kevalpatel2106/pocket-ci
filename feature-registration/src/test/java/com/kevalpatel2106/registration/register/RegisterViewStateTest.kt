@@ -5,7 +5,7 @@ import com.kevalpatel2106.coreTest.getCIInfoFixture
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class RegisterViewStateTest {
+internal class RegisterViewStateTest {
     private val kFixture = KFixture()
 
     @Test

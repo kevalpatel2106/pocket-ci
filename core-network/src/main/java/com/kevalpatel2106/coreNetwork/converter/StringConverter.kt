@@ -9,6 +9,7 @@ import retrofit2.Retrofit
 import java.lang.reflect.Type
 
 internal class StringConverter private constructor() : Converter.Factory() {
+
     override fun responseBodyConverter(
         type: Type,
         annotations: Array<out Annotation>,

@@ -11,7 +11,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-class SharedPrefFactoryTest {
+internal class SharedPrefFactoryTest {
     private val fixture = KFixture()
 
     @Test

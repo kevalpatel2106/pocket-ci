@@ -22,8 +22,8 @@ internal class BitriseInfoProvider @Inject constructor() : CIInfoProvider {
         supportViewArtifacts = true,
         supportDownloadArtifacts = true,
         supportJobs = false,
-        supportBuildLogs = true,
-        supportJobLogs = false,
+        supportBuildLevelLogs = true,
+        supportJobLevelLogs = false,
     )
 
     companion object {

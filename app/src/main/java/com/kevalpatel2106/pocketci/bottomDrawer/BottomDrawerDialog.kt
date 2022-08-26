@@ -5,16 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.kevalpatel2106.core.navigation.DeepLinkDestinations
-import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
+import com.kevalpatel2106.core.extentions.collectInFragment
 import com.kevalpatel2106.core.viewbinding.viewBinding
-import com.kevalpatel2106.pocketci.R
+import com.kevalpatel2106.pocketci.bottomDrawer.usecase.HandleBottomDrawerVMEvents
 import com.kevalpatel2106.pocketci.databinding.DialogBottomDrawerBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-internal class BottomDrawerDialog : BottomSheetDialogFragment(), View.OnClickListener {
+@AndroidEntryPoint
+internal class BottomDrawerDialog : BottomSheetDialogFragment() {
     private val binding by viewBinding(DialogBottomDrawerBinding::inflate)
+    private val viewModel by viewModels<BottomDrawerViewModel>()
+
+    @Inject
+    internal lateinit var handleBottomDrawerVMEvents: HandleBottomDrawerVMEvents
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,25 +32,13 @@ internal class BottomDrawerDialog : BottomSheetDialogFragment(), View.OnClickLis
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
-            clickHandler = this@BottomDrawerDialog
+            model = viewModel
         }
-    }
-
-    override fun onClick(viewClicked: View?) {
-        when (viewClicked?.id) {
-            R.id.bottom_drawer_option_settings -> {
-                findNavController().navigateToInAppDeeplink(DeepLinkDestinations.SettingList)
-            }
-            R.id.bottom_drawer_option_accounts -> {
-                findNavController().navigateToInAppDeeplink(DeepLinkDestinations.AccountList)
-            }
-        }
-        dismiss()
+        viewModel.vmEventsFlow.collectInFragment(this, handleBottomDrawerVMEvents::invoke)
     }
 
     companion object {
-        fun show(fragmentManager: FragmentManager) {
-            BottomDrawerDialog().show(fragmentManager, BottomDrawerDialog::class.simpleName)
-        }
+        fun show(fragmentManager: FragmentManager) = BottomDrawerDialog()
+            .show(fragmentManager, BottomDrawerDialog::class.simpleName)
     }
 }

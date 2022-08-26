@@ -11,7 +11,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-class SqlcipherFactoryTest {
+internal class SqlcipherFactoryTest {
     private val fixture = KFixture()
     private val sharedPrefsEditor = mock<SharedPreferences.Editor>()
     private val sharedPrefs = mock<SharedPreferences> {

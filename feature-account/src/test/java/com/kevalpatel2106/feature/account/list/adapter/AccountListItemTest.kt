@@ -9,7 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-class AccountListItemTest {
+internal class AccountListItemTest {
 
     @ParameterizedTest(name = "given account list item {0} when item created them check compare id is {1}")
     @MethodSource("provideValuesForCompareIdTest")
