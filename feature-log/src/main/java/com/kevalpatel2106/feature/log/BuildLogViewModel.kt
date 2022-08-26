@@ -17,6 +17,7 @@ import com.kevalpatel2106.feature.log.BuildLogVMEvent.ScrollToTop
 import com.kevalpatel2106.feature.log.BuildLogViewState.Empty
 import com.kevalpatel2106.feature.log.BuildLogViewState.Error
 import com.kevalpatel2106.feature.log.BuildLogViewState.Success
+import com.kevalpatel2106.feature.log.menu.BuildMenuProviderCallback
 import com.kevalpatel2106.feature.log.usecase.CalculateTextScale
 import com.kevalpatel2106.feature.log.usecase.CalculateTextScale.Companion.DEFAULT_SCALE
 import com.kevalpatel2106.feature.log.usecase.ConvertToPaddedLogs
@@ -38,7 +39,7 @@ internal class BuildLogViewModel @Inject constructor(
     private val calculateTextScale: CalculateTextScale,
     private val displayErrorMapper: DisplayErrorMapper,
     private val convertToPaddedLogs: ConvertToPaddedLogs,
-) : BaseViewModel<BuildLogVMEvent>() {
+) : BaseViewModel<BuildLogVMEvent>(), BuildMenuProviderCallback {
     private val navArgs = BuildLogFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
     private val _viewState = MutableStateFlow<BuildLogViewState>(BuildLogViewState.initialState())
@@ -80,28 +81,35 @@ internal class BuildLogViewModel @Inject constructor(
 
     fun scrollToTop() = viewModelScope.launch { _vmEventsFlow.emit(ScrollToTop) }
 
-    fun onSaveLogs() = viewModelScope.launch {
-        runCatching {
-            val project = projectRepo.getProject(
-                navArgs.projectId.toProjectId(),
-                navArgs.accountId.toAccountId(),
-            )
-            project?.fullName ?: DEFAULT_LOG_FILE_NAME
-        }.onSuccess { fileName ->
-            _vmEventsFlow.emit(CreateLogFile("$fileName.txt", (viewState.value as Success).logs))
-        }.onFailure { error ->
-            Timber.e(error)
-            _vmEventsFlow.emit(ErrorSavingLog(displayErrorMapper(error)))
+    override fun onSaveLogs() {
+        viewModelScope.launch {
+            runCatching {
+                val project = projectRepo.getProject(
+                    navArgs.projectId.toProjectId(),
+                    navArgs.accountId.toAccountId(),
+                )
+                project?.fullName ?: DEFAULT_LOG_FILE_NAME
+            }.onSuccess { fileName ->
+                _vmEventsFlow.emit(
+                    CreateLogFile("$fileName.txt", (viewState.value as Success).logs),
+                )
+            }.onFailure { error ->
+                Timber.e(error)
+                _vmEventsFlow.emit(ErrorSavingLog(displayErrorMapper(error)))
+            }
         }
     }
 
-    fun onTextSizeChanged(@TextChangeDirection direction: Int) = _viewState.modify(viewModelScope) {
-        if (this is Success) {
-            copy(textScale = calculateTextScale(direction))
-        } else {
-            this
+    override fun shouldShowMenu() = viewState.value is Success
+
+    override fun onTextSizeChanged(@TextChangeDirection direction: Int) =
+        _viewState.modify(viewModelScope) {
+            if (this is Success) {
+                copy(textScale = calculateTextScale(direction))
+            } else {
+                this
+            }
         }
-    }
 
     companion object {
         private const val DEFAULT_LOG_FILE_NAME = "build"

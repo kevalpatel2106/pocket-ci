@@ -6,19 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kevalpatel2106.core.extentions.collectInFragment
-import com.kevalpatel2106.core.navigation.DeepLinkDestinations
-import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
 import com.kevalpatel2106.core.viewbinding.viewBinding
-import com.kevalpatel2106.pocketci.bottomDrawer.BottomDrawerVMEvent.OpenAccountsAndClose
-import com.kevalpatel2106.pocketci.bottomDrawer.BottomDrawerVMEvent.OpenSettingsAndClose
+import com.kevalpatel2106.pocketci.bottomDrawer.usecase.HandleBottomDrawerVMEvents
 import com.kevalpatel2106.pocketci.databinding.DialogBottomDrawerBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 internal class BottomDrawerDialog : BottomSheetDialogFragment() {
     private val binding by viewBinding(DialogBottomDrawerBinding::inflate)
     private val viewModel by viewModels<BottomDrawerViewModel>()
+
+    @Inject
+    internal lateinit var handleBottomDrawerVMEvents: HandleBottomDrawerVMEvents
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,18 +34,7 @@ internal class BottomDrawerDialog : BottomSheetDialogFragment() {
             lifecycleOwner = viewLifecycleOwner
             model = viewModel
         }
-        viewModel.vmEventsFlow.collectInFragment(this, ::handleVmEvents)
-    }
-
-    private fun handleVmEvents(event: BottomDrawerVMEvent) = when (event) {
-        OpenAccountsAndClose -> {
-            findNavController().navigateToInAppDeeplink(DeepLinkDestinations.AccountList)
-            dismiss()
-        }
-        OpenSettingsAndClose -> {
-            findNavController().navigateToInAppDeeplink(DeepLinkDestinations.SettingList)
-            dismiss()
-        }
+        viewModel.vmEventsFlow.collectInFragment(this, handleBottomDrawerVMEvents::invoke)
     }
 
     companion object {

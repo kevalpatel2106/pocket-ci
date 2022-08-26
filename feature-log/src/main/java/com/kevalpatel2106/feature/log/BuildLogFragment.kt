@@ -20,6 +20,7 @@ import com.kevalpatel2106.feature.log.BuildLogViewState.Error
 import com.kevalpatel2106.feature.log.BuildLogViewState.Loading
 import com.kevalpatel2106.feature.log.BuildLogViewState.Success
 import com.kevalpatel2106.feature.log.databinding.FragmentBuildLogBinding
+import com.kevalpatel2106.feature.log.menu.BuildLogMenuProvider
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 

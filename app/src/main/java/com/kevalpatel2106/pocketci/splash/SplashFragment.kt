@@ -1,51 +1,30 @@
 package com.kevalpatel2106.pocketci.splash
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.kevalpatel2106.core.extentions.collectInFragment
-import com.kevalpatel2106.core.navigation.DeepLinkDestinations
-import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
-import com.kevalpatel2106.pocketci.R
-import com.kevalpatel2106.pocketci.splash.SplashVMEvent.CloseApplication
-import com.kevalpatel2106.pocketci.splash.SplashVMEvent.ErrorLoadingTheme
-import com.kevalpatel2106.pocketci.splash.SplashVMEvent.OpenProjects
-import com.kevalpatel2106.pocketci.splash.SplashVMEvent.OpenRegisterAccount
+import com.kevalpatel2106.pocketci.splash.usecase.HandleSplashVMEvents
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
     private val viewModel by viewModels<SplashViewModel>()
 
+    @Inject
+    internal lateinit var handleSplashVMEvents: HandleSplashVMEvents
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.viewState.collectInFragment(this, ::handleViewState)
-        viewModel.vmEventsFlow.collectInFragment(this, ::handleSingleViewState)
+        viewModel.vmEventsFlow.collectInFragment(this, handleSplashVMEvents::invoke)
     }
 
     private fun handleViewState(viewState: SplashViewState) {
         if (AppCompatDelegate.getDefaultNightMode() != viewState.nightMode.value) {
             AppCompatDelegate.setDefaultNightMode(viewState.nightMode.value)
         }
-    }
-
-    private fun handleSingleViewState(event: SplashVMEvent) = when (event) {
-        CloseApplication -> activity?.finish()
-        is OpenProjects -> findNavController().navigateToInAppDeeplink(
-            DeepLinkDestinations.ProjectList(event.accountId),
-            cleanUpStack = true,
-        )
-        OpenRegisterAccount -> findNavController().navigateToInAppDeeplink(
-            DeepLinkDestinations.CiSelection,
-            cleanUpStack = true,
-        )
-        ErrorLoadingTheme -> Toast.makeText(
-            requireContext(),
-            R.string.splash_error_loading_theme,
-            Toast.LENGTH_SHORT,
-        ).show()
     }
 }

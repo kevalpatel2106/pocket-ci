@@ -10,11 +10,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.kevalpatel2106.core.extentions.collectInActivity
 import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.pocketci.R
-import com.kevalpatel2106.pocketci.bottomDrawer.BottomDrawerDialog
 import com.kevalpatel2106.pocketci.databinding.ActivityHostBinding
-import com.kevalpatel2106.pocketci.host.HostVMEvents.NavigateUp
-import com.kevalpatel2106.pocketci.host.HostVMEvents.ShowBottomDialog
+import com.kevalpatel2106.pocketci.host.usecase.HandleHostVMEvents
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HostActivity : AppCompatActivity() {
@@ -27,13 +26,18 @@ class HostActivity : AppCompatActivity() {
         navHostFragment.navController
     }
 
+    @Inject
+    internal lateinit var handleHostVMEvents: HandleHostVMEvents
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.lifecycleOwner = this@HostActivity
         setUpToolbar()
         monitorNavigation()
-        viewModel.vmEventsFlow.collectInActivity(this, ::handleViewEvent)
+        viewModel.vmEventsFlow.collectInActivity(this) { event ->
+            handleHostVMEvents(event, navController)
+        }
         viewModel.viewState.collectInActivity(this, ::handleViewState)
     }
 
@@ -47,13 +51,6 @@ class HostActivity : AppCompatActivity() {
                 nextDst = resources.getResourceEntryName(destination.id),
                 arguments = arguments,
             )
-        }
-    }
-
-    private fun handleViewEvent(event: HostVMEvents) {
-        when (event) {
-            ShowBottomDialog -> BottomDrawerDialog.show(supportFragmentManager)
-            NavigateUp -> navController.navigateUp()
         }
     }
 
