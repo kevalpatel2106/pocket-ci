@@ -17,6 +17,7 @@ buildscript {
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.1'
         classpath 'de.mannodermaus.gradle.plugins:android-junit5:1.8.2.1'
         classpath 'com.dicedmelon.gradle:jacoco-android:0.1.5'
+        classpath 'com.google.firebase:perf-plugin:1.4.1'
     }
 }
 
@@ -53,7 +54,7 @@ subprojects {
                             applicationIdSuffix ".debug"
                             debuggable true
                             zipAlignEnabled true
-
+                            ext.enableCrashlytics = false
                             signingConfig signingConfigs.debug
                         }
                         release {
@@ -79,6 +80,7 @@ subprojects {
                             debuggable true
                             signingConfig signingConfigs.debug
                             zipAlignEnabled true
+                            ext.enableCrashlytics = false
                         }
                         release {
                             minifyEnabled true

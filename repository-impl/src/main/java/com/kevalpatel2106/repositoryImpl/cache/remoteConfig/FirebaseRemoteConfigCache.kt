@@ -2,7 +2,7 @@ package com.kevalpatel2106.repositoryImpl.cache.remoteConfig
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
-import com.kevalpatel2106.repositoryImpl.di.IsDebug
+import com.kevalpatel2106.repository.di.IsDebug
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

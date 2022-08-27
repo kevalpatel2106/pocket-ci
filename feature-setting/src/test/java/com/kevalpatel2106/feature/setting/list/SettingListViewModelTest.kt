@@ -6,6 +6,13 @@ import com.kevalpatel2106.coreTest.TestCoroutineExtension
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
 import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.NightMode
+import com.kevalpatel2106.entity.analytics.ClickEvent
+import com.kevalpatel2106.entity.analytics.ClickEvent.Action.SETTINGS_CHANGELOG_CLICKED
+import com.kevalpatel2106.entity.analytics.ClickEvent.Action.SETTINGS_CONTACT_US_CLICKED
+import com.kevalpatel2106.entity.analytics.ClickEvent.Action.SETTINGS_NIGHT_MODE_CHANGED
+import com.kevalpatel2106.entity.analytics.ClickEvent.Action.SETTINGS_OPEN_SOURCE_LICENCE_CLICKED
+import com.kevalpatel2106.entity.analytics.ClickEvent.Action.SETTINGS_SHARE_APP_CLICKED
+import com.kevalpatel2106.entity.analytics.ClickEvent.Action.SETTINGS_SHOW_PRIVACY_POLICY_CLICKED
 import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.ErrorChangingTheme
 import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenAppInvite
 import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenChangelog
@@ -13,6 +20,7 @@ import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenContactUs
 import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenOpenSourceLicences
 import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenPrivacyPolicy
 import com.kevalpatel2106.feature.setting.list.usecase.ConvertPrefValueToNightMode
+import com.kevalpatel2106.repository.AnalyticsRepo
 import com.kevalpatel2106.repository.AppConfigRepo
 import com.kevalpatel2106.repository.SettingsRepo
 import kotlinx.coroutines.flow.emptyFlow
@@ -41,6 +49,7 @@ internal class SettingListViewModelTest {
     private val settingsRepo = mock<SettingsRepo> {
         on { observeNightMode() } doReturn emptyFlow()
     }
+    private val analyticsRepo = mock<AnalyticsRepo>()
     private val appConfigRepo = mock<AppConfigRepo> {
         on { getVersionCode() } doReturn versionCode
         on { getVersionName() } doReturn versionName
@@ -51,6 +60,7 @@ internal class SettingListViewModelTest {
             prefValueToNightMode,
             appConfigRepo,
             displayErrorMapper,
+            analyticsRepo,
         )
     }
 
@@ -62,6 +72,7 @@ internal class SettingListViewModelTest {
                 prefValueToNightMode,
                 appConfigRepo,
                 displayErrorMapper,
+                analyticsRepo,
             )
             advanceUntilIdle()
 
@@ -80,6 +91,7 @@ internal class SettingListViewModelTest {
                 prefValueToNightMode,
                 appConfigRepo,
                 displayErrorMapper,
+                analyticsRepo,
             )
             advanceUntilIdle()
 
@@ -113,7 +125,14 @@ internal class SettingListViewModelTest {
     }
 
     @Test
-    fun `given app version and code when contact us clicked then contact us screen opens`() =
+    fun `when nigh mode changed click event logged`() {
+        subject.onNightModeChanged(fixture())
+
+        verify(analyticsRepo).sendEvent(ClickEvent(SETTINGS_NIGHT_MODE_CHANGED))
+    }
+
+    @Test
+    fun `when contact us clicked then contact us screen opens`() =
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
             subject.onContactUsClicked()
 
@@ -124,12 +143,26 @@ internal class SettingListViewModelTest {
         }
 
     @Test
+    fun `when contact us clicked then click event logged`() {
+        subject.onContactUsClicked()
+
+        verify(analyticsRepo).sendEvent(ClickEvent(SETTINGS_CONTACT_US_CLICKED))
+    }
+
+    @Test
     fun `when share app clicked then app invite chooser opens`() =
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
             subject.onShareAppClicked()
 
             assertEquals(OpenAppInvite, flowTurbine.awaitItem())
         }
+
+    @Test
+    fun `when share app clicked then click event logged`() {
+        subject.onShareAppClicked()
+
+        verify(analyticsRepo).sendEvent(ClickEvent(SETTINGS_SHARE_APP_CLICKED))
+    }
 
     @Test
     fun `when show open source licences clicked then opensource licences list opens`() =
@@ -140,6 +173,13 @@ internal class SettingListViewModelTest {
         }
 
     @Test
+    fun `when show open source licences clicked then click event logged`() {
+        subject.onShowOpenSourceLicencesClicked()
+
+        verify(analyticsRepo).sendEvent(ClickEvent(SETTINGS_OPEN_SOURCE_LICENCE_CLICKED))
+    }
+
+    @Test
     fun `when show privacy policy clicked then privacy policy opens`() =
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
             subject.onShowPrivacyPolicyClicked()
@@ -148,10 +188,24 @@ internal class SettingListViewModelTest {
         }
 
     @Test
+    fun `when show privacy policy clicked then click event logged`() {
+        subject.onShowPrivacyPolicyClicked()
+
+        verify(analyticsRepo).sendEvent(ClickEvent(SETTINGS_SHOW_PRIVACY_POLICY_CLICKED))
+    }
+
+    @Test
     fun `when show changelog clicked then changelog opens`() =
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
             subject.onShowChangelogClicked()
 
             assertEquals(OpenChangelog, flowTurbine.awaitItem())
         }
+
+    @Test
+    fun `when show changelog clicked then click event logged`() {
+        subject.onShowChangelogClicked()
+
+        verify(analyticsRepo).sendEvent(ClickEvent(SETTINGS_CHANGELOG_CLICKED))
+    }
 }

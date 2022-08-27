@@ -14,6 +14,7 @@ dependencies {
 
     // core modules
     implementation project(':entity')
+    implementation project(':core')
     testImplementation project(':core-test')
     androidTestImplementation project(':core-test')
 

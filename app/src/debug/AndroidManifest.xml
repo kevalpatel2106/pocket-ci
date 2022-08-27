@@ -4,5 +4,19 @@
 
     <application
         android:name=".DebugPocketCIApplication"
-        android:networkSecurityConfig="@xml/network_security_config" />
+        android:networkSecurityConfig="@xml/network_security_config">
+        <meta-data
+            android:name="firebase_performance_logcat_enabled"
+            android:value="true" />
+        <!--Disable firebase analytics-->
+        <meta-data
+            android:name="firebase_analytics_collection_deactivated"
+            android:value="true" />
+        <meta-data
+            android:name="google_analytics_adid_collection_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="google_analytics_ssaid_collection_enabled"
+            android:value="false" />
+    </application>
 </manifest>

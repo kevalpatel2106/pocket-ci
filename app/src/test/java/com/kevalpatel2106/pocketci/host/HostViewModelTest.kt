@@ -6,17 +6,22 @@ import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
 import com.kevalpatel2106.pocketci.R
 import com.kevalpatel2106.pocketci.host.AppNavigationConfig.SCREENS_WITH_BOTTOM_DRAWER
 import com.kevalpatel2106.pocketci.host.AppNavigationConfig.SCREENS_WITH_NO_TOOLBAR
+import com.kevalpatel2106.repository.AnalyticsRepo
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
 
 @ExtendWith(TestCoroutineExtension::class)
 internal class HostViewModelTest {
-    private val subject by lazy { HostViewModel() }
+    private val analyticsRepo = mock<AnalyticsRepo>()
+    private val subject by lazy { HostViewModel(analyticsRepo) }
 
     @ParameterizedTest(name = "given previous destination id {0} and next destination id {1} when on destination changed called check navigation icon is {2}")
     @MethodSource("provideValuesForNavIconOnNavDestinationChanged")
@@ -53,6 +58,22 @@ internal class HostViewModelTest {
         subject.onNavigateUpClicked(currentDstId)
 
         assertEquals(expectedEvent, flowTurbine.awaitItem())
+    }
+
+    @Test
+    fun `given next destination non null when navigation changed called then check screen analytics event logged`() {
+        val nextDst = fixture<String>()
+
+        subject.onNavDestinationChanged(fixture(), fixture(), fixture(), nextDst, fixture())
+
+        verify(analyticsRepo).sendScreenNavigation(nextDst)
+    }
+
+    @Test
+    fun `given next destination null when navigation changed called then screen check analytics event logged`() {
+        subject.onNavDestinationChanged(fixture(), fixture(), fixture(), null, fixture())
+
+        verify(analyticsRepo).sendScreenNavigation(null)
     }
 
     companion object {
