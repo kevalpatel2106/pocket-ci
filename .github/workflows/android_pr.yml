@@ -31,7 +31,7 @@ jobs:
           configuration-path: ".github/labeler.yml"
           sync-labels: true
       - name: PR size check
-        uses: kkohtaka/gh-actions-pr-size@v1.0.0
+        uses: kkohtaka/gh-actions-pr-size@v1.0.4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
