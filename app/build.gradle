@@ -52,7 +52,7 @@ dependencies {
     implementation project(':repository-impl')
 
     // Crashalytics
-    implementation platform('com.google.firebase:firebase-bom:30.3.2')
+    implementation platform('com.google.firebase:firebase-bom:30.4.0')
     releaseImplementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-analytics'
 
