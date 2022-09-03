@@ -6,6 +6,6 @@ interface AnalyticsRepo {
     fun initialize()
     fun sendScreenNavigation(screenName: String?)
     fun sendEvent(event: Event)
-    fun sendLog(priority: Int, tag: String?, message: String)
+    fun sendLog(tag: String?, message: String)
     fun sendNonFatalException(e: Throwable)
 }

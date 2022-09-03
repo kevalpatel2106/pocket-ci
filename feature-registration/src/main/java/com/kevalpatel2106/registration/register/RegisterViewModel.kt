@@ -12,9 +12,11 @@ import com.kevalpatel2106.registration.register.RegisterVMEvent.AccountAlreadyAd
 import com.kevalpatel2106.registration.register.RegisterVMEvent.HandleAuthSuccess
 import com.kevalpatel2106.registration.register.RegisterVMEvent.ShowErrorAddingAccount
 import com.kevalpatel2106.registration.register.RegisterViewState.Companion.initialState
+import com.kevalpatel2106.registration.register.analytics.RegisterEvent
 import com.kevalpatel2106.registration.register.usecase.SanitiseRegisterInput
 import com.kevalpatel2106.registration.register.usecase.ValidateRegisterInput
 import com.kevalpatel2106.repository.AccountRepo
+import com.kevalpatel2106.repository.AnalyticsRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,6 +31,7 @@ internal class RegisterViewModel @Inject constructor(
     private val sanitiseRegisterInput: SanitiseRegisterInput,
     private val validateRegisterInput: ValidateRegisterInput,
     private val displayErrorMapper: DisplayErrorMapper,
+    private val analyticsRepo: AnalyticsRepo,
 ) : BaseViewModel<RegisterVMEvent>() {
     private val navArgs = RegisterFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
@@ -73,8 +76,12 @@ internal class RegisterViewModel @Inject constructor(
                 _viewState.modify { copy(enableAddAccountBtn = true) }
             }.onSuccess {
                 _vmEventsFlow.emit(it)
-                if (it == AccountAlreadyAdded) {
-                    _viewState.modify { copy(enableAddAccountBtn = true) }
+                when (it) {
+                    AccountAlreadyAdded -> _viewState.modify { copy(enableAddAccountBtn = true) }
+                    is HandleAuthSuccess -> {
+                        analyticsRepo.sendEvent(RegisterEvent(navArgs.selectedCI.type))
+                    }
+                    else -> Unit
                 }
             }
         }

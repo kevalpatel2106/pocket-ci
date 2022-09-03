@@ -1,13 +1,19 @@
 package com.kevalpatel2106.entity.analytics
 
-data class ClickEvent(val action: Action, val content: String? = null) : Event(Name.CLICK) {
+data class ClickEvent(val action: Action, val label: String? = null) : Event(Name.CLICK) {
 
     override val properties: Map<String, String?> = mapOf(
         PROPERTY_ACTION to action.value,
-        PROPERTY_CONTENT to content,
+        PROPERTY_ITEM to label,
     )
 
     enum class Action(val value: String) {
+        // CI Selection
+        CI_SELECTED(value = "ci_selected"),
+
+        // Account
+        ACCOUNTS_ADD_ACCOUNT_CLICKED(value = "accounts_add_account_clicked"),
+
         // Settings
         SETTINGS_NIGHT_MODE_CHANGED(value = "settings_night_mode_changed"),
         SETTINGS_CONTACT_US_CLICKED(value = "settings_contact_us_clicked"),
@@ -22,6 +28,10 @@ data class ClickEvent(val action: Action, val content: String? = null) : Event(N
 
     companion object {
         private const val PROPERTY_ACTION = "action"
-        private const val PROPERTY_CONTENT = "content"
+
+        /**
+         * Matches with item name in firebase analytics
+         */
+        private const val PROPERTY_ITEM = "item_name"
     }
 }

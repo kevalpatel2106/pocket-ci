@@ -6,6 +6,7 @@ import com.kevalpatel2106.coreTest.TestCoroutineExtension
 import com.kevalpatel2106.coreTest.getAccountFixture
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
 import com.kevalpatel2106.entity.DisplayError
+import com.kevalpatel2106.entity.analytics.ClickEvent
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.AccountRemovedSuccess
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.Close
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenCiSelection
@@ -18,6 +19,8 @@ import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorSelec
 import com.kevalpatel2106.feature.account.list.usecase.AccountItemMapper
 import com.kevalpatel2106.feature.account.list.usecase.InsertAccountListHeaders
 import com.kevalpatel2106.repository.AccountRepo
+import com.kevalpatel2106.repository.AnalyticsRepo
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -25,6 +28,7 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 @ExtendWith(TestCoroutineExtension::class)
@@ -35,6 +39,7 @@ internal class AccountListViewModelTest {
         on { invoke(any(), any(), any()) } doReturn displayError
     }
     private val accountRepo = mock<AccountRepo>()
+    private val analyticsRepo = mock<AnalyticsRepo>()
     private val insertAccountListHeaders = mock<InsertAccountListHeaders> {
         on { invoke(anyOrNull(), anyOrNull()) } doReturn null
     }
@@ -46,6 +51,7 @@ internal class AccountListViewModelTest {
             insertAccountListHeaders,
             accountItemMapper,
             displayErrorMapper,
+            analyticsRepo,
         )
     }
 
@@ -123,6 +129,13 @@ internal class AccountListViewModelTest {
 
             assertEquals(OpenCiSelection, flowTurbine.awaitItem())
         }
+
+    @Test
+    fun `when add account clicked then click event logged`() = runTest {
+        subject.onAddAccountClicked()
+
+        verify(analyticsRepo).sendEvent(ClickEvent(ClickEvent.Action.ACCOUNTS_ADD_ACCOUNT_CLICKED))
+    }
 
     @Test
     fun `when retry loading the next page then retry loading event emitted`() =

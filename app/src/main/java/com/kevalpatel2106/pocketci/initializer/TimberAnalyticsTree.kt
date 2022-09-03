@@ -10,12 +10,11 @@ internal class TimberAnalyticsTree @Inject constructor(
 ) : Timber.Tree() {
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        if (isLoggable(tag, priority)) analyticsRepo.sendLog(priority, tag, message)
-        if (t != null && isLoggableAsNonFatal(priority, t)) analyticsRepo.sendNonFatalException(t)
+        if (isLoggable(tag, priority)) analyticsRepo.sendLog(tag, message)
+        if (t != null && isLoggableAsNonFatal(priority)) analyticsRepo.sendNonFatalException(t)
     }
 
     override fun isLoggable(tag: String?, priority: Int) = priority >= Log.INFO
 
-    private fun isLoggableAsNonFatal(priority: Int, t: Throwable?) =
-        priority >= Log.ERROR && t != null
+    private fun isLoggableAsNonFatal(priority: Int) = priority >= Log.ERROR
 }

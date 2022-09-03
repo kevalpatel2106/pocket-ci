@@ -39,7 +39,7 @@
                 android:name="com.kevalpatel2106.pocketci.initializer.FlipperInitializer"
                 android:value="androidx.startup" />
             <meta-data
-                android:name="com.kevalpatel2106.pocketci.initializer.FirebaseInitializer"
+                android:name="com.kevalpatel2106.pocketci.initializer.AnalyticsInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>

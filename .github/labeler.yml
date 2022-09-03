@@ -1,9 +1,9 @@
-Change type > automation:
+PR type > automation:
   - .github/workflows/**/*
   - .github/labeler.yml
   - .github/release.yml
   - .github/dependabot.yml
 
-Change type > documentation:
+PR type > documentation:
   - docs/**/*
   - .github/**/*.md

@@ -10,7 +10,13 @@ abstract class Event(
     override fun toString() = "Event: $name\n\n Properties: $properties"
 
     enum class Name(@Size(min = EVENT_NAME_MIN_SIZE, max = EVENT_NAME_MAX_SIZE) val value: String) {
-        CLICK("click")
+
+        /**
+         * Matches with firebase in-built event.
+         * FirebaseAnalytics.Event.SELECT_ITEM
+         */
+        CLICK("select_item"),
+        REGISTER_CI("register")
     }
 
     companion object {

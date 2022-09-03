@@ -6,18 +6,20 @@ changelog:
       - dependabot
       - gradle-update-robot
   categories:
-    - title: New Features 🎉
+    - title: New Features and enhanchements 🎉
       labels:
-        - Change type > new-feature
+        - PR type > new-feature
+        - PR type > enhanchement
     - title: Bugfixes 🛠
       labels:
-        - Change type > bug
+        - Pr type > bug
     - title: Documentation 📝
       labels:
-        - Change type > documentation
-    - title: Automation 🤖
+        - PR type > documentation
+    - title: Tehchnical 🤖
       labels:
-        - Change type > automation
+        - PR type > automation
+        - PR type > refactoring
     - title: Other Changes
       labels:
         - "*"
