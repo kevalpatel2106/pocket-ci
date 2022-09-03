@@ -1,4 +1,4 @@
-package com.kevalpatel2106.pocketci
+package com.kevalpatel2106.pocketci.initializer
 
 import android.content.Context
 import androidx.startup.Initializer

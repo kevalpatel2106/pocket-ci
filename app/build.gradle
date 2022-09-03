@@ -9,6 +9,7 @@ plugins {
     id 'com.google.firebase.crashlytics'
     id 'de.mannodermaus.android-junit5'
     id 'com.dicedmelon.gradle.jacoco-android'
+    id 'com.google.firebase.firebase-perf'
 }
 
 android {
@@ -50,11 +51,7 @@ dependencies {
 
     // Implementation module
     implementation project(':repository-impl')
-
-    // Crashalytics
-    implementation platform('com.google.firebase:firebase-bom:30.4.0')
-    releaseImplementation 'com.google.firebase:firebase-crashlytics'
-    implementation 'com.google.firebase:firebase-analytics'
+    implementation project(':repository-impl-analytics')
 
     // Other dependencies
     implementation 'androidx.startup:startup-runtime:1.1.1'

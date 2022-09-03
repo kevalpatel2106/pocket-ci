@@ -5,7 +5,9 @@ import com.kevalpatel2106.coreTest.TestCoroutineExtension
 import com.kevalpatel2106.coreTest.latestValue
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
 import com.kevalpatel2106.entity.CIInfo
+import com.kevalpatel2106.entity.analytics.ClickEvent
 import com.kevalpatel2106.registration.ciSelection.CISelectionVMEvent.Close
+import com.kevalpatel2106.repository.AnalyticsRepo
 import com.kevalpatel2106.repository.CIInfoRepo
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -21,9 +23,10 @@ import org.mockito.kotlin.whenever
 internal class CISelectionViewModelTest {
     private val kFixture = KFixture()
     private val selectionRepo = mock<CIInfoRepo>()
+    private val analyticsRepo = mock<AnalyticsRepo>()
     private val supportedCIs = listOf<CIInfo>(kFixture(), kFixture())
 
-    private val subject by lazy { CISelectionViewModel(selectionRepo) }
+    private val subject by lazy { CISelectionViewModel(selectionRepo, analyticsRepo) }
 
     @Test
     fun `when view model loads check the initial state`() = runTest {
@@ -78,6 +81,20 @@ internal class CISelectionViewModelTest {
                 flowTurbine.awaitItem(),
             )
         }
+
+    @Test
+    fun `given supported CI loaded when CI selected the click event logged`() = runTest {
+        whenever(selectionRepo.getSupportedCI()).thenReturn(supportedCIs)
+
+        subject.onCISelected(supportedCIs.first())
+
+        verify(analyticsRepo).sendEvent(
+            ClickEvent(
+                action = ClickEvent.Action.CI_SELECTED,
+                label = supportedCIs.first().type.name,
+            ),
+        )
+    }
 
     @Test
     fun `given view model initialised when close then verify close event emit`() =

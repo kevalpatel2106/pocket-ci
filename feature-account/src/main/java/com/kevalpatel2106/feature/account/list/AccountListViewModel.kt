@@ -8,6 +8,7 @@ import com.kevalpatel2106.core.BaseViewModel
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateCallback
 import com.kevalpatel2106.entity.Account
+import com.kevalpatel2106.entity.analytics.ClickEvent
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.AccountRemovedSuccess
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.Close
@@ -23,6 +24,7 @@ import com.kevalpatel2106.feature.account.list.adapter.AccountListAdapterCallbac
 import com.kevalpatel2106.feature.account.list.usecase.AccountItemMapper
 import com.kevalpatel2106.feature.account.list.usecase.InsertAccountListHeaders
 import com.kevalpatel2106.repository.AccountRepo
+import com.kevalpatel2106.repository.AnalyticsRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.mapNotNull
@@ -36,6 +38,7 @@ internal class AccountListViewModel @Inject constructor(
     insertAccountListHeaders: InsertAccountListHeaders,
     accountItemMapper: AccountItemMapper,
     private val displayErrorMapper: DisplayErrorMapper,
+    private val analyticsRepo: AnalyticsRepo,
 ) : BaseViewModel<AccountListVMEvent>(), AccountListAdapterCallback, NetworkStateCallback {
 
     val pageViewState = accountRepo.getAccounts()
@@ -84,7 +87,10 @@ internal class AccountListViewModel @Inject constructor(
         viewModelScope.launch { _vmEventsFlow.emit(Close) }
     }
 
-    fun onAddAccountClicked() = viewModelScope.launch { _vmEventsFlow.emit(OpenCiSelection) }
+    fun onAddAccountClicked() {
+        analyticsRepo.sendEvent(ClickEvent(ClickEvent.Action.ACCOUNTS_ADD_ACCOUNT_CLICKED))
+        viewModelScope.launch { _vmEventsFlow.emit(OpenCiSelection) }
+    }
 
     override fun retryNextPage() {
         viewModelScope.launch { _vmEventsFlow.emit(RetryLoading) }

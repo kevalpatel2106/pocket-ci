@@ -1,4 +1,4 @@
-package com.kevalpatel2106.pocketci
+package com.kevalpatel2106.pocketci.initializer
 
 import android.content.Context
 import androidx.startup.Initializer
@@ -10,7 +10,6 @@ import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.facebook.flipper.plugins.sharedpreferences.SharedPreferencesFlipperPlugin
 import com.facebook.soloader.SoLoader
-import com.kevalpatel2106.coreNetwork.BuildConfig
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
@@ -21,14 +20,14 @@ internal class FlipperInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
         // Every Initializer must have a no argument constructor. So we cannot inject using hilt.
-        // Hilt doesn't support out of the box content provider injection.
+        // Hilt doesn't support out of the box content provider injection using @AndroidEntryPoint.
         val hiltEntryPoint: FlipperInitializerEntryPoint = EntryPointAccessors.fromApplication(
             context.applicationContext,
             FlipperInitializerEntryPoint::class.java,
         )
 
         SoLoader.init(context, false)
-        if (BuildConfig.DEBUG && FlipperUtils.shouldEnableFlipper(context)) {
+        if (FlipperUtils.shouldEnableFlipper(context)) {
             AndroidFlipperClient.getInstance(context).apply {
                 addPlugin(InspectorFlipperPlugin(context, DescriptorMapping.withDefaults()))
                 addPlugin(SharedPreferencesFlipperPlugin(context))

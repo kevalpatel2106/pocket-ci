@@ -4,10 +4,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.kevalpatel2106.core.BaseViewModel
 import com.kevalpatel2106.core.extentions.modify
+import com.kevalpatel2106.entity.analytics.ClickEvent
 import com.kevalpatel2106.feature.setting.webView.WebViewVMEvent.Close
 import com.kevalpatel2106.feature.setting.webView.WebViewVMEvent.Reload
 import com.kevalpatel2106.feature.setting.webView.usecase.ContentToUrlMapper
 import com.kevalpatel2106.feature.setting.webView.usecase.CustomWebViewClient
+import com.kevalpatel2106.repository.AnalyticsRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,6 +20,7 @@ import javax.inject.Inject
 internal class WebViewViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     contentToUrlMapper: ContentToUrlMapper,
+    private val analyticsRepo: AnalyticsRepo,
 ) : BaseViewModel<WebViewVMEvent>(), CustomWebViewClient.Callback {
     private val navArgs = WebViewFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
@@ -47,6 +50,7 @@ internal class WebViewViewModel @Inject constructor(
     fun close() = viewModelScope.launch { _vmEventsFlow.emit(Close) }
 
     fun reload() {
+        analyticsRepo.sendEvent(ClickEvent(ClickEvent.Action.WEBVIEW_RELOAD))
         viewModelScope.launch { _vmEventsFlow.emit(Reload(_viewState.value.linkUrl)) }
     }
 }

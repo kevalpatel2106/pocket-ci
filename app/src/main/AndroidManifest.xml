@@ -33,10 +33,13 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.kevalpatel2106.pocketci.TimberInitializer"
+                android:name="com.kevalpatel2106.pocketci.initializer.TimberInitializer"
                 android:value="androidx.startup" />
             <meta-data
-                android:name="com.kevalpatel2106.pocketci.FlipperInitializer"
+                android:name="com.kevalpatel2106.pocketci.initializer.FlipperInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.kevalpatel2106.pocketci.initializer.AnalyticsInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>

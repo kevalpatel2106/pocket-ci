@@ -1,30 +1,30 @@
-package com.kevalpatel2106.pocketci
+package com.kevalpatel2106.pocketci.initializer
 
 import android.content.Context
 import androidx.startup.Initializer
+import com.kevalpatel2106.repository.AnalyticsRepo
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
-import timber.log.Timber
 
-internal class TimberInitializer : Initializer<Unit> {
+class AnalyticsInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
         // Every Initializer must have a no argument constructor. So we cannot inject using hilt.
-        // Hilt doesn't support out of the box content provider injection.
-        val hiltEntryPoint: TimberInitializerEntryPoint = EntryPointAccessors.fromApplication(
+        // Hilt doesn't support out of the box content provider injection using @AndroidEntryPoint.
+        val hiltEntryPoint: AnalyticsInitializerEntryPoint = EntryPointAccessors.fromApplication(
             context.applicationContext,
-            TimberInitializerEntryPoint::class.java,
+            AnalyticsInitializerEntryPoint::class.java,
         )
-        Timber.plant(hiltEntryPoint.provideReleaseTree())
+        hiltEntryPoint.analyticsRepo().initialize()
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
 
     @EntryPoint
     @InstallIn(SingletonComponent::class)
-    internal interface TimberInitializerEntryPoint {
-        fun provideReleaseTree(): ReleaseTree
+    internal interface AnalyticsInitializerEntryPoint {
+        fun analyticsRepo(): AnalyticsRepo
     }
 }

@@ -8,7 +8,7 @@ updates:
     schedule:
       interval: "daily"
     labels:
-      - "Change type > dependencies"
+      - "PR type > dependencies"
   - package-ecosystem: "gradle"
     directory: "/"
     reviewers:
@@ -17,4 +17,4 @@ updates:
       interval: "daily"
     open-pull-requests-limit: 1
     labels:
-      - "Change type > dependencies"
+      - "PR type > dependencies"

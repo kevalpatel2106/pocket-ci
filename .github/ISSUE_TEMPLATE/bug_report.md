@@ -2,7 +2,7 @@
 name: Bug report
 about: Report app crashes, misbehaviour, etc.
 title: "[BUG]"
-labels: bug
+labels: Type > bug
 assignees: ''
 
 ---

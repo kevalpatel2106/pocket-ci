@@ -1,4 +1,4 @@
-package com.kevalpatel2106.repositoryImpl.di
+package com.kevalpatel2106.repository.di
 
 import javax.inject.Qualifier
 

@@ -55,8 +55,11 @@ internal class SplashViewModel @Inject constructor(
                 _vmEventsFlow.emit(SplashVMEvent.CloseApplication)
             }.onSuccess { selectedAccount ->
                 _vmEventsFlow.emit(
-                    if (selectedAccount == NO_ACCOUNT) OpenRegisterAccount
-                    else OpenProjects(selectedAccount.localId),
+                    if (selectedAccount == NO_ACCOUNT) {
+                        OpenRegisterAccount
+                    } else {
+                        OpenProjects(selectedAccount.localId)
+                    },
                 )
             }
         }

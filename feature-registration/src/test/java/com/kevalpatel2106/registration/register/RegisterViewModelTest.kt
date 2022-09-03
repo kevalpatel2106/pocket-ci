@@ -14,9 +14,11 @@ import com.kevalpatel2106.registration.R
 import com.kevalpatel2106.registration.register.RegisterVMEvent.AccountAlreadyAdded
 import com.kevalpatel2106.registration.register.RegisterVMEvent.HandleAuthSuccess
 import com.kevalpatel2106.registration.register.RegisterVMEvent.ShowErrorAddingAccount
+import com.kevalpatel2106.registration.register.analytics.RegisterEvent
 import com.kevalpatel2106.registration.register.usecase.SanitiseRegisterInput
 import com.kevalpatel2106.registration.register.usecase.ValidateRegisterInput
 import com.kevalpatel2106.repository.AccountRepo
+import com.kevalpatel2106.repository.AnalyticsRepo
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -28,6 +30,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
@@ -39,6 +42,7 @@ internal class RegisterViewModelTest {
 
     private val navArgs = RegisterFragmentArgs(selectedCI = getCIInfoFixture(kFixture()))
     private val accountRepo = mock<AccountRepo>()
+    private val analyticsRepo = mock<AnalyticsRepo>()
     private val displayError = kFixture<DisplayError>()
     private val displayErrorMapper = mock<DisplayErrorMapper> {
         on { invoke(any(), any(), any()) } doReturn displayError
@@ -53,6 +57,7 @@ internal class RegisterViewModelTest {
             sanitiseRegisterInput,
             validateRegisterInput,
             displayErrorMapper,
+            analyticsRepo,
         )
     }
 
@@ -144,6 +149,19 @@ internal class RegisterViewModelTest {
         }
 
     @Test
+    fun `given correct url and token when submit then register event logged`() = runTest {
+        val savedAccount = getAccountFixture(kFixture)
+        whenever(validateRegisterInput(any(), any())).thenReturn(true to true)
+        whenever(accountRepo.hasAccount(any(), any())).thenReturn(false)
+        whenever(accountRepo.addAccount(any(), any(), any())).thenReturn(savedAccount)
+
+        subject.submit("http://example.com/", "83726347623")
+        advanceUntilIdle()
+
+        verify(analyticsRepo).sendEvent(RegisterEvent(navArgs.selectedCI.type))
+    }
+
+    @Test
     fun `given correct url and token when submit check add account button stays disabled`() =
         runTest {
             val account = getAccountFixture(kFixture)
@@ -185,6 +203,19 @@ internal class RegisterViewModelTest {
             subject.submit("http://example.com/", "83726347623")
 
             assertEquals(AccountAlreadyAdded, flowTurbine.awaitItem())
+        }
+
+    @Test
+    fun `given account already added when submit then register event not logged`() =
+        runTest {
+            val account = getAccountFixture(kFixture)
+            whenever(validateRegisterInput(any(), any())).thenReturn(true to true)
+            whenever(accountRepo.hasAccount(any(), any())).thenReturn(true)
+            whenever(accountRepo.addAccount(any(), any(), any())).thenReturn(account)
+
+            subject.submit("http://example.com/", "83726347623")
+
+            verify(analyticsRepo, never()).sendEvent(any())
         }
 
     @Test
