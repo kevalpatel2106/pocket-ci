@@ -4,6 +4,8 @@ import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapperImpl
 import com.kevalpatel2106.core.errorHandling.HttpErrorMessageMapper
 import com.kevalpatel2106.core.errorHandling.HttpErrorMessageMapperImpl
+import com.kevalpatel2106.core.paging.usecase.LoadStateMapper
+import com.kevalpatel2106.core.paging.usecase.LoadStateMapperImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -20,4 +22,7 @@ internal abstract class CoreSingletonBindings {
     abstract fun bindHttpErrorMessageMapper(
         impl: HttpErrorMessageMapperImpl,
     ): HttpErrorMessageMapper
+
+    @Binds
+    abstract fun bindLoadStateMapper(impl: LoadStateMapperImpl): LoadStateMapper
 }

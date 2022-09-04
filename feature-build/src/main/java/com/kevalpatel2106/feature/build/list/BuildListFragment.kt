@@ -5,10 +5,13 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.kevalpatel2106.core.extentions.collectInFragment
-import com.kevalpatel2106.core.extentions.isEmptyList
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Empty
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Error
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Loaded
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Loading
+import com.kevalpatel2106.core.paging.usecase.LoadStateMapper
 import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
@@ -21,7 +24,8 @@ import com.kevalpatel2106.feature.build.list.BuildListVMEvent.RetryLoading
 import com.kevalpatel2106.feature.build.list.BuildListVMEvent.ShowErrorLoadingBuilds
 import com.kevalpatel2106.feature.build.list.adapter.BuildListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 @AndroidEntryPoint
 internal class BuildListFragment : Fragment(R.layout.fragment_build_list) {
@@ -31,6 +35,9 @@ internal class BuildListFragment : Fragment(R.layout.fragment_build_list) {
     }
 
     private val buildListAdapter by lazy(LazyThreadSafetyMode.NONE) { BuildListAdapter(viewModel) }
+
+    @Inject
+    lateinit var loadStateMapper: LoadStateMapper
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,23 +61,20 @@ internal class BuildListFragment : Fragment(R.layout.fragment_build_list) {
         itemAnimator = DefaultItemAnimator().apply { supportsChangeAnimations = false }
     }
 
-    private fun observeAdapterLoadState() = with(binding) {
-        buildListAdapter.loadStateFlow.collectInFragment(this@BuildListFragment) { loadState ->
-            buildListSwipeRefresh.isRefreshing = false
-            val sourceStates = loadState.source
-            val refreshStates = loadState.refresh
-            buildsViewFlipper.displayedChild = when {
-                refreshStates is LoadState.Error -> {
-                    Timber.e(refreshStates.error)
-                    buildListErrorView.setErrorThrowable(refreshStates.error)
+    private fun observeAdapterLoadState() = buildListAdapter.loadStateFlow
+        .map { loadStateMapper(buildListAdapter, it) }
+        .collectInFragment(this@BuildListFragment) { state ->
+            binding.buildListSwipeRefresh.isRefreshing = false
+            binding.buildsViewFlipper.displayedChild = when (state) {
+                is Error -> {
+                    binding.buildListErrorView.setErrorThrowable(state.error)
                     POS_ERROR
                 }
-                sourceStates.refresh is LoadState.Loading -> POS_LOADER
-                sourceStates.isEmptyList(buildListAdapter) -> POS_EMPTY_VIEW
-                else -> POS_LIST
+                Loading -> POS_LOADER
+                Empty -> POS_EMPTY_VIEW
+                Loaded -> POS_LIST
             }
         }
-    }
 
     private fun handleViewState(viewState: BuildListViewState) {
         requireActivity().title = viewState.toolbarTitle

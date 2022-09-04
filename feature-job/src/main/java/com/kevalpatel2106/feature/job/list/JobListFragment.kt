@@ -5,12 +5,15 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.kevalpatel2106.core.extentions.collectInFragment
-import com.kevalpatel2106.core.extentions.isEmptyList
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations.BuildLog
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Empty
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Error
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Loaded
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Loading
+import com.kevalpatel2106.core.paging.usecase.LoadStateMapper
 import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
@@ -23,7 +26,8 @@ import com.kevalpatel2106.feature.job.list.JobListVMEvent.RetryLoading
 import com.kevalpatel2106.feature.job.list.JobListVMEvent.ShowErrorLoadingJobs
 import com.kevalpatel2106.feature.job.list.adapter.JobsListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class JobListFragment : Fragment(R.layout.fragment_job_list) {
@@ -32,6 +36,9 @@ class JobListFragment : Fragment(R.layout.fragment_job_list) {
         jobListRecyclerView.adapter = null
     }
     private val jobsListAdapter by lazy(LazyThreadSafetyMode.NONE) { JobsListAdapter(viewModel) }
+
+    @Inject
+    lateinit var loadStateMapper: LoadStateMapper
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,23 +66,20 @@ class JobListFragment : Fragment(R.layout.fragment_job_list) {
         viewState.toolbarTitle?.let { requireActivity().title = it }
     }
 
-    private fun observeAdapterLoadState() = with(binding) {
-        jobsListAdapter.loadStateFlow.collectInFragment(this@JobListFragment) { loadState ->
-            jobListSwipeRefresh.isRefreshing = false
-            val sourceStates = loadState.source
-            val refreshStates = loadState.refresh
-            jobListViewFlipper.displayedChild = when {
-                refreshStates is LoadState.Error -> {
-                    Timber.e(refreshStates.error)
-                    jobListErrorView.setErrorThrowable(refreshStates.error)
+    private fun observeAdapterLoadState() = jobsListAdapter.loadStateFlow
+        .map { loadStateMapper(jobsListAdapter, it) }
+        .collectInFragment(this) { state ->
+            binding.jobListSwipeRefresh.isRefreshing = false
+            binding.jobListViewFlipper.displayedChild = when (state) {
+                is Error -> {
+                    binding.jobListErrorView.setErrorThrowable(state.error)
                     POS_ERROR
                 }
-                sourceStates.refresh is LoadState.Loading -> POS_LOADER
-                sourceStates.isEmptyList(jobsListAdapter) -> POS_EMPTY_VIEW
-                else -> POS_LIST
+                Loading -> POS_LOADER
+                Empty -> POS_EMPTY_VIEW
+                Loaded -> POS_LIST
             }
         }
-    }
 
     private fun handleSingleEvent(event: JobListVMEvent) {
         when (event) {
