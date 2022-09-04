@@ -18,17 +18,18 @@ internal class BuildMapperImpl @Inject constructor(
 
     override operator fun invoke(projectId: ProjectId, dto: BuildDto): Build = with(dto) {
         val buildStatus = buildStatusMapper(conclusion, status)
+        val triggerAt = runStartedAt ?: createdAt
         Build(
             id = id.toString().toBuildId(),
             projectId = projectId,
             number = runNumber,
             finishedAt = if (!buildStatus.isInProgress()) isoDateMapper(updatedAt) else null,
-            triggeredAt = runStartedAt?.let { isoDateMapper(it) } ?: Date(),
+            triggeredAt = isoDateMapper(triggerAt) ?: Date(),
             workflow = getWorkflow(),
             status = buildStatus,
             commit = dto.headCommit?.let { commitMapper(it) },
             headBranch = headBranch,
-            triggeredBy = triggeringActor.login,
+            triggeredBy = triggeringActor?.login ?: actor.login,
             pullRequest = pullRequests.firstOrNull()?.let { pullRequestMapper(it) },
             abortReason = null, // Not supported in GitHub
         )

@@ -69,7 +69,7 @@ internal class BuildMapperImplTest {
             status = buildStatus,
             commit = commit,
             headBranch = dto.headBranch,
-            triggeredBy = dto.triggeringActor.login,
+            triggeredBy = dto.triggeringActor?.login ?: dto.actor.login,
             pullRequest = pr,
             abortReason = null, // Not supported in GitHub
         )

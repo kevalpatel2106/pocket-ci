@@ -30,6 +30,9 @@ internal data class BuildDto(
     @Json(name = "run_started_at")
     val runStartedAt: String? = null,
 
+    @Json(name = "created_at")
+    val createdAt: String,
+
     @Json(name = "updated_at")
     val updatedAt: String? = null,
 
@@ -40,7 +43,10 @@ internal data class BuildDto(
     val conclusion: String?,
 
     @Json(name = "triggering_actor")
-    val triggeringActor: BaseUserDto,
+    val triggeringActor: BaseUserDto?,
+
+    @Json(name = "actor")
+    val actor: BaseUserDto,
 
     @Json(name = "run_number")
     val runNumber: Long,
