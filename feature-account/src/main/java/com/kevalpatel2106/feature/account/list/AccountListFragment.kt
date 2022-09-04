@@ -5,13 +5,16 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.paging.LoadState
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kevalpatel2106.core.extentions.collectInFragment
-import com.kevalpatel2106.core.extentions.isEmptyList
 import com.kevalpatel2106.core.extentions.showSnack
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Empty
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Error
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Loaded
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Loading
+import com.kevalpatel2106.core.paging.usecase.LoadStateMapper
 import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
@@ -30,7 +33,8 @@ import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorRemov
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorSelectingAccount
 import com.kevalpatel2106.feature.account.list.adapter.AccountListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AccountListFragment : Fragment(R.layout.fragment_account_list) {
@@ -39,6 +43,9 @@ class AccountListFragment : Fragment(R.layout.fragment_account_list) {
         accountListRecyclerView.adapter = null
     }
     private val accountListAdapter by lazy(LazyThreadSafetyMode.NONE) { AccountListAdapter(viewModel) }
+
+    @Inject
+    lateinit var loadStateMapper: LoadStateMapper
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,22 +66,19 @@ class AccountListFragment : Fragment(R.layout.fragment_account_list) {
         )
     }
 
-    private fun observeAdapterLoadState() = with(binding) {
-        accountListAdapter.loadStateFlow.collectInFragment(this@AccountListFragment) { loadState ->
-            val sourceStates = loadState.source
-            val refreshStates = loadState.refresh
-            accountListViewFlipper.displayedChild = when {
-                refreshStates is LoadState.Error -> {
-                    Timber.e(refreshStates.error)
-                    accountListErrorView.setErrorThrowable(refreshStates.error)
+    private fun observeAdapterLoadState() = accountListAdapter.loadStateFlow
+        .map { loadStateMapper(accountListAdapter, it) }
+        .collectInFragment(this) { state ->
+            binding.accountListViewFlipper.displayedChild = when (state) {
+                is Error -> {
+                    binding.accountListErrorView.setErrorThrowable(state.error)
                     POS_ERROR
                 }
-                sourceStates.isEmptyList(accountListAdapter) -> POS_EMPTY_VIEW
-                sourceStates.refresh is LoadState.Loading -> POS_LOADER
-                else -> POS_LIST
+                Loading -> POS_LOADER
+                Empty -> POS_EMPTY_VIEW
+                Loaded -> POS_LIST
             }
         }
-    }
 
     private fun handleEventFlow(event: AccountListVMEvent) {
         when (event) {

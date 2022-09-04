@@ -5,12 +5,15 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.google.android.material.snackbar.Snackbar
 import com.kevalpatel2106.core.extentions.collectInFragment
-import com.kevalpatel2106.core.extentions.isEmptyList
 import com.kevalpatel2106.core.extentions.showSnack
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Empty
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Error
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Loaded
+import com.kevalpatel2106.core.paging.FirstPageLoadState.Loading
+import com.kevalpatel2106.core.paging.usecase.LoadStateMapper
 import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
@@ -26,7 +29,8 @@ import com.kevalpatel2106.feature.artifact.list.ArtifactListVMEvent.ShowDownload
 import com.kevalpatel2106.feature.artifact.list.ArtifactListVMEvent.ShowErrorLoadingArtifact
 import com.kevalpatel2106.feature.artifact.list.adapter.ArtifactListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ArtifactListFragment : Fragment(R.layout.fragment_artifact_list) {
@@ -42,6 +46,9 @@ class ArtifactListFragment : Fragment(R.layout.fragment_artifact_list) {
             Snackbar.LENGTH_INDEFINITE,
         )
     }
+
+    @Inject
+    lateinit var loadStateMapper: LoadStateMapper
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -65,23 +72,20 @@ class ArtifactListFragment : Fragment(R.layout.fragment_artifact_list) {
         itemAnimator = DefaultItemAnimator().apply { supportsChangeAnimations = false }
     }
 
-    private fun observeAdapterLoadState() = with(binding) {
-        artifactListAdapter.loadStateFlow.collectInFragment(this@ArtifactListFragment) { loadState ->
-            artifactListSwipeRefresh.isRefreshing = false
-            val sourceStates = loadState.source
-            val refreshStates = loadState.refresh
-            artifactListViewFlipper.displayedChild = when {
-                refreshStates is LoadState.Error -> {
-                    Timber.e(refreshStates.error)
-                    artifactListErrorView.setErrorThrowable(refreshStates.error)
+    private fun observeAdapterLoadState() = artifactListAdapter.loadStateFlow
+        .map { loadStateMapper(artifactListAdapter, it) }
+        .collectInFragment(this) { state ->
+            binding.artifactListSwipeRefresh.isRefreshing = false
+            binding.artifactListViewFlipper.displayedChild = when (state) {
+                is Error -> {
+                    binding.artifactListErrorView.setErrorThrowable(state.error)
                     POS_ERROR
                 }
-                sourceStates.refresh is LoadState.Loading -> POS_LOADER
-                sourceStates.isEmptyList(artifactListAdapter) -> POS_EMPTY_VIEW
-                else -> POS_LIST
+                Loading -> POS_LOADER
+                Empty -> POS_EMPTY_VIEW
+                Loaded -> POS_LIST
             }
         }
-    }
 
     private fun handleVMEvent(event: ArtifactListVMEvent) {
         when (event) {
