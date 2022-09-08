@@ -55,7 +55,6 @@ dependencies {
 
     // Other dependencies
     implementation 'androidx.startup:startup-runtime:1.1.1'
-    setup_glide(this)
 
     // Debugging libraries
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'

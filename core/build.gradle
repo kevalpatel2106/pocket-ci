@@ -15,9 +15,13 @@ android {
 }
 
 dependencies {
-    setup_glide(this)
     implementation project(':entity')
     implementation project(':core-resources')
     implementation "com.squareup.moshi:moshi:1.13.0"
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    kapt 'com.github.bumptech.glide:compiler:4.13.2'
+    kaptAndroidTest 'com.github.bumptech.glide:compiler:4.13.2'
 }
