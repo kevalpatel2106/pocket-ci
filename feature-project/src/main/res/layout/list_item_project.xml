@@ -32,9 +32,11 @@
                 android:layout_width="@dimen/spacing_xlarge"
                 android:layout_height="@dimen/spacing_xlarge"
                 android:contentDescription="@{project.name}"
+                app:error="@{@drawable/ic_repository_placeholder}"
                 app:imageUrl="@{project.image}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:placeholder="@{@drawable/ic_repository_placeholder}"
                 app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"
                 tools:src="@tools:sample/avatars" />
 
