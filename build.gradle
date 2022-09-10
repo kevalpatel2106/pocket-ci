@@ -119,7 +119,7 @@ subprojects {
                 implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
                 // Navigation
-                implementation "androidx.navigation:navigation-fragment-ktx:2.5.1"
+                implementation "androidx.navigation:navigation-fragment-ktx:2.5.2"
                 implementation "androidx.navigation:navigation-ui-ktx:2.5.1"
 
                 // Hilt
