@@ -10,8 +10,8 @@ ext {
     ]
 
     sdk = [
-            'compileSdk': 32,
-            'targetSdk' : 32,
+            'compileSdk': 33,
+            'targetSdk' : 33,
             'minSdk'    : 23,
     ]
 
