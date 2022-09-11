@@ -56,7 +56,6 @@ class WebViewFragment : Fragment(R.layout.fragment_webview) {
         webViewClient = CustomWebViewClient(model = viewModel)
         if (BuildConfig.DEBUG) {
             clearCache(true)
-            settings.setAppCacheEnabled(false)
             settings.cacheMode = WebSettings.LOAD_NO_CACHE
         }
     }
