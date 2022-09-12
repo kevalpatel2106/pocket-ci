@@ -6,6 +6,7 @@ import com.kevalpatel2106.connector.github.network.dto.JobDto
 import com.kevalpatel2106.connector.github.network.dto.JobListDto
 import com.kevalpatel2106.connector.github.network.endpoint.GitHubEndpoint
 import com.kevalpatel2106.connector.github.network.mapper.JobMapper
+import com.kevalpatel2106.coreTest.buildHttpException
 import com.kevalpatel2106.coreTest.getAccountBasicFixture
 import com.kevalpatel2106.coreTest.getBuildIdFixture
 import com.kevalpatel2106.coreTest.getJobFixture
@@ -13,7 +14,6 @@ import com.kevalpatel2106.coreTest.getProjectBasicFixture
 import com.kevalpatel2106.entity.Job
 import com.kevalpatel2106.entity.PagedData
 import kotlinx.coroutines.test.runTest
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -26,7 +26,6 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import retrofit2.HttpException
-import retrofit2.Response
 import java.net.HttpURLConnection.HTTP_GONE
 import java.net.HttpURLConnection.HTTP_INTERNAL_ERROR
 
@@ -134,7 +133,7 @@ internal class GitHubJobsProviderTest {
     fun `given 410 code returned from CI when get job logs called then verify empty logs returned`() =
         runTest {
             whenever(githubEndpoint.getJobLogs(any(), any(), any()))
-                .thenThrow(buildHttpException(HTTP_GONE))
+                .thenThrow(buildHttpException(HTTP_GONE, fixture))
 
             val actual = subject.getJobLogs(accountBasic, projectBasic, buildId, fixture())
 
@@ -145,7 +144,7 @@ internal class GitHubJobsProviderTest {
     fun `given 500 code returned from CI when get job logs called then verify error thrown`() =
         runTest {
             whenever(githubEndpoint.getJobLogs(any(), any(), any()))
-                .thenThrow(buildHttpException(HTTP_INTERNAL_ERROR))
+                .thenThrow(buildHttpException(HTTP_INTERNAL_ERROR, fixture))
 
             val error = assertThrows<HttpException> {
                 subject.getJobLogs(accountBasic, projectBasic, buildId, fixture())
@@ -164,10 +163,6 @@ internal class GitHubJobsProviderTest {
             }
         }
     // endregion
-
-    private fun buildHttpException(code: Int) = HttpException(
-        Response.error<String>(code, fixture<String>().toResponseBody(null)),
-    )
 
     companion object {
         private val fixture = KFixture()

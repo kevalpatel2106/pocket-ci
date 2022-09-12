@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.kevalpatel2106.core.BaseViewModel
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
+import com.kevalpatel2106.core.extentions.isUnAuthorized
 import com.kevalpatel2106.core.extentions.modify
 import com.kevalpatel2106.entity.toToken
 import com.kevalpatel2106.entity.toUrl
@@ -71,7 +72,7 @@ internal class RegisterViewModel @Inject constructor(
                     HandleAuthSuccess(savedAccount.localId, savedAccount.name)
                 }
             }.onFailure { error ->
-                Timber.e(error)
+                if (!error.isUnAuthorized()) Timber.e(error)
                 _vmEventsFlow.emit(ShowErrorAddingAccount(displayErrorMapper(error)))
                 _viewState.modify { copy(enableAddAccountBtn = true) }
             }.onSuccess {
