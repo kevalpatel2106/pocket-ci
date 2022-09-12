@@ -9,7 +9,9 @@ import javax.inject.Inject
 internal class CommitMapperImpl @Inject constructor() : CommitMapper {
 
     override fun invoke(dto: BuildDto) = with(dto) {
-        if (commitHash != null) {
+        if (commitHash.isNullOrBlank()) {
+            null
+        } else {
             Commit(
                 hash = CommitHash(commitHash),
                 message = commitMessage,
@@ -17,8 +19,6 @@ internal class CommitMapperImpl @Inject constructor() : CommitMapper {
                 commitAt = null,
                 commitViewUrl = commitViewUrl.toUrlOrNull(),
             )
-        } else {
-            null
         }
     }
 }
