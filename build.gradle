@@ -120,7 +120,7 @@ subprojects {
 
                 // Navigation
                 implementation "androidx.navigation:navigation-fragment-ktx:2.5.2"
-                implementation "androidx.navigation:navigation-ui-ktx:2.5.1"
+                implementation "androidx.navigation:navigation-ui-ktx:2.5.2"
 
                 // Hilt
                 implementation 'com.google.dagger:hilt-android:2.43'
