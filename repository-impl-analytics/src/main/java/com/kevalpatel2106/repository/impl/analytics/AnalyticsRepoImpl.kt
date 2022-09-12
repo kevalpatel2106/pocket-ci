@@ -4,11 +4,13 @@ import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
+import com.kevalpatel2106.core.extentions.isUnAuthorized
 import com.kevalpatel2106.entity.analytics.Event
 import com.kevalpatel2106.repository.AnalyticsRepo
 import com.kevalpatel2106.repository.di.IsDebug
 import com.kevalpatel2106.repository.impl.analytics.provider.AnalyticsProvider
 import com.kevalpatel2106.repository.impl.analytics.usecase.FirebaseAuthenticateUser
+import kotlinx.coroutines.CancellationException
 import javax.inject.Inject
 
 internal class AnalyticsRepoImpl @Inject constructor(
@@ -47,6 +49,8 @@ internal class AnalyticsRepoImpl @Inject constructor(
     }
 
     override fun sendNonFatalException(e: Throwable) {
+        if (e.isUnAuthorized() || e is CancellationException) return
+
         var displayError = ""
         runCatching { displayErrorMapper(e).toString() }
             .onSuccess { displayError = it }

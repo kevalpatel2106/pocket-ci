@@ -8,6 +8,7 @@ import com.kevalpatel2106.connector.github.network.endpoint.GitHubEndpoint
 import com.kevalpatel2106.connector.github.network.interceptor.AuthHeaderInterceptor.Companion.AUTHENTICATION
 import com.kevalpatel2106.connector.github.network.mapper.ArtifactListItemMapper
 import com.kevalpatel2106.connector.github.usecase.TokenHeaderValueBuilder
+import com.kevalpatel2106.coreTest.buildHttpException
 import com.kevalpatel2106.coreTest.getAccountBasicFixture
 import com.kevalpatel2106.coreTest.getArtifactFixture
 import com.kevalpatel2106.coreTest.getArtifactIdFixture
@@ -19,7 +20,6 @@ import com.kevalpatel2106.entity.ArtifactDownloadData
 import com.kevalpatel2106.entity.PagedData
 import com.kevalpatel2106.entity.Url
 import kotlinx.coroutines.test.runTest
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -32,7 +32,6 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import retrofit2.HttpException
-import retrofit2.Response
 import java.net.HttpURLConnection.HTTP_GONE
 import java.net.HttpURLConnection.HTTP_INTERNAL_ERROR
 
@@ -161,7 +160,7 @@ internal class GithubArtifactProviderTest {
         runTest {
             val testAuthToken = fixture<String>()
             whenever(githubEndpoint.getArtifactDetail(any(), any(), any()))
-                .thenThrow(buildHttpException(HTTP_GONE))
+                .thenThrow(buildHttpException(HTTP_GONE, fixture))
             whenever(tokenHeaderValueBuilder(any())).thenReturn(testAuthToken)
 
             val actual = subject.getArtifactDownloadUrl(
@@ -182,7 +181,7 @@ internal class GithubArtifactProviderTest {
     fun `given 500 code returned from CI when get download url called then verify error thrown`() =
         runTest {
             whenever(githubEndpoint.getArtifactDetail(any(), any(), any()))
-                .thenThrow(buildHttpException(HTTP_INTERNAL_ERROR))
+                .thenThrow(buildHttpException(HTTP_INTERNAL_ERROR, fixture))
 
             val error = assertThrows<HttpException> {
                 subject.getArtifactDownloadUrl(
@@ -211,10 +210,6 @@ internal class GithubArtifactProviderTest {
             }
         }
     // endregion
-
-    private fun buildHttpException(code: Int) = HttpException(
-        Response.error<String>(code, fixture<String>().toResponseBody(null)),
-    )
 
     companion object {
         private val fixture = KFixture()

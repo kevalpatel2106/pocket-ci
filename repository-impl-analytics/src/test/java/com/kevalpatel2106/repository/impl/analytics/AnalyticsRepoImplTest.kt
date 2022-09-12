@@ -4,6 +4,7 @@ import com.flextrade.kfixture.KFixture
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
+import com.kevalpatel2106.coreTest.buildHttpException
 import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.analytics.Event
 import com.kevalpatel2106.repository.impl.analytics.provider.AnalyticsProvider
@@ -13,8 +14,11 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import java.net.HttpURLConnection
+import kotlin.coroutines.cancellation.CancellationException
 
 internal class AnalyticsRepoImplTest {
     private val fixture = KFixture()
@@ -107,6 +111,26 @@ internal class AnalyticsRepoImplTest {
         subject.sendNonFatalException(originalException)
 
         verify(firebaseCrashlytics).recordException(originalException)
+    }
+
+    @Test
+    fun `given unauthorised exception when send exception called then exception not recorded to crashalytics`() {
+        val subject = getAnalyticsRepo()
+        val exception = buildHttpException(HttpURLConnection.HTTP_UNAUTHORIZED, fixture)
+
+        subject.sendNonFatalException(exception)
+
+        verify(firebaseCrashlytics, never()).recordException(exception)
+    }
+
+    @Test
+    fun `given cancellation exception when send exception called then exception not recorded to crashalytics`() {
+        val subject = getAnalyticsRepo()
+        val exception = CancellationException()
+
+        subject.sendNonFatalException(exception)
+
+        verify(firebaseCrashlytics, never()).recordException(exception)
     }
 
     @Test
