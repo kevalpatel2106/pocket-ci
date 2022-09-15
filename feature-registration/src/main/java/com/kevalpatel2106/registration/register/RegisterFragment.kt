@@ -3,6 +3,7 @@ package com.kevalpatel2106.registration.register
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
+import android.view.WindowManager
 import androidx.core.text.parseAsHtml
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -38,6 +39,19 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
         viewModel.vmEventsFlow.collectInFragment(this, ::handleSingleEvent)
         viewModel.viewState.collectInFragment(this, ::handleViewState)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        requireActivity().window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE,
+        )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
 
     fun submit() {
