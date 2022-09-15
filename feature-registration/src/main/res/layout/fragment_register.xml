@@ -119,6 +119,9 @@
                 app:errorEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
+                app:endIconMode="password_toggle"
+                app:placeholderTextColor="@color/gray5"
+                app:endIconDrawable="@drawable/password_icon"
                 app:layout_constraintEnd_toEndOf="@id/registerRightGuideLine"
                 app:layout_constraintStart_toStartOf="@id/registerLeftGuideLine"
                 app:layout_constraintTop_toBottomOf="@+id/registerUrlTitleTil"
@@ -129,7 +132,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
