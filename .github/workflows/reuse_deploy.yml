@@ -55,6 +55,7 @@ jobs:
       - name: Display structure of downloaded files   # For debugging purposes
         run: git rev-list HEAD --count
       - name: Publish to internal track
+        if: ${{ github.ref == 'refs/heads/main' }}
         uses: r0adkll/upload-google-play@v1.0.18
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}

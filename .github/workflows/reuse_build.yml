@@ -64,7 +64,7 @@ jobs:
         env:
           BUILD_TOOLS_VERSION: "30.0.2"
       - name: Upload signed APK
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v') }}
         uses: actions/upload-artifact@v3
         with:
           name: apk-release
