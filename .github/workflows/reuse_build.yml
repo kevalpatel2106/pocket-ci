@@ -52,7 +52,7 @@ jobs:
             --scan
             --stacktrace
       - uses: r0adkll/sign-android-release@v1.0.4
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v') }}
         id: sign_app
         name: Sign release APK
         with:
