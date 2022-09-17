@@ -17,6 +17,8 @@ jobs:
 
   test:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_test.yml@main
+    secrets:
+      SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
 
   build:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_build.yml@main

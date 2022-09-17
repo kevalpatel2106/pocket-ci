@@ -3,8 +3,11 @@
   <a href="https://github.com/kevalpatel2106/pocket-ci/actions/workflows/main.yml">
     <img src="https://github.com/kevalpatel2106/pocket-ci/actions/workflows/main.yml/badge.svg?branch=main" />
   </a>
-  <a href="https://codecov.io/gh/kevalpatel2106/pocket-ci">
-    <img src="https://codecov.io/gh/kevalpatel2106/pocket-ci/branch/main/graph/badge.svg?token=4sWzGpZBq9" />
+  <a href="https://sonarcloud.io/summary/overall?id=kevalpatel2106_pocket-ci">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=kevalpatel2106_pocket-ci&metric=alert_status" />
+  </a>
+  <a href="https://sonarcloud.io/summary/overall?id=kevalpatel2106_pocket-ci">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=kevalpatel2106_pocket-ci&metric=coverage" />
   </a>
 </p>
 
