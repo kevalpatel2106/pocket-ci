@@ -11,6 +11,10 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref }}
+  cancel-in-progress: true
+
 jobs:
   quality:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_code_analysis.yml@main

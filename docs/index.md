@@ -20,15 +20,3 @@ You can find other ways to download _(including how to become a beta tester)_ [h
 ## Questions?🤔
 
 Open a [discussion](https://github.com/kevalpatel2106/pocket-ci/discussions/new?category=q-a).
-
-### Pages
-
-- [Download](./download.md)
-- [Guide to contribute to this project](./contribute/index.md)
-- [Developer FAQ](./dev_faq.md)
-- [Privacy Policy](legal/privacy_policy.md)
-- [License](legal/license.md)
-- [Acknowledgement](acknowledgements.md)
-
-----
-> If you have any questions or suggestions about this page, feel free to open a [discussion under `documentation`](https://github.com/kevalpatel2106/pocket-ci/discussions/new?category=documentation).

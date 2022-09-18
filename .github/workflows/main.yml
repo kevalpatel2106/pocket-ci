@@ -6,10 +6,15 @@ on:
       - main
     tags:
       - v*
+  workflow_dispatch:
 
 permissions:
   contents: write
   pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
 
 jobs:
   quality:

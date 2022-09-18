@@ -1,0 +1,82 @@
+# pip install mkdocs mkdocs-material mkdocs-markdownextradata-plugin
+# mkdocs serve
+
+site_name: Pocket CI
+site_url: https://kevalpatel2106.github.io/pocket-ci/
+repo_name: Pocket CI
+repo_url: https://github.com/kevalpatel2106/pocket-ci
+edit_uri: edit/main/docs/
+site_description: "Pocket CI let's you check your CI builds on the go."
+site_author: Keval Patel
+remote_branch: gh-pages
+copyright: 'Copyright &copy; 2022 Keval Patel'
+
+extra:
+  leak_canary:
+    release: '2.9.1'
+    next_release: '2.10'
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/kevalpatel2106
+
+theme:
+  name: 'material'
+  custom_dir: 'docs/theme'
+  logo: 'img/logo.png'
+  icon:
+    repo: fontawesome/brands/github
+  favicon: 'img/logo.png'
+  palette:
+    primary: 'teal'
+    accent: 'deep-blue'
+  features:
+    - tabs
+  include_search_page: true
+  search_index_only: true
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+plugins:
+  - search
+  - markdownextradata: {}
+  - minify:
+      minify_html: true
+
+markdown_extensions:
+  - smarty
+  - codehilite:
+      guess_lang: false
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.emoji
+  - pymdownx.tabbed
+  - pymdownx.snippets
+  - tables
+  - admonition
+
+nav:
+  - 'Overview': index.md
+  - 'Download': download.md
+  - 'User guides':
+      - 'Get GitHub token': github_token.md
+      - 'Get Bitrise token': https://devcenter.bitrise.io/en/accounts/personal-access-tokens.html
+  - 'Help & Community':
+      - 'Project setup': project_setup.md
+      - 'Devloper FAQ': dev_faq.md
+      - 'Contributing':
+          - 'Issue guide': issue_guide.md
+      - 'Acknowledgements': acknowledgements.md
+  - 'Change log': https://github.com/kevalpatel2106/pocket-ci/releases
+  - 'Legal':
+      - 'License': license.md
+      - 'Privacy policy': privacy_policy.md

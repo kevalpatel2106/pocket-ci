@@ -8,7 +8,7 @@ on:
 
 jobs:
   create-release:
-    name: Create Github Release
+    name: Deploy to GitHub release
     runs-on: ubuntu-latest
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     steps:
@@ -72,3 +72,15 @@ jobs:
           track: beta
           releaseFiles: ./app-release.aab
           mappingFile: ./mapping.txt
+
+  deploy-docs:
+    name: Deploy to GitHub pages
+    if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - run: pip install mkdocs mkdocs-material mkdocs-markdownextradata-plugin mkdocs-minify-plugin
+      - run: mkdocs gh-deploy --force
