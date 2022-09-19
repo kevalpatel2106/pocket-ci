@@ -178,30 +178,6 @@ ext {
         baseline = file("detekt/baseline.xmk")
         autoCorrect = true
     }
-
-    sonarqubeOptions = {
-        properties {
-            property "sonar.projectKey", "kevalpatel2106_pocket-ci"
-            property "sonar.organization", "kevalpatel2106"
-            property "sonar.host.url", "https://sonarcloud.io"
-            property "sonar.login", "660eaaa7980b300cf855af6401b3897f06541a45"
-            property "sonar.tests", "src/test/java"
-            property "sonar.test.inclusions", "**/*Test*/**"
-            property "sonar.sourceEncoding", "UTF-8"
-            property "sonar.sources", "src/main/java"
-            property "sonar.exclusions", '**/*Test*/**,' +
-                    'build/**' +
-                    '*.json,' +
-                    '**/*test*/**,' +
-                    '**/.gradle/**,' +
-                    '**/R.class'
-            property "sonar.java.coveragePlugin", "jacoco"
-            property "sonar.junit.reportPaths", "**/test-results/**/*.xml"
-            property "sonar.coverage.jacoco.xmlReportPaths", "**/build/jacoco/jacoco.xml"
-            property "sonar.coverage.exclusions", androidCoverageExclusion.join(",")
-            property "sonar.exclusions", androidCodeExclusion.join(",")
-        }
-    }
 }
 
 def get_debug_key_creds() {

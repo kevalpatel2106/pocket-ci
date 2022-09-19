@@ -2,9 +2,6 @@ name: Test
 
 on:
   workflow_call:
-    secrets:
-      SONAR_TOKEN:
-        required: true
 
 jobs:
   unit-test:
@@ -16,15 +13,17 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: 11
-      - name: Run Unit tests and upload coverage to sonar qube
+      - name: Run Unit tests
         uses: gradle/gradle-build-action@v2.3.0
         with:
           arguments: |
-            jacocoTestReport sonarqube -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            jacocoTestReport
             --scan
             --stacktrace
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          verbose: true
       - name: Upload test results Artifact
         uses: actions/upload-artifact@v3
         if: success() || failure()
