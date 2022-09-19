@@ -44,7 +44,8 @@ internal class BuildsPagingSourceTest {
 
             val actual = subject.load(loadParams)
 
-            val expected = PagingSource.LoadResult.Page(data = builds, prevKey = null, nextKey = null)
+            val expected =
+                PagingSource.LoadResult.Page(data = builds, prevKey = null, nextKey = null)
             assertEquals(expected, actual)
         }
 
@@ -58,7 +59,8 @@ internal class BuildsPagingSourceTest {
 
             val actual = subject.load(loadParams)
 
-            val expected = PagingSource.LoadResult.Page(data = builds, prevKey = null, nextKey = null)
+            val expected =
+                PagingSource.LoadResult.Page(data = builds, prevKey = null, nextKey = null)
             assertEquals(expected, actual)
         }
 
@@ -72,7 +74,8 @@ internal class BuildsPagingSourceTest {
 
             val actual = subject.load(loadParams)
 
-            val expected = PagingSource.LoadResult.Page(data = builds, prevKey = null, nextKey = nextCursor)
+            val expected =
+                PagingSource.LoadResult.Page(data = builds, prevKey = null, nextKey = nextCursor)
             assertEquals(expected, actual)
         }
 

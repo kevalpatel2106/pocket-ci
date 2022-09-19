@@ -9,6 +9,6 @@ interface SaveProjectsToCache {
         accountId: AccountId,
         projects: List<Project>,
         cursorLoaded: String?,
-        nowMills: Long = System.currentTimeMillis()
+        nowMills: Long = System.currentTimeMillis(),
     )
 }

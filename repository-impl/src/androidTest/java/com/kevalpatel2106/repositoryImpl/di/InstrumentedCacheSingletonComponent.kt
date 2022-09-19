@@ -7,7 +7,6 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.kevalpatel2106.repositoryImpl.cache.db.AppDb
-import com.kevalpatel2106.repositoryImpl.cache.remoteConfig.FirebaseRemoteConfigCache
 import com.kevalpatel2106.repositoryImpl.cache.sharedPrefs.SharedPrefFactory
 import dagger.Module
 import dagger.Provides
@@ -63,7 +62,5 @@ internal class InstrumentedCacheSingletonComponent {
 
     @Provides
     @Singleton
-    fun provideFirebaseRemoteConfig(): FirebaseRemoteConfig {
-        return FirebaseRemoteConfigCache.Factory(isDebug = false).create()
-    }
+    fun provideFirebaseRemoteConfig() = FirebaseRemoteConfig.getInstance()
 }

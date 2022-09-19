@@ -7,8 +7,10 @@ import com.kevalpatel2106.coreTest.getProjectIdFixture
 import com.kevalpatel2106.coreTest.getUrlFixture
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountBasicDto
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDto
+import com.kevalpatel2106.repositoryImpl.cache.db.projectLocalDataTable.ProjectLocalDataDto
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectBasicDto
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDto
+import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectWithLocalDataDto
 
 internal fun getAccountBasicDtoFixture(fixture: KFixture) = AccountBasicDto(
     id = getAccountIdFixture(fixture),
@@ -48,6 +50,17 @@ internal fun getProjectDtoFixture(fixture: KFixture) = ProjectDto(
     isPublic = fixture(),
     lastUpdatedAt = fixture(),
     repoUrl = getUrlFixture(fixture),
+)
+
+internal fun getProjectLocalDataDtoFixture(fixture: KFixture) = ProjectLocalDataDto(
+    remoteId = getProjectIdFixture(fixture),
+    accountId = getAccountIdFixture(fixture),
+    isPinned = fixture(),
+)
+
+internal fun getProjectWithLocalDataDtoFixture(fixture: KFixture) = ProjectWithLocalDataDto(
+    project = getProjectDtoFixture(fixture),
+    localData = getProjectLocalDataDtoFixture(fixture),
 )
 
 internal fun <R : Any, T : Any> getPagingStateFixture(fixture: KFixture) = PagingState<R, T>(

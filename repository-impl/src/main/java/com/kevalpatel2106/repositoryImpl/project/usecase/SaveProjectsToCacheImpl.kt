@@ -17,7 +17,7 @@ internal class SaveProjectsToCacheImpl @Inject constructor(
         accountId: AccountId,
         projects: List<Project>,
         cursorLoaded: String?,
-        nowMills: Long
+        nowMills: Long,
     ) {
         if (cursorLoaded == ProjectRemoteMediator.STARTING_PAGE_CURSOR) {
             projectDao.deleteProjects(accountId.getValue())

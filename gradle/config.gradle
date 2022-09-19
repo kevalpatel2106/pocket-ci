@@ -110,16 +110,6 @@ ext {
         consumerProguardFiles '../proguard-rules.pro'
 
         testInstrumentationRunner "com.kevalpatel2106.coreTest.runner.UiTestsRunner"
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += [
-                        "room.schemaLocation"  : "$projectDir/repository-impl/schema".toString(),
-                        "room.incremental"     : "true",
-                        "room.expandProjection": "true",
-                ]
-            }
-        }
     }
 
     lintOption = {

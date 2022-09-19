@@ -22,7 +22,7 @@ internal class ProjectMapperImpl @Inject constructor(
             repoUrl = htmlUrl.toUrlOrNull(),
             isDisabled = disabled,
             isPublic = visibility == PUBLIC_VISIBILITY,
-            isFavourite = false,
+            isPinned = false,
             lastUpdatedAt = isoDateMapper(updatedAt) ?: Date(),
         )
     }

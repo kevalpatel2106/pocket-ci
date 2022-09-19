@@ -12,8 +12,8 @@ class InsertProjectListHeadersImpl @Inject constructor() : InsertProjectListHead
         before: Project?,
         after: Project?,
     ): ProjectListItem? {
-        val beforeIsFav = before?.isFavourite == true
-        val afterIsFav = after?.isFavourite == true
+        val beforeIsFav = before?.isPinned == true
+        val afterIsFav = after?.isPinned == true
         return when {
             beforeIsFav && after == null -> null
             !beforeIsFav && afterIsFav -> HeaderItem(R.string.list_header_favourites)

@@ -5,8 +5,8 @@ import com.kevalpatel2106.coreTest.getAccountIdFixture
 import com.kevalpatel2106.coreTest.getProjectFixture
 import com.kevalpatel2106.coreTest.getProjectIdFixture
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
-import com.kevalpatel2106.repositoryImpl.getProjectDtoFixture
-import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectMapper
+import com.kevalpatel2106.repositoryImpl.getProjectWithLocalDataDtoFixture
+import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectWithLocalDataMapper
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
@@ -19,15 +19,16 @@ import org.mockito.kotlin.whenever
 
 internal class ProjectRepoImplTest {
     private val fixture = KFixture()
-    private val projectDto = getProjectDtoFixture(fixture)
+    private val projectDto = getProjectWithLocalDataDtoFixture(fixture)
     private val project = getProjectFixture(fixture)
     private val projectDao = mock<ProjectDao>()
     private val remoteMediatorFactory =
         ProjectRemoteMediator.Factory(mock(), mock(), mock(), mock())
-    private val projectMapper = mock<ProjectMapper> {
+    private val projectWithLocalDataMapper = mock<ProjectWithLocalDataMapper> {
         on { invoke(any()) } doReturn project
     }
-    private val subject = ProjectRepoImpl(projectDao, remoteMediatorFactory, projectMapper)
+    private val subject =
+        ProjectRepoImpl(projectDao, remoteMediatorFactory, projectWithLocalDataMapper)
 
     @Test
     fun `given project stored when getting project then verify project read from db`() = runTest {

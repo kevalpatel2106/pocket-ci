@@ -1,5 +1,3 @@
-@file:SuppressWarnings("MaxLineLength")
-
 package com.kevalpatel2106.repositoryImpl.cache.db.projectTable
 
 import androidx.annotation.VisibleForTesting
@@ -8,28 +6,51 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectWithLocalDataDto.Companion.LOCAL_DATA
+import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectWithLocalDataDto.Companion.PROJECT
+import com.kevalpatel2106.repositoryImpl.cache.db.projectLocalDataTable.ProjectLocalDataTableInfo as PLT
+import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectTableInfo as PT
 
 @Dao
 internal interface ProjectDao {
-    @Query("SELECT COUNT(${ProjectTableInfo.REMOTE_ID}) FROM ${ProjectTableInfo.TABLE_NAME} WHERE ${ProjectTableInfo.REMOTE_ID} = :remoteId AND ${ProjectTableInfo.ACCOUNT_ID} = :accountId")
+    @Query(
+        "SELECT COUNT(${PT.REMOTE_ID}) FROM ${PT.TABLE_NAME} " +
+                "WHERE ${PT.REMOTE_ID} = :remoteId AND ${PT.ACCOUNT_ID} = :accountId",
+    )
     suspend fun getCount(remoteId: String, accountId: Long): Int
 
-    @Query("SELECT * FROM ${ProjectTableInfo.TABLE_NAME} WHERE ${ProjectTableInfo.REMOTE_ID} = :remoteId AND ${ProjectTableInfo.ACCOUNT_ID} = :accountId")
-    suspend fun getProject(remoteId: String, accountId: Long): ProjectDto
+    @Query(
+        "SELECT * FROM ${PT.TABLE_NAME} as $PROJECT " +
+                "LEFT JOIN ${PLT.TABLE_NAME} as $LOCAL_DATA " +
+                "ON $LOCAL_DATA.${PLT.REMOTE_ID} = $PROJECT.${PT.REMOTE_ID} " +
+                "AND $LOCAL_DATA.${PLT.ACCOUNT_ID} = $PROJECT.${PT.ACCOUNT_ID} " +
+                "WHERE $PROJECT.${PT.REMOTE_ID} = :remoteId AND $PROJECT.${PT.ACCOUNT_ID} = :accountId",
+    )
+    suspend fun getProject(remoteId: String, accountId: Long): ProjectWithLocalDataDto
 
-    @Query("SELECT * FROM ${ProjectTableInfo.TABLE_NAME} WHERE ${ProjectTableInfo.REMOTE_ID} = :remoteId AND ${ProjectTableInfo.ACCOUNT_ID} = :accountId")
+    @Query(
+        "SELECT * FROM ${PT.TABLE_NAME} " +
+                "WHERE ${PT.REMOTE_ID} = :remoteId AND ${PT.ACCOUNT_ID} = :accountId",
+    )
     suspend fun getProjectBasic(remoteId: String, accountId: Long): ProjectBasicDto
 
-    @Query("SELECT * FROM ${ProjectTableInfo.TABLE_NAME} WHERE ${ProjectTableInfo.ACCOUNT_ID} = :accountId ORDER BY ${ProjectTableInfo.UPDATED_AT} DESC")
-    fun getProjectsUpdatedDesc(accountId: Long): PagingSource<Int, ProjectDto>
+    @Query(
+        "SELECT * FROM ${PT.TABLE_NAME} as $PROJECT " +
+                "LEFT JOIN ${PLT.TABLE_NAME} as $LOCAL_DATA " +
+                "ON $LOCAL_DATA.${PLT.REMOTE_ID} = $PROJECT.${PT.REMOTE_ID} " +
+                "AND $LOCAL_DATA.${PLT.ACCOUNT_ID} = $PROJECT.${PT.ACCOUNT_ID} " +
+                "WHERE $PROJECT.${PT.ACCOUNT_ID} = :accountId " +
+                "ORDER BY $LOCAL_DATA.${PLT.IS_PINNED} DESC, $PROJECT.${PT.UPDATED_AT} DESC",
+    )
+    fun getProjectsUpdatedDesc(accountId: Long): PagingSource<Int, ProjectWithLocalDataDto>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addUpdateProjects(projectDtos: List<ProjectDto>)
 
-    @Query("DELETE FROM ${ProjectTableInfo.TABLE_NAME} WHERE ${ProjectTableInfo.ACCOUNT_ID} = :accountId")
+    @Query("DELETE FROM ${PT.TABLE_NAME} WHERE ${PT.ACCOUNT_ID} = :accountId")
     suspend fun deleteProjects(accountId: Long)
 
     @VisibleForTesting
-    @Query("SELECT COUNT(${ProjectTableInfo.REMOTE_ID}) FROM ${ProjectTableInfo.TABLE_NAME}")
+    @Query("SELECT COUNT(${PT.REMOTE_ID}) FROM ${PT.TABLE_NAME}")
     suspend fun getTotalProjects(): Int
 }

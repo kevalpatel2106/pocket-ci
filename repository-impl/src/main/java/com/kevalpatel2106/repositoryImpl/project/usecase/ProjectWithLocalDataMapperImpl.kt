@@ -1,12 +1,12 @@
 package com.kevalpatel2106.repositoryImpl.project.usecase
 
 import com.kevalpatel2106.entity.Project
-import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDto
+import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectWithLocalDataDto
 import javax.inject.Inject
 
-internal class ProjectMapperImpl @Inject constructor() : ProjectMapper {
+internal class ProjectWithLocalDataMapperImpl @Inject constructor() : ProjectWithLocalDataMapper {
 
-    override operator fun invoke(dto: ProjectDto) = with(dto) {
+    override operator fun invoke(dto: ProjectWithLocalDataDto) = with(dto.project) {
         Project(
             name = name,
             remoteId = remoteId,
@@ -16,7 +16,7 @@ internal class ProjectMapperImpl @Inject constructor() : ProjectMapper {
             isDisabled = isDisabled,
             isPublic = isPublic,
             owner = owner,
-            isFavourite = false,
+            isPinned = dto.localData?.isPinned ?: false,
             lastUpdatedAt = lastUpdatedAt,
         )
     }

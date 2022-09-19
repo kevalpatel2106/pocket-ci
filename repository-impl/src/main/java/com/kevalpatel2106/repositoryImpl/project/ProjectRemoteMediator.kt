@@ -6,7 +6,7 @@ import androidx.paging.RemoteMediator
 import com.kevalpatel2106.entity.AccountBasic
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
-import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDto
+import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectWithLocalDataDto
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import com.kevalpatel2106.repositoryImpl.project.ProjectRepoImpl.Companion.PAGE_SIZE
 import com.kevalpatel2106.repositoryImpl.project.usecase.IsProjectCacheExpired
@@ -20,7 +20,7 @@ internal class ProjectRemoteMediator private constructor(
     private val ciConnectorFactory: CIConnectorFactory,
     private val saveProjectsToCache: SaveProjectsToCache,
     private val isProjectCacheExpired: IsProjectCacheExpired,
-) : RemoteMediator<Int, ProjectDto>() {
+) : RemoteMediator<Int, ProjectWithLocalDataDto>() {
 
     override suspend fun initialize(): InitializeAction {
         return if (isProjectCacheExpired(accountId)) {
@@ -32,7 +32,7 @@ internal class ProjectRemoteMediator private constructor(
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, ProjectDto>,
+        state: PagingState<Int, ProjectWithLocalDataDto>,
     ): MediatorResult {
         val account = accountDao.getAccount(accountId.getValue())
         val accountBasic = AccountBasic(account.id, account.baseUrl, account.token, account.type)

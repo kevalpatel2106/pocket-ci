@@ -17,7 +17,7 @@ data class Project(
     val repoUrl: Url?,
     val isDisabled: Boolean,
     val isPublic: Boolean,
-    val isFavourite: Boolean,
+    val isPinned: Boolean,
     val lastUpdatedAt: Date,
 ) : Parcelable {
     @IgnoredOnParcel

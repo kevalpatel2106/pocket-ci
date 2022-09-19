@@ -9,7 +9,7 @@ import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.ProjectId
 import com.kevalpatel2106.repository.ProjectRepo
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
-import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectMapper
+import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectWithLocalDataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -17,13 +17,13 @@ import javax.inject.Inject
 internal class ProjectRepoImpl @Inject constructor(
     private val projectDao: ProjectDao,
     private val projectRemoteMediatorFactory: ProjectRemoteMediator.Factory,
-    private val projectMapper: ProjectMapper,
+    private val projectWithLocalDataMapper: ProjectWithLocalDataMapper,
 ) : ProjectRepo {
 
     override suspend fun getProject(remoteId: ProjectId, accountId: AccountId): Project? {
         return if (projectDao.getCount(remoteId.getValue(), accountId.getValue()) > 0) {
             val dao = projectDao.getProject(remoteId.getValue(), accountId.getValue())
-            projectMapper(dao)
+            projectWithLocalDataMapper(dao)
         } else {
             null
         }
@@ -35,7 +35,7 @@ internal class ProjectRepoImpl @Inject constructor(
             pagingSourceFactory = { projectDao.getProjectsUpdatedDesc(accountId.getValue()) },
             remoteMediator = projectRemoteMediatorFactory.create(accountId),
         ).flow.map { projectsDto ->
-            projectsDto.map { projectMapper(it) }
+            projectsDto.map { projectWithLocalDataMapper(it) }
         }
     }
 

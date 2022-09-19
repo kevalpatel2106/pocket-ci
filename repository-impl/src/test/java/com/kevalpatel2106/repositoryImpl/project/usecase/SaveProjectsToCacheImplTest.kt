@@ -43,8 +43,10 @@ internal class SaveProjectsToCacheImplTest {
 
             inOrder(projectDao, accountDao) {
                 this.verify(projectDao).deleteProjects(accountId.getValue())
-                this.verify(accountDao).updateLastProjectRefreshEpoch(accountId.getValue(), nowMills)
-                this.verify(projectDao).addUpdateProjects(check { assertEquals(it.size, projects.size) })
+                this.verify(accountDao)
+                    .updateLastProjectRefreshEpoch(accountId.getValue(), nowMills)
+                this.verify(projectDao)
+                    .addUpdateProjects(check { assertEquals(it.size, projects.size) })
             }
         }
 

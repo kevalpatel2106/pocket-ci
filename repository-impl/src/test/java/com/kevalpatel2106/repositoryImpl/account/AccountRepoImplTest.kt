@@ -11,7 +11,6 @@ import com.kevalpatel2106.repositoryImpl.account.usecase.AccountDtoMapper
 import com.kevalpatel2106.repositoryImpl.account.usecase.AccountMapper
 import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStore
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
-import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import com.kevalpatel2106.repositoryImpl.getAccountDtoFixture
 import kotlinx.coroutines.test.runTest
@@ -36,7 +35,6 @@ internal class AccountRepoImplTest {
     private val accountDto = getAccountDtoFixture(fixture)
     private val account = getAccountFixture(fixture)
     private val accountDao = mock<AccountDao>()
-    private val projectDao = mock<ProjectDao>()
     private val appDataStore = mock<AppDataStore>()
     private val accountMapper = mock<AccountMapper> {
         on { invoke(any(), any()) } doReturn account
@@ -51,7 +49,6 @@ internal class AccountRepoImplTest {
 
     private val subject = AccountRepoImpl(
         accountDao,
-        projectDao,
         appDataStore,
         accountMapper,
         accountDtoMapper,
@@ -245,20 +242,6 @@ internal class AccountRepoImplTest {
             assertThrows<IllegalStateException> {
                 subject.removeAccount(getAccountIdFixture(fixture))
             }
-        }
-
-    @Test
-    fun `given account removal from storage successful when removeAccount then verify projects for that account gets deleted`() =
-        runTest {
-            val idToRemove = getAccountIdFixture(fixture)
-            whenever(appDataStore.getSelectedAccountId()).doReturn(AccountId(100))
-            whenever(accountDao.getAccount(any())).doReturn(accountDto)
-            whenever(accountDao.getCount(any())).doReturn(1)
-            whenever(accountMapper(any(), any())).doReturn(account)
-
-            subject.removeAccount(idToRemove)
-
-            verify(projectDao).deleteProjects(idToRemove.getValue())
         }
 
     @Test
