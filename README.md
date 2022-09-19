@@ -6,6 +6,9 @@
   <a href="https://codecov.io/gh/kevalpatel2106/pocket-ci">
     <img src="https://codecov.io/gh/kevalpatel2106/pocket-ci/branch/main/graph/badge.svg?token=4sWzGpZBq9" />
   </a>
+  <a href="https://sonarcloud.io/summary/overall?id=kevalpatel2106_pocket-ci">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=kevalpatel2106_pocket-ci&metric=alert_status" />
+  </a>
 </p>
 
 #### Pocket CI let's you check your CI builds on the go. Learn more at: [kevalpatel2106.github.io/pocket-ci](https://kevalpatel2106.github.io/pocket-ci).

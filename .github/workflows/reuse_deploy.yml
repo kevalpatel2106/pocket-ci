@@ -8,7 +8,7 @@ on:
 
 jobs:
   create-release:
-    name: Deploy to GitHub release
+    name: GitHub release
     runs-on: ubuntu-latest
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     steps:
@@ -39,7 +39,7 @@ jobs:
             ./mapping.txt
 
   deploy-playstore:
-    name: Deploy to Playstore
+    name: Playstore
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v') }}
     steps:
@@ -74,7 +74,7 @@ jobs:
           mappingFile: ./mapping.txt
 
   deploy-docs:
-    name: Deploy to GitHub pages
+    name: GitHub pages
     if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     steps:
