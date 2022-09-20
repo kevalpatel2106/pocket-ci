@@ -102,6 +102,9 @@ subprojects {
                 lintOptions lintOption
                 testOptions testOption
                 buildFeatures buildFeaturesOption
+                if (module.pluginManager.hasPlugin("dagger.hilt.android.plugin")) {
+                    hilt hiltOptions
+                }
             }
         }
 
@@ -171,13 +174,5 @@ subprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
-task installGitHooks(type: Copy) {
-    from file("$rootDir/pre-push")
-    into file("$rootDir/.git/hooks")
-    fileMode 0755
-}
-
-tasks.getByPath(':app:preBuild').dependsOn installGitHooks
 
 apply plugin: 'android-reporting'

@@ -175,6 +175,10 @@ ext {
         baseline = file("detekt/baseline.xmk")
         autoCorrect = true
     }
+
+    hiltOptions = {
+        enableAggregatingTask = true
+    }
 }
 
 def get_debug_key_creds() {
