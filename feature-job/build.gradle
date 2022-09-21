@@ -9,6 +9,8 @@ plugins {
 }
 
 android {
+    namespace 'com.kevalpatel2106.feature.job'
+
     // Import resources from theme
     sourceSets {
         main {

@@ -6,6 +6,11 @@ plugins {
     id 'com.dicedmelon.gradle.jacoco-android'
 }
 
+android {
+    namespace 'com.kevalpatel2106.connector.ci'
+}
+
 dependencies {
     implementation project(':entity')
 }
+

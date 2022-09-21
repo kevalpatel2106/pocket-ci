@@ -13,14 +13,13 @@ plugins {
 }
 
 android {
+    namespace 'com.kevalpatel2106.pocketci'
+
     // Import resources from theme
     sourceSets {
         main {
             res.srcDirs = ['../core-resources/src/main/res', 'src/main/res']
         }
-    }
-    jacoco {
-        jacocoVersion = '0.8.8'
     }
     tasks.withType(Test) {
         jacoco.includeNoLocationClasses = true

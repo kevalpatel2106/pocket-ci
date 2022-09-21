@@ -5,6 +5,10 @@ plugins {
     id 'de.mannodermaus.android-junit5'
 }
 
+android {
+    namespace 'com.kevalpatel2106.coreTest'
+}
+
 dependencies {
     implementation project(":entity")
     implementation "com.flextrade.jfixture:kfixture:0.2.0"

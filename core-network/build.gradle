@@ -7,6 +7,10 @@ plugins {
     id 'com.dicedmelon.gradle.jacoco-android'
 }
 
+android {
+    namespace 'com.kevalpatel2106.coreNetwork'
+}
+
 dependencies {
     implementation project(":entity")
     testImplementation project(":core-test")
@@ -27,3 +31,4 @@ dependencies {
     debugImplementation 'com.facebook.flipper:flipper:0.164.0'
     debugImplementation 'com.facebook.flipper:flipper-network-plugin:0.164.0'
 }
+

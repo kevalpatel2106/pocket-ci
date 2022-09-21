@@ -8,6 +8,7 @@ plugins {
 }
 
 android {
+    namespace 'com.kevalpatel2106.coreViews'
     sourceSets {
         main {
             res.srcDirs = ['../core-resources/src/main/res', 'src/main/res']

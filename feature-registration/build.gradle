@@ -9,6 +9,8 @@ plugins {
 }
 
 android {
+    namespace 'com.kevalpatel2106.registration'
+
     // Import resources from theme
     sourceSets {
         main {

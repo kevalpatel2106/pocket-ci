@@ -7,11 +7,16 @@ plugins {
     id 'com.dicedmelon.gradle.jacoco-android'
 }
 
+android {
+    namespace 'com.kevalpatel2106.repository.impl.analytics'
+}
+
 dependencies {
     implementation project(':entity')
     implementation project(':core')
     implementation project(':repository')
     testImplementation project(':core-test')
+    androidTestImplementation project(':core-test')
 
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:30.5.0')

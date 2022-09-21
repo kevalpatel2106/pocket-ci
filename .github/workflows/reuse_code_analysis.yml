@@ -20,7 +20,6 @@ jobs:
         with:
           arguments: |
             detekt
-            --scan
             --stacktrace
       - name: Upload results Artifact
         uses: actions/upload-artifact@v3
@@ -45,7 +44,6 @@ jobs:
         with:
           arguments: |
             app:lintRelease
-            --scan
             --stacktrace
       - name: Generate annotations from lint report
         if: success() || failure()

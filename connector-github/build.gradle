@@ -7,6 +7,10 @@ plugins {
     id 'com.dicedmelon.gradle.jacoco-android'
 }
 
+android {
+    namespace 'com.kevalpatel2106.connector.github'
+}
+
 dependencies {
     implementation project(':connector-ci')
     implementation project(':entity')
@@ -22,3 +26,4 @@ dependencies {
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
     kaptAndroidTest("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
 }
+

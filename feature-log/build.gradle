@@ -9,6 +9,8 @@ plugins {
 }
 
 android {
+    namespace 'com.kevalpatel2106.feature.log'
+
     // Import resources from theme
     sourceSets {
         main {

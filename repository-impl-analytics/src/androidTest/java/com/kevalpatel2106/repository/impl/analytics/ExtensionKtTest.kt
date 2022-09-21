@@ -1,8 +1,8 @@
 package com.kevalpatel2106.repository.impl.analytics
 
-import androidx.core.os.bundleOf
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -15,7 +15,9 @@ internal class ExtensionKtTest {
 
         val actual = map.toBundle()
 
-        assertEquals(bundleOf("key" to "value"), actual)
+        assertEquals(1, actual.size())
+        assertEquals("key", actual.keySet().first())
+        assertEquals("value", actual.getString("key"))
     }
 
     @Test
@@ -24,6 +26,6 @@ internal class ExtensionKtTest {
 
         val actual = map.toBundle()
 
-        assertEquals(bundleOf(), actual)
+        assertTrue(actual.isEmpty)
     }
 }

@@ -7,6 +7,10 @@ plugins {
     id 'com.dicedmelon.gradle.jacoco-android'
 }
 
+android {
+    namespace 'com.kevalpatel2106.connector.bitrise'
+}
+
 dependencies {
     implementation project(':connector-ci')
     implementation project(':entity')

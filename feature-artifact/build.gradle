@@ -9,6 +9,8 @@ plugins {
 }
 
 android {
+    namespace 'com.kevalpatel2106.feature.artifact'
+
     // Import resources from theme
     sourceSets {
         main {

@@ -5,6 +5,10 @@ plugins {
     id 'com.dicedmelon.gradle.jacoco-android'
 }
 
+android {
+    namespace 'com.kevalpatel2106.repository'
+}
+
 dependencies {
     implementation project(':entity')
 }
