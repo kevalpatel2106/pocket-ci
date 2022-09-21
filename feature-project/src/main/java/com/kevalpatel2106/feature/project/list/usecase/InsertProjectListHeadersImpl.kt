@@ -16,7 +16,7 @@ class InsertProjectListHeadersImpl @Inject constructor() : InsertProjectListHead
         val afterIsFav = after?.isPinned == true
         return when {
             beforeIsFav && after == null -> null
-            !beforeIsFav && afterIsFav -> HeaderItem(R.string.list_header_favourites)
+            !beforeIsFav && afterIsFav -> HeaderItem(R.string.list_header_pinned)
             beforeIsFav && !afterIsFav -> HeaderItem(R.string.list_header_other)
             else -> null
         }

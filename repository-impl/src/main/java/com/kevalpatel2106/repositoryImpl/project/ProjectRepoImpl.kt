@@ -8,6 +8,8 @@ import com.kevalpatel2106.entity.Project
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.ProjectId
 import com.kevalpatel2106.repository.ProjectRepo
+import com.kevalpatel2106.repositoryImpl.cache.db.projectLocalDataTable.ProjectLocalDataDao
+import com.kevalpatel2106.repositoryImpl.cache.db.projectLocalDataTable.ProjectLocalDataDto
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectWithLocalDataMapper
 import kotlinx.coroutines.flow.Flow
@@ -16,6 +18,7 @@ import javax.inject.Inject
 
 internal class ProjectRepoImpl @Inject constructor(
     private val projectDao: ProjectDao,
+    private val projectLocalDataDao: ProjectLocalDataDao,
     private val projectRemoteMediatorFactory: ProjectRemoteMediator.Factory,
     private val projectWithLocalDataMapper: ProjectWithLocalDataMapper,
 ) : ProjectRepo {
@@ -37,6 +40,24 @@ internal class ProjectRepoImpl @Inject constructor(
         ).flow.map { projectsDto ->
             projectsDto.map { projectWithLocalDataMapper(it) }
         }
+    }
+
+    override suspend fun pinProject(remoteId: ProjectId, accountId: AccountId) {
+        val data = ProjectLocalDataDto(
+            remoteId = remoteId,
+            accountId = accountId,
+            isPinned = true
+        )
+        projectLocalDataDao.updateLocalData(data)
+    }
+
+    override suspend fun unpinProject(remoteId: ProjectId, accountId: AccountId) {
+        val data = ProjectLocalDataDto(
+            remoteId = remoteId,
+            accountId = accountId,
+            isPinned = false
+        )
+        projectLocalDataDao.updateLocalData(data)
     }
 
     companion object {

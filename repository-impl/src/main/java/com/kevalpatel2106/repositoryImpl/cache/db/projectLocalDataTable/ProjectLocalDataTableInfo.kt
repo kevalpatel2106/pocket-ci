@@ -5,5 +5,5 @@ internal object ProjectLocalDataTableInfo {
     const val REMOTE_ID = "data_remote_id"
     const val ACCOUNT_ID = "data_account_id"
     const val IS_PINNED = "data_is_pinned"
-    const val CREATED_AT = "_data_saved_at"
+    const val UPDATED_AT = "_data_updated_at"
 }

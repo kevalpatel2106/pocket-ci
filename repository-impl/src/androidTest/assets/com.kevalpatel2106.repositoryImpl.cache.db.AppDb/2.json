@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "11f9da12da1b946b698ede7cb55fc8a8",
+    "identityHash": "1fa14e4fef7fd042044ae0ac2c95946f",
     "entities": [
       {
         "tableName": "account",
@@ -178,7 +178,7 @@
       },
       {
         "tableName": "project_local_data",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`data_remote_id` TEXT NOT NULL, `data_account_id` INTEGER NOT NULL, `data_is_pinned` INTEGER NOT NULL DEFAULT 0, `_data_saved_at` INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(`data_account_id`, `data_remote_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`data_remote_id` TEXT NOT NULL, `data_account_id` INTEGER NOT NULL, `data_is_pinned` INTEGER NOT NULL DEFAULT 0, `_data_updated_at` INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(`data_account_id`, `data_remote_id`))",
         "fields": [
           {
             "fieldPath": "remoteId",
@@ -200,8 +200,8 @@
             "defaultValue": "0"
           },
           {
-            "fieldPath": "createdAt",
-            "columnName": "_data_saved_at",
+            "fieldPath": "updatedAt",
+            "columnName": "_data_updated_at",
             "affinity": "INTEGER",
             "notNull": true,
             "defaultValue": "CURRENT_TIMESTAMP"
@@ -215,27 +215,13 @@
           "autoGenerate": false
         },
         "indices": [],
-        "foreignKeys": [
-          {
-            "table": "projects",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "data_remote_id",
-              "data_account_id"
-            ],
-            "referencedColumns": [
-              "remote_id",
-              "account_id"
-            ]
-          }
-        ]
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8c4cd583a04a1e804f3077aad89d798e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1fa14e4fef7fd042044ae0ac2c95946f')"
     ]
   }
 }

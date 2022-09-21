@@ -86,7 +86,7 @@
 
     <!--Projects screen-->
     <string name="title_projects_screen">Projects</string>
-    <string name="list_header_favourites">Favourites</string>
+    <string name="list_header_pinned">Pinned</string>
     <string name="list_header_other">Other</string>
     <string name="projects_empty_view_description">Please check you have projects set up in the account. If you\'re linked with organisation, please verify the authentication token has access to organisation.</string>
     <string name="projects_empty_view_headline">No project found in this account.</string>

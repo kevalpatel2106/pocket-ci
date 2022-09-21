@@ -11,7 +11,7 @@ internal class ProjectWithLocalDataMapperImplTest {
     private val subject = ProjectWithLocalDataMapperImpl()
 
     @Test
-    fun `given project when mapped then check dto`() {
+    fun `given project local data stored when mapped then check dto`() {
         val dto = getProjectWithLocalDataDtoFixture(fixture)
 
         val actual = subject(dto)
@@ -26,7 +26,28 @@ internal class ProjectWithLocalDataMapperImplTest {
             isPublic = dto.project.isPublic,
             owner = dto.project.owner,
             lastUpdatedAt = dto.project.lastUpdatedAt,
-            isPinned = dto.localData.isPinned,
+            isPinned = dto.localData!!.isPinned,
+        )
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `given project local data not stored when mapped then check dto and project not pinned`() {
+        val dto = getProjectWithLocalDataDtoFixture(fixture).copy(localData = null)
+
+        val actual = subject(dto)
+
+        val expected = Project(
+            name = dto.project.name,
+            remoteId = dto.project.remoteId,
+            accountId = dto.project.accountId,
+            image = dto.project.image,
+            repoUrl = dto.project.repoUrl,
+            isDisabled = dto.project.isDisabled,
+            isPublic = dto.project.isPublic,
+            owner = dto.project.owner,
+            lastUpdatedAt = dto.project.lastUpdatedAt,
+            isPinned = false,
         )
         assertEquals(expected, actual)
     }

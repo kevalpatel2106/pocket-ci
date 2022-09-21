@@ -9,4 +9,6 @@ import kotlinx.coroutines.flow.Flow
 interface ProjectRepo {
     suspend fun getProject(remoteId: ProjectId, accountId: AccountId): Project?
     fun getProjects(accountId: AccountId): Flow<PagingData<Project>>
+    suspend fun pinProject(remoteId: ProjectId, accountId: AccountId)
+    suspend fun unpinProject(remoteId: ProjectId, accountId: AccountId)
 }

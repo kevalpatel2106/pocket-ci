@@ -140,4 +140,30 @@ internal class ProjectDaoTest {
 
         assertEquals(projectDtos.size, subject.getTotalProjects())
     }
+
+    @Test
+    fun givenOldProjectsInTheTable_whenReplacingWithNewProjects_testProjectsForTheAccountDeletedAndReplaced() =
+        runBlocking {
+            fillData()
+            val newProjectDtos = listOf(
+                getProjectDtoFixture(fixture).copy(accountId = accountDto1.id),
+                getProjectDtoFixture(fixture).copy(accountId = accountDto1.id),
+            )
+
+            subject.replaceWithNewProjects(accountDto1.id.getValue(), newProjectDtos)
+
+            val expectedTableSize =
+                newProjectDtos.size + projectDtos.filter { it.accountId == accountDto2.id }.size
+            assertEquals(expectedTableSize, subject.getTotalProjects())
+            newProjectDtos.forEach {
+                assertEquals(
+                    1,
+                    subject.getCount(it.remoteId.getValue(), accountDto1.id.getValue())
+                )
+            }
+            assertEquals(
+                1,
+                subject.getCount(projectDto2.remoteId.getValue(), accountDto2.id.getValue())
+            )
+        }
 }

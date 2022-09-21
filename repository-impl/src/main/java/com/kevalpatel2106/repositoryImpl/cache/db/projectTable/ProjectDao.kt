@@ -6,6 +6,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectWithLocalDataDto.Companion.LOCAL_DATA
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectWithLocalDataDto.Companion.PROJECT
 import com.kevalpatel2106.repositoryImpl.cache.db.projectLocalDataTable.ProjectLocalDataTableInfo as PLT
@@ -36,7 +37,7 @@ internal interface ProjectDao {
 
     @Query(
         "SELECT * FROM ${PT.TABLE_NAME} as $PROJECT " +
-                "LEFT JOIN ${PLT.TABLE_NAME} as $LOCAL_DATA " +
+                "LEFT JOIN (SELECT * FROM ${PLT.TABLE_NAME} WHERE ${PLT.IS_PINNED} = 1) as $LOCAL_DATA " +
                 "ON $LOCAL_DATA.${PLT.REMOTE_ID} = $PROJECT.${PT.REMOTE_ID} " +
                 "AND $LOCAL_DATA.${PLT.ACCOUNT_ID} = $PROJECT.${PT.ACCOUNT_ID} " +
                 "WHERE $PROJECT.${PT.ACCOUNT_ID} = :accountId " +
@@ -53,4 +54,10 @@ internal interface ProjectDao {
     @VisibleForTesting
     @Query("SELECT COUNT(${PT.REMOTE_ID}) FROM ${PT.TABLE_NAME}")
     suspend fun getTotalProjects(): Int
+
+    @Transaction
+    suspend fun replaceWithNewProjects(accountId: Long, projectDtos: List<ProjectDto>) {
+        deleteProjects(accountId)
+        addUpdateProjects(projectDtos)
+    }
 }

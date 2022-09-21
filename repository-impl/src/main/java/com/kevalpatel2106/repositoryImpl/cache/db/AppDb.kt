@@ -14,6 +14,7 @@ import com.kevalpatel2106.repositoryImpl.cache.db.converter.IdConverter
 import com.kevalpatel2106.repositoryImpl.cache.db.converter.TokenConverter
 import com.kevalpatel2106.repositoryImpl.cache.db.converter.UrlConverter
 import com.kevalpatel2106.repositoryImpl.cache.db.crypto.SqlcipherFactory
+import com.kevalpatel2106.repositoryImpl.cache.db.projectLocalDataTable.ProjectLocalDataDao
 import com.kevalpatel2106.repositoryImpl.cache.db.projectLocalDataTable.ProjectLocalDataDto
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDto
@@ -46,6 +47,8 @@ internal abstract class AppDb : RoomDatabase() {
     abstract fun getAccountDao(): AccountDao
 
     abstract fun getProjectDao(): ProjectDao
+
+    abstract fun getProjectLocalDataDao(): ProjectLocalDataDao
 
     class Factory @Inject constructor(
         private val application: Application,

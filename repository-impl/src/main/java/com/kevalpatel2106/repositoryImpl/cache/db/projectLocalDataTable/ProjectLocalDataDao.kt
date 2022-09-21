@@ -8,5 +8,5 @@ import androidx.room.OnConflictStrategy
 internal interface ProjectLocalDataDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateProjectPersistentData(dto: ProjectLocalDataDto)
+    suspend fun updateLocalData(dto: ProjectLocalDataDto)
 }

@@ -47,6 +47,7 @@
                 android:button="@drawable/selectable_start"
                 android:buttonTint="@color/orange"
                 android:checked="@{project.pinned}"
+                android:onCheckedChanged="@{(view, isChecked) -> callback.togglePin(project, isChecked)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

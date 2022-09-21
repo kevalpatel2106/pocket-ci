@@ -45,7 +45,7 @@ internal class InsertProjectListHeadersImplTest {
             arguments(
                 null,
                 getProjectFixture(kFixture).copy(isPinned = true),
-                HeaderItem(R.string.list_header_favourites),
+                HeaderItem(R.string.list_header_pinned),
             ),
             arguments(
                 getProjectFixture(kFixture).copy(isPinned = true),

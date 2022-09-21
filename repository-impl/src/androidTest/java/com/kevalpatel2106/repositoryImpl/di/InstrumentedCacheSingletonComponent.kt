@@ -62,5 +62,9 @@ internal class InstrumentedCacheSingletonComponent {
 
     @Provides
     @Singleton
+    fun provideProjectLocalDataDao(db: AppDb) = db.getProjectLocalDataDao()
+
+    @Provides
+    @Singleton
     fun provideFirebaseRemoteConfig() = FirebaseRemoteConfig.getInstance()
 }

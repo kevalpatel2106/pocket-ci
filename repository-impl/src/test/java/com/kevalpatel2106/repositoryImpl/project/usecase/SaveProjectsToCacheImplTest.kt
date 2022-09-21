@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.check
 import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.eq
 import org.mockito.kotlin.inOrder
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
@@ -42,11 +43,13 @@ internal class SaveProjectsToCacheImplTest {
             subject(accountId, projects, cursorLoaded, nowMills)
 
             inOrder(projectDao, accountDao) {
-                this.verify(projectDao).deleteProjects(accountId.getValue())
-                this.verify(accountDao)
+                verify(projectDao).replaceWithNewProjects(
+                    eq(accountId.getValue()),
+                    check { assertEquals(it.size, projects.size) },
+                )
+                verify(accountDao)
                     .updateLastProjectRefreshEpoch(accountId.getValue(), nowMills)
-                this.verify(projectDao)
-                    .addUpdateProjects(check { assertEquals(it.size, projects.size) })
+                verify(projectDao, never()).addUpdateProjects(any())
             }
         }
 
@@ -59,7 +62,7 @@ internal class SaveProjectsToCacheImplTest {
 
             subject(accountId, projects, cursorLoaded, nowMills)
 
-            verify(projectDao, never()).deleteProjects(any())
+            verify(projectDao, never()).replaceWithNewProjects(any(), any())
             verify(accountDao, never()).updateLastProjectRefreshEpoch(any(), any())
             verify(projectDao).addUpdateProjects(check { assertEquals(it.size, projects.size) })
         }
