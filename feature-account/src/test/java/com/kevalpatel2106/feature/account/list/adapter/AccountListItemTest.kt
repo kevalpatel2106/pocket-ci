@@ -32,7 +32,7 @@ internal class AccountListItemTest {
     companion object {
         private val kFixture = KFixture()
         private val accountItem = getAccountItemFixture(kFixture)
-        private val headerItem = HeaderItem(R.string.list_header_favourites)
+        private val headerItem = HeaderItem(R.string.list_header_pinned)
 
         @Suppress("unused")
         @JvmStatic
