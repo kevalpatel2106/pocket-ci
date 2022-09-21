@@ -1,18 +1,14 @@
-package com.kevalpatel2106.repository.impl.analytics.usecase
+package com.kevalpatel2106.repository.impl.analytics.provider.authentication
 
 import com.google.firebase.auth.FirebaseAuth
-import com.kevalpatel2106.repository.di.IsDebug
 import timber.log.Timber
 import javax.inject.Inject
 
-internal class FirebaseAuthenticateUserImpl @Inject constructor(
-    @IsDebug private val isDebug: Boolean,
+internal class FirebaseUserAuthenticationProvider @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-) : FirebaseAuthenticateUser {
+) : UserAuthenticationProvider {
 
-    override operator fun invoke() {
-        if (isDebug) return
-
+    override fun authenticate() {
         if (firebaseAuth.currentUser == null) {
             firebaseAuth.signInAnonymously().addOnCompleteListener { task ->
                 if (task.isSuccessful) {

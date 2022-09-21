@@ -2,27 +2,29 @@ package com.kevalpatel2106.repository.impl.analytics
 
 import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.core.extentions.isUnAuthorized
 import com.kevalpatel2106.entity.analytics.Event
 import com.kevalpatel2106.repository.AnalyticsRepo
 import com.kevalpatel2106.repository.di.IsDebug
-import com.kevalpatel2106.repository.impl.analytics.provider.AnalyticsProvider
-import com.kevalpatel2106.repository.impl.analytics.usecase.FirebaseAuthenticateUser
+import com.kevalpatel2106.repository.impl.analytics.provider.analytics.AnalyticsProvider
+import com.kevalpatel2106.repository.impl.analytics.provider.authentication.UserAuthenticationProvider
+import com.kevalpatel2106.repository.impl.analytics.provider.crashReporter.CrashReporterProvider
+import com.kevalpatel2106.repository.impl.analytics.usecase.ShouldAuthenticateUser
 import kotlinx.coroutines.CancellationException
 import javax.inject.Inject
 
 internal class AnalyticsRepoImpl @Inject constructor(
     @IsDebug private val isDebug: Boolean,
-    private val firebaseAuthenticateUser: FirebaseAuthenticateUser,
-    private val firebaseCrashlytics: FirebaseCrashlytics,
-    private val firebaseAnalytics: AnalyticsProvider,
+    private val shouldAuthenticateUser: ShouldAuthenticateUser,
+    private val userAuthenticationProvider: UserAuthenticationProvider,
+    private val crashReporter: CrashReporterProvider,
+    private val analyticsProvider: AnalyticsProvider,
     private val displayErrorMapper: DisplayErrorMapper,
 ) : AnalyticsRepo {
 
     override fun initialize() {
-        firebaseAuthenticateUser()
+        if (shouldAuthenticateUser()) userAuthenticationProvider.authenticate()
     }
 
     override fun sendScreenNavigation(screenName: String?) {
@@ -32,20 +34,20 @@ internal class AnalyticsRepoImpl @Inject constructor(
         )
 
         if (screenName != null) {
-            firebaseAnalytics.log(FirebaseAnalytics.Event.SCREEN_VIEW, params)
+            analyticsProvider.log(FirebaseAnalytics.Event.SCREEN_VIEW, params)
         }
-        firebaseAnalytics.setDefaultParameters(params)
+        analyticsProvider.setDefaultParameters(params)
     }
 
     override fun sendEvent(event: Event) {
         if (isDebug) Log.d(ANALYTICS_TAG, "Event: $event")
-        firebaseAnalytics.log(event.name.value, event.properties)
+        analyticsProvider.log(event.name.value, event.properties)
     }
 
     override fun sendLog(tag: String?, message: String) {
         val text = "${tag.orEmpty()}-> $message"
         if (isDebug) Log.d(ANALYTICS_TAG, "Log: $text")
-        firebaseCrashlytics.log(text)
+        crashReporter.log(text)
     }
 
     override fun sendNonFatalException(e: Throwable) {
@@ -56,8 +58,8 @@ internal class AnalyticsRepoImpl @Inject constructor(
             .onSuccess { displayError = it }
             .onFailure { displayError = e.toString() }
         if (isDebug) Log.d(ANALYTICS_TAG, "NonFatalException: $displayError")
-        firebaseCrashlytics.recordException(e)
-        firebaseCrashlytics.log(displayError)
+        crashReporter.recordException(e)
+        crashReporter.log(displayError)
     }
 
     companion object {

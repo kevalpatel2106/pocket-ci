@@ -2,13 +2,14 @@ package com.kevalpatel2106.repository.impl.analytics
 
 import com.flextrade.kfixture.KFixture
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.coreTest.buildHttpException
 import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.analytics.Event
-import com.kevalpatel2106.repository.impl.analytics.provider.AnalyticsProvider
-import com.kevalpatel2106.repository.impl.analytics.usecase.FirebaseAuthenticateUser
+import com.kevalpatel2106.repository.impl.analytics.provider.analytics.AnalyticsProvider
+import com.kevalpatel2106.repository.impl.analytics.provider.authentication.UserAuthenticationProvider
+import com.kevalpatel2106.repository.impl.analytics.provider.crashReporter.CrashReporterProvider
+import com.kevalpatel2106.repository.impl.analytics.usecase.ShouldAuthenticateUser
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
@@ -23,20 +24,32 @@ import kotlin.coroutines.cancellation.CancellationException
 internal class AnalyticsRepoImplTest {
     private val fixture = KFixture()
     private val displayError = fixture<DisplayError>()
-    private val firebaseAuthenticateUser = mock<FirebaseAuthenticateUser>()
-    private val firebaseCrashlytics = mock<FirebaseCrashlytics>()
+    private val shouldAuthenticateUser = mock<ShouldAuthenticateUser>()
+    private val userAuthenticationProvider = mock<UserAuthenticationProvider>()
+    private val crashReporter = mock<CrashReporterProvider>()
     private val analyticsProvider = mock<AnalyticsProvider>()
     private val displayErrorMapper = mock<DisplayErrorMapper> {
         on { invoke(any(), any(), any()) } doReturn displayError
     }
 
     @Test
-    fun `when initialise then user authenticated with firebase`() {
+    fun `given user should be authenticated when initialise then user authenticated with firebase`() {
         val subject = getAnalyticsRepo()
+        whenever(shouldAuthenticateUser()).thenReturn(true)
 
         subject.initialize()
 
-        verify(firebaseAuthenticateUser).invoke()
+        verify(userAuthenticationProvider).authenticate()
+    }
+
+    @Test
+    fun `given user should not be authenticated when initialise then user not authenticated with firebase`() {
+        val subject = getAnalyticsRepo()
+        whenever(shouldAuthenticateUser()).thenReturn(false)
+
+        subject.initialize()
+
+        verify(userAuthenticationProvider, never()).authenticate()
     }
 
     @Test
@@ -90,7 +103,7 @@ internal class AnalyticsRepoImplTest {
 
         subject.sendLog(tag, message)
 
-        verify(firebaseCrashlytics).log("$tag-> $message")
+        verify(crashReporter).log("$tag-> $message")
     }
 
     @Test
@@ -100,7 +113,7 @@ internal class AnalyticsRepoImplTest {
 
         subject.sendLog(null, message)
 
-        verify(firebaseCrashlytics).log("-> $message")
+        verify(crashReporter).log("-> $message")
     }
 
     @Test
@@ -110,7 +123,7 @@ internal class AnalyticsRepoImplTest {
 
         subject.sendNonFatalException(originalException)
 
-        verify(firebaseCrashlytics).recordException(originalException)
+        verify(crashReporter).recordException(originalException)
     }
 
     @Test
@@ -120,7 +133,7 @@ internal class AnalyticsRepoImplTest {
 
         subject.sendNonFatalException(exception)
 
-        verify(firebaseCrashlytics, never()).recordException(exception)
+        verify(crashReporter, never()).recordException(exception)
     }
 
     @Test
@@ -130,7 +143,7 @@ internal class AnalyticsRepoImplTest {
 
         subject.sendNonFatalException(exception)
 
-        verify(firebaseCrashlytics, never()).recordException(exception)
+        verify(crashReporter, never()).recordException(exception)
     }
 
     @Test
@@ -139,7 +152,7 @@ internal class AnalyticsRepoImplTest {
 
         subject.sendNonFatalException(Throwable())
 
-        verify(firebaseCrashlytics).log(displayError.toString())
+        verify(crashReporter).log(displayError.toString())
     }
 
     @Test
@@ -150,13 +163,14 @@ internal class AnalyticsRepoImplTest {
 
         subject.sendNonFatalException(originalException)
 
-        verify(firebaseCrashlytics).log(originalException.toString())
+        verify(crashReporter).log(originalException.toString())
     }
 
     private fun getAnalyticsRepo(isDebug: Boolean = fixture()) = AnalyticsRepoImpl(
         isDebug,
-        firebaseAuthenticateUser,
-        firebaseCrashlytics,
+        shouldAuthenticateUser,
+        userAuthenticationProvider,
+        crashReporter,
         analyticsProvider,
         displayErrorMapper,
     )
