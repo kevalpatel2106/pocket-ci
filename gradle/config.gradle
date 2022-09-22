@@ -9,10 +9,11 @@ ext {
             'packageName': "com.kevalpatel2106.pocketci",
     ]
 
-    sdk = [
+    buildConfig = [
             'compileSdk': 33,
             'targetSdk' : 33,
             'minSdk'    : 23,
+            'buildTool' : '33.0.0',
     ]
 
     playStoreVersion = [
@@ -81,8 +82,8 @@ ext {
 
         applicationId releaseDetail.packageName
 
-        minSdkVersion sdk.minSdk
-        targetSdkVersion sdk.targetSdk
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
 
         //Versions config
         versionCode playStoreVersion.version_code
@@ -95,8 +96,8 @@ ext {
     }
 
     defaultLibConfig = {
-        minSdkVersion sdk.minSdk
-        targetSdkVersion sdk.targetSdk
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
 
         //strip other than english resources
         resConfigs "en"

@@ -60,7 +60,7 @@ jobs:
           keyStorePassword: ${{ secrets.UPLOAD_KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.UPLOAD_ALIAS_PASSWORD }}
         env:
-          BUILD_TOOLS_VERSION: "30.0.2"
+          BUILD_TOOLS_VERSION: "33.0.0"
       - name: Upload signed APK
         if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v') }}
         uses: actions/upload-artifact@v3
@@ -100,7 +100,7 @@ jobs:
           keyStorePassword: ${{ secrets.UPLOAD_KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.UPLOAD_ALIAS_PASSWORD }}
         env:
-          BUILD_TOOLS_VERSION: "30.0.2"
+          BUILD_TOOLS_VERSION: "33.0.0"
       - name: Upload AAB
         uses: actions/upload-artifact@v3
         with:

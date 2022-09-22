@@ -38,7 +38,8 @@ subprojects {
 
         if (module.hasProperty("android")) {   //All the android module
             android {
-                compileSdkVersion sdk.compileSdk
+                compileSdkVersion buildConfig.compileSdk
+                buildToolsVersion buildConfig.buildTool
                 signingConfigs signingConfig
 
                 if (module.pluginManager.hasPlugin("com.android.application")) {
