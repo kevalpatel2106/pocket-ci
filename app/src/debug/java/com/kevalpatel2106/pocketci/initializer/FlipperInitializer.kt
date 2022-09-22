@@ -10,9 +10,9 @@ import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.facebook.flipper.plugins.sharedpreferences.SharedPreferencesFlipperPlugin
 import com.facebook.soloader.SoLoader
-import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
-import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.android.EarlyEntryPoint
+import dagger.hilt.android.EarlyEntryPoints
 import dagger.hilt.components.SingletonComponent
 import wtf.s1.android.thread.flipper.S1ThreadPlugin
 
@@ -21,7 +21,7 @@ internal class FlipperInitializer : Initializer<Unit> {
     override fun create(context: Context) {
         // Every Initializer must have a no argument constructor. So we cannot inject using hilt.
         // Hilt doesn't support out of the box content provider injection using @AndroidEntryPoint.
-        val hiltEntryPoint: FlipperInitializerEntryPoint = EntryPointAccessors.fromApplication(
+        val hiltEntryPoint: FlipperInitializerEntryPoint = EarlyEntryPoints.get(
             context.applicationContext,
             FlipperInitializerEntryPoint::class.java,
         )
@@ -38,9 +38,9 @@ internal class FlipperInitializer : Initializer<Unit> {
         }
     }
 
-    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
+    override fun dependencies(): List<Class<out Initializer<*>>> = listOf(TimberInitializer::class.java)
 
-    @EntryPoint
+    @EarlyEntryPoint
     @InstallIn(SingletonComponent::class)
     internal interface FlipperInitializerEntryPoint {
         fun networkFlipperPlugin(): NetworkFlipperPlugin

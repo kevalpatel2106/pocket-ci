@@ -44,6 +44,7 @@ dependencies {
     implementation project(':core-network')
     implementation project(':core-resources')
     testImplementation project(':core-test')
+    androidTestImplementation project(':core-test')
 
     // protocols modules
     implementation project(':repository')
