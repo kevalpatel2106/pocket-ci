@@ -12,7 +12,7 @@ android {
 dependencies {
     implementation project(":entity")
     implementation "com.flextrade.jfixture:kfixture:0.2.0"
-    implementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
     implementation 'app.cash.turbine:turbine:0.10.0'
     implementation 'androidx.test:runner:1.4.0'
