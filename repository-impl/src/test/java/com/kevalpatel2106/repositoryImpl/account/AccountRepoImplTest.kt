@@ -9,8 +9,8 @@ import com.kevalpatel2106.entity.Token
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.repositoryImpl.account.usecase.AccountDtoMapper
 import com.kevalpatel2106.repositoryImpl.account.usecase.AccountMapper
-import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStore
-import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
+import com.kevalpatel2106.cache.dataStore.AppDataStore
+import com.kevalpatel2106.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import com.kevalpatel2106.repositoryImpl.getAccountDtoFixture
 import kotlinx.coroutines.test.runTest

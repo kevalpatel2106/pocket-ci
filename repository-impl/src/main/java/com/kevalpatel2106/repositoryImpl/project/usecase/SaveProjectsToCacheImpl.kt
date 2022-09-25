@@ -2,8 +2,8 @@ package com.kevalpatel2106.repositoryImpl.project.usecase
 
 import com.kevalpatel2106.entity.Project
 import com.kevalpatel2106.entity.id.AccountId
-import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
-import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
+import com.kevalpatel2106.cache.db.accountTable.AccountDao
+import com.kevalpatel2106.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.project.ProjectRemoteMediator
 import javax.inject.Inject
 

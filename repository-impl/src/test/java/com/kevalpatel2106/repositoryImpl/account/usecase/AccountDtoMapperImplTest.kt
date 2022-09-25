@@ -2,7 +2,7 @@ package com.kevalpatel2106.repositoryImpl.account.usecase
 
 import com.flextrade.kfixture.KFixture
 import com.kevalpatel2106.coreTest.getAccountFixture
-import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDto
+import com.kevalpatel2106.cache.db.accountTable.AccountDto
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.Date

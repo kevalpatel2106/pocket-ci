@@ -8,8 +8,8 @@ import com.kevalpatel2106.entity.id.JobId
 import com.kevalpatel2106.entity.id.ProjectId
 import com.kevalpatel2106.repository.JobRepo
 import com.kevalpatel2106.repositoryImpl.account.usecase.AccountBasicMapper
-import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
-import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
+import com.kevalpatel2106.cache.db.accountTable.AccountDao
+import com.kevalpatel2106.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectBasicMapper
 import kotlinx.coroutines.flow.flatMapLatest

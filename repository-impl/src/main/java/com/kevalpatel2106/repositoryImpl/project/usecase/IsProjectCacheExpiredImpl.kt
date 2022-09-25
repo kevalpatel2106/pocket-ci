@@ -1,7 +1,7 @@
 package com.kevalpatel2106.repositoryImpl.project.usecase
 
 import com.kevalpatel2106.entity.id.AccountId
-import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
+import com.kevalpatel2106.cache.db.accountTable.AccountDao
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

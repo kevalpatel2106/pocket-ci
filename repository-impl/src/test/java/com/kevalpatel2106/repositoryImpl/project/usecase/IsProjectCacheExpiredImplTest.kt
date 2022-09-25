@@ -2,7 +2,7 @@ package com.kevalpatel2106.repositoryImpl.project.usecase
 
 import com.flextrade.kfixture.KFixture
 import com.kevalpatel2106.coreTest.getAccountIdFixture
-import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
+import com.kevalpatel2106.cache.db.accountTable.AccountDao
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue

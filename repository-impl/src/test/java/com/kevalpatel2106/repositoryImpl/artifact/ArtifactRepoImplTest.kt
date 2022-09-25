@@ -11,8 +11,8 @@ import com.kevalpatel2106.coreTest.getBuildIdFixture
 import com.kevalpatel2106.coreTest.getProjectBasicFixture
 import com.kevalpatel2106.coreTest.getProjectIdFixture
 import com.kevalpatel2106.repositoryImpl.account.usecase.AccountBasicMapper
-import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
-import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
+import com.kevalpatel2106.cache.db.accountTable.AccountDao
+import com.kevalpatel2106.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import com.kevalpatel2106.repositoryImpl.getAccountBasicDtoFixture
 import com.kevalpatel2106.repositoryImpl.getProjectBasicDtoFixture

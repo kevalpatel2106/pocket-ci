@@ -5,12 +5,12 @@ import com.flextrade.kfixture.KFixture
 import com.kevalpatel2106.coreTest.getAccountIdFixture
 import com.kevalpatel2106.coreTest.getProjectIdFixture
 import com.kevalpatel2106.coreTest.getUrlFixture
-import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountBasicDto
-import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDto
-import com.kevalpatel2106.repositoryImpl.cache.db.projectLocalDataTable.ProjectLocalDataDto
-import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectBasicDto
-import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDto
-import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectWithLocalDataDto
+import com.kevalpatel2106.cache.db.accountTable.AccountBasicDto
+import com.kevalpatel2106.cache.db.accountTable.AccountDto
+import com.kevalpatel2106.cache.db.projectLocalDataTable.ProjectLocalDataDto
+import com.kevalpatel2106.cache.db.projectTable.ProjectBasicDto
+import com.kevalpatel2106.cache.db.projectTable.ProjectDto
+import com.kevalpatel2106.cache.db.projectTable.ProjectWithLocalDataDto
 
 internal fun getAccountBasicDtoFixture(fixture: KFixture) = AccountBasicDto(
     id = getAccountIdFixture(fixture),

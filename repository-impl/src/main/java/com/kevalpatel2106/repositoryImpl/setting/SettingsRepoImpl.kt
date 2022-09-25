@@ -2,7 +2,7 @@ package com.kevalpatel2106.repositoryImpl.setting
 
 import com.kevalpatel2106.entity.NightMode
 import com.kevalpatel2106.repository.SettingsRepo
-import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStore
+import com.kevalpatel2106.cache.dataStore.AppDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

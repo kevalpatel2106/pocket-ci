@@ -1,0 +1,56 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'de.mannodermaus.android-junit5'
+    id 'com.dicedmelon.gradle.jacoco-android'
+}
+
+android {
+    namespace 'com.kevalpatel2106.cache'
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation"  : "$projectDir/src/androidTest/assets".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true",
+                ]
+            }
+        }
+    }
+}
+
+dependencies {
+    // protocols modules
+    implementation project(':repository')
+    implementation project(':connector-ci')
+
+    // core modules
+    implementation project(':entity')
+    implementation project(':core')
+    testImplementation project(':core-test')
+    androidTestImplementation project(':core-test')
+
+    // implementation modules / connectors
+    implementation project(':connector-bitrise')
+    implementation project(':connector-github')
+
+    // Room
+    api "androidx.room:room-runtime:2.4.3"
+    implementation "androidx.room:room-ktx:2.4.3"
+    kapt "androidx.room:room-compiler:2.4.3"
+    kaptAndroidTest "androidx.room:room-compiler:2.4.2"
+    implementation "androidx.room:room-paging:2.4.3"
+    androidTestImplementation "androidx.room:room-testing:2.4.3"
+    implementation 'net.zetetic:android-database-sqlcipher:4.5.2'
+
+    // Data store
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation "androidx.security:security-crypto:1.0.0"
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:30.5.0')
+    implementation 'com.google.firebase:firebase-config'
+}

@@ -19,10 +19,6 @@ import com.kevalpatel2106.repositoryImpl.account.usecase.AccountMapperImpl
 import com.kevalpatel2106.repositoryImpl.appConfig.AppConfigRepoImpl
 import com.kevalpatel2106.repositoryImpl.artifact.ArtifactRepoImpl
 import com.kevalpatel2106.repositoryImpl.build.BuildRepoImpl
-import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStore
-import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStoreImpl
-import com.kevalpatel2106.repositoryImpl.cache.remoteConfig.FirebaseRemoteConfigCache
-import com.kevalpatel2106.repositoryImpl.cache.remoteConfig.RemoteConfigCache
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactoryImpl
 import com.kevalpatel2106.repositoryImpl.ciInfo.CIInfoRepoImpl
@@ -57,9 +53,6 @@ internal abstract class ViewModelComponentBindings {
 
     @Binds
     abstract fun bindCISelectionRepo(impl: CIInfoRepoImpl): CIInfoRepo
-
-    @Binds
-    abstract fun bindAppDataStore(dataStore: AppDataStoreImpl): AppDataStore
 
     @Binds
     abstract fun bindProjectRepo(impl: ProjectRepoImpl): ProjectRepo
@@ -102,9 +95,6 @@ internal abstract class ViewModelComponentBindings {
 
     @Binds
     abstract fun bindAccountDtoMapper(impl: AccountDtoMapperImpl): AccountDtoMapper
-
-    @Binds
-    abstract fun bindAppRemoteConfig(impl: FirebaseRemoteConfigCache): RemoteConfigCache
 
     @Binds
     abstract fun bindRemoteConfigRepo(impl: RemoteConfigRepoImpl): RemoteConfigRepo

@@ -8,9 +8,9 @@ import com.kevalpatel2106.entity.Project
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.ProjectId
 import com.kevalpatel2106.repository.ProjectRepo
-import com.kevalpatel2106.repositoryImpl.cache.db.projectLocalDataTable.ProjectLocalDataDao
-import com.kevalpatel2106.repositoryImpl.cache.db.projectLocalDataTable.ProjectLocalDataDto
-import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
+import com.kevalpatel2106.cache.db.projectLocalDataTable.ProjectLocalDataDao
+import com.kevalpatel2106.cache.db.projectLocalDataTable.ProjectLocalDataDto
+import com.kevalpatel2106.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectWithLocalDataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
