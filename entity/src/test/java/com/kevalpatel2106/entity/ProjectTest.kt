@@ -16,7 +16,7 @@ internal class ProjectTest {
             image = null,
             lastUpdatedAt = fixture(),
             repoUrl = null,
-            isFavourite = fixture(),
+            isPinned = fixture(),
             isPublic = fixture(),
             isDisabled = fixture(),
             accountId = fixture.range(0L..Long.MAX_VALUE).toAccountId(),

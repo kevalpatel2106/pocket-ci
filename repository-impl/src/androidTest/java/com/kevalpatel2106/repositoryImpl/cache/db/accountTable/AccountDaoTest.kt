@@ -4,7 +4,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.flextrade.kfixture.KFixture
 import com.kevalpatel2106.entity.id.AccountId
+import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.getAccountDtoFixture
+import com.kevalpatel2106.repositoryImpl.getProjectDtoFixture
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
@@ -31,6 +33,9 @@ internal class AccountDaoTest {
     @Inject
     lateinit var subject: AccountDao
 
+    @Inject
+    lateinit var projectDao: ProjectDao
+
     @Before
     fun prepareDb() {
         hiltRule.inject()
@@ -40,6 +45,9 @@ internal class AccountDaoTest {
         runBlocking {
             subject.addUpdateAccount(accountDto1)
             subject.addUpdateAccount(accountDto2)
+            projectDao.addUpdateProjects(
+                listOf(getProjectDtoFixture(fixture).copy(accountId = accountDto1.id)),
+            )
         }
     }
 
@@ -210,8 +218,17 @@ internal class AccountDaoTest {
     fun whenAccountToDeleteStored_testDeleteAccount() = runBlocking {
         fillData()
 
-        subject.deleteAccount(accountDto1.id.getValue())
+        subject.deleteAccount(accountDto2.id.getValue())
 
         assertEquals(1, subject.getTotalAccounts())
+    }
+
+    @Test
+    fun whenAccountToDeleteStored_testDeleteProjectTo() = runBlocking {
+        fillData()
+
+        subject.deleteAccount(accountDto1.id.getValue())
+
+        assertEquals(0, projectDao.getTotalProjects())
     }
 }

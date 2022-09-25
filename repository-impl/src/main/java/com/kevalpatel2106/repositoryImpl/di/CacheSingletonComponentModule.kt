@@ -5,9 +5,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.security.crypto.MasterKeys
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.kevalpatel2106.repository.di.IsDebug
 import com.kevalpatel2106.repositoryImpl.cache.db.AppDb
-import com.kevalpatel2106.repositoryImpl.cache.remoteConfig.FirebaseRemoteConfigCache
+import com.kevalpatel2106.repositoryImpl.cache.remoteConfig.usecase.GetFirebaseRemoteConfigSettings
 import com.kevalpatel2106.repositoryImpl.cache.sharedPrefs.SharedPrefFactory
 import dagger.Module
 import dagger.Provides
@@ -57,7 +58,16 @@ internal class CacheSingletonComponentModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseRemoteConfig(factory: FirebaseRemoteConfigCache.Factory) = factory.create()
+    fun provideProjectLocalDataDao(db: AppDb) = db.getProjectLocalDataDao()
+
+    @Provides
+    @Singleton
+    fun provideFirebaseRemoteConfig(
+        getConfigSettings: GetFirebaseRemoteConfigSettings,
+    ): FirebaseRemoteConfig {
+        return FirebaseRemoteConfig.getInstance()
+            .apply { setConfigSettingsAsync(getConfigSettings()) }
+    }
 
     companion object {
         private const val DATASTORE_PREFERENCES_NAME = "app_preferences"

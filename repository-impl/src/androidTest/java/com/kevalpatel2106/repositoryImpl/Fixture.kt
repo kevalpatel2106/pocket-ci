@@ -2,8 +2,10 @@ package com.kevalpatel2106.repositoryImpl
 
 import com.flextrade.kfixture.KFixture
 import com.kevalpatel2106.coreTest.getAccountIdFixture
+import com.kevalpatel2106.coreTest.getProjectIdFixture
 import com.kevalpatel2106.coreTest.getUrlFixture
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDto
+import com.kevalpatel2106.repositoryImpl.cache.db.projectLocalDataTable.ProjectLocalDataDto
 import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDto
 
 internal fun getProjectDtoFixture(fixture: KFixture) = ProjectDto(
@@ -30,4 +32,11 @@ internal fun getAccountDtoFixture(fixture: KFixture) = AccountDto(
     nextProjectCursor = fixture(),
     savedAt = fixture(),
     projectCacheLastUpdated = fixture(),
+)
+
+internal fun getProjectLocalDataFixture(fixture: KFixture) = ProjectLocalDataDto(
+    accountId = getAccountIdFixture(fixture),
+    remoteId = getProjectIdFixture(fixture),
+    isPinned = fixture(),
+    updatedAt = fixture(),
 )

@@ -20,7 +20,7 @@ internal class ProjectMapperImpl @Inject constructor() : ProjectMapper {
             repoUrl = repoUrl.toUrlOrNull(),
             isDisabled = isDisabled,
             isPublic = isPublic,
-            isFavourite = false,
+            isPinned = false,
             lastUpdatedAt = lastUpdatedAt,
         )
     }

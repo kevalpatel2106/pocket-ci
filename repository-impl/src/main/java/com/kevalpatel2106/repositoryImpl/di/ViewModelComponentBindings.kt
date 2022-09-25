@@ -34,8 +34,8 @@ import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectBasicMapper
 import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectBasicMapperImpl
 import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectDtoMapper
 import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectDtoMapperImpl
-import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectMapper
-import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectMapperImpl
+import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectWithLocalDataMapper
+import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectWithLocalDataMapperImpl
 import com.kevalpatel2106.repositoryImpl.project.usecase.SaveProjectsToCache
 import com.kevalpatel2106.repositoryImpl.project.usecase.SaveProjectsToCacheImpl
 import com.kevalpatel2106.repositoryImpl.remoteConfig.RemoteConfigRepoImpl
@@ -71,7 +71,7 @@ internal abstract class ViewModelComponentBindings {
     abstract fun bindBuildInfoRepo(impl: AppConfigRepoImpl): AppConfigRepo
 
     @Binds
-    abstract fun bindProjectMapper(impl: ProjectMapperImpl): ProjectMapper
+    abstract fun bindProjectMapper(impl: ProjectWithLocalDataMapperImpl): ProjectWithLocalDataMapper
 
     @Binds
     abstract fun bindProjectDtoMapper(impl: ProjectDtoMapperImpl): ProjectDtoMapper

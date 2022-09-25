@@ -9,6 +9,17 @@ plugins {
 
 android {
     namespace 'com.kevalpatel2106.repositoryImpl'
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation"  : "$projectDir/src/androidTest/assets".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true",
+                ]
+            }
+        }
+    }
 }
 
 dependencies {

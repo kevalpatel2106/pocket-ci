@@ -43,7 +43,7 @@ internal class ProjectListDiffCallbackTest {
         private val projectItem1 = ProjectListItem.ProjectItem(project1)
         private val projectItem2 = ProjectListItem.ProjectItem(project2)
 
-        private val headerItem1 = ProjectListItem.HeaderItem(R.string.list_header_favourites)
+        private val headerItem1 = ProjectListItem.HeaderItem(R.string.list_header_pinned)
         private val headerItem2 = ProjectListItem.HeaderItem(R.string.list_header_other)
 
         @Suppress("unused")

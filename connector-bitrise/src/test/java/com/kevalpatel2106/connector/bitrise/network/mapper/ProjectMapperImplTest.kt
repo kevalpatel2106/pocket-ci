@@ -33,7 +33,7 @@ internal class ProjectMapperImplTest {
             repoUrl = dto.repoUrl.toUrlOrNull(),
             isDisabled = dto.isDisabled,
             isPublic = dto.isPublic,
-            isFavourite = false,
+            isPinned = false,
             lastUpdatedAt = date,
         )
         assertEquals(actual, expected)
@@ -46,7 +46,7 @@ internal class ProjectMapperImplTest {
         val dto = fixture<ProjectDto>()
         val accountId = getAccountIdFixture(fixture)
 
-        val actual = subject(dto, accountId, date).isFavourite
+        val actual = subject(dto, accountId, date).isPinned
 
         assertFalse(actual)
     }

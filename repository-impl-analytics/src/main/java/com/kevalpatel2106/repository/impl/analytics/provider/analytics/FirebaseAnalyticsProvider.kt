@@ -1,4 +1,4 @@
-package com.kevalpatel2106.repository.impl.analytics.provider
+package com.kevalpatel2106.repository.impl.analytics.provider.analytics
 
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.kevalpatel2106.repository.impl.analytics.toBundle

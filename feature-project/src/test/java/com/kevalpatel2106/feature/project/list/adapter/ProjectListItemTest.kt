@@ -33,7 +33,7 @@ internal class ProjectListItemTest {
     companion object {
         private val kFixture = KFixture()
         private val projectItem = ProjectItem(getProjectFixture(kFixture))
-        private val headerItem = HeaderItem(R.string.list_header_favourites)
+        private val headerItem = HeaderItem(R.string.list_header_pinned)
 
         @Suppress("unused")
         @JvmStatic

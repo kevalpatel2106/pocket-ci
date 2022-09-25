@@ -15,7 +15,6 @@ import com.kevalpatel2106.repositoryImpl.account.usecase.AccountDtoMapper
 import com.kevalpatel2106.repositoryImpl.account.usecase.AccountMapper
 import com.kevalpatel2106.repositoryImpl.cache.dataStore.AppDataStore
 import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDao
-import com.kevalpatel2106.repositoryImpl.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -23,7 +22,6 @@ import javax.inject.Inject
 
 internal class AccountRepoImpl @Inject constructor(
     private val accountDao: AccountDao,
-    private val projectDao: ProjectDao,
     private val appDataStore: AppDataStore,
     private val accountMapper: AccountMapper,
     private val accountDtoMapper: AccountDtoMapper,
@@ -52,7 +50,6 @@ internal class AccountRepoImpl @Inject constructor(
     override suspend fun removeAccount(accountId: AccountId) {
         accountDao.deleteAccount(accountId.getValue())
         getSelectedAccount() // Reset the selected account if the deleted account was selected.
-        projectDao.deleteProjects(accountId.getValue())
     }
 
     override suspend fun getAccount(accountId: AccountId): Account {

@@ -2,10 +2,12 @@ package com.kevalpatel2106.repositoryImpl.cache.db.projectTable
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Index
+import androidx.room.ForeignKey
 import com.kevalpatel2106.entity.Url
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.ProjectId
+import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountDto
+import com.kevalpatel2106.repositoryImpl.cache.db.accountTable.AccountTableInfo
 import java.util.Date
 
 @Entity(
@@ -14,8 +16,13 @@ import java.util.Date
         ProjectTableInfo.ACCOUNT_ID,
         ProjectTableInfo.REMOTE_ID,
     ],
-    indices = [
-        Index(value = [ProjectTableInfo.REMOTE_ID, ProjectTableInfo.ACCOUNT_ID], unique = true),
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountDto::class,
+            parentColumns = arrayOf(AccountTableInfo.ID),
+            childColumns = arrayOf(ProjectTableInfo.ACCOUNT_ID),
+            onDelete = ForeignKey.CASCADE,
+        ),
     ],
 )
 internal data class ProjectDto(

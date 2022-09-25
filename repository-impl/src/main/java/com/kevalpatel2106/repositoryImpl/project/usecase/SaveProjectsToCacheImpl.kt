@@ -17,12 +17,14 @@ internal class SaveProjectsToCacheImpl @Inject constructor(
         accountId: AccountId,
         projects: List<Project>,
         cursorLoaded: String?,
-        nowMills: Long
+        nowMills: Long,
     ) {
+        val projectDtos = projects.map { projectDtoMapper(it) }
         if (cursorLoaded == ProjectRemoteMediator.STARTING_PAGE_CURSOR) {
-            projectDao.deleteProjects(accountId.getValue())
+            projectDao.replaceWithNewProjects(accountId.getValue(), projectDtos)
             accountDao.updateLastProjectRefreshEpoch(accountId.getValue(), nowMills)
+        } else {
+            projectDao.addUpdateProjects(projectDtos)
         }
-        projectDao.addUpdateProjects(projects.map { projectDtoMapper(it) })
     }
 }

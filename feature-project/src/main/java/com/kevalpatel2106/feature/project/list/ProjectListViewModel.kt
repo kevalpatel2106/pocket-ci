@@ -32,7 +32,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class ProjectListViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    projectRepo: ProjectRepo,
+    private val projectRepo: ProjectRepo,
     insertListSeparator: InsertProjectListHeaders,
     displayErrorMapper: DisplayErrorMapper,
 ) : BaseViewModel<ProjectListVMEvent>(), ProjectListAdapterCallback, NetworkStateCallback {
@@ -57,6 +57,17 @@ internal class ProjectListViewModel @Inject constructor(
     override fun onProjectSelected(project: Project) {
         viewModelScope.launch {
             _vmEventsFlow.emit(OpenBuildsList(project.accountId, project.remoteId))
+        }
+    }
+
+    override fun togglePin(project: Project, isChecked: Boolean) {
+        if (project.isPinned == isChecked) return
+        viewModelScope.launch {
+            if (project.isPinned) {
+                projectRepo.unpinProject(project.remoteId, project.accountId)
+            } else {
+                projectRepo.pinProject(project.remoteId, project.accountId)
+            }
         }
     }
 

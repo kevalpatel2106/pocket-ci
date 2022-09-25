@@ -25,7 +25,7 @@ internal class InsertProjectListHeadersImplTest {
         assertEquals(
             expected,
             result,
-            "Inputs: Before ${before?.isFavourite} and After: ${after?.isFavourite}",
+            "Inputs: Before ${before?.isPinned} and After: ${after?.isPinned}",
         )
     }
 
@@ -39,31 +39,31 @@ internal class InsertProjectListHeadersImplTest {
             arguments(null, null, null),
             arguments(
                 null,
-                getProjectFixture(kFixture).copy(isFavourite = false),
+                getProjectFixture(kFixture).copy(isPinned = false),
                 null,
             ),
             arguments(
                 null,
-                getProjectFixture(kFixture).copy(isFavourite = true),
-                HeaderItem(R.string.list_header_favourites),
+                getProjectFixture(kFixture).copy(isPinned = true),
+                HeaderItem(R.string.list_header_pinned),
             ),
             arguments(
-                getProjectFixture(kFixture).copy(isFavourite = true),
-                getProjectFixture(kFixture).copy(isFavourite = true),
+                getProjectFixture(kFixture).copy(isPinned = true),
+                getProjectFixture(kFixture).copy(isPinned = true),
                 null,
             ),
             arguments(
-                getProjectFixture(kFixture).copy(isFavourite = true),
-                getProjectFixture(kFixture).copy(isFavourite = false),
+                getProjectFixture(kFixture).copy(isPinned = true),
+                getProjectFixture(kFixture).copy(isPinned = false),
                 HeaderItem(R.string.list_header_other),
             ),
             arguments(
-                getProjectFixture(kFixture).copy(isFavourite = true),
+                getProjectFixture(kFixture).copy(isPinned = true),
                 null,
                 null,
             ),
             arguments(
-                getProjectFixture(kFixture).copy(isFavourite = false),
+                getProjectFixture(kFixture).copy(isPinned = false),
                 null,
                 null,
             ),
