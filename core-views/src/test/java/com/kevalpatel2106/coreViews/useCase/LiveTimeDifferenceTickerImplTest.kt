@@ -3,7 +3,6 @@ package com.kevalpatel2106.coreViews.useCase
 import app.cash.turbine.test
 import com.kevalpatel2106.coreTest.TestCoroutineExtension
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -26,7 +25,7 @@ internal class LiveTimeDifferenceTickerImplTest {
 
     @Test
     fun `given date of event start and should tick more precise when invoked then verify tick interval calculated`() =
-        runTest {
+        runBlocking {
             val dateOfEventStart = Date()
             val shouldTickMorePrecise = false
 
