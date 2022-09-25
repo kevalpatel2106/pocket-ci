@@ -93,6 +93,11 @@ ext {
         resConfigs "en"
 
         testInstrumentationRunner "com.kevalpatel2106.coreTest.runner.UiTestsRunner"
+
+        // Cleaning up package data for each test is slow. So, we're only enabling these for app
+        // module where all the e2e tests sits. Other module (repository-impl) will use their own
+        // hilt component to create new preferences/in-memory db, so they don't require cleaning up
+        testInstrumentationRunnerArguments clearPackageData: 'true'
     }
 
     defaultLibConfig = {
@@ -134,6 +139,7 @@ ext {
 
     testOption = {
         animationsDisabled = true
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
         unitTests {
             returnDefaultValues true
             includeAndroidResources = true

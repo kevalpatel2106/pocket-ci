@@ -21,6 +21,8 @@ jobs:
 
   test:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_test.yml@main
+    secrets:
+      AVD_CACHE_VERSION: ${{secrets.AVD_CACHE_VERSION}}
 
   build:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_build.yml@main
