@@ -19,5 +19,6 @@ fun <T> runTestObservingSharedFlow(
 ) = runTest {
     sharedFlow.test {
         testBody(this@runTest, this@test)
+        cancelAndIgnoreRemainingEvents()
     }
 }
