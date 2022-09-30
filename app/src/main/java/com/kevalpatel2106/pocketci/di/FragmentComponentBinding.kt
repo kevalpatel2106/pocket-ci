@@ -21,6 +21,6 @@ internal abstract class FragmentComponentBinding {
     @Binds
     @FragmentScoped
     abstract fun bindHandleBottomDrawerVMEvents(
-        impl: HandleBottomDrawerVMEventsImpl
+        impl: HandleBottomDrawerVMEventsImpl,
     ): HandleBottomDrawerVMEvents
 }

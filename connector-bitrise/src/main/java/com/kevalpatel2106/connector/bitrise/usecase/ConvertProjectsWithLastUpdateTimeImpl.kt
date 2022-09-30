@@ -21,7 +21,7 @@ internal class ConvertProjectsWithLastUpdateTimeImpl @Inject constructor(
     override operator fun invoke(
         accountId: AccountId,
         dtos: List<ProjectDto>,
-        currentMills: Long
+        currentMills: Long,
     ): List<Project> {
         var epochMills = currentMills
         return dtos.map {

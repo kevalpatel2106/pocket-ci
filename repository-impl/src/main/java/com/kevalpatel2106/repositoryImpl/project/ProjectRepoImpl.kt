@@ -4,13 +4,13 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.kevalpatel2106.cache.db.projectLocalDataTable.ProjectLocalDataDao
+import com.kevalpatel2106.cache.db.projectLocalDataTable.ProjectLocalDataDto
+import com.kevalpatel2106.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.entity.Project
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.ProjectId
 import com.kevalpatel2106.repository.ProjectRepo
-import com.kevalpatel2106.cache.db.projectLocalDataTable.ProjectLocalDataDao
-import com.kevalpatel2106.cache.db.projectLocalDataTable.ProjectLocalDataDto
-import com.kevalpatel2106.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectWithLocalDataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -46,7 +46,7 @@ internal class ProjectRepoImpl @Inject constructor(
         val data = ProjectLocalDataDto(
             remoteId = remoteId,
             accountId = accountId,
-            isPinned = true
+            isPinned = true,
         )
         projectLocalDataDao.updateLocalData(data)
     }
@@ -55,7 +55,7 @@ internal class ProjectRepoImpl @Inject constructor(
         val data = ProjectLocalDataDto(
             remoteId = remoteId,
             accountId = accountId,
-            isPinned = false
+            isPinned = false,
         )
         projectLocalDataDao.updateLocalData(data)
     }

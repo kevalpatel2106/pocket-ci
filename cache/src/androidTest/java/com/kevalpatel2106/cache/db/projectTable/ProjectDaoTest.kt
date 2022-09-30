@@ -3,10 +3,10 @@ package com.kevalpatel2106.cache.db.projectTable
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.flextrade.kfixture.KFixture
-import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.cache.getAccountDtoFixture
 import com.kevalpatel2106.cache.getProjectDtoFixture
+import com.kevalpatel2106.entity.id.AccountId
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
@@ -158,12 +158,12 @@ internal class ProjectDaoTest {
             newProjectDtos.forEach {
                 assertEquals(
                     1,
-                    subject.getCount(it.remoteId.getValue(), accountDto1.id.getValue())
+                    subject.getCount(it.remoteId.getValue(), accountDto1.id.getValue()),
                 )
             }
             assertEquals(
                 1,
-                subject.getCount(projectDto2.remoteId.getValue(), accountDto2.id.getValue())
+                subject.getCount(projectDto2.remoteId.getValue(), accountDto2.id.getValue()),
             )
         }
 }

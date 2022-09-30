@@ -3,11 +3,11 @@ package com.kevalpatel2106.cache.db.projectTable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import com.kevalpatel2106.cache.db.accountTable.AccountDto
+import com.kevalpatel2106.cache.db.accountTable.AccountTableInfo
 import com.kevalpatel2106.entity.Url
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.ProjectId
-import com.kevalpatel2106.cache.db.accountTable.AccountDto
-import com.kevalpatel2106.cache.db.accountTable.AccountTableInfo
 import java.util.Date
 
 @Entity(

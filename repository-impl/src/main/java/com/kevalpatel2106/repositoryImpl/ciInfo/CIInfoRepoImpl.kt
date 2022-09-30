@@ -1,10 +1,10 @@
 package com.kevalpatel2106.repositoryImpl.ciInfo
 
+import com.kevalpatel2106.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.entity.CIInfo
 import com.kevalpatel2106.entity.CIType
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.repository.CIInfoRepo
-import com.kevalpatel2106.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import javax.inject.Inject
 

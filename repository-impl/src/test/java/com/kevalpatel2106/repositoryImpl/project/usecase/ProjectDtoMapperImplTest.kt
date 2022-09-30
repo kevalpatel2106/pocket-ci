@@ -1,8 +1,8 @@
 package com.kevalpatel2106.repositoryImpl.project.usecase
 
 import com.flextrade.kfixture.KFixture
-import com.kevalpatel2106.coreTest.getProjectFixture
 import com.kevalpatel2106.cache.db.projectTable.ProjectDto
+import com.kevalpatel2106.coreTest.getProjectFixture
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.Date

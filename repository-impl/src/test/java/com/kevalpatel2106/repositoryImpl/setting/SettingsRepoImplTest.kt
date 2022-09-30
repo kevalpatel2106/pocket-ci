@@ -1,9 +1,9 @@
 package com.kevalpatel2106.repositoryImpl.setting
 
 import app.cash.turbine.test
+import com.kevalpatel2106.cache.dataStore.AppDataStore
 import com.kevalpatel2106.entity.CIType
 import com.kevalpatel2106.entity.NightMode
-import com.kevalpatel2106.cache.dataStore.AppDataStore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals

@@ -116,16 +116,16 @@
                 android:errorText="@{model.viewState.tokenErrorMsg}"
                 android:hint="@string/register_auth_token_header"
                 app:counterEnabled="true"
+                app:endIconDrawable="@drawable/password_icon"
+                app:endIconMode="password_toggle"
                 app:errorEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
-                app:endIconMode="password_toggle"
-                app:placeholderTextColor="@color/gray5"
-                app:endIconDrawable="@drawable/password_icon"
                 app:layout_constraintEnd_toEndOf="@id/registerRightGuideLine"
                 app:layout_constraintStart_toStartOf="@id/registerLeftGuideLine"
                 app:layout_constraintTop_toBottomOf="@+id/registerUrlTitleTil"
-                app:placeholderText="@{model.viewState.sampleAuthToken}">
+                app:placeholderText="@{model.viewState.sampleAuthToken}"
+                app:placeholderTextColor="@color/gray5">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/registerTokenEditTextView"

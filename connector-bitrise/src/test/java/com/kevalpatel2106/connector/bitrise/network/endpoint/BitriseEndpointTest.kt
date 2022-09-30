@@ -252,7 +252,10 @@ internal class BitriseEndpointTest {
         server.enqueue(
             MockResponse()
                 .setResponseCode(code)
-                .setHeader(VersionNameInterceptor.API_VERSION_HEADER_KEY, VersionNameInterceptor.BITRISE_API_VERSION)
+                .setHeader(
+                    VersionNameInterceptor.API_VERSION_HEADER_KEY,
+                    VersionNameInterceptor.BITRISE_API_VERSION,
+                )
                 .apply { response?.let { setBody(it) } },
         )
     }

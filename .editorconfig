@@ -5,6 +5,6 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.{kt,kts}]
-ktlint_disabled_rules = filename,indent
+ktlint_disabled_rules = filename, indent
 ij_kotlin_allow_trailing_comma = true
 ij_kotlin_allow_trailing_comma_on_call_site = true

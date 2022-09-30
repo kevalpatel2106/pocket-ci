@@ -5,11 +5,11 @@ import androidx.paging.RemoteMediator
 import androidx.paging.RemoteMediator.MediatorResult
 import androidx.paging.RemoteMediator.MediatorResult.Success
 import com.flextrade.kfixture.KFixture
+import com.kevalpatel2106.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.connector.ci.CIConnector
 import com.kevalpatel2106.coreTest.getAccountIdFixture
 import com.kevalpatel2106.coreTest.getProjectFixture
 import com.kevalpatel2106.entity.PagedData
-import com.kevalpatel2106.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import com.kevalpatel2106.repositoryImpl.getAccountDtoFixture
 import com.kevalpatel2106.repositoryImpl.getPagingStateFixture

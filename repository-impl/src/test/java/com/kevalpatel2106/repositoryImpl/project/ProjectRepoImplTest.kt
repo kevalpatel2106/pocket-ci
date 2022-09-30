@@ -1,11 +1,11 @@
 package com.kevalpatel2106.repositoryImpl.project
 
 import com.flextrade.kfixture.KFixture
+import com.kevalpatel2106.cache.db.projectLocalDataTable.ProjectLocalDataDao
+import com.kevalpatel2106.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.coreTest.getAccountIdFixture
 import com.kevalpatel2106.coreTest.getProjectFixture
 import com.kevalpatel2106.coreTest.getProjectIdFixture
-import com.kevalpatel2106.cache.db.projectLocalDataTable.ProjectLocalDataDao
-import com.kevalpatel2106.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.getProjectWithLocalDataDtoFixture
 import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectWithLocalDataMapper
 import kotlinx.coroutines.test.runTest

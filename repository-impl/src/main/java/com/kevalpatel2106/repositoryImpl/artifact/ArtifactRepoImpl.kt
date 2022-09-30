@@ -2,6 +2,8 @@ package com.kevalpatel2106.repositoryImpl.artifact
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import com.kevalpatel2106.cache.db.accountTable.AccountDao
+import com.kevalpatel2106.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.entity.ArtifactDownloadData
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.entity.id.ArtifactId
@@ -9,8 +11,6 @@ import com.kevalpatel2106.entity.id.BuildId
 import com.kevalpatel2106.entity.id.ProjectId
 import com.kevalpatel2106.repository.ArtifactRepo
 import com.kevalpatel2106.repositoryImpl.account.usecase.AccountBasicMapper
-import com.kevalpatel2106.cache.db.accountTable.AccountDao
-import com.kevalpatel2106.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import com.kevalpatel2106.repositoryImpl.project.usecase.ProjectBasicMapper
 import kotlinx.coroutines.flow.flatMapLatest

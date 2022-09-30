@@ -6,10 +6,10 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.security.crypto.MasterKeys
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.kevalpatel2106.repository.di.IsDebug
 import com.kevalpatel2106.cache.db.AppDb
 import com.kevalpatel2106.cache.remoteConfig.usecase.GetFirebaseRemoteConfigSettings
 import com.kevalpatel2106.cache.sharedPrefs.SharedPrefFactory
+import com.kevalpatel2106.repository.di.IsDebug
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -80,46 +80,50 @@ internal class ProjectListViewModelTest {
         }
 
     @Test
-    fun `given project is already pined when toggle pin called to pin project then verify nothing happens`() = runTest {
-        val project = getProjectFixture(kFixture).copy(isPinned = true)
-        val isChecked = true
+    fun `given project is already pined when toggle pin called to pin project then verify nothing happens`() =
+        runTest {
+            val project = getProjectFixture(kFixture).copy(isPinned = true)
+            val isChecked = true
 
-        subject.togglePin(project, isChecked)
-        advanceUntilIdle()
+            subject.togglePin(project, isChecked)
+            advanceUntilIdle()
 
-        verify(projectRepo, never()).unpinProject(project.remoteId, project.accountId)
-    }
-
-    @Test
-    fun `given project is pined when toggle pin called to unpin project then verify project unpinned`() = runTest {
-        val project = getProjectFixture(kFixture).copy(isPinned = true)
-        val isChecked = false
-
-        subject.togglePin(project, isChecked)
-        advanceUntilIdle()
-
-        verify(projectRepo).unpinProject(project.remoteId, project.accountId)
-    }
+            verify(projectRepo, never()).unpinProject(project.remoteId, project.accountId)
+        }
 
     @Test
-    fun `given project is not pined when toggle pin called to unpin project then verify nothing happens`() = runTest {
-        val project = getProjectFixture(kFixture).copy(isPinned = false)
-        val isChecked = false
+    fun `given project is pined when toggle pin called to unpin project then verify project unpinned`() =
+        runTest {
+            val project = getProjectFixture(kFixture).copy(isPinned = true)
+            val isChecked = false
 
-        subject.togglePin(project, isChecked)
-        advanceUntilIdle()
+            subject.togglePin(project, isChecked)
+            advanceUntilIdle()
 
-        verify(projectRepo, never()).pinProject(project.remoteId, project.accountId)
-    }
+            verify(projectRepo).unpinProject(project.remoteId, project.accountId)
+        }
 
     @Test
-    fun `given project is not pined when toggle pin called to pin project then verify nothing happens`() = runTest {
-        val project = getProjectFixture(kFixture).copy(isPinned = false)
-        val isChecked = true
+    fun `given project is not pined when toggle pin called to unpin project then verify nothing happens`() =
+        runTest {
+            val project = getProjectFixture(kFixture).copy(isPinned = false)
+            val isChecked = false
 
-        subject.togglePin(project, isChecked)
-        advanceUntilIdle()
+            subject.togglePin(project, isChecked)
+            advanceUntilIdle()
 
-        verify(projectRepo).pinProject(project.remoteId, project.accountId)
-    }
+            verify(projectRepo, never()).pinProject(project.remoteId, project.accountId)
+        }
+
+    @Test
+    fun `given project is not pined when toggle pin called to pin project then verify nothing happens`() =
+        runTest {
+            val project = getProjectFixture(kFixture).copy(isPinned = false)
+            val isChecked = true
+
+            subject.togglePin(project, isChecked)
+            advanceUntilIdle()
+
+            verify(projectRepo).pinProject(project.remoteId, project.accountId)
+        }
 }

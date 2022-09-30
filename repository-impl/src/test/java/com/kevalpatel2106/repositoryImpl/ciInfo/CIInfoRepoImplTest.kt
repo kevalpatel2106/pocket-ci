@@ -1,10 +1,10 @@
 package com.kevalpatel2106.repositoryImpl.ciInfo
 
 import com.flextrade.kfixture.KFixture
+import com.kevalpatel2106.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.connector.ci.CIConnector
 import com.kevalpatel2106.entity.CIInfo
 import com.kevalpatel2106.entity.CIType
-import com.kevalpatel2106.cache.db.accountTable.AccountDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import com.kevalpatel2106.repositoryImpl.getAccountBasicDtoFixture
 import kotlinx.coroutines.test.runTest

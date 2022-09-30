@@ -38,7 +38,8 @@ internal class FlipperInitializer : Initializer<Unit> {
         }
     }
 
-    override fun dependencies(): List<Class<out Initializer<*>>> = listOf(TimberInitializer::class.java)
+    override fun dependencies(): List<Class<out Initializer<*>>> =
+        listOf(TimberInitializer::class.java)
 
     @EarlyEntryPoint
     @InstallIn(SingletonComponent::class)

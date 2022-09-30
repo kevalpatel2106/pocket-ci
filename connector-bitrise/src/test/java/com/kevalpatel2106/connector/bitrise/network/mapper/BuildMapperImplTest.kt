@@ -65,13 +65,16 @@ internal class BuildMapperImplTest {
             number = dto.buildNumber,
             finishedAt = date,
             triggeredAt = date,
-            workflow = Workflow(dto.triggeredWorkflowId.toWorkflowIdOrNull(), dto.triggeredWorkflow),
+            workflow = Workflow(
+                dto.triggeredWorkflowId.toWorkflowIdOrNull(),
+                dto.triggeredWorkflow,
+            ),
             status = BuildStatus.FAIL,
             commit = commit,
             headBranch = dto.branch,
             triggeredBy = triggeredBy,
             pullRequest = pr,
-            abortReason = dto.abortReason
+            abortReason = dto.abortReason,
         )
         assertEquals(actual, expected)
     }
@@ -94,13 +97,16 @@ internal class BuildMapperImplTest {
             number = dto.buildNumber,
             finishedAt = null,
             triggeredAt = date,
-            workflow = Workflow(dto.triggeredWorkflowId.toWorkflowIdOrNull(), dto.triggeredWorkflow),
+            workflow = Workflow(
+                dto.triggeredWorkflowId.toWorkflowIdOrNull(),
+                dto.triggeredWorkflow,
+            ),
             status = BuildStatus.PENDING,
             commit = commit,
             headBranch = dto.branch,
             triggeredBy = triggeredBy,
             pullRequest = pr,
-            abortReason = dto.abortReason
+            abortReason = dto.abortReason,
         )
         assertEquals(actual, expected)
     }

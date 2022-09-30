@@ -3,10 +3,10 @@ package com.kevalpatel2106.cache.db.accountTable
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.flextrade.kfixture.KFixture
-import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.cache.getAccountDtoFixture
 import com.kevalpatel2106.cache.getProjectDtoFixture
+import com.kevalpatel2106.entity.id.AccountId
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking

@@ -16,7 +16,7 @@ internal class BitriseProjectInfoProvider @Inject constructor(
     override suspend fun getProjectsUpdatedDesc(
         accountBasic: AccountBasic,
         cursor: String?,
-        limit: Int
+        limit: Int,
     ): PagedData<Project> {
         val response = retrofitClient
             .getBitriseService(baseUrl = accountBasic.baseUrl, token = accountBasic.authToken)

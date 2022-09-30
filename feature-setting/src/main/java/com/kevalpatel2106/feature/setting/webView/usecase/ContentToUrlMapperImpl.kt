@@ -5,7 +5,7 @@ import com.kevalpatel2106.repository.RemoteConfigRepo
 import javax.inject.Inject
 
 class ContentToUrlMapperImpl @Inject constructor(
-    private val remoteConfigRepo: RemoteConfigRepo
+    private val remoteConfigRepo: RemoteConfigRepo,
 ) : ContentToUrlMapper {
 
     override fun invoke(content: WebViewContent) = when (content) {

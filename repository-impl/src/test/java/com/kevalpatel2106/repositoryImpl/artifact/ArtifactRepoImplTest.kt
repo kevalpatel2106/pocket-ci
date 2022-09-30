@@ -2,6 +2,8 @@ package com.kevalpatel2106.repositoryImpl.artifact
 
 import app.cash.turbine.test
 import com.flextrade.kfixture.KFixture
+import com.kevalpatel2106.cache.db.accountTable.AccountDao
+import com.kevalpatel2106.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.connector.ci.CIConnector
 import com.kevalpatel2106.connector.github.network.dto.JobDto
 import com.kevalpatel2106.coreTest.getAccountBasicFixture
@@ -11,8 +13,6 @@ import com.kevalpatel2106.coreTest.getBuildIdFixture
 import com.kevalpatel2106.coreTest.getProjectBasicFixture
 import com.kevalpatel2106.coreTest.getProjectIdFixture
 import com.kevalpatel2106.repositoryImpl.account.usecase.AccountBasicMapper
-import com.kevalpatel2106.cache.db.accountTable.AccountDao
-import com.kevalpatel2106.cache.db.projectTable.ProjectDao
 import com.kevalpatel2106.repositoryImpl.ciConnector.CIConnectorFactory
 import com.kevalpatel2106.repositoryImpl.getAccountBasicDtoFixture
 import com.kevalpatel2106.repositoryImpl.getProjectBasicDtoFixture
