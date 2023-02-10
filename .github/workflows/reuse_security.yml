@@ -1,0 +1,70 @@
+name: Code security check
+
+on:
+  workflow_call:
+
+jobs:
+  dependency-submission:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    name: Gradle dependency submission
+    runs-on: ubuntu-latest
+    permissions: # The Dependency Submission API requires write permission
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Submit dependencies
+        uses: mikepenz/gradle-dependency-submission@v0.8.4
+        with:
+          gradle-build-module: ":app"
+
+  gradle-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: gradle/wrapper-validation-action@v1
+
+  analyze:
+    timeout-minutes: 45
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ "java" ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Caching the gradle wrapper before initialising CodeQL
+      # More on the bug: https://github.com/github/codeql-action/issues/824#issuecomment-977159900
+      - if: matrix.language == 'java'
+        run: ./gradlew --no-daemon clean
+
+      # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+
+      # Autobuild attempts to build any compiled languages  (C/C++, C#, Go, or Java).
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:${{matrix.language}}"
+
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v3
+        with:
+          fail-on-severity: critical

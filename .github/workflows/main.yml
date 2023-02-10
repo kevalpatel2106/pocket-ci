@@ -8,10 +8,6 @@ on:
       - v*
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pull-requests: write
-
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
@@ -20,9 +16,12 @@ jobs:
   quality:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_code_analysis.yml@main
 
+  security:
+    uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_security.yml@main
+
   test:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_test.yml@main
-    needs: [quality]
+    needs: [quality, security]
     secrets:
       AVD_CACHE_VERSION: ${{secrets.AVD_CACHE_VERSION}}
 

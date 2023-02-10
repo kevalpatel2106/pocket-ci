@@ -7,10 +7,6 @@ on:
       - .idea/**
       - LICENSE
 
-permissions:
-  contents: write
-  pull-requests: write
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
@@ -18,6 +14,9 @@ concurrency:
 jobs:
   quality:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_code_analysis.yml@main
+
+  security:
+    uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_security.yml@main
 
   test:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_test.yml@main

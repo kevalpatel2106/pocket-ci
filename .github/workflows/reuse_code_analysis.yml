@@ -4,12 +4,6 @@ on:
   workflow_call:
 
 jobs:
-  gradle-validation:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: gradle/wrapper-validation-action@v1
-
   detekt:
     name: detekt
     runs-on: ubuntu-latest
