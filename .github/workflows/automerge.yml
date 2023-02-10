@@ -23,13 +23,13 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Download workflow artifact
-        uses: dawidd6/action-download-artifact@v2.23.0
+        uses: dawidd6/action-download-artifact@v2.24.3
         with:
           workflow: android_pr.yml
           run_id: ${{ github.event.workflow_run.id }}
       - name: Read the pull_request_url.txt file
         id: pull_request_url_reader
-        uses: juliangruber/read-file-action@v1.1.4
+        uses: juliangruber/read-file-action@v1.1.6
         with:
           path: ./pull_request_url/pull_request_url.txt
       - name: Enable auto-merge for PR
