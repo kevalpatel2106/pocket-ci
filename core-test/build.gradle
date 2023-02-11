@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'de.mannodermaus.android-junit5'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -12,11 +13,11 @@ android {
 dependencies {
     implementation project(":entity")
     implementation "com.flextrade.jfixture:kfixture:0.2.0"
-    implementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
-    implementation 'app.cash.turbine:turbine:0.11.0'
-    implementation 'androidx.test:runner:1.5.1'
+    implementation 'app.cash.turbine:turbine:0.12.1'
+    implementation 'androidx.test:runner:1.5.2'
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "com.squareup.okhttp3:okhttp:4.10.0"
-    implementation 'com.google.dagger:hilt-android-testing:2.44'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.11'
+    implementation 'com.google.dagger:hilt-android-testing:2.45'
 }

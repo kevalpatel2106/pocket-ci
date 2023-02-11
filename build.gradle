@@ -6,17 +6,17 @@ buildscript {
         maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:2.44.2"
-        classpath 'com.google.android.gms:oss-licenses-plugin:0.10.5'
+        classpath 'com.android.tools.build:gradle:7.4.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.45"
+        classpath 'com.google.android.gms:oss-licenses-plugin:0.10.6'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.21.0"
-        classpath 'com.google.gms:google-services:4.3.14'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.2'
+        classpath 'com.google.gms:google-services:4.3.15'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.4'
         classpath 'de.mannodermaus.gradle.plugins:android-junit5:1.8.2.1'
         classpath 'com.dicedmelon.gradle:jacoco-android:0.1.5'
-        classpath 'com.google.firebase:perf-plugin:1.4.1'
+        classpath 'com.google.firebase:perf-plugin:1.4.2'
     }
 }
 
@@ -28,7 +28,7 @@ allprojects {
     apply plugin: "io.gitlab.arturbosch.detekt"
     detekt detektOption
     dependencies {
-        detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.21.0"
+        detektPlugins 'io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0'
     }
 }
 
@@ -109,7 +109,7 @@ subprojects {
         }
 
         dependencies {
-            implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20"
+            implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0"
             implementation 'com.jakewharton.timber:timber:5.0.1'
 
             //Android libs
@@ -159,14 +159,14 @@ subprojects {
             }
 
             // Unit tests
-            testImplementation('org.junit.jupiter:junit-jupiter:5.9.1') { exclude group: 'org.hamcrest' }
-            testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
-            testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.1'
-            testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
+            testImplementation('org.junit.jupiter:junit-jupiter:5.9.2') { exclude group: 'org.hamcrest' }
+            testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+            testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.2'
+            testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
             testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
             testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
             testImplementation "com.flextrade.jfixture:kfixture:0.2.0"
-            testImplementation 'app.cash.turbine:turbine:0.11.0'
+            testImplementation 'app.cash.turbine:turbine:0.12.1'
         }
     }
 }

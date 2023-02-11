@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'de.mannodermaus.android-junit5'
     id 'com.dicedmelon.gradle.jacoco-android'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -22,7 +23,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
 
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.14.1'
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
     kapt 'com.github.bumptech.glide:compiler:4.14.2'
     kaptAndroidTest 'com.github.bumptech.glide:compiler:4.14.2'
 }

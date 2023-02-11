@@ -2,6 +2,9 @@
 # debugging stack traces.
 -keepattributes SourceFile,LineNumberTable
 
+# Auto generated missing rules
+-dontwarn java.lang.invoke.StringConcatFactory
+
 # Setting the build versions for dead code elemination.
 # https://jakewharton.com/digging-into-d8-and-r8/
 -assumevalues class android.os.Build$VERSION {
