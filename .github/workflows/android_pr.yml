@@ -28,6 +28,9 @@ jobs:
 
   house-keeping:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: PR labeler
         uses: actions/labeler@v4
