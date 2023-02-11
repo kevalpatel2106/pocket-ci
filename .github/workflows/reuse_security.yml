@@ -65,7 +65,7 @@ jobs:
   dependency-review:
     name: New dependencies review
     runs-on: ubuntu-latest
-    if: ${{ github.event == 'pull_request' }}
+    if: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v3
       - name: Dependency Review

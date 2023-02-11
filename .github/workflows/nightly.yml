@@ -3,9 +3,7 @@ name: Nightly workflow
 on:
   schedule:
     - cron: "0 0 * * *"
-
-permissions:
-  contents: read
+  workflow_dispatch:
 
 jobs:
   update-gradle-wrapper:
