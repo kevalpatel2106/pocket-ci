@@ -23,7 +23,7 @@ jobs:
           distribution: 'adopt'
           java-version: 11
       - name: Build debug APK
-        uses: gradle/gradle-build-action@v2.3.2
+        uses: gradle/gradle-build-action@v2.3.3
         with:
           arguments: |
             :app:assembleDebug
@@ -44,7 +44,7 @@ jobs:
           distribution: 'adopt'
           java-version: 11
       - name: Build release APK (signed with upload key)
-        uses: gradle/gradle-build-action@v2.3.2
+        uses: gradle/gradle-build-action@v2.3.3
         with:
           arguments: |
             :app:assembleRelease
@@ -85,7 +85,7 @@ jobs:
           distribution: 'adopt'
           java-version: 11
       - name: Build release bundle
-        uses: gradle/gradle-build-action@v2.3.2
+        uses: gradle/gradle-build-action@v2.3.3
         with:
           arguments: |
             :app:bundleRelease
