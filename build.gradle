@@ -128,10 +128,10 @@ subprojects {
 
                 // Hilt
                 implementation 'com.google.dagger:hilt-android:2.44'
-                kapt 'com.google.dagger:hilt-compiler:2.44'
+                kapt 'com.google.dagger:hilt-compiler:2.45'
                 androidTestImplementation 'com.google.dagger:hilt-android-testing:2.44'
-                kaptAndroidTest 'com.google.dagger:hilt-compiler:2.44'
-                kaptTest 'com.google.dagger:hilt-compiler:2.44'
+                kaptAndroidTest 'com.google.dagger:hilt-compiler:2.45'
+                kaptTest 'com.google.dagger:hilt-compiler:2.45'
 
                 // Android lifecycle
                 implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
