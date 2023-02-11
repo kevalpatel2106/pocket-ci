@@ -18,15 +18,15 @@ jobs:
           distribution: 'adopt'
           java-version: 17
       - name: Download AAB
-        uses: actions/download-artifact@v3.0.0
+        uses: actions/download-artifact@v3.0.2
         with:
           name: bundle-release
       - name: Download bundle mapping file
-        uses: actions/download-artifact@v3.0.0
+        uses: actions/download-artifact@v3.0.2
         with:
           name: mapping-bundle-release
       - name: Download Release APK
-        uses: actions/download-artifact@v3.0.0
+        uses: actions/download-artifact@v3.0.2
         with:
           name: apk-release
       - name: Create release for tag
@@ -45,11 +45,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download AAB to upload
-        uses: actions/download-artifact@v3.0.0
+        uses: actions/download-artifact@v3.0.2
         with:
           name: bundle-release
       - name: Download mapping file to upload
-        uses: actions/download-artifact@v3.0.0
+        uses: actions/download-artifact@v3.0.2
         with:
           name: mapping-bundle-release
       - name: Display structure of downloaded files   # For debugging purposes
