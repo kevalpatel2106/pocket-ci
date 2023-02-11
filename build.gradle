@@ -164,7 +164,7 @@ subprojects {
             testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.2'
             testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
             testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
-            testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
+            testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"
             testImplementation "com.flextrade.jfixture:kfixture:0.2.0"
             testImplementation 'app.cash.turbine:turbine:0.12.1'
         }
