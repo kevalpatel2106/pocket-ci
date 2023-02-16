@@ -52,6 +52,6 @@ dependencies {
     implementation "androidx.security:security-crypto:1.0.0"
 
     // Firebase
-    implementation platform('com.google.firebase:firebase-bom:31.2.1')
+    implementation platform('com.google.firebase:firebase-bom:31.2.2')
     implementation 'com.google.firebase:firebase-config'
 }
