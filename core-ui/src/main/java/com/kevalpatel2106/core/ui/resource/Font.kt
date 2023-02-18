@@ -7,7 +7,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
 
-
 private const val GOOGLE_FONTS_AUTHORITY = "com.google.android.gms.fonts"
 private const val GOOGLE_FONTS_PACKAGE = "com.google.android.gms"
 

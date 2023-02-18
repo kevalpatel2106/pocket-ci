@@ -7,13 +7,15 @@ import com.kevalpatel2106.pocketci.bottomDrawer.BottomDrawerVMEvent.OpenSettings
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-internal class BottomDrawerViewModel @Inject constructor() : BaseViewModel<BottomDrawerVMEvent>() {
+internal class BottomDrawerViewModel @Inject constructor() :
+    BaseViewModel<BottomDrawerVMEvent>(),
+    BottomDrawerViewEvents {
 
-    fun onSettingsClicked() {
+    override fun onSettingsClicked() {
         viewModelScope.launch { _vmEventsFlow.emit(OpenSettingsAndClose) }
     }
 
-    fun onAccountsClicked() {
+    override fun onAccountsClicked() {
         viewModelScope.launch { _vmEventsFlow.emit(OpenAccountsAndClose) }
     }
 }
