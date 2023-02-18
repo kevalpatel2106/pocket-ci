@@ -150,7 +150,9 @@ ext {
     kotlinOption = {
         freeCompilerArgs += [
                 "-Xinline-classes",
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi,androidx.paging.ExperimentalPagingApi"
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi,androidx.paging.ExperimentalPagingApi",
+                "-P",
+                "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
         ]
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
@@ -169,12 +171,14 @@ ext {
 
     buildFeaturesOption = {
         dataBinding = true
+        compose true
     }
 
     detektOption = {
         config = files("./detekt-config.yml")
         baseline = file("detekt/baseline.xmk")
         autoCorrect = true
+        buildUponDefaultConfig = true
     }
 
     hiltOptions = {
