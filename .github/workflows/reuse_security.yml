@@ -37,7 +37,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["java"]
+        language: [ "java" ]
 
     steps:
       - uses: actions/checkout@v3

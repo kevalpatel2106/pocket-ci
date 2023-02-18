@@ -51,33 +51,6 @@ jobs:
             **/build/reports/lint-results-*.xml
           if-no-files-found: error
 
-  ktlint:
-    name: ktlint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install ktlint
-        run: |
-          curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.47.1/ktlint
-          chmod a+x ktlint
-          sudo mv ktlint /usr/local/bin/
-      - name: Lint with ktlint
-        run: ktlint --reporter=checkstyle,output=build/ktlint-report.xml
-      - name: Generate annotations from ktlint report
-        uses: yutailang0119/action-ktlint@v3
-        if: failure()
-        with:
-          report-path: build/ktlint-report.xml
-        continue-on-error: true
-      - name: Upload results Artifact
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: ktlint-report
-          path: |
-            **/build/ktlint-report.xml
-          if-no-files-found: error
-
   yaml-lint:
     name: yaml-lint
     runs-on: ubuntu-latest

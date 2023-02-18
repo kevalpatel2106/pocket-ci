@@ -46,7 +46,7 @@ jobs:
   check-run-automerge:
     runs-on: ubuntu-latest
     if: ${{ github.actor == 'dependabot[bot]' }}
-    needs: [quality, test, build]
+    needs: [ quality, test, build ]
     steps:
       - name: Save the PR URL in an artifact to be reused by automerge workflow run
         env:

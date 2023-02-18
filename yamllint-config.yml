@@ -9,3 +9,6 @@ rules:
     level: error
   truthy: disable
   document-start: disable
+  brackets:
+    min-spaces-inside: 1
+    max-spaces-inside: 1

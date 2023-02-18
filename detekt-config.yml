@@ -38,10 +38,10 @@ naming:
     functionPattern: '[a-z][a-zA-Z0-9]*'
     excludeClassPattern: '$^'
     ignoreOverridden: true
-    ignoreAnnotated: [ 'Composable' ] # https://detekt.dev/docs/introduction/compose/
+    ignoreAnnotated: [ 'Composable' ]   # https://detekt.dev/docs/introduction/compose/
   TopLevelPropertyNaming:
     active: true
-    constantPattern: '[A-Z][_A-Za-z0-9]*' # https://detekt.dev/docs/introduction/compose/
+    constantPattern: '[A-Z][_A-Za-z0-9]*'   # https://detekt.dev/docs/introduction/compose/
     propertyPattern: '[A-Za-z][_A-Za-z0-9]*'
     privatePropertyPattern: '_?[A-Za-z][_A-Za-z0-9]*'
 
@@ -71,7 +71,7 @@ style:
       - '1'
       - '2'
     ignoreHashCodeFunction: true
-    ignorePropertyDeclaration: true # https://detekt.dev/docs/introduction/compose/
+    ignorePropertyDeclaration: true   # https://detekt.dev/docs/introduction/compose/
     ignoreLocalVariableDeclaration: false
     ignoreConstantDeclaration: true
     ignoreCompanionObjectPropertyDeclaration: true
@@ -81,7 +81,7 @@ style:
     ignoreRanges: false
     ignoreExtensionFunctions: true
   MaxLineLength:
-    active: false # Handled by ktlint rule MaximumLineLength
+    active: false   # Handled by ktlint rule MaximumLineLength
     maxLineLength: 120
   SpacingBetweenPackageAndImports:
     active: true
@@ -92,7 +92,7 @@ style:
   UnusedPrivateMember:
     active: true
     allowedNames: '(_|ignored|expected|serialVersionUID)'
-    ignoreAnnotated: [ 'Preview', 'ParameterizedTest' ] # https://detekt.dev/docs/introduction/compose/
+    ignoreAnnotated: [ 'Preview', 'ParameterizedTest' ]   # https://detekt.dev/docs/introduction/compose/
 
 complexity:
   TooManyFunctions:
@@ -106,4 +106,4 @@ complexity:
     ignoreDeprecated: false
     ignorePrivate: false
     ignoreOverridden: false
-    ignoreAnnotated: [ 'dagger.Module' ]  # Changed from default
+    ignoreAnnotated: [ 'dagger.Module' ]    # Changed from default

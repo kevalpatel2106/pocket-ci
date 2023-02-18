@@ -42,9 +42,9 @@ jobs:
     strategy:
       fail-fast: false  # Allow tests to continue on other devices if they fail on one device.
       matrix:
-        arch: [x86_64]
-        target: [google_apis]
-        channel: [stable]
+        arch: [ x86_64 ]
+        target: [ google_apis ]
+        channel: [ stable ]
         api-level:
           # - 23 (Unstable)
           - 25
