@@ -10,9 +10,9 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class ViewModelComponentBinding {
+internal interface ViewModelComponentBinding {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindJobItemMapper(impl: JobItemMapperImpl): JobItemMapper
+    fun bindJobItemMapper(impl: JobItemMapperImpl): JobItemMapper
 }

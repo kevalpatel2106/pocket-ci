@@ -14,7 +14,6 @@ import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 import java.net.HttpURLConnection.HTTP_UNAVAILABLE
 import java.net.HttpURLConnection.HTTP_UNSUPPORTED_TYPE
 
-@Suppress("UnusedPrivateMember")
 internal class HttpErrorMessageMapperImplTest {
     private val subject = HttpErrorMessageMapperImpl()
 

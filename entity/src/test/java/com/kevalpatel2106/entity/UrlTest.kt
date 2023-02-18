@@ -11,7 +11,6 @@ import java.net.MalformedURLException
 
 internal class UrlTest {
 
-    @Suppress("UnusedPrivateMember")
     @ParameterizedTest(name = "given url {0} when initialised then check url is valid {1}")
     @MethodSource("provideValuesUrlValidationTest")
     fun `given url when initialised then check url is valid or not`(
@@ -26,7 +25,6 @@ internal class UrlTest {
         }
     }
 
-    @Suppress("UnusedPrivateMember")
     @ParameterizedTest(name = "given string url {0} when converting to url or null then check url {2}")
     @MethodSource("provideValuesUrlValidationTest")
     fun `given string url when converting to url or null then check url`(

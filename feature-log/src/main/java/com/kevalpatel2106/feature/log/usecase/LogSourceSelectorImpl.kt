@@ -32,7 +32,7 @@ internal class LogSourceSelectorImpl @Inject constructor(
             }
             else -> error(
                 "Cannot get build logs for ${ciInfo.type.name} with buildId $buildId and " +
-                        "job ID $jobId. Required field missing or feature not supported.",
+                    "job ID $jobId. Required field missing or feature not supported.",
             )
         }
     }

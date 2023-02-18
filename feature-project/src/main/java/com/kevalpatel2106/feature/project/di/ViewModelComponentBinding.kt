@@ -10,11 +10,9 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class ViewModelComponentBinding {
+internal interface ViewModelComponentBinding {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindInsertProjectListHeaders(
-        impl: InsertProjectListHeadersImpl,
-    ): InsertProjectListHeaders
+    fun bindInsertProjectListHeaders(impl: InsertProjectListHeadersImpl): InsertProjectListHeaders
 }

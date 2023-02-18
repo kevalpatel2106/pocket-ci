@@ -16,21 +16,21 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class ViewModelComponentBinding {
+internal interface ViewModelComponentBinding {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindArtifactIconMapper(impl: ArtifactIconMapperImpl): ArtifactIconMapper
+    fun bindArtifactIconMapper(impl: ArtifactIconMapperImpl): ArtifactIconMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindArtifactSizeConverter(impl: ArtifactSizeConverterImpl): ArtifactSizeConverter
+    fun bindArtifactSizeConverter(impl: ArtifactSizeConverterImpl): ArtifactSizeConverter
 
     @Binds
     @ViewModelScoped
-    abstract fun bindDownloadFileFromUrl(impl: DownloadFileFromUrlImpl): DownloadFileFromUrl
+    fun bindDownloadFileFromUrl(impl: DownloadFileFromUrlImpl): DownloadFileFromUrl
 
     @Binds
     @ViewModelScoped
-    abstract fun bindArtifactItemMapper(impl: ArtifactItemMapperImpl): ArtifactItemMapper
+    fun bindArtifactItemMapper(impl: ArtifactItemMapperImpl): ArtifactItemMapper
 }

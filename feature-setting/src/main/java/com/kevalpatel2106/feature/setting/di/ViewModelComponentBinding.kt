@@ -12,15 +12,15 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class ViewModelComponentBinding {
+internal interface ViewModelComponentBinding {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindConvertPrefValueToNightMode(
+    fun bindConvertPrefValueToNightMode(
         impl: ConvertPrefValueToNightModeImpl,
     ): ConvertPrefValueToNightMode
 
     @Binds
     @ViewModelScoped
-    abstract fun bindContentToUrlMapper(impl: ContentToUrlMapperImpl): ContentToUrlMapper
+    fun bindContentToUrlMapper(impl: ContentToUrlMapperImpl): ContentToUrlMapper
 }

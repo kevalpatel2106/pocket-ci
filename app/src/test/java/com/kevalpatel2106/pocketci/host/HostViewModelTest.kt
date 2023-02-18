@@ -23,7 +23,9 @@ internal class HostViewModelTest {
     private val analyticsRepo = mock<AnalyticsRepo>()
     private val subject by lazy { HostViewModel(analyticsRepo) }
 
-    @ParameterizedTest(name = "given previous destination id {0} and next destination id {1} when on destination changed called check navigation icon is {2}")
+    @ParameterizedTest(
+        name = "given previous destination id {0} and next destination id {1} when on destination changed called check navigation icon is {2}"
+    )
     @MethodSource("provideValuesForNavIconOnNavDestinationChanged")
     fun `given previous and next destination id when on destination changed called check navigation icon`(
         previousDstId: Int?,
@@ -36,7 +38,9 @@ internal class HostViewModelTest {
         assertEquals(expected, subject.viewState.value.navigationIcon)
     }
 
-    @ParameterizedTest(name = "given previous destination id {0} and next destination id {1} when on destination changed called check navigation visibility is {2}")
+    @ParameterizedTest(
+        name = "given previous destination id {0} and next destination id {1} when on destination changed called check navigation visibility is {2}"
+    )
     @MethodSource("provideValuesForVisibilityOfNavIconOnNavDestinationChanged")
     fun `given previous and next destination id when on destination changed called check navigation visibility`(
         previousDstId: Int?,

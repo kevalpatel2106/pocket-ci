@@ -16,8 +16,8 @@ internal class PrepareAppInviteIntentImpl @Inject constructor(
         type = INTENT_TYPE_TEXT
         addFlags(
             Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    or Intent.FLAG_ACTIVITY_NEW_TASK,
+                or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                or Intent.FLAG_ACTIVITY_NEW_TASK,
         )
         putExtra(
             Intent.EXTRA_TEXT,

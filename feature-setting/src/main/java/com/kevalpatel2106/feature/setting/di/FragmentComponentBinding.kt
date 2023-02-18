@@ -12,17 +12,13 @@ import dagger.hilt.android.scopes.FragmentScoped
 
 @Module
 @InstallIn(FragmentComponent::class)
-internal abstract class FragmentComponentBinding {
+internal interface FragmentComponentBinding {
 
     @Binds
     @FragmentScoped
-    abstract fun bindPrepareAppInviteIntent(
-        impl: PrepareAppInviteIntentImpl,
-    ): PrepareAppInviteIntent
+    fun bindPrepareAppInviteIntent(impl: PrepareAppInviteIntentImpl): PrepareAppInviteIntent
 
     @Binds
     @FragmentScoped
-    abstract fun bindPrepareContactUsIntent(
-        impl: PrepareContactUsIntentImpl,
-    ): PrepareContactUsIntent
+    fun bindPrepareContactUsIntent(impl: PrepareContactUsIntentImpl): PrepareContactUsIntent
 }

@@ -28,8 +28,8 @@ internal class LoadStateMapperImpl @Inject constructor() : LoadStateMapper {
 
     private fun LoadStates.isEmptyList(adapter: PagingDataAdapter<*, *>): Boolean {
         return refresh is LoadState.NotLoading &&
-                append.endOfPaginationReached &&
-                adapter.itemCount < 1
+            append.endOfPaginationReached &&
+            adapter.itemCount < 1
     }
 
     private fun CombinedLoadStates.isLoadingFirstPage(): Boolean {

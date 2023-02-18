@@ -12,15 +12,15 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class ViewModelComponentBinding {
+internal interface ViewModelComponentBinding {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindInsertAccountListHeaders(
+    fun bindInsertAccountListHeaders(
         impl: InsertAccountListHeadersImpl,
     ): InsertAccountListHeaders
 
     @Binds
     @ViewModelScoped
-    abstract fun bindAccountItemMapper(impl: AccountItemMapperImpl): AccountItemMapper
+    fun bindAccountItemMapper(impl: AccountItemMapperImpl): AccountItemMapper
 }

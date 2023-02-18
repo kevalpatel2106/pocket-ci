@@ -13,16 +13,14 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal abstract class CoreSingletonBindings {
+internal interface CoreSingletonBindings {
 
     @Binds
-    abstract fun bindDisplayErrorMapper(impl: DisplayErrorMapperImpl): DisplayErrorMapper
+    fun bindDisplayErrorMapper(impl: DisplayErrorMapperImpl): DisplayErrorMapper
 
     @Binds
-    abstract fun bindHttpErrorMessageMapper(
-        impl: HttpErrorMessageMapperImpl,
-    ): HttpErrorMessageMapper
+    fun bindHttpErrorMessageMapper(impl: HttpErrorMessageMapperImpl): HttpErrorMessageMapper
 
     @Binds
-    abstract fun bindLoadStateMapper(impl: LoadStateMapperImpl): LoadStateMapper
+    fun bindLoadStateMapper(impl: LoadStateMapperImpl): LoadStateMapper
 }

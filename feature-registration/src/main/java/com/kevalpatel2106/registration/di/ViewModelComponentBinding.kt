@@ -12,17 +12,13 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class ViewModelComponentBinding {
+internal interface ViewModelComponentBinding {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindSanitiseRegisterInput(
-        impl: SanitiseRegisterInputImpl,
-    ): SanitiseRegisterInput
+    fun bindSanitiseRegisterInput(impl: SanitiseRegisterInputImpl): SanitiseRegisterInput
 
     @Binds
     @ViewModelScoped
-    abstract fun bindValidateRegisterInput(
-        impl: ValidateRegisterInputImpl,
-    ): ValidateRegisterInput
+    fun bindValidateRegisterInput(impl: ValidateRegisterInputImpl): ValidateRegisterInput
 }

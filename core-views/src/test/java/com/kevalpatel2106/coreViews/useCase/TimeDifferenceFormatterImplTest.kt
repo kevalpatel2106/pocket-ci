@@ -35,7 +35,9 @@ internal class TimeDifferenceFormatterImplTest {
     private val subject = TimeDifferenceFormatterImpl(application)
     private val testAppendText = fixture<String>()
 
-    @ParameterizedTest(name = "given difference between start and end date is {0} seconds when invoke less precise then check expected time difference unit is {2} and string resource used is {3}")
+    @ParameterizedTest(
+        name = "given difference between start and end date is {0} seconds when invoke less precise then check expected time difference unit is {2} and string resource used is {3}"
+    )
     @MethodSource("provideValuesForLessPreciseTest")
     fun testLessPrecise(
         differenceSeconds: Long,

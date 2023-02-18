@@ -9,7 +9,9 @@ import org.junit.jupiter.params.provider.MethodSource
 internal class AppConfigRepoImplTest {
     private val fixture = KFixture()
 
-    @ParameterizedTest(name = "given version name {0} when get version code invoked then check version name returned is {0}")
+    @ParameterizedTest(
+        name = "given version name {0} when get version code invoked then check version name returned is {0}"
+    )
     @MethodSource("provideVersionNames")
     fun `given version name when get version code invoked then check version name returned matches`(
         input: String,
@@ -33,7 +35,9 @@ internal class AppConfigRepoImplTest {
         assertEquals(actual, input)
     }
 
-    @ParameterizedTest(name = "given version code {0} when get version code invoked then check version code returned is {0}")
+    @ParameterizedTest(
+        name = "given version code {0} when get version code invoked then check version code returned is {0}"
+    )
     @MethodSource("provideVersionCodes")
     fun `given version code when get version code invoked then check version code returned matches`(
         input: Int,

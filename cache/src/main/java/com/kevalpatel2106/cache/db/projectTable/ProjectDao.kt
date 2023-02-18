@@ -16,32 +16,32 @@ import com.kevalpatel2106.cache.db.projectTable.ProjectTableInfo as PT
 interface ProjectDao {
     @Query(
         "SELECT COUNT(${PT.REMOTE_ID}) FROM ${PT.TABLE_NAME} " +
-                "WHERE ${PT.REMOTE_ID} = :remoteId AND ${PT.ACCOUNT_ID} = :accountId",
+            "WHERE ${PT.REMOTE_ID} = :remoteId AND ${PT.ACCOUNT_ID} = :accountId",
     )
     suspend fun getCount(remoteId: String, accountId: Long): Int
 
     @Query(
         "SELECT * FROM ${PT.TABLE_NAME} as $PROJECT " +
-                "LEFT JOIN ${PLT.TABLE_NAME} as $LOCAL_DATA " +
-                "ON $LOCAL_DATA.${PLT.REMOTE_ID} = $PROJECT.${PT.REMOTE_ID} " +
-                "AND $LOCAL_DATA.${PLT.ACCOUNT_ID} = $PROJECT.${PT.ACCOUNT_ID} " +
-                "WHERE $PROJECT.${PT.REMOTE_ID} = :remoteId AND $PROJECT.${PT.ACCOUNT_ID} = :accountId",
+            "LEFT JOIN ${PLT.TABLE_NAME} as $LOCAL_DATA " +
+            "ON $LOCAL_DATA.${PLT.REMOTE_ID} = $PROJECT.${PT.REMOTE_ID} " +
+            "AND $LOCAL_DATA.${PLT.ACCOUNT_ID} = $PROJECT.${PT.ACCOUNT_ID} " +
+            "WHERE $PROJECT.${PT.REMOTE_ID} = :remoteId AND $PROJECT.${PT.ACCOUNT_ID} = :accountId",
     )
     suspend fun getProject(remoteId: String, accountId: Long): ProjectWithLocalDataDto
 
     @Query(
         "SELECT * FROM ${PT.TABLE_NAME} " +
-                "WHERE ${PT.REMOTE_ID} = :remoteId AND ${PT.ACCOUNT_ID} = :accountId",
+            "WHERE ${PT.REMOTE_ID} = :remoteId AND ${PT.ACCOUNT_ID} = :accountId",
     )
     suspend fun getProjectBasic(remoteId: String, accountId: Long): ProjectBasicDto
 
     @Query(
         "SELECT * FROM ${PT.TABLE_NAME} as $PROJECT " +
-                "LEFT JOIN (SELECT * FROM ${PLT.TABLE_NAME} WHERE ${PLT.IS_PINNED} = 1) as $LOCAL_DATA " +
-                "ON $LOCAL_DATA.${PLT.REMOTE_ID} = $PROJECT.${PT.REMOTE_ID} " +
-                "AND $LOCAL_DATA.${PLT.ACCOUNT_ID} = $PROJECT.${PT.ACCOUNT_ID} " +
-                "WHERE $PROJECT.${PT.ACCOUNT_ID} = :accountId " +
-                "ORDER BY $LOCAL_DATA.${PLT.IS_PINNED} DESC, $PROJECT.${PT.UPDATED_AT} DESC",
+            "LEFT JOIN (SELECT * FROM ${PLT.TABLE_NAME} WHERE ${PLT.IS_PINNED} = 1) as $LOCAL_DATA " +
+            "ON $LOCAL_DATA.${PLT.REMOTE_ID} = $PROJECT.${PT.REMOTE_ID} " +
+            "AND $LOCAL_DATA.${PLT.ACCOUNT_ID} = $PROJECT.${PT.ACCOUNT_ID} " +
+            "WHERE $PROJECT.${PT.ACCOUNT_ID} = :accountId " +
+            "ORDER BY $LOCAL_DATA.${PLT.IS_PINNED} DESC, $PROJECT.${PT.UPDATED_AT} DESC",
     )
     fun getProjectsUpdatedDesc(accountId: Long): PagingSource<Int, ProjectWithLocalDataDto>
 

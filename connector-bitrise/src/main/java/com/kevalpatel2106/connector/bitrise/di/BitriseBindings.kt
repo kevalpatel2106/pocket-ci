@@ -37,62 +37,60 @@ import dagger.multibindings.IntoMap
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class BitriseBindings {
+internal interface BitriseBindings {
 
     @IntoMap
     @Binds
     @CIConnectorBindingKey(CIType.BITRISE)
-    abstract fun bindCIConnector(impl: BitriseConnector): CIConnector
+    fun bindCIConnector(impl: BitriseConnector): CIConnector
 
     @Binds
     @ViewModelScoped
-    abstract fun bindConvertProjectsWithLastUpdateTime(
+    fun bindConvertProjectsWithLastUpdateTime(
         impl: ConvertProjectsWithLastUpdateTimeImpl,
     ): ConvertProjectsWithLastUpdateTime
 
     @Binds
     @ViewModelScoped
-    abstract fun bindBitriseRetrofitClient(impl: BitriseRetrofitClientImpl): BitriseRetrofitClient
+    fun bindBitriseRetrofitClient(impl: BitriseRetrofitClientImpl): BitriseRetrofitClient
 
     @Binds
     @ViewModelScoped
-    abstract fun bindBuildStatusMapper(impl: BuildStatusMapperImpl): BuildStatusMapper
+    fun bindBuildStatusMapper(impl: BuildStatusMapperImpl): BuildStatusMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindBuildMapper(impl: BuildMapperImpl): BuildMapper
+    fun bindBuildMapper(impl: BuildMapperImpl): BuildMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindProjectMapper(impl: ProjectMapperImpl): ProjectMapper
+    fun bindProjectMapper(impl: ProjectMapperImpl): ProjectMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindAccountMapper(impl: AccountMapperImpl): AccountMapper
+    fun bindAccountMapper(impl: AccountMapperImpl): AccountMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindIsoDateMapper(impl: IsoDateMapperImpl): IsoDateMapper
+    fun bindIsoDateMapper(impl: IsoDateMapperImpl): IsoDateMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindSanitizeTriggeredBy(impl: SanitizeTriggeredByImpl): SanitizeTriggeredBy
+    fun bindSanitizeTriggeredBy(impl: SanitizeTriggeredByImpl): SanitizeTriggeredBy
 
     @Binds
     @ViewModelScoped
-    abstract fun bindCommitMapper(impl: CommitMapperImpl): CommitMapper
+    fun bindCommitMapper(impl: CommitMapperImpl): CommitMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindPullRequestMapper(impl: PullRequestMapperImpl): PullRequestMapper
+    fun bindPullRequestMapper(impl: PullRequestMapperImpl): PullRequestMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindArtifactListItemMapper(
-        impl: ArtifactListItemMapperImpl,
-    ): ArtifactListItemMapper
+    fun bindArtifactListItemMapper(impl: ArtifactListItemMapperImpl): ArtifactListItemMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindArtifactTypeMapper(impl: ArtifactTypeMapperImpl): ArtifactTypeMapper
+    fun bindArtifactTypeMapper(impl: ArtifactTypeMapperImpl): ArtifactTypeMapper
 }

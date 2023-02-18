@@ -9,7 +9,6 @@ import org.junit.jupiter.params.provider.MethodSource
 
 internal class WebViewContentTest {
 
-    @Suppress("UnusedPrivateMember")
     @ParameterizedTest(name = "check title resource for {0} is {1}")
     @MethodSource("provideValues")
     fun `check title resource`(content: WebViewContent, @StringRes titleRes: Int) {

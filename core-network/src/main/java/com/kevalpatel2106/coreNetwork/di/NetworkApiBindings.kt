@@ -13,14 +13,14 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal abstract class NetworkApiBindings {
+internal interface NetworkApiBindings {
 
     @Binds
-    abstract fun bindFlavouredInterceptors(impl: FlavouredInterceptorImpl): FlavouredInterceptor
+    fun bindFlavouredInterceptors(impl: FlavouredInterceptorImpl): FlavouredInterceptor
 
     @Binds
-    abstract fun bindOkHttpClientFactory(impl: OkHttpClientFactoryImpl): OkHttpClientFactory
+    fun bindOkHttpClientFactory(impl: OkHttpClientFactoryImpl): OkHttpClientFactory
 
     @Binds
-    abstract fun bindIsNetworkConnected(impl: IsNetworkConnectedCheckImpl): IsNetworkConnectedCheck
+    fun bindIsNetworkConnected(impl: IsNetworkConnectedCheckImpl): IsNetworkConnectedCheck
 }

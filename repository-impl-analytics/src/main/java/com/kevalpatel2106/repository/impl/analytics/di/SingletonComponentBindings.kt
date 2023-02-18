@@ -17,26 +17,22 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal abstract class SingletonComponentBindings {
+internal interface SingletonComponentBindings {
 
     @Binds
-    abstract fun bindAnalyticsRepo(impl: AnalyticsRepoImpl): AnalyticsRepo
+    fun bindAnalyticsRepo(impl: AnalyticsRepoImpl): AnalyticsRepo
 
     @Binds
-    abstract fun bindFirebaseAuthenticateUser(
+    fun bindFirebaseAuthenticateUser(
         impl: FirebaseUserAuthenticationProvider,
     ): UserAuthenticationProvider
 
     @Binds
-    abstract fun bindAnalyticsProvider(impl: FirebaseAnalyticsProvider): AnalyticsProvider
+    fun bindAnalyticsProvider(impl: FirebaseAnalyticsProvider): AnalyticsProvider
 
     @Binds
-    abstract fun bindCrashReporterProvider(
-        impl: FirebaseCrashReporterProvider,
-    ): CrashReporterProvider
+    fun bindCrashReporterProvider(impl: FirebaseCrashReporterProvider): CrashReporterProvider
 
     @Binds
-    abstract fun bindShouldAuthenticateUser(
-        impl: ShouldAuthenticateUserImpl,
-    ): ShouldAuthenticateUser
+    fun bindShouldAuthenticateUser(impl: ShouldAuthenticateUserImpl): ShouldAuthenticateUser
 }

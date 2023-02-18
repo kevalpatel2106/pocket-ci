@@ -10,9 +10,9 @@ import dagger.hilt.android.scopes.ActivityScoped
 
 @Module
 @InstallIn(ActivityComponent::class)
-internal abstract class ActivityComponentBinding {
+internal interface ActivityComponentBinding {
 
     @Binds
     @ActivityScoped
-    abstract fun bindHandleHostVMEvents(impl: HandleHostVMEventsImpl): HandleHostVMEvents
+    fun bindHandleHostVMEvents(impl: HandleHostVMEventsImpl): HandleHostVMEvents
 }

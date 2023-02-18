@@ -12,15 +12,15 @@ import dagger.hilt.android.scopes.FragmentScoped
 
 @Module
 @InstallIn(FragmentComponent::class)
-internal abstract class FragmentComponentBinding {
+internal interface FragmentComponentBinding {
 
     @Binds
     @FragmentScoped
-    abstract fun bindHandleSplashVMEvents(impl: HandleSplashVMEventsImpl): HandleSplashVMEvents
+    fun bindHandleSplashVMEvents(impl: HandleSplashVMEventsImpl): HandleSplashVMEvents
 
     @Binds
     @FragmentScoped
-    abstract fun bindHandleBottomDrawerVMEvents(
+    fun bindHandleBottomDrawerVMEvents(
         impl: HandleBottomDrawerVMEventsImpl,
     ): HandleBottomDrawerVMEvents
 }

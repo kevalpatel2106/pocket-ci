@@ -41,7 +41,7 @@ internal class BuildDetailViewModel @Inject constructor(
                         hideBuildLogButton = !ciInfo.supportBuildLevelLogs,
                         hideJobsListButton = !ciInfo.supportJobs,
                         hideArtifactsButton = build.status.isInProgress() ||
-                                !ciInfo.supportViewArtifacts,
+                            !ciInfo.supportViewArtifacts,
                     )
                 }
             }.onFailure { error ->

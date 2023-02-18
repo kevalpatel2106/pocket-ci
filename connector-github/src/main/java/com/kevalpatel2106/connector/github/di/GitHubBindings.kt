@@ -39,66 +39,62 @@ import dagger.multibindings.IntoMap
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class GitHubBindings {
+internal interface GitHubBindings {
 
     @IntoMap
     @Binds
     @CIConnectorBindingKey(CIType.GITHUB)
-    abstract fun bindCIConnector(impl: GitHubConnector): CIConnector
+    fun bindCIConnector(impl: GitHubConnector): CIConnector
 
     @Binds
     @ViewModelScoped
-    abstract fun bindAccountMapper(impl: AccountMapperImpl): AccountMapper
+    fun bindAccountMapper(impl: AccountMapperImpl): AccountMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindGitHubRetrofitClient(impl: GitHubRetrofitClientImpl): GitHubRetrofitClient
+    fun bindGitHubRetrofitClient(impl: GitHubRetrofitClientImpl): GitHubRetrofitClient
 
     @Binds
     @ViewModelScoped
-    abstract fun bindProjectMapper(impl: ProjectMapperImpl): ProjectMapper
+    fun bindProjectMapper(impl: ProjectMapperImpl): ProjectMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindBuildStatusMapper(impl: BuildStatusMapperImpl): BuildStatusMapper
+    fun bindBuildStatusMapper(impl: BuildStatusMapperImpl): BuildStatusMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindBuildMapper(impl: BuildMapperImpl): BuildMapper
+    fun bindBuildMapper(impl: BuildMapperImpl): BuildMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindCommitMapper(impl: CommitMapperImpl): CommitMapper
+    fun bindCommitMapper(impl: CommitMapperImpl): CommitMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindIsoDateMapper(impl: IsoDateMapperImpl): IsoDateMapper
+    fun bindIsoDateMapper(impl: IsoDateMapperImpl): IsoDateMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindPullRequestMapper(impl: PullRequestMapperImpl): PullRequestMapper
+    fun bindPullRequestMapper(impl: PullRequestMapperImpl): PullRequestMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindJobMapper(impl: JobMapperImpl): JobMapper
+    fun bindJobMapper(impl: JobMapperImpl): JobMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindStepMapper(impl: StepMapperImpl): StepMapper
+    fun bindStepMapper(impl: StepMapperImpl): StepMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindArtifactListItemMapper(
-        impl: ArtifactListItemMapperImpl,
-    ): ArtifactListItemMapper
+    fun bindArtifactListItemMapper(impl: ArtifactListItemMapperImpl): ArtifactListItemMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindArtifactTypeMapper(impl: ArtifactTypeMapperImpl): ArtifactTypeMapper
+    fun bindArtifactTypeMapper(impl: ArtifactTypeMapperImpl): ArtifactTypeMapper
 
     @Binds
     @ViewModelScoped
-    abstract fun bindTokenHeaderValueBuilder(
-        impl: TokenHeaderValueBuilderImpl,
-    ): TokenHeaderValueBuilder
+    fun bindTokenHeaderValueBuilder(impl: TokenHeaderValueBuilderImpl): TokenHeaderValueBuilder
 }

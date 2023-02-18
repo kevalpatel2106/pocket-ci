@@ -14,17 +14,17 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal abstract class CacheSingletonComponentBinding {
+internal interface CacheSingletonComponentBinding {
 
     @Singleton
     @Binds
-    abstract fun bindGetFirebaseRemoteConfigSettings(
+    fun bindGetFirebaseRemoteConfigSettings(
         impl: GetFirebaseRemoteConfigSettingsImpl,
     ): GetFirebaseRemoteConfigSettings
 
     @Binds
-    abstract fun bindAppDataStore(dataStore: AppDataStoreImpl): AppDataStore
+    fun bindAppDataStore(dataStore: AppDataStoreImpl): AppDataStore
 
     @Binds
-    abstract fun bindAppRemoteConfig(impl: FirebaseRemoteConfigCache): RemoteConfigCache
+    fun bindAppRemoteConfig(impl: FirebaseRemoteConfigCache): RemoteConfigCache
 }

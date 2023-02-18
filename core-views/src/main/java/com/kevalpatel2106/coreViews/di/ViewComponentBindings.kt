@@ -17,26 +17,20 @@ import dagger.hilt.android.components.ViewComponent
 
 @Module
 @InstallIn(ViewComponent::class)
-internal abstract class ViewComponentBindings {
+internal interface ViewComponentBindings {
 
     @Binds
-    abstract fun bindCalculateTickInterval(impl: CalculateTickIntervalImpl): CalculateTickInterval
+    fun bindCalculateTickInterval(impl: CalculateTickIntervalImpl): CalculateTickInterval
 
     @Binds
-    abstract fun bindTimeDifferenceFormatter(
-        impl: TimeDifferenceFormatterImpl,
-    ): TimeDifferenceFormatter
+    fun bindTimeDifferenceFormatter(impl: TimeDifferenceFormatterImpl): TimeDifferenceFormatter
 
     @Binds
-    abstract fun bindLiveTimeDifferenceTicker(
-        impl: LiveTimeDifferenceTickerImpl,
-    ): LiveTimeDifferenceTicker
+    fun bindLiveTimeDifferenceTicker(impl: LiveTimeDifferenceTickerImpl): LiveTimeDifferenceTicker
 
     @Binds
-    abstract fun bindGetBuildStatusImage(impl: GetBuildStatusImageImpl): GetBuildStatusImage
+    fun bindGetBuildStatusImage(impl: GetBuildStatusImageImpl): GetBuildStatusImage
 
     @Binds
-    abstract fun bindGetBuildStatusImageTint(
-        impl: GetBuildStatusImageTintImpl,
-    ): GetBuildStatusImageTint
+    fun bindGetBuildStatusImageTint(impl: GetBuildStatusImageTintImpl): GetBuildStatusImageTint
 }

@@ -14,17 +14,17 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class ViewModelComponentBinding {
+internal interface ViewModelComponentBinding {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindCalculateTextScale(impl: CalculateTextScaleImpl): CalculateTextScale
+    fun bindCalculateTextScale(impl: CalculateTextScaleImpl): CalculateTextScale
 
     @Binds
     @ViewModelScoped
-    abstract fun bindDownloadLog(impl: LogSourceSelectorImpl): LogSourceSelector
+    fun bindDownloadLog(impl: LogSourceSelectorImpl): LogSourceSelector
 
     @Binds
     @ViewModelScoped
-    abstract fun bindConvertToPaddedLogs(impl: ConvertToPaddedLogsImpl): ConvertToPaddedLogs
+    fun bindConvertToPaddedLogs(impl: ConvertToPaddedLogsImpl): ConvertToPaddedLogs
 }

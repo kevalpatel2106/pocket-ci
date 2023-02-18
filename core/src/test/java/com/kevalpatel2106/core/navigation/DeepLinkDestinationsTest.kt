@@ -17,7 +17,6 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-@Suppress("UnusedPrivateMember")
 internal class DeepLinkDestinationsTest {
 
     @ParameterizedTest(name = "check {0} destination value is {1}")

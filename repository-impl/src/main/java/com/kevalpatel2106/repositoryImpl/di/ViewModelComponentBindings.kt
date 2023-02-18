@@ -43,59 +43,59 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class ViewModelComponentBindings {
+internal interface ViewModelComponentBindings {
 
     @Binds
-    abstract fun bindCIRepoFactory(factory: CIConnectorFactoryImpl): CIConnectorFactory
+    fun bindCIRepoFactory(factory: CIConnectorFactoryImpl): CIConnectorFactory
 
     @Binds
-    abstract fun bindAccountRepo(impl: AccountRepoImpl): AccountRepo
+    fun bindAccountRepo(impl: AccountRepoImpl): AccountRepo
 
     @Binds
-    abstract fun bindCISelectionRepo(impl: CIInfoRepoImpl): CIInfoRepo
+    fun bindCISelectionRepo(impl: CIInfoRepoImpl): CIInfoRepo
 
     @Binds
-    abstract fun bindProjectRepo(impl: ProjectRepoImpl): ProjectRepo
+    fun bindProjectRepo(impl: ProjectRepoImpl): ProjectRepo
 
     @Binds
-    abstract fun bindSettingsRepo(impl: SettingsRepoImpl): SettingsRepo
+    fun bindSettingsRepo(impl: SettingsRepoImpl): SettingsRepo
 
     @Binds
-    abstract fun bindBuildInfoRepo(impl: AppConfigRepoImpl): AppConfigRepo
+    fun bindBuildInfoRepo(impl: AppConfigRepoImpl): AppConfigRepo
 
     @Binds
-    abstract fun bindProjectMapper(impl: ProjectWithLocalDataMapperImpl): ProjectWithLocalDataMapper
+    fun bindProjectMapper(impl: ProjectWithLocalDataMapperImpl): ProjectWithLocalDataMapper
 
     @Binds
-    abstract fun bindProjectDtoMapper(impl: ProjectDtoMapperImpl): ProjectDtoMapper
+    fun bindProjectDtoMapper(impl: ProjectDtoMapperImpl): ProjectDtoMapper
 
     @Binds
-    abstract fun bindAccountMapper(impl: AccountMapperImpl): AccountMapper
+    fun bindAccountMapper(impl: AccountMapperImpl): AccountMapper
 
     @Binds
-    abstract fun bindSaveProjectsToCache(impl: SaveProjectsToCacheImpl): SaveProjectsToCache
+    fun bindSaveProjectsToCache(impl: SaveProjectsToCacheImpl): SaveProjectsToCache
 
     @Binds
-    abstract fun bindIsProjectCacheExpired(impl: IsProjectCacheExpiredImpl): IsProjectCacheExpired
+    fun bindIsProjectCacheExpired(impl: IsProjectCacheExpiredImpl): IsProjectCacheExpired
 
     @Binds
-    abstract fun bindBuildRepo(impl: BuildRepoImpl): BuildRepo
+    fun bindBuildRepo(impl: BuildRepoImpl): BuildRepo
 
     @Binds
-    abstract fun bindJobRepo(impl: JobRepoImpl): JobRepo
+    fun bindJobRepo(impl: JobRepoImpl): JobRepo
 
     @Binds
-    abstract fun bindArtifactRepo(impl: ArtifactRepoImpl): ArtifactRepo
+    fun bindArtifactRepo(impl: ArtifactRepoImpl): ArtifactRepo
 
     @Binds
-    abstract fun bindProjectBasicMapper(impl: ProjectBasicMapperImpl): ProjectBasicMapper
+    fun bindProjectBasicMapper(impl: ProjectBasicMapperImpl): ProjectBasicMapper
 
     @Binds
-    abstract fun bindAccountBasicMapper(impl: AccountBasicMapperImpl): AccountBasicMapper
+    fun bindAccountBasicMapper(impl: AccountBasicMapperImpl): AccountBasicMapper
 
     @Binds
-    abstract fun bindAccountDtoMapper(impl: AccountDtoMapperImpl): AccountDtoMapper
+    fun bindAccountDtoMapper(impl: AccountDtoMapperImpl): AccountDtoMapper
 
     @Binds
-    abstract fun bindRemoteConfigRepo(impl: RemoteConfigRepoImpl): RemoteConfigRepo
+    fun bindRemoteConfigRepo(impl: RemoteConfigRepoImpl): RemoteConfigRepo
 }

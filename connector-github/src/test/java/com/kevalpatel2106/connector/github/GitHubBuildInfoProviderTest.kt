@@ -42,7 +42,9 @@ internal class GitHubBuildInfoProviderTest {
     private val subject = GitHubBuildInfoProvider(retrofitClient, buildMapper)
 
     // region getBuildsByCreatedDesc
-    @ParameterizedTest(name = "given cursor {0} when builds page api call made then verify api call parameters with page number {1}")
+    @ParameterizedTest(
+        name = "given cursor {0} when builds page api call made then verify api call parameters with page number {1}"
+    )
     @MethodSource("provideValuesForApiParameterTest")
     fun `given cursor when builds page api call made then verify api call parameters`(
         inputCursor: String?,
@@ -62,7 +64,9 @@ internal class GitHubBuildInfoProviderTest {
         )
     }
 
-    @ParameterizedTest(name = "given current cursor {0} and response build list when builds page api call made then verify next page cursor {2}")
+    @ParameterizedTest(
+        name = "given current cursor {0} and response build list when builds page api call made then verify next page cursor {2}"
+    )
     @MethodSource("provideValuesForNextCursorTest")
     fun `given current cursor and response build list when builds page api call made then verify next page cursor`(
         currentCursor: String?,

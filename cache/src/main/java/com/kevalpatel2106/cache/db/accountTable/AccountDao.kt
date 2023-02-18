@@ -12,13 +12,13 @@ import androidx.room.Query
 interface AccountDao {
     @Query(
         "SELECT COUNT(${AccountTableInfo.ID}) FROM ${AccountTableInfo.TABLE_NAME} " +
-                "WHERE ${AccountTableInfo.ID} = :accountId",
+            "WHERE ${AccountTableInfo.ID} = :accountId",
     )
     suspend fun getCount(accountId: Long): Int
 
     @Query(
         "SELECT COUNT(${AccountTableInfo.ID}) FROM ${AccountTableInfo.TABLE_NAME} " +
-                "WHERE ${AccountTableInfo.BASE_URL} = :url AND ${AccountTableInfo.AUTH_TOKEN} = :token",
+            "WHERE ${AccountTableInfo.BASE_URL} = :url AND ${AccountTableInfo.AUTH_TOKEN} = :token",
     )
     suspend fun getCount(url: String, token: String): Int
 
@@ -36,7 +36,7 @@ interface AccountDao {
 
     @Query(
         "SELECT * FROM ${AccountTableInfo.TABLE_NAME} " +
-                "ORDER BY ${AccountTableInfo.ID} ASC LIMIT 1",
+            "ORDER BY ${AccountTableInfo.ID} ASC LIMIT 1",
     )
     suspend fun getFirstAccount(): AccountDto?
 
@@ -45,21 +45,21 @@ interface AccountDao {
 
     @Query(
         "UPDATE ${AccountTableInfo.TABLE_NAME} " +
-                "SET ${AccountTableInfo.NEXT_PAGE_CURSOR} = :cursor " +
-                "WHERE ${AccountTableInfo.ID} = :accountId",
+            "SET ${AccountTableInfo.NEXT_PAGE_CURSOR} = :cursor " +
+            "WHERE ${AccountTableInfo.ID} = :accountId",
     )
     suspend fun updateNextPageCursor(accountId: Long, cursor: String?)
 
     @Query(
         "SELECT ${AccountTableInfo.LAST_PROJECT_REFRESH} FROM ${AccountTableInfo.TABLE_NAME} " +
-                "WHERE ${AccountTableInfo.ID} = :accountId LIMIT 1",
+            "WHERE ${AccountTableInfo.ID} = :accountId LIMIT 1",
     )
     suspend fun getLastProjectRefreshEpoch(accountId: Long): Long
 
     @Query(
         "UPDATE ${AccountTableInfo.TABLE_NAME} " +
-                "SET ${AccountTableInfo.LAST_PROJECT_REFRESH} = :epoch " +
-                "WHERE ${AccountTableInfo.ID} = :accountId",
+            "SET ${AccountTableInfo.LAST_PROJECT_REFRESH} = :epoch " +
+            "WHERE ${AccountTableInfo.ID} = :accountId",
     )
     suspend fun updateLastProjectRefreshEpoch(accountId: Long, epoch: Long)
 

@@ -17,7 +17,9 @@ internal class CalculateTickIntervalImplTest {
     private val fixture = KFixture()
     private val subject = CalculateTickIntervalImpl()
 
-    @ParameterizedTest(name = "given past date {0} and showing precise time {1} when invoke then verify expected tick interval is {3}")
+    @ParameterizedTest(
+        name = "given past date {0} and showing precise time {1} when invoke then verify expected tick interval is {3}"
+    )
     @MethodSource("provideValues")
     fun `given past date and showing precise time when invoke then verify expected tick interval`(
         now: Date,
