@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_registration"
     app:startDestination="@id/ciSelection">
     <fragment
         android:id="@+id/register"
         android:name="com.kevalpatel2106.registration.register.RegisterFragment"
-        android:label="@string/title_ci_register_screen"
-        tools:layout="@layout/fragment_register">
+        android:label="@string/title_ci_register_screen">
         <argument
             android:name="selectedCI"
             app:argType="com.kevalpatel2106.entity.CIInfo"

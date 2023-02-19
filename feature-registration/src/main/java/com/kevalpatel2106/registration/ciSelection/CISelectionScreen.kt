@@ -70,7 +70,7 @@ internal fun CISelectionScreen(
 }
 
 @Composable
-internal fun CISelectionRow(
+private fun CISelectionRow(
     ciInfo: CIInfo,
     onItemClick: () -> Unit
 ) = Box(

@@ -2,6 +2,7 @@ package com.kevalpatel2106.registration.register
 
 import com.flextrade.kfixture.KFixture
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
+import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.coreTest.TestCoroutineExtension
 import com.kevalpatel2106.coreTest.getAccountFixture
 import com.kevalpatel2106.coreTest.getCIInfoFixture
@@ -10,7 +11,6 @@ import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
 import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.toToken
 import com.kevalpatel2106.entity.toUrl
-import com.kevalpatel2106.registration.R
 import com.kevalpatel2106.registration.register.RegisterVMEvent.AccountAlreadyAdded
 import com.kevalpatel2106.registration.register.RegisterVMEvent.HandleAuthSuccess
 import com.kevalpatel2106.registration.register.RegisterVMEvent.ShowErrorAddingAccount

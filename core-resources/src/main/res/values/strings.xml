@@ -77,12 +77,14 @@
     <string name="register_add_account_button_title">Add account</string>
     <string name="register_auth_token_header">Authentication Token</string>
     <string name="register_url_header">Domain</string>
-    <string name="register_hint_how_to_get_auth_token"><![CDATA[<a href="%s"><u>How to get authentication token?</u></a>]]></string>
+    <string name="register_hint_how_to_get_auth_token">How to get authentication token?</string>
     <string name="register_success_message">Authentication successful. Welcome %s.</string>
     <string name="error_invalid_token_name">Invalid token.</string>
     <string name="error_invalid_domain_name">Invalid domain url.</string>
     <string name="error_adding_account">Cannot add account. Please check your inputs.</string>
     <string name="register_error_account_already_added">This account is already added.</string>
+    <string name="hide_password">Hide password</string>
+    <string name="show_password">Show password</string>
 
     <!--Projects screen-->
     <string name="title_projects_screen">Projects</string>
