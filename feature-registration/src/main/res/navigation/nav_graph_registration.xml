@@ -17,8 +17,7 @@
     <fragment
         android:id="@+id/ciSelection"
         android:name="com.kevalpatel2106.registration.ciSelection.CISelectionFragment"
-        android:label="@string/title_ci_selection_screen"
-        tools:layout="@layout/fragment_selection">
+        android:label="@string/title_ci_selection_screen">
         <action
             android:id="@+id/action_ciSelection_to_register"
             app:destination="@id/register"

@@ -1,14 +1,14 @@
-package com.kevalpatel2106.coreViews.errorView
+package com.kevalpatel2106.core.baseUi
 
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.widget.Toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.kevalpatel2106.coreViews.R
+import com.kevalpatel2106.core.R
 import com.kevalpatel2106.entity.DisplayError
 
-internal class DebugInfoAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(context) {
+class DebugInfoAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(context) {
 
     private val clipboardManager by lazy {
         context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.withStyledAttributes
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
+import com.kevalpatel2106.core.baseUi.DebugInfoAlertDialogBuilder
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.coreViews.R
 import com.kevalpatel2106.coreViews.databinding.ViewErrorStateBinding

@@ -26,7 +26,7 @@ import com.kevalpatel2106.core.ui.resource.SPACING_SMALL
 import com.kevalpatel2106.pocketci.R
 
 @Composable
-internal fun BottomDrawerDialogView(events: BottomDrawerViewEvents) {
+internal fun BottomDrawerDialogScreen(events: BottomDrawerViewEvents) {
     PocketCITheme {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -78,7 +78,7 @@ private fun BottomDrawerRow(
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun BottomDrawerDialogPreView() {
-    BottomDrawerDialogView(
+    BottomDrawerDialogScreen(
         events = object : BottomDrawerViewEvents {
             override fun onSettingsClicked() = Unit
             override fun onAccountsClicked() = Unit

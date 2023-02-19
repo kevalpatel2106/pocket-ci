@@ -9,7 +9,6 @@ import com.kevalpatel2106.registration.ciSelection.CISelectionVMEvent.OpenRegist
 import com.kevalpatel2106.registration.ciSelection.CISelectionViewState.Companion.initialState
 import com.kevalpatel2106.registration.ciSelection.CISelectionViewState.ErrorState
 import com.kevalpatel2106.registration.ciSelection.CISelectionViewState.SuccessState
-import com.kevalpatel2106.registration.ciSelection.adapter.CISelectionAdapterCallback
 import com.kevalpatel2106.repository.AnalyticsRepo
 import com.kevalpatel2106.repository.CIInfoRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +22,7 @@ import javax.inject.Inject
 internal class CISelectionViewModel @Inject constructor(
     private val selectionRepo: CIInfoRepo,
     private val analyticsRepo: AnalyticsRepo,
-) : BaseViewModel<CISelectionVMEvent>(), CISelectionAdapterCallback {
+) : BaseViewModel<CISelectionVMEvent>() {
 
     private val _viewState = MutableStateFlow<CISelectionViewState>(initialState())
     val viewState = _viewState.asStateFlow()
@@ -41,7 +40,7 @@ internal class CISelectionViewModel @Inject constructor(
             .onSuccess { list -> _viewState.value = SuccessState(list) }
     }
 
-    override fun onCISelected(ci: CIInfo) {
+    fun onCISelected(ci: CIInfo) {
         analyticsRepo.sendEvent(ClickEvent(ClickEvent.Action.CI_SELECTED, ci.type.name))
         viewModelScope.launch { _vmEventsFlow.emit(OpenRegisterAccount(ci)) }
     }

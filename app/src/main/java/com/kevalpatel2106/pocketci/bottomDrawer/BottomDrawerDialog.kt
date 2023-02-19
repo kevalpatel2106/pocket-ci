@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kevalpatel2106.core.extentions.collectInFragment
+import com.kevalpatel2106.core.ui.setContent
 import com.kevalpatel2106.pocketci.bottomDrawer.usecase.HandleBottomDrawerVMEvents
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -25,11 +24,8 @@ internal class BottomDrawerDialog : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = ComposeView(requireContext()).apply {
-        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-        setContent {
-            BottomDrawerDialogView(viewModel)
-        }
+    ) = setContent {
+        BottomDrawerDialogScreen(viewModel)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

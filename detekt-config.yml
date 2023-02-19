@@ -65,24 +65,11 @@ style:
   MagicNumber:
     active: true
     excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**', '**/*.kts' ]
-    ignoreNumbers:
-      - '-1'
-      - '0'
-      - '1'
-      - '2'
-    ignoreHashCodeFunction: true
     ignorePropertyDeclaration: true   # https://detekt.dev/docs/introduction/compose/
-    ignoreLocalVariableDeclaration: false
-    ignoreConstantDeclaration: true
-    ignoreCompanionObjectPropertyDeclaration: true
-    ignoreAnnotation: false
-    ignoreNamedArgument: true
-    ignoreEnums: false
-    ignoreRanges: false
-    ignoreExtensionFunctions: true
   MaxLineLength:
     active: false   # Handled by ktlint rule MaximumLineLength
     maxLineLength: 120
+    excludes: [ '**/test/**', '**/androidTest/**' ]   # Changed from default
   SpacingBetweenPackageAndImports:
     active: true
   TrailingWhitespace:
@@ -98,12 +85,6 @@ complexity:
   TooManyFunctions:
     active: true
     excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
-    thresholdInFiles: 11
-    thresholdInClasses: 11
-    thresholdInInterfaces: 11
-    thresholdInObjects: 11
-    thresholdInEnums: 11
-    ignoreDeprecated: false
-    ignorePrivate: false
-    ignoreOverridden: false
-    ignoreAnnotated: [ 'dagger.Module' ]    # Changed from default
+    ignoreAnnotated: [ 'dagger.Module' ]
+  LongParameterList:
+    ignoreAnnotated: [ 'Composable' ]   # https://detekt.dev/docs/introduction/compose/
