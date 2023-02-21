@@ -153,6 +153,7 @@ subprojects {
                 implementation 'androidx.compose.material:material-icons-core'
                 implementation 'androidx.compose.material:material-icons-extended'
                 implementation "androidx.paging:paging-compose:1.0.0-alpha18"
+                implementation "androidx.compose.runtime:runtime-tracing:1.0.0-alpha01"
 
                 // KTX
                 implementation 'androidx.core:core-ktx:1.9.0'

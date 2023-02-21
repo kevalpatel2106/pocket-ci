@@ -107,6 +107,7 @@
     <string name="remove">Remove</string>
     <string name="cancel">Cancel</string>
     <string name="account_remove_confirmation_message">Do you want to remove account %s?</string>
+    <string name="account_list_menu_edit">Edit</string>
 
     <!--Webview screen-->
     <string name="title_web_view_screen">WebView</string>

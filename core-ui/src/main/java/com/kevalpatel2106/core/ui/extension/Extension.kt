@@ -1,4 +1,4 @@
-package com.kevalpatel2106.core.ui
+package com.kevalpatel2106.core.ui.extension
 
 import android.app.Activity
 import android.view.View
@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
+import com.kevalpatel2106.core.ui.PocketCITheme
 import dagger.hilt.android.internal.managers.FragmentComponentManager
 import dagger.hilt.android.internal.managers.ViewComponentManager
 

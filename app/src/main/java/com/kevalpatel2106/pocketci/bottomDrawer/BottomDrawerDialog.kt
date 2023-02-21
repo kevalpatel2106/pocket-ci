@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kevalpatel2106.core.extentions.collectInFragment
-import com.kevalpatel2106.core.ui.setContent
+import com.kevalpatel2106.core.ui.extension.setContent
 import com.kevalpatel2106.pocketci.bottomDrawer.usecase.HandleBottomDrawerVMEvents
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

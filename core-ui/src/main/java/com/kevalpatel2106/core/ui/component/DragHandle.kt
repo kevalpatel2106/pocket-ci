@@ -11,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.R
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.kevalpatel2106.core.ui.resource.SPACING_MICRO
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_MICRO
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun DragHandle() = Box(
-    Modifier.padding(vertical = SPACING_MICRO),
+fun DragHandle(modifier: Modifier = Modifier) = Box(
+    modifier.padding(vertical = SPACING_MICRO),
 ) {
     Icon(
         imageVector = Icons.Filled.DragHandle,

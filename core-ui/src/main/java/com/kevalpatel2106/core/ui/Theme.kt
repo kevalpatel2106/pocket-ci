@@ -8,6 +8,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import com.kevalpatel2106.core.ui.extension.setUpStatusAndNavigationBarColor
 
 @Composable
 fun PocketCITheme(

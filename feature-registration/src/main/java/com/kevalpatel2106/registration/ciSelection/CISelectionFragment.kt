@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.core.extentions.collectInFragment
-import com.kevalpatel2106.core.ui.setContent
+import com.kevalpatel2106.core.ui.extension.setContent
 import com.kevalpatel2106.registration.ciSelection.CISelectionVMEvent.Close
 import com.kevalpatel2106.registration.ciSelection.CISelectionVMEvent.OpenRegisterAccount
 import dagger.hilt.android.AndroidEntryPoint

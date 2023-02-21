@@ -4,6 +4,7 @@ import androidx.annotation.IntDef
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,9 +26,8 @@ import com.kevalpatel2106.core.baseUi.DebugInfoAlertDialogBuilder
 import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.core.ui.component.ActionButtonMode.Companion.ACTION_CLOSE
 import com.kevalpatel2106.core.ui.component.ActionButtonMode.Companion.ACTION_RETRY
-import com.kevalpatel2106.core.ui.resource.SPACING_MICRO
-import com.kevalpatel2106.core.ui.resource.SPACING_REGULAR
-import com.kevalpatel2106.core.ui.resource.SPACING_SMALL
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_MICRO
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_SMALL
 import com.kevalpatel2106.entity.DisplayError
 
 @Composable
@@ -39,7 +39,7 @@ private fun BaseErrorView(
     onRetry: () -> Unit = {},
     onClose: () -> Unit = {},
 ) = Column(
-    modifier = modifier.padding(SPACING_REGULAR),
+    modifier = modifier,
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.CenterHorizontally,
 ) {
@@ -52,7 +52,7 @@ private fun BaseErrorView(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(SPACING_MICRO),
+                .padding(vertical = SPACING_SMALL),
         )
     }
     Text(
@@ -63,8 +63,9 @@ private fun BaseErrorView(
         overflow = TextOverflow.Ellipsis,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(SPACING_MICRO),
+            .padding(vertical = SPACING_SMALL),
     )
+    Spacer(modifier = Modifier.padding(vertical = SPACING_SMALL))
     ErrorActionButton(
         error = error,
         onRetry = onRetry,

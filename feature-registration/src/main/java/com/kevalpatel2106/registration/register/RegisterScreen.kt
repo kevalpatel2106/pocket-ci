@@ -50,11 +50,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kevalpatel2106.core.resources.R
-import com.kevalpatel2106.core.ui.resource.SPACING_HUGE
-import com.kevalpatel2106.core.ui.resource.SPACING_LARGE
-import com.kevalpatel2106.core.ui.resource.SPACING_MICRO
-import com.kevalpatel2106.core.ui.resource.SPACING_REGULAR
-import com.kevalpatel2106.core.ui.resource.SPACING_SMALL
+import com.kevalpatel2106.core.ui.resource.Spacing.GUTTER
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_HUGE
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_LARGE
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_MICRO
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_REGULAR
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_SMALL
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_XLARGE
 import com.kevalpatel2106.entity.Url
 
 @Composable
@@ -68,16 +70,18 @@ internal fun RegisterScreen(viewModel: RegisterViewModel = viewModel()) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = SPACING_REGULAR)
+            .padding(horizontal = GUTTER)
             .verticalScroll(state = scrollState),
     ) {
         CIInfoView(
             ciName = state.ciName,
             ciIcon = state.ciIcon,
             infoUrl = state.ciInfoUrl,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = SPACING_LARGE),
         )
-        Spacer(modifier = Modifier.padding(top = SPACING_LARGE))
+        Spacer(modifier = Modifier.padding(top = SPACING_XLARGE))
         DomainTextField(
             value = domainState.value,
             defaultUrl = state.defaultUrl,
@@ -107,9 +111,8 @@ internal fun RegisterScreen(viewModel: RegisterViewModel = viewModel()) {
             onClick = {
                 viewModel.submit(inputUrl = domainState.value, inputToken = passwordState.value)
             },
-        ) {
-            Text(text = stringResource(id = R.string.register_add_account_button_title))
-        }
+        ) { Text(text = stringResource(id = R.string.register_add_account_button_title)) }
+        Spacer(modifier = Modifier.padding(top = SPACING_LARGE))
     }
 }
 
@@ -122,7 +125,6 @@ private fun AuthTokenExplainerText(authTokenHintLink: String) {
         style = MaterialTheme.typography.labelMedium,
         color = Color.Blue,
         modifier = Modifier
-            .fillMaxWidth()
             .clickable { uriHandler.openUri(authTokenHintLink) },
     )
 }
@@ -247,7 +249,7 @@ private fun SupportingErrorText(@StringRes text: Int) = Text(
     maxLines = 2,
     color = Color.Red,
     textAlign = TextAlign.End,
-    modifier = Modifier.fillMaxWidth()
+    modifier = Modifier.fillMaxWidth(),
 )
 
 @Composable
@@ -276,6 +278,7 @@ private fun CIInfoView(
             text = stringResource(id = ciName),
             style = MaterialTheme.typography.titleLarge,
             overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             maxLines = 1,
             modifier = Modifier
@@ -287,10 +290,9 @@ private fun CIInfoView(
             style = MaterialTheme.typography.labelMedium,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center,
-            color = Color.Blue,
+            color = MaterialTheme.colorScheme.secondary,
             maxLines = 1,
             modifier = Modifier
-                .fillMaxWidth()
                 .padding(top = SPACING_SMALL)
                 .clickable { uriHandler.openUri(infoUrl.value) },
         )

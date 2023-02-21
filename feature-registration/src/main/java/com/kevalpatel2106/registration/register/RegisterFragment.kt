@@ -13,7 +13,7 @@ import com.kevalpatel2106.core.extentions.showSnack
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
 import com.kevalpatel2106.core.resources.R
-import com.kevalpatel2106.core.ui.setContent
+import com.kevalpatel2106.core.ui.extension.setContent
 import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.registration.register.RegisterVMEvent.AccountAlreadyAdded
 import com.kevalpatel2106.registration.register.RegisterVMEvent.HandleAuthSuccess

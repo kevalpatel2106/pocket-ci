@@ -2,7 +2,7 @@ package com.kevalpatel2106.feature.account.list.usecase
 
 import com.kevalpatel2106.entity.Account
 import com.kevalpatel2106.feature.account.R
-import com.kevalpatel2106.feature.account.list.adapter.AccountsListItem.AccountItem
+import com.kevalpatel2106.feature.account.list.AccountsListItem.AccountItem
 import com.kevalpatel2106.repository.CIInfoRepo
 import javax.inject.Inject
 

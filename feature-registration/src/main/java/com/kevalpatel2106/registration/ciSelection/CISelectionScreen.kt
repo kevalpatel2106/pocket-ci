@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,7 +25,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
@@ -34,10 +34,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.core.ui.component.ErrorView
 import com.kevalpatel2106.core.ui.component.LoadingView
-import com.kevalpatel2106.core.ui.resource.SPACING_HUGE
-import com.kevalpatel2106.core.ui.resource.SPACING_REGULAR
-import com.kevalpatel2106.core.ui.resource.SPACING_SMALL
-import com.kevalpatel2106.entity.CIInfo
+import com.kevalpatel2106.core.ui.resource.Spacing.GUTTER
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_HUGE
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_REGULAR
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_SMALL
 import com.kevalpatel2106.entity.Url
 import com.kevalpatel2106.registration.ciSelection.CISelectionViewState.ErrorState
 import com.kevalpatel2106.registration.ciSelection.CISelectionViewState.LoadingState
@@ -50,38 +50,32 @@ internal fun CISelectionScreen(
 ) {
     val state = viewModel.viewState.collectAsState()
 
-    Box(Modifier.fillMaxSize()) {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .padding(horizontal = GUTTER)
+    ) {
         when (val currentState = state.value) {
             LoadingState -> LoadingView()
 
             is ErrorState -> ErrorView(
                 error = displayErrorMapper(currentState.error),
                 onClose = { viewModel.close() },
-                onRetry = { viewModel.reload() }
+                onRetry = { viewModel.reload() },
             )
 
             is SuccessState -> LazyColumn {
-                itemsIndexed(currentState.listOfCi) { _, item ->
-                    CISelectionRow(item) { viewModel.onCISelected(item) }
+                itemsIndexed(currentState.listOfCi) { index, item ->
+                    if (index != 0) Spacer(modifier = Modifier.padding(top = SPACING_SMALL))
+                    CIInfoCard(
+                        ciName = item.name,
+                        ciIcon = item.icon,
+                        infoUrl = item.infoUrl,
+                    ) { viewModel.onCISelected(item) }
                 }
             }
         }
     }
-}
-
-@Composable
-private fun CISelectionRow(
-    ciInfo: CIInfo,
-    onItemClick: () -> Unit
-) = Box(
-    modifier = Modifier.padding(horizontal = SPACING_REGULAR, vertical = SPACING_SMALL),
-) {
-    CIInfoCard(
-        onItemClick = onItemClick,
-        ciName = ciInfo.name,
-        ciIcon = ciInfo.icon,
-        infoUrl = ciInfo.infoUrl,
-    )
 }
 
 @Composable
@@ -139,7 +133,7 @@ private fun CIInfoDetail(
         text = ciUrl.value,
         style = MaterialTheme.typography.labelMedium,
         overflow = TextOverflow.Ellipsis,
-        color = Color.Blue,
+        color = MaterialTheme.colorScheme.secondary,
         maxLines = 1,
         modifier = Modifier
             .fillMaxWidth()

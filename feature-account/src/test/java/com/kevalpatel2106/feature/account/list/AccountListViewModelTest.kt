@@ -11,8 +11,6 @@ import com.kevalpatel2106.feature.account.list.AccountListVMEvent.AccountRemoved
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.Close
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenCiSelection
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenProjects
-import com.kevalpatel2106.feature.account.list.AccountListVMEvent.RefreshAccountList
-import com.kevalpatel2106.feature.account.list.AccountListVMEvent.RetryLoading
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowDeleteConfirmation
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorRemovingAccount
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorSelectingAccount
@@ -115,14 +113,6 @@ internal class AccountListViewModelTest {
         }
 
     @Test
-    fun `when reload called then refresh account event emitted`() =
-        runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
-            subject.reload()
-
-            assertEquals(RefreshAccountList, flowTurbine.awaitItem())
-        }
-
-    @Test
     fun `when add account clicked then CI selection screen opens`() =
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
             subject.onAddAccountClicked()
@@ -136,14 +126,6 @@ internal class AccountListViewModelTest {
 
         verify(analyticsRepo).sendEvent(ClickEvent(ClickEvent.Action.ACCOUNTS_ADD_ACCOUNT_CLICKED))
     }
-
-    @Test
-    fun `when retry loading the next page then retry loading event emitted`() =
-        runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
-            subject.retryNextPage()
-
-            assertEquals(RetryLoading, flowTurbine.awaitItem())
-        }
 
     @Test
     fun `given view model initialised when close then verify close event emit`() =

@@ -21,8 +21,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.kevalpatel2106.core.ui.PocketCITheme
 import com.kevalpatel2106.core.ui.component.DragHandle
-import com.kevalpatel2106.core.ui.resource.SPACING_REGULAR
-import com.kevalpatel2106.core.ui.resource.SPACING_SMALL
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_REGULAR
+import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_SMALL
 import com.kevalpatel2106.pocketci.R
 
 @Composable
