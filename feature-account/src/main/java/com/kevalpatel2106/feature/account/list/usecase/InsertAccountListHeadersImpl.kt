@@ -1,6 +1,6 @@
 package com.kevalpatel2106.feature.account.list.usecase
 
-import com.kevalpatel2106.feature.account.list.adapter.AccountsListItem
+import com.kevalpatel2106.feature.account.list.AccountsListItem
 import javax.inject.Inject
 
 class InsertAccountListHeadersImpl @Inject constructor() : InsertAccountListHeaders {

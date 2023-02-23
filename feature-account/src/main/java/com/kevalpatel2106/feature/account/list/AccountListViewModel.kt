@@ -6,7 +6,6 @@ import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.kevalpatel2106.core.BaseViewModel
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
-import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateCallback
 import com.kevalpatel2106.entity.Account
 import com.kevalpatel2106.entity.analytics.ClickEvent
 import com.kevalpatel2106.entity.id.AccountId
@@ -14,18 +13,18 @@ import com.kevalpatel2106.feature.account.list.AccountListVMEvent.AccountRemoved
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.Close
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenCiSelection
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenProjects
-import com.kevalpatel2106.feature.account.list.AccountListVMEvent.RefreshAccountList
-import com.kevalpatel2106.feature.account.list.AccountListVMEvent.RetryLoading
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowDeleteConfirmation
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorLoadingAccounts
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorRemovingAccount
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorSelectingAccount
-import com.kevalpatel2106.feature.account.list.adapter.AccountListAdapterCallback
+import com.kevalpatel2106.feature.account.list.menu.AccountMenuCallback
 import com.kevalpatel2106.feature.account.list.usecase.AccountItemMapper
 import com.kevalpatel2106.feature.account.list.usecase.InsertAccountListHeaders
 import com.kevalpatel2106.repository.AccountRepo
 import com.kevalpatel2106.repository.AnalyticsRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
@@ -39,7 +38,7 @@ internal class AccountListViewModel @Inject constructor(
     accountItemMapper: AccountItemMapper,
     private val displayErrorMapper: DisplayErrorMapper,
     private val analyticsRepo: AnalyticsRepo,
-) : BaseViewModel<AccountListVMEvent>(), AccountListAdapterCallback, NetworkStateCallback {
+) : BaseViewModel<AccountListVMEvent>(), AccountMenuCallback {
 
     val pageViewState = accountRepo.getAccounts()
         .mapNotNull { pagingData ->
@@ -51,7 +50,10 @@ internal class AccountListViewModel @Inject constructor(
         .catch { _vmEventsFlow.emit(ShowErrorLoadingAccounts(displayErrorMapper(it))) }
         .cachedIn(viewModelScope)
 
-    override fun onAccountSelected(accountId: AccountId) {
+    private val _viewState = MutableStateFlow(AccountListViewState.initialState())
+    val viewState = _viewState.asStateFlow()
+
+    fun onAccountSelected(accountId: AccountId) {
         viewModelScope.launch {
             runCatching { accountRepo.setSelectedAccount(accountId = accountId) }
                 .onFailure { error ->
@@ -63,7 +65,7 @@ internal class AccountListViewModel @Inject constructor(
         }
     }
 
-    override fun onAccountRemoved(account: Account) {
+    fun onAccountRemoved(account: Account) {
         viewModelScope.launch {
             _vmEventsFlow.emit(ShowDeleteConfirmation(account.localId, account.name))
         }
@@ -81,9 +83,7 @@ internal class AccountListViewModel @Inject constructor(
         }
     }
 
-    fun reload() = viewModelScope.launch { _vmEventsFlow.emit(RefreshAccountList) }
-
-    override fun close() {
+    fun close() {
         viewModelScope.launch { _vmEventsFlow.emit(Close) }
     }
 
@@ -92,7 +92,7 @@ internal class AccountListViewModel @Inject constructor(
         viewModelScope.launch { _vmEventsFlow.emit(OpenCiSelection) }
     }
 
-    override fun retryNextPage() {
-        viewModelScope.launch { _vmEventsFlow.emit(RetryLoading) }
+    override fun onEdit() {
+        TODO("Not yet implemented")
     }
 }

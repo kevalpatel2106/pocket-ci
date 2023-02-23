@@ -6,9 +6,9 @@ import com.kevalpatel2106.core.BaseViewModel
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.core.extentions.isUnAuthorized
 import com.kevalpatel2106.core.extentions.modify
+import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.entity.toToken
 import com.kevalpatel2106.entity.toUrl
-import com.kevalpatel2106.registration.R
 import com.kevalpatel2106.registration.register.RegisterVMEvent.AccountAlreadyAdded
 import com.kevalpatel2106.registration.register.RegisterVMEvent.HandleAuthSuccess
 import com.kevalpatel2106.registration.register.RegisterVMEvent.ShowErrorAddingAccount
@@ -38,6 +38,14 @@ internal class RegisterViewModel @Inject constructor(
 
     private val _viewState = MutableStateFlow(initialState(navArgs.selectedCI))
     val viewState = _viewState.asStateFlow()
+
+    fun onUrlChange() {
+        _viewState.modify(viewModelScope) { copy(urlErrorMsg = null) }
+    }
+
+    fun onTokenChange() {
+        _viewState.modify(viewModelScope) { copy(tokenErrorMsg = null) }
+    }
 
     private fun validateInputs(url: String, token: String): Boolean {
         val (isValidUrl, isValidToken) = validateRegisterInput(url, token)
@@ -82,6 +90,7 @@ internal class RegisterViewModel @Inject constructor(
                     is HandleAuthSuccess -> {
                         analyticsRepo.sendEvent(RegisterEvent(navArgs.selectedCI.type))
                     }
+
                     else -> Unit
                 }
             }

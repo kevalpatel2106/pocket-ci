@@ -10,9 +10,7 @@ internal sealed class AccountListVMEvent {
 
     object AccountRemovedSuccess : AccountListVMEvent()
     object OpenCiSelection : AccountListVMEvent()
-    object RefreshAccountList : AccountListVMEvent()
     object Close : AccountListVMEvent()
-    object RetryLoading : AccountListVMEvent()
     data class ShowErrorLoadingAccounts(val error: DisplayError) : AccountListVMEvent()
     data class ShowErrorSelectingAccount(val error: DisplayError) : AccountListVMEvent()
     data class ShowErrorRemovingAccount(val error: DisplayError) : AccountListVMEvent()

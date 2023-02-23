@@ -8,15 +8,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kevalpatel2106.core.extentions.collectInFragment
-import com.kevalpatel2106.core.viewbinding.viewBinding
+import com.kevalpatel2106.core.ui.extension.setContent
 import com.kevalpatel2106.pocketci.bottomDrawer.usecase.HandleBottomDrawerVMEvents
-import com.kevalpatel2106.pocketci.databinding.DialogBottomDrawerBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 internal class BottomDrawerDialog : BottomSheetDialogFragment() {
-    private val binding by viewBinding(DialogBottomDrawerBinding::inflate)
     private val viewModel by viewModels<BottomDrawerViewModel>()
 
     @Inject
@@ -26,14 +24,12 @@ internal class BottomDrawerDialog : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = binding.root
+    ) = setContent {
+        BottomDrawerDialogScreen(viewModel)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.apply {
-            lifecycleOwner = viewLifecycleOwner
-            model = viewModel
-        }
         viewModel.vmEventsFlow.collectInFragment(this, handleBottomDrawerVMEvents::invoke)
     }
 

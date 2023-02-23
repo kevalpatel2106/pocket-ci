@@ -29,6 +29,7 @@ allprojects {
     detekt detektOption
     dependencies {
         detektPlugins 'io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0'
+        detektPlugins "com.twitter.compose.rules:detekt:0.0.26"
     }
 }
 
@@ -102,6 +103,9 @@ subprojects {
                 lintOptions lintOption
                 testOptions testOption
                 buildFeatures buildFeaturesOption
+                composeOptions {
+                    kotlinCompilerExtensionVersion = "1.4.2"
+                }
                 if (module.pluginManager.hasPlugin("dagger.hilt.android.plugin")) {
                     hilt hiltOptions
                 }
@@ -140,6 +144,17 @@ subprojects {
                 kapt "androidx.lifecycle:lifecycle-compiler:2.5.1"
                 kaptAndroidTest "androidx.lifecycle:lifecycle-compiler:2.5.1"
 
+                // compose
+                implementation platform('androidx.compose:compose-bom:2022.12.00')
+                implementation 'androidx.compose.material3:material3'
+                implementation 'androidx.compose.ui:ui-tooling-preview'
+                debugImplementation 'androidx.compose.ui:ui-tooling'
+                implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
+                implementation 'androidx.compose.material:material-icons-core'
+                implementation 'androidx.compose.material:material-icons-extended'
+                implementation "androidx.paging:paging-compose:1.0.0-alpha18"
+                implementation "androidx.compose.runtime:runtime-tracing:1.0.0-alpha01"
+
                 // KTX
                 implementation 'androidx.core:core-ktx:1.9.0'
                 implementation "androidx.activity:activity-ktx:1.6.1"
@@ -149,6 +164,9 @@ subprojects {
                 implementation "androidx.paging:paging-runtime:3.1.1"
 
                 // Espresso and UI tests
+                androidTestImplementation platform('androidx.compose:compose-bom:2022.12.00')
+                debugImplementation 'androidx.compose.ui:ui-test-manifest'
+                androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
                 androidTestImplementation 'androidx.test.ext:junit:1.1.5'
                 androidTestImplementation 'androidx.test:runner:1.5.2'
                 androidTestImplementation 'androidx.test:rules:1.5.0'
