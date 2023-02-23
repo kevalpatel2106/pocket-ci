@@ -1,14 +1,17 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'de.mannodermaus.android-junit5'
     id 'com.dicedmelon.gradle.jacoco-android'
-    id 'org.jetbrains.kotlin.android'
 }
+apply from: "${this.rootDir}/gradle/groups.gradle"
+apply from: "${this.rootDir}/gradle/config.gradle"
 
+android defaultAndroidConfig
 android {
     namespace 'com.kevalpatel2106.core'
+    defaultConfig defaultLibConfig
     sourceSets {
         main {
             res.srcDirs = ['../core-resources/src/main/res', 'src/main/res']
@@ -19,11 +22,13 @@ android {
 dependencies {
     implementation project(':entity')
     implementation project(':core-resources')
-    implementation "com.squareup.moshi:moshi:1.14.0"
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
-
-    // Glide
-    implementation 'com.github.bumptech.glide:glide:4.14.2'
-    kapt 'com.github.bumptech.glide:compiler:4.14.2'
-    kaptAndroidTest 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation libs.moshi
+    implementation libs.retrofit
+    implementation libs.timber
+    implementation libs.design.material
+    implementation libs.bundles.paging
+    implementation libs.bundles.navigtion
+    unitTest()
+    glide()
+    hilt()
 }

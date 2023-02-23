@@ -1,18 +1,19 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
     id 'de.mannodermaus.android-junit5'
     id 'com.dicedmelon.gradle.jacoco-android'
-    id 'org.jetbrains.kotlin.android'
 }
+apply from: "${this.rootDir}/gradle/groups.gradle"
+apply from: "${this.rootDir}/gradle/config.gradle"
 
+android defaultAndroidConfig
 android {
     namespace 'com.kevalpatel2106.feature.build'
-
-    // Import resources from theme
+    defaultConfig defaultLibConfig
     sourceSets {
         main {
             res.srcDirs = ['../core-resources/src/main/res', 'src/main/res']
@@ -27,5 +28,18 @@ dependencies {
     implementation project(':repository')
     testImplementation project(':core-test')
 
-    implementation "io.noties.markwon:core:4.6.2"
+
+    hilt()
+    lifecycle()
+    implementation libs.timber
+    implementation libs.coroutines.android
+    implementation libs.bundles.ktx
+    implementation libs.bundles.paging
+    implementation libs.bundles.navigtion
+    implementation libs.bundles.design.legacy
+    implementation libs.markwon.core
+
+    // Unit and UI tests
+    androidTest()
+    unitTest()
 }

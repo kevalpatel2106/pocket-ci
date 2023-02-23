@@ -37,8 +37,9 @@ jobs:
           if-no-files-found: warn
 
   instrumentation-tests:
+    name: Instrumentation tests
     runs-on: macos-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     strategy:
       fail-fast: false  # Allow tests to continue on other devices if they fail on one device.
       matrix:
@@ -46,12 +47,9 @@ jobs:
         target: [ google_apis ]
         channel: [ stable ]
         api-level:
-          # - 23 (Unstable)
           - 25
-          - 27
           - 28
-          - 29
-          # - 30 (Unstable)
+          - 31
           # - 32 (Unstable)
     steps:
       - uses: actions/checkout@v3
@@ -73,16 +71,18 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           force-avd-creation: false
+          disable-animations: true
+          ram-size: 4096M
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
           script: echo "Generated AVD snapshot for caching."
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2.27.0
         with:
           api-level: ${{ matrix.api-level }}
           force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
+          ram-size: 4096M
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: ./gradlew connectedAndroidTest mergeAndroidReports
       - name: Upload test results Artifact
         uses: actions/upload-artifact@v3

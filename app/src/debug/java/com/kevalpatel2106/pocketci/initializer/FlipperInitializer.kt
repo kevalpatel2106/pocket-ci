@@ -14,7 +14,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.EarlyEntryPoint
 import dagger.hilt.android.EarlyEntryPoints
 import dagger.hilt.components.SingletonComponent
-import wtf.s1.android.thread.flipper.S1ThreadPlugin
 
 internal class FlipperInitializer : Initializer<Unit> {
 
@@ -32,7 +31,6 @@ internal class FlipperInitializer : Initializer<Unit> {
                 addPlugin(InspectorFlipperPlugin(context, DescriptorMapping.withDefaults()))
                 addPlugin(SharedPreferencesFlipperPlugin(context))
                 addPlugin(DatabasesFlipperPlugin(context))
-                addPlugin(S1ThreadPlugin())
                 addPlugin(hiltEntryPoint.networkFlipperPlugin())
             }.start()
         }

@@ -1,14 +1,18 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
     id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.android'
 }
+apply from: "${this.rootDir}/gradle/config.gradle"
+apply from: "${this.rootDir}/gradle/groups.gradle"
 
+android defaultAndroidConfig
 android {
+    defaultConfig defaultLibConfig
     namespace 'com.kevalpatel2106.connector.ci'
 }
 
 dependencies {
     implementation project(':entity')
+    hilt()
 }

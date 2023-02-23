@@ -1,0 +1,56 @@
+def Group(Closure closure) {
+    closure.delegate = dependencies
+    return closure
+}
+
+ext {
+    androidTest = Group {
+        androidTestImplementation libs.bundles.android.test
+        androidTestUtil libs.bundles.android.test.utils
+    }
+
+    jetpackCompose = Group {
+        implementation(platform(libs.compose.bom))
+        implementation(libs.bundles.compose.main)
+        debugImplementation(libs.compose.tooling)
+        debugImplementation(libs.compose.test.manifest)
+    }
+
+    unitTest = Group {
+        testImplementation libs.bundles.test
+    }
+
+    room = Group {
+        api libs.room.runtime
+        implementation libs.bundles.room
+        kapt libs.room.compiler
+        kaptAndroidTest libs.room.compiler
+        androidTestImplementation libs.room.testing
+    }
+
+    moshi = Group {
+        implementation libs.moshi
+        kapt libs.moshi.codegen
+        kaptAndroidTest libs.moshi.codegen
+        androidTestImplementation libs.moshi.codegen
+    }
+
+    glide = Group {
+        implementation libs.glide
+        kapt libs.glide.compiler
+        kaptAndroidTest libs.glide.compiler
+    }
+
+    lifecycle = Group {
+        implementation libs.bundles.lifecycle
+        kapt libs.lifecycle.compiler
+        kaptTest libs.lifecycle.compiler
+    }
+
+    hilt = Group {
+        implementation libs.bundles.hilt
+        kapt libs.hilt.compiler
+        kaptTest libs.hilt.compiler
+        kaptAndroidTest libs.hilt.compiler
+    }
+}

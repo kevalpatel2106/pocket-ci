@@ -1,0 +1,239 @@
+# Guidance:
+# 1. Don't define version if the version is only going to be used in one depenedency. Where possible
+# to use version.strictly to have pridictable dependency version.
+# 2. Where possible use KTX dependency instead of regular variant of the depenedncy. You don't have
+# to add both dependencies.
+# 3. Define a bundle for the dependencies, that are always be used togeather with same source set.
+# 4. When adding dependency, there is a conflict in wheich com.kevalpatel2106.buildsrc.groups to add (e.g. navigation compose
+# can be added to navigation or compose group, always pick the first one in the name of dependency.
+# (i.e. navigation in this case)
+
+[versions]
+buildTools = "7.4.1"
+kotlin = "1.8.0"
+agp = "7.4.1"
+hilt = "2.45"
+navigation = "2.5.3"
+detekt = "1.22.0"
+lifecycle = "2.5.1"
+paging = "3.1.1"
+junit = "5.9.2"
+coroutines = "1.6.4"
+espresso = "3.5.1"
+flipper = "0.180.0"
+room = "2.5.0"
+retrofit = "2.9.0"
+okhttp = "5.0.0-alpha.11"
+moshi = "1.14.0"
+glide = "4.14.2"
+composeBom = "2023.01.00"
+coil = "2.2.2"
+composeCompiler="1.4.3" # Not a dependency
+
+[libraries]
+# Kotlin
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+
+# Navigation
+navigation-safeargs = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
+navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+
+# AndroidX
+androidx-test-junit = { module = "androidx.test.ext:junit", version.strictly = "1.1.5" }
+androidx-test-runner = { module = "androidx.test:runner", version.strictly = "1.5.2" }
+androidx-test-rules = { module = "androidx.test:rules", version.strictly = "1.5.0" }
+androidx-test-orchestrator = { module = "androidx.test:orchestrator", version.strictly = "1.4.2" }
+androidx-startup = { module = "androidx.startup:startup-runtime", version.strictly = "1.1.1" }
+androidx-datastore = { module = "androidx.datastore:datastore-preferences", version.strictly = "1.0.0" }
+androidx-security = { module = "androidx.security:security-crypto", version.strictly = "1.0.0" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.strictly = "1.6.1" }
+
+# Ktx
+ktx-core = { module = "androidx.core:core-ktx", version.strictly = "1.9.0" }
+ktx-activity = { module = "androidx.activity:activity-ktx", version.strictly = "1.6.1" }
+ktx-fragment = { module = "androidx.fragment:fragment-ktx", version.strictly = "1.5.5" }
+
+# Lifecycle
+lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lifecycle-common = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycle" }
+lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+lifecycle-compiler = { module = "androidx.lifecycle:lifecycle-compiler", version.ref = "lifecycle" }
+lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+
+# Hilt
+hilt-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+
+# Paging
+paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
+paging-compose = { module = "androidx.paging:paging-compose", version.strictly = "1.0.0-alpha18" }
+
+# Room
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
+room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
+room-sqlcipher = { module = "net.zetetic:android-database-sqlcipher", version.strictly = "4.5.3" }
+
+# Firebase
+firebase-crashlytics-plugin = { module = "com.google.firebase:firebase-crashlytics-gradle", version.strictly = "2.9.4" }
+firebase-performance-plugin = { module = "com.google.firebase:perf-plugin", version.strictly = "1.4.2" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.strictly = "31.2.2" }
+firebase-config = { module = "com.google.firebase:firebase-config" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+firebase-auth = { module = "com.google.firebase:firebase-auth" }
+firebase-perf = { module = "com.google.firebase:firebase-perf" }
+
+# Detekt
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+detekt-compose = { module = "com.twitter.compose.rules:detek", version.strictly = "0.0.26" }
+
+# Espresso
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+
+# Junit
+junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
+junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+
+# Flipper
+flipper = { module = "com.facebook.flipper:flipper", version.ref = "flipper" }
+flipper-network = { module = "com.facebook.flipper:flipper-network-plugin", version.ref = "flipper" }
+flipper-soloader = { module = "com.facebook.soloader:soloader", version.strictly = "0.10.5" }
+
+#Moshi
+moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
+moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
+
+# Glide
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+
+# OkHttp
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
+okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+
+# Retrofit
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+
+# Compose
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+compose-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+compose-material3 = { module = "androidx.compose.material3:material3" }
+compose-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-icons = { module = "androidx.compose.material:material-icons-core" }
+compose-runtime = { module = "androidx.compose.material:material-icons-core" }
+compose-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
+compose-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.strictly = "1.3.3" }
+
+#Other
+oss-plugin = { module = "com.google.android.gms:oss-licenses-plugin", version.strictly = "0.10.6" }
+gms-plugin = { module = "com.google.gms:google-services", version.strictly = "4.3.15" }
+timber = { module = "com.jakewharton.timber:timber", version.strictly = "5.0.1" }
+design-material = { module = "com.google.android.material:material", version.strictly = "1.8.0" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.strictly = "2.1.4" }
+swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.strictly = "1.1.0" }
+mokito = { module = "org.mockito.kotlin:mockito-kotlin", version.strictly = "4.1.0" }
+kfixture = { module = "com.flextrade.jfixture:kfixture", version.strictly = "0.2.0" }
+turbine = { module = "app.cash.turbine:turbine", version.strictly = "0.12.1" }
+leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.strictly = "2.10" }
+markwon-core = { module = "io.noties.markwon:core", version.strictly = "4.6.2" }
+preference-ktx = { module = "androidx.preference:preference-ktx", version.strictly = "1.2.0" }
+oss-licences = { module = "com.google.android.gms:play-services-oss-licenses", version.strictly = "17.0.0" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+
+[bundles]
+coil = [
+    "coil",
+    "coil-compose"
+]
+design-legacy = [
+    "design-material",
+    "constraintlayout",
+    "swiperefreshlayout"
+]
+detekt-rules = [
+    "detekt-formatting",
+    "detekt-formatting"
+]
+navigtion = [
+    "navigation-fragment",
+    "navigation-ui"
+]
+lifecycle = [
+    "lifecycle-viewmodel",
+    "lifecycle-viewmodel-compose",
+    "lifecycle-common",
+    "lifecycle-runtime"
+]
+paging = [
+    "paging-runtime",
+    "paging-compose"
+]
+compose-main = [
+    "compose-material3",
+    "compose-preview",
+    "compose-icons",
+    "compose-icons-extended",
+]
+hilt = [
+    "hilt-android"
+]
+room = [
+    "room-paging",
+    "room-ktx",
+    "room-sqlcipher"
+]
+ktx = [
+    "ktx-core",
+    "ktx-activity",
+    "ktx-fragment"
+]
+debugging = [
+    "leakcanary",
+    "flipper",
+    "flipper-network",
+    "flipper-soloader",
+]
+test = [
+    "junit",
+    "junit-api",
+    "junit-params",
+    "coroutines-test",
+    "mokito",
+    "kfixture",
+    "turbine"
+]
+android-test = [
+    "androidx-test-junit",
+    "androidx-test-runner",
+    "androidx-test-rules",
+    "espresso-core",
+    "kfixture",
+    "hilt-testing",
+    "room-testing"
+]
+android-test-utils = [
+    "androidx-test-orchestrator"
+]
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+android-test = { id = "com.android.test", version.ref = "agp" }
+android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jacoco-android = { id = "com.dicedmelon.gradle.jacoco-android", version.strictly = "0.1.5" }
+junit5-android = { id = "de.mannodermaus.android-junit5", version.strictly = "1.8.2.1" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

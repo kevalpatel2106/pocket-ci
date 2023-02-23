@@ -12,16 +12,74 @@ ext {
     buildConfig = [
             'compileSdk': 33,
             'targetSdk' : 33,
-            'minSdk'    : 23,
+            'minSdk'    : 25,
             'buildTool' : '33.0.0',
     ]
 
+    defaultLibConfig = {
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
+        resConfigs "en"
+
+        consumerProguardFiles '../proguard-rules.pro'
+
+        testInstrumentationRunner "com.kevalpatel2106.coreTest.runner.UiTestsRunner"
+    }
+
+    defaultAppConfig = {
+        applicationId releaseDetail.packageName
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
+
+        //Versions config
+        versionCode playStoreVersion.versionCode
+        versionName playStoreVersion.versionName
+
+        // Cleaning up package data for each test is slow. So, we're only enabling these for app
+        // module where all the e2e tests sits. Other module (repository-impl) will use their own
+        // hilt component to create new preferences/in-memory db, so they don't require cleaning up
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+        testInstrumentationRunner "com.kevalpatel2106.coreTest.runner.UiTestsRunner"
+
+        multiDexEnabled false
+        resConfigs "en"
+    }
+
+    defaultAndroidConfig = {
+        compileSdkVersion buildConfig.compileSdk
+        buildToolsVersion buildConfig.buildTool
+
+        compileOptions compileOption
+        packagingOptions packageOption
+        lintOptions lintOption
+        testOptions testOption
+        buildFeatures buildFeaturesOption
+        composeOptions composeOption
+        if (this.pluginManager.hasPlugin("org.jetbrains.kotlin.android")) kotlinOptions kotlinOption
+        if (this.pluginManager.hasPlugin("dagger.hilt.android.plugin")) hilt hiltOptions
+    }
+
     playStoreVersion = [
-            "version_code": getVersionCode(),
-            "major"       : 0,
-            "minor"       : 1,
-            "patch"       : 0
+            "versionCode": getVersionCode(),
+            "versionName": "0.1.0"
     ]
+
+    signingConfig = {
+        release {
+            Properties releaseProperties = get_release_key_creds()
+            storeFile file("${this.rootDir}/${releaseProperties.getProperty('KEY_PATH')}")
+            storePassword releaseProperties.getProperty('KEY_PASSWORD')
+            keyAlias releaseProperties.getProperty('KEY_ALIAS')
+            keyPassword releaseProperties.getProperty('ALIAS_PASSWORD')
+        }
+        debug {
+            Properties properties = get_debug_key_creds()
+            storeFile file("${this.rootDir}/${properties.getProperty('KEY_PATH')}")
+            storePassword properties.getProperty('KEY_PASSWORD')
+            keyAlias properties.getProperty('KEY_ALIAS')
+            keyPassword properties.getProperty('ALIAS_PASSWORD')
+        }
+    }
 
     packageOption = {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
@@ -47,71 +105,6 @@ ext {
         pickFirst '**/libbytehook.so'
     }
 
-    signingConfig = {
-        //This are the play store signing config.
-        playStore {
-            Properties releaseProperties = get_prod_key_creds()
-            if (releaseProperties != null) {
-                storeFile file(releaseProperties.getProperty('KEY_PATH'))
-                storePassword releaseProperties.getProperty('KEY_PASSWORD')
-                keyAlias releaseProperties.getProperty('KEY_ALIAS')
-                keyPassword releaseProperties.getProperty('ALIAS_PASSWORD')
-            } else {
-                logger.error('Release keystore.properties not found. Generating with debug certificates.')
-
-                Properties debugProperties = get_debug_key_creds()
-                storeFile file(debugProperties.getProperty('KEY_PATH'))
-                storePassword debugProperties.getProperty('KEY_PASSWORD')
-                keyAlias debugProperties.getProperty('KEY_ALIAS')
-                keyPassword debugProperties.getProperty('ALIAS_PASSWORD')
-            }
-        }
-
-        //This are the debug signing config
-        debug {
-            Properties properties = get_debug_key_creds()
-            storeFile file(properties.getProperty('KEY_PATH'))
-            storePassword properties.getProperty('KEY_PASSWORD')
-            keyAlias properties.getProperty('KEY_ALIAS')
-            keyPassword properties.getProperty('ALIAS_PASSWORD')
-        }
-    }
-
-    defaultAppConfig = {
-        multiDexEnabled false
-
-        applicationId releaseDetail.packageName
-
-        minSdkVersion buildConfig.minSdk
-        targetSdkVersion buildConfig.targetSdk
-
-        //Versions config
-        versionCode playStoreVersion.version_code
-        versionName "$playStoreVersion.major.$playStoreVersion.minor.$playStoreVersion.patch"
-
-        //strip other than english resources
-        resConfigs "en"
-
-        testInstrumentationRunner "com.kevalpatel2106.coreTest.runner.UiTestsRunner"
-
-        // Cleaning up package data for each test is slow. So, we're only enabling these for app
-        // module where all the e2e tests sits. Other module (repository-impl) will use their own
-        // hilt component to create new preferences/in-memory db, so they don't require cleaning up
-        testInstrumentationRunnerArguments clearPackageData: 'true'
-    }
-
-    defaultLibConfig = {
-        minSdkVersion buildConfig.minSdk
-        targetSdkVersion buildConfig.targetSdk
-
-        //strip other than english resources
-        resConfigs "en"
-
-        consumerProguardFiles '../proguard-rules.pro'
-
-        testInstrumentationRunner "com.kevalpatel2106.coreTest.runner.UiTestsRunner"
-    }
-
     lintOption = {
         abortOnError true
         htmlReport true
@@ -120,7 +113,8 @@ ext {
         checkTestSources true
         ignoreWarnings true
         checkDependencies true
-        baseline file("lint-baseline.xml")
+        checkReleaseBuilds false
+        baseline file("${this.rootDir}/lint-baseline.xml")
     }
 
     compileOption = {
@@ -154,7 +148,12 @@ ext {
                 "-P",
                 "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
         ]
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    composeOption = {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+        kotlinCompilerVersion = libs.versions.kotlin.get()
     }
 
     bundleOption = {
@@ -167,18 +166,24 @@ ext {
         abi {
             enableSplit = true
         }
+        texture {
+            enableSplit = true
+        }
     }
 
     buildFeaturesOption = {
         dataBinding = true
-        compose true
+        aidl = false
+        renderScript = false
+        resValues = true
+        shaders = false
+        buildConfig = true
     }
 
     detektOption = {
-        config = files("./detekt-config.yml")
+        config = files("${this.rootDir}/detekt-config.yml")
         baseline = file("detekt/baseline.xmk")
         autoCorrect = true
-        buildUponDefaultConfig = true
     }
 
     hiltOptions = {
@@ -187,7 +192,7 @@ ext {
 }
 
 def get_debug_key_creds() {
-    File debugCredentials = rootProject.file('./.creds/debug_keystore.properties')
+    File debugCredentials = rootProject.file("${this.rootDir}/.creds/debug_keystore.properties")
     if (debugCredentials.exists()) {
         Properties properties = new Properties()
         properties.load(debugCredentials.newDataInputStream())
@@ -197,14 +202,15 @@ def get_debug_key_creds() {
     }
 }
 
-def get_prod_key_creds() {
-    File debugCredentials = rootProject.file('./.creds/keystore.properties')
-    if (debugCredentials.exists()) {
+def get_release_key_creds() {
+    File playStoreCredentials = rootProject.file("${this.rootDir}/.creds/keystore.properties")
+    if (playStoreCredentials.exists()) {
         Properties properties = new Properties()
-        properties.load(debugCredentials.newDataInputStream())
+        properties.load(playStoreCredentials.newDataInputStream())
         return properties
     } else {
-        return null
+        logger.error('Cannot sign with play store credentials as keystore.properties not found. Generating with debug certificates.')
+        return get_debug_key_creds()
     }
 }
 

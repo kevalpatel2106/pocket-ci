@@ -10,6 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PocketCI">
+        <profileable
+            android:shell="true"
+            tools:targetApi="29" />
 
         <activity
             android:name="com.kevalpatel2106.pocketci.host.HostActivity"
@@ -42,4 +45,5 @@
                 android:value="androidx.startup" />
         </provider>
     </application>
+
 </manifest>

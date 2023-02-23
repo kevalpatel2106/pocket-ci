@@ -3,188 +3,32 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:2.45"
-        classpath 'com.google.android.gms:oss-licenses-plugin:0.10.6'
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.22.0"
-        classpath 'com.google.gms:google-services:4.3.15'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.4'
-        classpath 'de.mannodermaus.gradle.plugins:android-junit5:1.8.2.1'
-        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.5'
-        classpath 'com.google.firebase:perf-plugin:1.4.2'
+        classpath libs.hilt.plugin
+        classpath libs.oss.plugin
+        classpath libs.navigation.safeargs
+        classpath libs.gms.plugin
+        classpath libs.firebase.crashlytics.plugin
+        classpath libs.firebase.performance.plugin
     }
+}
+
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.android.test) apply false
+    alias(libs.plugins.android.kotlin) apply false
+    alias(libs.plugins.jacoco.android) apply false
+    alias(libs.plugins.junit5.android) apply false
+    alias(libs.plugins.detekt)
 }
 
 allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
     apply plugin: "io.gitlab.arturbosch.detekt"
     detekt detektOption
     dependencies {
-        detektPlugins 'io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0'
-        detektPlugins "com.twitter.compose.rules:detekt:0.0.26"
-    }
-}
-
-subprojects {
-    afterEvaluate { module ->
-        apply from: "${module.rootDir}/gradle/config.gradle"
-
-        if (module.hasProperty("android")) {   //All the android module
-            android {
-                compileSdkVersion buildConfig.compileSdk
-                buildToolsVersion buildConfig.buildTool
-                signingConfigs signingConfig
-
-                if (module.pluginManager.hasPlugin("com.android.application")) {
-                    //This is the app module
-                    defaultConfig defaultAppConfig
-                    bundle bundleOption
-
-                    buildTypes {
-                        debug {
-                            versionNameSuffix "-debug"
-                            applicationIdSuffix ".debug"
-                            debuggable true
-                            zipAlignEnabled true
-                            ext.enableCrashlytics = false
-                            signingConfig signingConfigs.debug
-                        }
-                        release {
-                            minifyEnabled true
-                            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), './proguard-rules.pro'
-
-                            debuggable false
-                            jniDebuggable false
-                            shrinkResources true
-                            renderscriptDebuggable false
-                            zipAlignEnabled true
-                            if (!System.getenv().containsKey("CI")) {
-                                signingConfig signingConfigs.playStore
-                            }
-                        }
-                    }
-                } else if (module.pluginManager.hasPlugin("com.android.library")) {
-                    //This is the library module
-                    defaultConfig defaultLibConfig
-
-                    buildTypes {
-                        debug {
-                            debuggable true
-                            signingConfig signingConfigs.debug
-                            zipAlignEnabled true
-                            ext.enableCrashlytics = false
-                        }
-                        release {
-                            minifyEnabled true
-                            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), './proguard-rules.pro'
-
-                            debuggable false
-                            jniDebuggable false
-                            renderscriptDebuggable false
-                            zipAlignEnabled true
-                            if (!System.getenv().containsKey("CI")) {
-                                signingConfig signingConfigs.playStore
-                            }
-                        }
-                    }
-                }
-
-                kotlinOptions kotlinOption
-                compileOptions compileOption
-                packagingOptions packageOption
-                lintOptions lintOption
-                testOptions testOption
-                buildFeatures buildFeaturesOption
-                composeOptions {
-                    kotlinCompilerExtensionVersion = "1.4.2"
-                }
-                if (module.pluginManager.hasPlugin("dagger.hilt.android.plugin")) {
-                    hilt hiltOptions
-                }
-            }
-        }
-
-        dependencies {
-            implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0"
-            implementation 'com.jakewharton.timber:timber:5.0.1'
-
-            //Android libs
-            if (module.hasProperty("android")) {
-                // coroutine
-                implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
-
-                // Design and layouts
-                implementation 'com.google.android.material:material:1.8.0'
-                implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-                implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-
-                // Navigation
-                implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
-                implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
-
-                // Hilt
-                implementation 'com.google.dagger:hilt-android:2.45'
-                kapt 'com.google.dagger:hilt-compiler:2.45'
-                androidTestImplementation 'com.google.dagger:hilt-android-testing:2.45'
-                kaptAndroidTest 'com.google.dagger:hilt-compiler:2.45'
-                kaptTest 'com.google.dagger:hilt-compiler:2.45'
-
-                // Android lifecycle
-                implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
-                implementation "androidx.lifecycle:lifecycle-common-java8:2.5.1"
-                implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
-                kapt "androidx.lifecycle:lifecycle-compiler:2.5.1"
-                kaptAndroidTest "androidx.lifecycle:lifecycle-compiler:2.5.1"
-
-                // compose
-                implementation platform('androidx.compose:compose-bom:2022.12.00')
-                implementation 'androidx.compose.material3:material3'
-                implementation 'androidx.compose.ui:ui-tooling-preview'
-                debugImplementation 'androidx.compose.ui:ui-tooling'
-                implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
-                implementation 'androidx.compose.material:material-icons-core'
-                implementation 'androidx.compose.material:material-icons-extended'
-                implementation "androidx.paging:paging-compose:1.0.0-alpha18"
-                implementation "androidx.compose.runtime:runtime-tracing:1.0.0-alpha01"
-
-                // KTX
-                implementation 'androidx.core:core-ktx:1.9.0'
-                implementation "androidx.activity:activity-ktx:1.6.1"
-                implementation "androidx.fragment:fragment-ktx:1.5.5"
-
-                // Paging
-                implementation "androidx.paging:paging-runtime:3.1.1"
-
-                // Espresso and UI tests
-                androidTestImplementation platform('androidx.compose:compose-bom:2022.12.00')
-                debugImplementation 'androidx.compose.ui:ui-test-manifest'
-                androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
-                androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-                androidTestImplementation 'androidx.test:runner:1.5.2'
-                androidTestImplementation 'androidx.test:rules:1.5.0'
-                androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-                androidTestImplementation "com.flextrade.jfixture:kfixture:0.2.0"
-                androidTestUtil 'androidx.test:orchestrator:1.4.2'
-            }
-
-            // Unit tests
-            testImplementation('org.junit.jupiter:junit-jupiter:5.9.2') { exclude group: 'org.hamcrest' }
-            testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
-            testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.2'
-            testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
-            testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
-            testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"
-            testImplementation "com.flextrade.jfixture:kfixture:0.2.0"
-            testImplementation 'app.cash.turbine:turbine:0.12.1'
-        }
+        detektPlugins libs.bundles.detekt.rules
     }
 }
 
@@ -192,4 +36,3 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-apply plugin: 'android-reporting'

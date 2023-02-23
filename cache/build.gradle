@@ -1,15 +1,18 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'de.mannodermaus.android-junit5'
     id 'com.dicedmelon.gradle.jacoco-android'
-    id 'org.jetbrains.kotlin.android'
 }
+apply from: "${this.rootDir}/gradle/config.gradle"
+apply from: "${this.rootDir}/gradle/groups.gradle"
 
+android defaultAndroidConfig
 android {
     namespace 'com.kevalpatel2106.cache'
+    defaultConfig defaultLibConfig
     defaultConfig {
         javaCompileOptions {
             annotationProcessorOptions {
@@ -38,20 +41,19 @@ dependencies {
     implementation project(':connector-bitrise')
     implementation project(':connector-github')
 
-    // Room
-    api "androidx.room:room-runtime:2.5.0"
-    implementation "androidx.room:room-ktx:2.5.0"
-    kapt "androidx.room:room-compiler:2.5.0"
-    kaptAndroidTest "androidx.room:room-compiler:2.5.0"
-    implementation "androidx.room:room-paging:2.5.0"
-    androidTestImplementation "androidx.room:room-testing:2.5.0"
-    implementation 'net.zetetic:android-database-sqlcipher:4.5.3'
+    // Other dependencies
+    hilt()
+    room()
+    implementation libs.timber
+    implementation libs.androidx.datastore
+    implementation libs.androidx.security
+    implementation libs.androidx.appcompat
 
-    // Data store
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
-    implementation "androidx.security:security-crypto:1.0.0"
+    // Unit and UI tests
+    androidTest()
+    unitTest()
 
     // Firebase
-    implementation platform('com.google.firebase:firebase-bom:31.2.2')
-    implementation 'com.google.firebase:firebase-config'
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.config
 }
