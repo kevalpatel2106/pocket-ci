@@ -118,8 +118,8 @@ ext {
     }
 
     compileOption = {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     testOption = {
@@ -145,15 +145,12 @@ ext {
         freeCompilerArgs += [
                 "-Xinline-classes",
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi,androidx.paging.ExperimentalPagingApi",
-                "-P",
-                "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
         ]
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     composeOption = {
         kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-        kotlinCompilerVersion = libs.versions.kotlin.get()
     }
 
     bundleOption = {
