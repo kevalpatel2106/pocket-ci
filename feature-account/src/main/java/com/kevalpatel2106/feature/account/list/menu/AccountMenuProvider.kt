@@ -13,6 +13,14 @@ internal class AccountMenuProvider @VisibleForTesting constructor(
     private val callback: AccountMenuCallback,
 ) : MenuProvider {
 
+    override fun onPrepareMenu(menu: Menu) {
+        super.onPrepareMenu(menu)
+        with(menu) {
+            findItem(R.id.editAccount).isVisible = callback.isInEditMode()
+            findItem(R.id.doneEditingAccount).isVisible = !callback.isInEditMode()
+        }
+    }
+
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_account_list, menu)
     }
@@ -20,7 +28,11 @@ internal class AccountMenuProvider @VisibleForTesting constructor(
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.editAccount -> {
-                callback.onEdit()
+                callback.editModeStatus(true)
+                true
+            }
+            R.id.doneEditingAccount -> {
+                callback.editModeStatus(false)
                 true
             }
 

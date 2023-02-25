@@ -22,6 +22,7 @@ dependencies {
     implementation project(':entity')
 
     jetpackCompose()
+    implementation libs.timber
     implementation libs.lifecycle.viewmodel.compose
     implementation libs.paging.compose
     implementation libs.compose.google.fonts

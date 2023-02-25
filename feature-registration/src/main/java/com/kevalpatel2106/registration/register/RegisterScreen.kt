@@ -50,6 +50,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kevalpatel2106.core.resources.R
+import com.kevalpatel2106.core.ui.component.LoadingButton
 import com.kevalpatel2106.core.ui.resource.Spacing.GUTTER
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_HUGE
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_LARGE
@@ -106,8 +107,9 @@ internal fun RegisterScreen(viewModel: RegisterViewModel = viewModel()) {
         Spacer(modifier = Modifier.padding(top = SPACING_SMALL))
         AuthTokenExplainerText(state.authTokenHintLink)
         Spacer(modifier = Modifier.padding(top = SPACING_LARGE))
-        Button(
+        LoadingButton(
             enabled = state.enableAddAccountBtn,
+            isLoading = !state.enableAddAccountBtn,
             onClick = {
                 viewModel.submit(inputUrl = domainState.value, inputToken = passwordState.value)
             },

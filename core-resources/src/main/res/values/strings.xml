@@ -5,6 +5,7 @@
 
     <!--Other-->
     <string name="back">Back</string>
+    <string name="delete">delete</string>
 
     <!--Error handling-->
     <string name="error_view_retry_button_title">Retry</string>
@@ -108,6 +109,7 @@
     <string name="cancel">Cancel</string>
     <string name="account_remove_confirmation_message">Do you want to remove account %s?</string>
     <string name="account_list_menu_edit">Edit</string>
+    <string name="account_list_menu_done">Done</string>
 
     <!--Webview screen-->
     <string name="title_web_view_screen">WebView</string>

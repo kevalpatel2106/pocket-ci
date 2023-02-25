@@ -9,5 +9,12 @@
             android:title="@string/account_list_menu_edit"
             app:iconTint="?colorOnBackground"
             app:showAsAction="always" />
+        <item
+            android:id="@+id/doneEditingAccount"
+            android:icon="@drawable/ic_done"
+            android:orderInCategory="1"
+            android:title="@string/account_list_menu_done"
+            app:iconTint="?colorOnBackground"
+            app:showAsAction="always" />
     </group>
 </menu>

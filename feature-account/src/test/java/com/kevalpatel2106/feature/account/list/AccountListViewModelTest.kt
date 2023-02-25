@@ -9,6 +9,7 @@ import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.analytics.ClickEvent
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.AccountRemovedSuccess
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.Close
+import com.kevalpatel2106.feature.account.list.AccountListVMEvent.InvalidateOptionsMenu
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenCiSelection
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenProjects
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowDeleteConfirmation
@@ -18,8 +19,11 @@ import com.kevalpatel2106.feature.account.list.usecase.AccountItemMapper
 import com.kevalpatel2106.feature.account.list.usecase.InsertAccountListHeaders
 import com.kevalpatel2106.repository.AccountRepo
 import com.kevalpatel2106.repository.AnalyticsRepo
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.kotlin.any
@@ -43,14 +47,19 @@ internal class AccountListViewModelTest {
     }
     private val accountItemMapper = mock<AccountItemMapper>()
 
-    private val subject by lazy {
-        AccountListViewModel(
-            accountRepo,
-            insertAccountListHeaders,
-            accountItemMapper,
-            displayErrorMapper,
-            analyticsRepo,
-        )
+    private val subject = AccountListViewModel(
+        accountRepo,
+        insertAccountListHeaders,
+        accountItemMapper,
+        displayErrorMapper,
+        analyticsRepo,
+    )
+
+    @Test
+    fun `when initialised then check edit mode is off`() {
+        val actual = subject.viewState.value.isEditModeOn
+
+        assertFalse(actual)
     }
 
     @Test
@@ -125,6 +134,34 @@ internal class AccountListViewModelTest {
         subject.onAddAccountClicked()
 
         verify(analyticsRepo).sendEvent(ClickEvent(ClickEvent.Action.ACCOUNTS_ADD_ACCOUNT_CLICKED))
+    }
+
+    @Test
+    fun `when edit mode turned on then edit mode turned on in view state`() = runTest {
+        subject.editModeStatus(true)
+        advanceUntilIdle()
+
+        val actual = subject.viewState.value
+        assertTrue(actual.isEditModeOn)
+    }
+
+    @Test
+    fun `when edit mode turned on then options menu invalidate`() =
+        runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
+            subject.editModeStatus(true)
+
+            val actual = flowTurbine.awaitItem()
+
+            assertEquals(InvalidateOptionsMenu, actual)
+        }
+
+    @Test
+    fun `given edit mode turned on when calling isInEditMode on then it returns true`() {
+        subject.editModeStatus(true)
+
+        val actual = subject.isInEditMode()
+
+        assertTrue(actual)
     }
 
     @Test

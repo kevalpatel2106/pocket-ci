@@ -6,11 +6,13 @@ import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.kevalpatel2106.core.BaseViewModel
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
+import com.kevalpatel2106.core.extentions.modify
 import com.kevalpatel2106.entity.Account
 import com.kevalpatel2106.entity.analytics.ClickEvent
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.AccountRemovedSuccess
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.Close
+import com.kevalpatel2106.feature.account.list.AccountListVMEvent.InvalidateOptionsMenu
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenCiSelection
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenProjects
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowDeleteConfirmation
@@ -92,7 +94,10 @@ internal class AccountListViewModel @Inject constructor(
         viewModelScope.launch { _vmEventsFlow.emit(OpenCiSelection) }
     }
 
-    override fun onEdit() {
-        TODO("Not yet implemented")
+    override fun editModeStatus(on: Boolean) {
+        viewModelScope.launch { _vmEventsFlow.emit(InvalidateOptionsMenu) }
+        _viewState.modify(viewModelScope) { copy(isEditModeOn = on) }
     }
+
+    override fun isInEditMode() = !_viewState.value.isEditModeOn
 }

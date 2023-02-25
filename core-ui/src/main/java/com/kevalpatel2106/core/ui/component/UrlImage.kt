@@ -18,7 +18,7 @@ fun UrlImage(
     contentScale: ContentScale = ContentScale.Fit,
     @DrawableRes placeHolder: Int? = null,
 ) = AsyncImage(
-    model = url,
+    model = url?.value,
     contentDescription = contentDescription,
     modifier = modifier,
     alignment = alignment,

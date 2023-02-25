@@ -50,9 +50,11 @@ internal fun AccountListScreen(
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             itemsIndexed(lazyItems) { _, item ->
                 if (item == null) return@itemsIndexed
-                AccountListItemRow(item = item, viewState.value) { accountId ->
-                    viewModel.onAccountSelected(accountId)
-                }
+                AccountListItemRow(
+                    item = item, viewState.value,
+                    onItemClick = { accountId -> viewModel.onAccountSelected(accountId) },
+                    onItemDelete = { account -> viewModel.onAccountRemoved(account) },
+                )
             }
             handleLoadState(lazyItems, displayErrorMapper) { viewModel.close() }
         }

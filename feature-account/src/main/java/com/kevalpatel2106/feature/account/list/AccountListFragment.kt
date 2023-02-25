@@ -19,6 +19,7 @@ import com.kevalpatel2106.coreViews.errorView.showErrorSnack
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.AccountRemovedSuccess
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.Close
+import com.kevalpatel2106.feature.account.list.AccountListVMEvent.InvalidateOptionsMenu
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenCiSelection
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenProjects
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowDeleteConfirmation
@@ -67,6 +68,7 @@ class AccountListFragment : Fragment() {
             AccountRemovedSuccess -> showSnack(R.string.success_removing_account)
             Close -> findNavController().navigateUp()
             is ShowErrorLoadingAccounts -> showErrorSnack(event.error)
+            InvalidateOptionsMenu -> requireActivity().invalidateMenu()
         }
     }
 
