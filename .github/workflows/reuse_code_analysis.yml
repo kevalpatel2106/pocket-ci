@@ -8,11 +8,11 @@ jobs:
     name: detekt
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.3.0
       - name: Run detekt
         run: ./gradlew detekt --scan --stacktrace
       - name: Upload results Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         if: failure()
         with:
           name: detekt-report
@@ -24,8 +24,8 @@ jobs:
     name: android lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+      - uses: actions/checkout@v3.3.0
+      - uses: actions/setup-java@v3.10.0
         with:
           distribution: 'adopt'
           java-version: 17
@@ -37,13 +37,13 @@ jobs:
             --stacktrace
       - name: Generate annotations from lint report
         if: success() || failure()
-        uses: yutailang0119/action-android-lint@v3
+        uses: yutailang0119/action-android-lint@v3.1.0
         with:
           report-path: '**/build/reports/lint-results-*.xml'
         continue-on-error: true
       - name: Upload lint report
         if: success() || failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: lint-report
           path: |
@@ -55,8 +55,8 @@ jobs:
     name: yaml-lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.3.0
       - name: Lint check
-        uses: ibiqlik/action-yamllint@v3
+        uses: ibiqlik/action-yamllint@v3.1.1
         with:
           config_file: yamllint-config.yml

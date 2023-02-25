@@ -10,9 +10,9 @@ jobs:
     name: Update Gradle Wrapper
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.3.0
       - name: Update Gradle Wrapper
-        uses: gradle-update/update-gradle-wrapper-action@v1
+        uses: gradle-update/update-gradle-wrapper-action@v1.0.18
         with:
           labels: Change type > dependencies
           repo-token: ${{ secrets.PAT_GITHUB }}
