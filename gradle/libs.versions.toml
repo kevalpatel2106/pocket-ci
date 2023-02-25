@@ -9,9 +9,9 @@
 # (i.e. navigation in this case)
 
 [versions]
-buildTools = "7.4.1"
+buildTools = "33.0.0"   # Not a dependency
 kotlin = "1.8.10"
-agp = "7.4.1"
+agp = "7.1.0"   # To Upgrade https://github.com/kevalpatel2106/pocket-ci/issues/167
 hilt = "2.45"
 navigation = "2.5.3"
 detekt = "1.22.0"

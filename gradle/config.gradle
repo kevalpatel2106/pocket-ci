@@ -13,7 +13,7 @@ ext {
             'compileSdk': 33,
             'targetSdk' : 33,
             'minSdk'    : 25,
-            'buildTool' : '33.0.0',
+            'buildTool' : libs.versions.buildTools.get(),
     ]
 
     defaultLibConfig = {
