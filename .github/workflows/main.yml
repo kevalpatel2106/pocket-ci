@@ -21,13 +21,13 @@ jobs:
 
   test:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_test.yml@main
-    needs: [ quality, security ]
+    needs: [ quality ]
     secrets:
       AVD_CACHE_VERSION: ${{secrets.AVD_CACHE_VERSION}}
 
   build:
     uses: kevalpatel2106/pocket-ci/.github/workflows/reuse_build.yml@main
-    needs: [ test ]
+    needs: [ quality, test, security ]
     secrets:
       UPLOAD_KEYSTORE_BASE64: ${{secrets.UPLOAD_KEY_KEYSTORE_BASE64}}
       UPLOAD_KEYSTORE_ALIAS: ${{secrets.UPLOAD_KEY_KEYSTORE_ALIAS}}

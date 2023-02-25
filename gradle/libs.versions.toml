@@ -9,7 +9,7 @@
 # (i.e. navigation in this case)
 
 [versions]
-buildTools = "7.4.1"
+buildTools = "33.0.0" # Not a dependency
 kotlin = "1.8.0"
 agp = "7.4.1"
 hilt = "2.45"

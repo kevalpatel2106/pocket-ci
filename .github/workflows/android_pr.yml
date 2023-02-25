@@ -33,7 +33,7 @@ jobs:
       pull-requests: write
     steps:
       - name: PR labeler
-        uses: actions/labeler@v4
+        uses: actions/labeler@v4.0.2
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           configuration-path: ".github/labeler.yml"
@@ -52,7 +52,7 @@ jobs:
         env:
           PULL_REQUEST_URL: ${{ github.event.pull_request.html_url }}
         run: echo $PULL_REQUEST_URL > pull_request_url.txt
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v3.1.2
         with:
           name: pull_request_url
           path: ./pull_request_url.txt
