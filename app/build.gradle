@@ -60,7 +60,7 @@ android {
     }
     sourceSets {
         main {
-            res.srcDirs = ['../core-resources/src/main/res', 'src/main/res']
+            res.srcDirs = ["${this.rootDir}/core/core-resources/src/main/res", 'src/main/res']
         }
     }
     tasks.withType(Test) {
@@ -71,30 +71,30 @@ android {
 
 dependencies {
     // feature modules
-    implementation project(':feature-registration')
-    implementation project(':feature-project')
-    implementation project(':feature-account')
-    implementation project(':feature-build')
-    implementation project(':feature-log')
-    implementation project(':feature-job')
-    implementation project(':feature-artifact')
-    implementation project(':feature-setting')
+    implementation project(':feature:feature-registration')
+    implementation project(':feature:feature-project')
+    implementation project(':feature:feature-account')
+    implementation project(':feature:feature-build')
+    implementation project(':feature:feature-log')
+    implementation project(':feature:feature-job')
+    implementation project(':feature:feature-artifact')
+    implementation project(':feature:feature-setting')
 
     // Core modules
     implementation project(':entity')
-    implementation project(':core')
-    implementation project(':core-ui')
-    implementation project(':core-network')
-    implementation project(':core-resources')
-    testImplementation project(':core-test')
-    androidTestImplementation project(':core-test')
+    implementation project(':core:core')
+    implementation project(':core:core-ui')
+    implementation project(':core:core-network')
+    implementation project(':core:core-resources')
+    testImplementation project(':core:core-test')
+    androidTestImplementation project(':core:core-test')
 
     // protocols modules
-    implementation project(':repository')
+    implementation project(':repository:repository')
 
     // Implementation module
-    implementation project(':repository-impl')
-    implementation project(':repository-impl-analytics')
+    implementation project(':repository:repository-impl')
+    implementation project(':repository:repository-impl-analytics')
 
     // Other dependencies
     hilt()

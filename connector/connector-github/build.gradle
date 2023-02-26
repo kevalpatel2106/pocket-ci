@@ -1,0 +1,32 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'de.mannodermaus.android-junit5'
+    id 'com.dicedmelon.gradle.jacoco-android'
+}
+apply from: "${this.rootDir}/gradle/config.gradle"
+apply from: "${this.rootDir}/gradle/groups.gradle"
+
+android defaultAndroidConfig
+android {
+    namespace 'com.kevalpatel2106.connector.github'
+    defaultConfig defaultLibConfig
+}
+
+dependencies {
+    implementation project(':connector:connector-ci')
+    implementation project(':entity')
+    implementation project(':core:core-network')
+    implementation project(':core:core')
+    testImplementation project(':core:core-test')
+
+    hilt()
+    moshi()
+    implementation libs.bundles.paging
+    implementation libs.timber
+    implementation libs.retrofit
+    testImplementation libs.okhttp.mockwebserver
+    unitTest()
+}

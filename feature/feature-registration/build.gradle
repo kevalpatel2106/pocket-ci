@@ -1,0 +1,43 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'de.mannodermaus.android-junit5'
+    id 'com.dicedmelon.gradle.jacoco-android'
+}
+apply from: "${this.rootDir}/gradle/groups.gradle"
+apply from: "${this.rootDir}/gradle/config.gradle"
+
+android defaultAndroidConfig
+android {
+    namespace 'com.kevalpatel2106.registration'
+    defaultConfig defaultLibConfig
+    buildFeatures {
+        compose = true
+    }
+}
+
+dependencies {
+    implementation project(':entity')
+    implementation project(':core:core')
+    implementation project(':core:core-views')
+    implementation project(':core:core-resources')
+    implementation project(':core:core-ui')
+    implementation project(':repository:repository')
+    testImplementation project(':core:core-test')
+
+    hilt()
+    lifecycle()
+    jetpackCompose()
+    implementation libs.timber
+    implementation libs.coroutines.android
+    implementation libs.bundles.ktx
+    implementation libs.bundles.paging
+    implementation libs.bundles.navigtion
+
+    // Unit and UI tests
+    androidTest()
+    unitTest()
+}

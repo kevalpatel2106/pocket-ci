@@ -1,0 +1,34 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'de.mannodermaus.android-junit5'
+    id 'com.dicedmelon.gradle.jacoco-android'
+}
+apply from: "${this.rootDir}/gradle/groups.gradle"
+apply from: "${this.rootDir}/gradle/config.gradle"
+
+android defaultAndroidConfig
+android {
+    namespace 'com.kevalpatel2106.core'
+    defaultConfig defaultLibConfig
+    sourceSets {
+        main {
+            res.srcDirs = ["${this.rootDir}/core/core-resources/src/main/res", 'src/main/res']
+        }
+    }
+}
+
+dependencies {
+    implementation project(':entity')
+    implementation project(':core:core-resources')
+    implementation libs.moshi
+    implementation libs.retrofit
+    implementation libs.timber
+    implementation libs.design.material
+    implementation libs.bundles.paging
+    implementation libs.bundles.navigtion
+    unitTest()
+    glide()
+    hilt()
+}

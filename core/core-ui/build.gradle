@@ -1,0 +1,34 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+apply from: "${this.rootDir}/gradle/config.gradle"
+apply from: "${this.rootDir}/gradle/groups.gradle"
+
+android defaultAndroidConfig
+android {
+    namespace 'com.kevalpatel2106.core.ui'
+    defaultConfig defaultLibConfig
+    buildFeatures {
+        compose = true
+    }
+}
+
+dependencies {
+    implementation project(':core:core-resources')
+    implementation project(':core:core')
+    implementation project(':entity')
+
+    jetpackCompose()
+    implementation libs.timber
+    implementation libs.lifecycle.viewmodel.compose
+    implementation libs.paging.compose
+    implementation libs.compose.google.fonts
+    implementation libs.bundles.coil
+    implementation libs.design.material
+
+    // Coil
+    implementation libs.bundles.coil
+}

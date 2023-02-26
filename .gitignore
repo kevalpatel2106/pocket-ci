@@ -8,6 +8,7 @@
 /.creds/keystore.properties
 /build
 /*/build
+/*/*/build
 /captures
 !/.idea/icon.svg
 /.idea/*.xml
