@@ -113,7 +113,6 @@ ext {
         checkTestSources true
         ignoreWarnings true
         checkDependencies true
-        checkReleaseBuilds false
         baseline file("${this.rootDir}/lint-baseline.xml")
     }
 
@@ -153,7 +152,6 @@ ext {
 
     composeOption = {
         kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-        kotlinCompilerVersion = libs.versions.kotlin.get()
     }
 
     bundleOption = {
