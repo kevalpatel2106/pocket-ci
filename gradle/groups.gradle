@@ -10,6 +10,7 @@ ext {
     }
 
     jetpackCompose = Group {
+        implementation(platform(libs.compose.bom))
         implementation(libs.bundles.compose.main)
         debugImplementation(libs.compose.tooling)
         debugImplementation(libs.compose.test.manifest)

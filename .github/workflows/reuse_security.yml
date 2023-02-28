@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.3.0
       - name: Submit dependencies
-        uses: mikepenz/gradle-dependency-submission@v0.8.4
+        uses: mikepenz/gradle-dependency-submission@v0.8.5
         with:
           gradle-build-module: ":app"
 
