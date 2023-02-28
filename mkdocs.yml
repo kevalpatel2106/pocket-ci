@@ -12,9 +12,6 @@ remote_branch: gh-pages
 copyright: 'Copyright &copy; 2022 Keval Patel'
 
 extra:
-  leak_canary:
-    release: '2.9.1'
-    next_release: '2.10'
   social:
     - icon: fontawesome/brands/github-alt
       link: https://github.com/kevalpatel2106
