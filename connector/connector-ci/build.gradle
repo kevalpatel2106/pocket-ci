@@ -3,8 +3,6 @@ plugins {
     id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.android'
 }
-apply from: "${this.rootDir}/gradle/config.gradle"
-apply from: "${this.rootDir}/gradle/groups.gradle"
 
 android defaultAndroidConfig
 android {

@@ -6,8 +6,6 @@ plugins {
     id 'de.mannodermaus.android-junit5'
     id 'com.dicedmelon.gradle.jacoco-android'
 }
-apply from: "${this.rootDir}/gradle/groups.gradle"
-apply from: "${this.rootDir}/gradle/config.gradle"
 
 android defaultAndroidConfig
 android {

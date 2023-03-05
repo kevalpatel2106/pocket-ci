@@ -11,8 +11,6 @@ plugins {
     id 'com.dicedmelon.gradle.jacoco-android'
     id 'com.google.firebase.firebase-perf'
 }
-apply from: "${this.rootDir}/gradle/config.gradle"
-apply from: "${this.rootDir}/gradle/groups.gradle"
 
 android defaultAndroidConfig
 android {

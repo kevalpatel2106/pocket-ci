@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
-apply from: "${this.rootDir}/gradle/config.gradle"
 
 android defaultAndroidConfig
 android {

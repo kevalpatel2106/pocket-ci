@@ -4,8 +4,6 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
-apply from: "${this.rootDir}/gradle/config.gradle"
-apply from: "${this.rootDir}/gradle/groups.gradle"
 
 android defaultAndroidConfig
 android {

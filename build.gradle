@@ -1,20 +1,13 @@
 buildscript {
-    apply from: './gradle/config.gradle'
-    ext {
-        kotlin_version = '1.8.10'
-    }
     repositories {
         google()
-        mavenCentral()
     }
     dependencies {
-        classpath libs.hilt.plugin
         classpath libs.oss.plugin
         classpath libs.navigation.safeargs
         classpath libs.gms.plugin
         classpath libs.firebase.crashlytics.plugin
         classpath libs.firebase.performance.plugin
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -25,19 +18,20 @@ plugins {
     alias(libs.plugins.android.kotlin) apply false
     alias(libs.plugins.jacoco.android) apply false
     alias(libs.plugins.junit5.android) apply false
+    alias(libs.plugins.hilt) apply false
     alias(libs.plugins.detekt)
 }
 
 allprojects {
     apply plugin: "io.gitlab.arturbosch.detekt"
+    apply from: "${this.rootDir}/gradle/groups.gradle"
+    apply from: "${this.rootDir}/gradle/config.gradle"
+
     detekt detektOption
+
     dependencies {
         detektPlugins libs.bundles.detekt.rules
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
-
-apply plugin: 'android-reporting'
+apply plugin: "android-reporting"
