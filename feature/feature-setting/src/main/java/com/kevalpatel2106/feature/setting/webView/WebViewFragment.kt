@@ -6,7 +6,8 @@ import android.webkit.WebSettings
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.kevalpatel2106.core.extentions.collectInFragment
+import com.kevalpatel2106.core.extentions.collectStateInFragment
+import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.feature.setting.BuildConfig
 import com.kevalpatel2106.feature.setting.R
@@ -29,8 +30,8 @@ class WebViewFragment : Fragment(R.layout.fragment_webview) {
         }
 
         setUpWebView()
-        viewModel.viewState.collectInFragment(this, ::handleViewStates)
-        viewModel.vmEventsFlow.collectInFragment(this, ::handleVMEvents)
+        viewModel.viewState.collectStateInFragment(this, ::handleViewStates)
+        viewModel.vmEventsFlow.collectVMEventInFragment(this, ::handleVMEvents)
     }
 
     private fun handleViewStates(viewState: WebViewViewState) {

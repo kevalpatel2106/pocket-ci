@@ -1,16 +1,18 @@
 package com.kevalpatel2106.pocketci.host
 
 import android.os.Bundle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kevalpatel2106.core.BaseViewModel
-import com.kevalpatel2106.core.extentions.modify
 import com.kevalpatel2106.pocketci.R
 import com.kevalpatel2106.pocketci.host.AppNavigationConfig.SCREENS_WITH_BOTTOM_DRAWER
 import com.kevalpatel2106.pocketci.host.AppNavigationConfig.SCREENS_WITH_NO_TOOLBAR
 import com.kevalpatel2106.repository.AnalyticsRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,7 +20,10 @@ import javax.inject.Inject
 @HiltViewModel
 internal class HostViewModel @Inject constructor(
     private val analyticsRepo: AnalyticsRepo,
-) : BaseViewModel<HostVMEvents>() {
+) : ViewModel() {
+
+    private val _vmEventsFlow = MutableSharedFlow<HostVMEvents>()
+    val vmEventsFlow = _vmEventsFlow.asSharedFlow()
 
     private val _viewState = MutableStateFlow(HostViewState.initialState())
     val viewState = _viewState.asStateFlow()
@@ -40,8 +45,8 @@ internal class HostViewModel @Inject constructor(
         }
         val isNavigationIconVisible = newDstId !in SCREENS_WITH_NO_TOOLBAR
 
-        _viewState.modify(viewModelScope) {
-            copy(
+        _viewState.update {
+            it.copy(
                 navigationIcon = navigationIcon,
                 navigationIconVisible = isNavigationIconVisible,
             )

@@ -22,7 +22,6 @@ android {
 dependencies {
     implementation project(':entity')
     implementation project(':core:core')
-    implementation project(':core:core-views')
     implementation project(':core:core-resources')
     implementation project(':core:core-ui')
     implementation project(':repository:repository')

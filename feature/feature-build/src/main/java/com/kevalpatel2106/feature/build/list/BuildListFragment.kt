@@ -6,14 +6,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
-import com.kevalpatel2106.core.extentions.collectInFragment
+import com.kevalpatel2106.core.extentions.collectStateInFragment
+import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.core.paging.FirstPageLoadState.Empty
 import com.kevalpatel2106.core.paging.FirstPageLoadState.Error
 import com.kevalpatel2106.core.paging.FirstPageLoadState.Loaded
 import com.kevalpatel2106.core.paging.FirstPageLoadState.Loading
 import com.kevalpatel2106.core.paging.usecase.LoadStateMapper
 import com.kevalpatel2106.core.viewbinding.viewBinding
-import com.kevalpatel2106.coreViews.errorView.showErrorSnack
+import com.kevalpatel2106.core.baseUi.showErrorSnack
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
 import com.kevalpatel2106.feature.build.R
 import com.kevalpatel2106.feature.build.databinding.FragmentBuildListBinding
@@ -48,9 +49,9 @@ internal class BuildListFragment : Fragment(R.layout.fragment_build_list) {
         prepareRecyclerView()
         observeAdapterLoadState()
         binding.buildListSwipeRefresh.setOnRefreshListener(viewModel::reload)
-        viewModel.pageViewState.collectInFragment(this, buildListAdapter::submitData)
-        viewModel.viewState.collectInFragment(this, ::handleViewState)
-        viewModel.vmEventsFlow.collectInFragment(this, ::handleSingleEvent)
+        viewModel.pageViewState.collectStateInFragment(this, buildListAdapter::submitData)
+        viewModel.viewState.collectStateInFragment(this, ::handleViewState)
+        viewModel.vmEventsFlow.collectVMEventInFragment(this, ::handleSingleEvent)
     }
 
     private fun prepareRecyclerView() = with(binding.buildListRecyclerView) {
@@ -63,7 +64,7 @@ internal class BuildListFragment : Fragment(R.layout.fragment_build_list) {
 
     private fun observeAdapterLoadState() = buildListAdapter.loadStateFlow
         .map { loadStateMapper(buildListAdapter, it) }
-        .collectInFragment(this@BuildListFragment) { state ->
+        .collectStateInFragment(this@BuildListFragment) { state ->
             binding.buildListSwipeRefresh.isRefreshing = false
             binding.buildsViewFlipper.displayedChild = when (state) {
                 is Error -> {

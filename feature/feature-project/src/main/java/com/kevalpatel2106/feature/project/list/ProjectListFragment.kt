@@ -6,7 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
-import com.kevalpatel2106.core.extentions.collectInFragment
+import com.kevalpatel2106.core.extentions.collectStateInFragment
+import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
 import com.kevalpatel2106.core.paging.FirstPageLoadState.Empty
@@ -15,7 +16,7 @@ import com.kevalpatel2106.core.paging.FirstPageLoadState.Loaded
 import com.kevalpatel2106.core.paging.FirstPageLoadState.Loading
 import com.kevalpatel2106.core.paging.usecase.LoadStateMapper
 import com.kevalpatel2106.core.viewbinding.viewBinding
-import com.kevalpatel2106.coreViews.errorView.showErrorSnack
+import com.kevalpatel2106.core.baseUi.showErrorSnack
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
 import com.kevalpatel2106.feature.project.R
 import com.kevalpatel2106.feature.project.databinding.FragmentProjectListBinding
@@ -50,8 +51,8 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
         prepareRecyclerView()
         observeAdapterLoadState()
         binding.projectListSwipeRefresh.setOnRefreshListener(viewModel::reload)
-        viewModel.pageViewState.collectInFragment(this, projectListAdapter::submitData)
-        viewModel.vmEventsFlow.collectInFragment(this, ::handleSingleEvent)
+        viewModel.pageViewState.collectStateInFragment(this, projectListAdapter::submitData)
+        viewModel.vmEventsFlow.collectVMEventInFragment(this, ::handleSingleEvent)
     }
 
     private fun prepareRecyclerView() = with(binding.projectListRecyclerView) {
@@ -64,7 +65,7 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
 
     private fun observeAdapterLoadState() = projectListAdapter.loadStateFlow
         .map { loadStateMapper(projectListAdapter, it) }
-        .collectInFragment(this) { state ->
+        .collectStateInFragment(this) { state ->
             binding.projectListSwipeRefresh.isRefreshing = false
             binding.projectsViewFlipper.displayedChild = when (state) {
                 is Error -> {

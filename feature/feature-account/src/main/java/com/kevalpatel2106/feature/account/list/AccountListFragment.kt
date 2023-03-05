@@ -9,13 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
-import com.kevalpatel2106.core.extentions.collectInFragment
+import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.core.extentions.showSnack
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
 import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.core.ui.extension.setContent
-import com.kevalpatel2106.coreViews.errorView.showErrorSnack
+import com.kevalpatel2106.core.baseUi.showErrorSnack
 import com.kevalpatel2106.entity.id.AccountId
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.AccountRemovedSuccess
 import com.kevalpatel2106.feature.account.list.AccountListVMEvent.Close
@@ -46,7 +46,7 @@ class AccountListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         AccountMenuProvider.bindWithLifecycle(this, viewModel)
-        viewModel.vmEventsFlow.collectInFragment(this, ::handleEventFlow)
+        viewModel.vmEventsFlow.collectVMEventInFragment(this, ::handleEventFlow)
     }
 
     private fun handleEventFlow(event: AccountListVMEvent) {

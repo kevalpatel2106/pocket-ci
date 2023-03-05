@@ -12,8 +12,9 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import com.kevalpatel2106.core.extentions.collectInFragment
-import com.kevalpatel2106.coreViews.errorView.showErrorSnack
+import com.kevalpatel2106.core.extentions.collectStateInFragment
+import com.kevalpatel2106.core.extentions.collectVMEventInFragment
+import com.kevalpatel2106.core.baseUi.showErrorSnack
 import com.kevalpatel2106.feature.setting.R
 import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.ErrorChangingTheme
 import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenAppInvite
@@ -46,8 +47,8 @@ class SettingListFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
         findPreference<ListPreference>(getString(R.string.pref_key_theme))?.summaryProvider =
             ListPreference.SimpleSummaryProvider.getInstance()
 
-        viewModel.viewState.collectInFragment(this, ::handleViewState)
-        viewModel.vmEventsFlow.collectInFragment(this, ::handleViewEvents)
+        viewModel.viewState.collectStateInFragment(this, ::handleViewState)
+        viewModel.vmEventsFlow.collectVMEventInFragment(this, ::handleViewEvents)
     }
 
     override fun onResume() {

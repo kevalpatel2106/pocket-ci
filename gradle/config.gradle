@@ -128,7 +128,7 @@ ext {
             returnDefaultValues true
             includeAndroidResources = true
             all {
-                maxParallelForks 4
+                maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
 
                 minHeapSize = "1024m"
                 maxHeapSize = "1596m"

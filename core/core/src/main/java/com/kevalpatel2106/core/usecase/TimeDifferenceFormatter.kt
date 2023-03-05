@@ -1,8 +1,8 @@
-package com.kevalpatel2106.coreViews.useCase
+package com.kevalpatel2106.core.usecase
 
 import java.util.Date
 
-internal interface TimeDifferenceFormatter {
+interface TimeDifferenceFormatter {
 
     operator fun invoke(
         dateStart: Date,

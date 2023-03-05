@@ -1,16 +1,18 @@
 package com.kevalpatel2106.pocketci.splash
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kevalpatel2106.core.BaseViewModel
-import com.kevalpatel2106.core.extentions.modify
 import com.kevalpatel2106.entity.NightMode
 import com.kevalpatel2106.pocketci.splash.SplashVMEvent.OpenProjects
 import com.kevalpatel2106.pocketci.splash.SplashVMEvent.OpenRegisterAccount
 import com.kevalpatel2106.repository.AccountRepo
 import com.kevalpatel2106.repository.SettingsRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,7 +21,10 @@ import javax.inject.Inject
 internal class SplashViewModel @Inject constructor(
     private val accountRepo: AccountRepo,
     private val settingsRepo: SettingsRepo,
-) : BaseViewModel<SplashVMEvent>() {
+) : ViewModel() {
+
+    private val _vmEventsFlow = MutableSharedFlow<SplashVMEvent>()
+    val vmEventsFlow = _vmEventsFlow.asSharedFlow()
 
     private val _viewState = MutableStateFlow(SplashViewState.initialState())
     val viewState = _viewState.asStateFlow()
@@ -33,10 +38,12 @@ internal class SplashViewModel @Inject constructor(
             runCatching { settingsRepo.getNightMode() }
                 .onFailure { error ->
                     Timber.e(error)
-                    _viewState.modify { copy(nightMode = NightMode.AUTO) }
+                    _viewState.update { it.copy(nightMode = NightMode.AUTO) }
                     _vmEventsFlow.emit(SplashVMEvent.ErrorLoadingTheme)
                 }
-                .onSuccess { _viewState.modify { copy(nightMode = it) } }
+                .onSuccess { nightMode ->
+                    _viewState.update { it.copy(nightMode = nightMode) }
+                }
             navigate()
         }
     }

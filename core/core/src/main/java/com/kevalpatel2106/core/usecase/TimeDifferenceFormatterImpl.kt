@@ -1,7 +1,7 @@
-package com.kevalpatel2106.coreViews.useCase
+package com.kevalpatel2106.core.usecase
 
 import android.app.Application
-import com.kevalpatel2106.coreViews.R
+import com.kevalpatel2106.core.R
 import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

@@ -134,18 +134,21 @@ compose-tooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-ui-util = { module = "androidx.compose.ui:ui-util" }
 compose-ui-test = { module = "androidx.compose.ui:ui-test-junit4" }
 compose-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts" }
+compose-material = { module = "androidx.compose.material:material" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
 compose-icons = { module = "androidx.compose.material:material-icons-core" }
 compose-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
-compose-constraintlayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.require = "1.0.1" }
 compose-animation = { module = "androidx.compose.animation:animation" }
+
+# Constraint layout
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.require = "2.1.4" }
+compose-constraintlayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.require = "1.0.1" }
 
 #Other
 oss-plugin = { module = "com.google.android.gms:oss-licenses-plugin", version.require = "0.10.6" }
 gms-plugin = { module = "com.google.gms:google-services", version.require = "4.3.15" }
 timber = { module = "com.jakewharton.timber:timber", version.require = "5.0.1" }
 design-material = { module = "com.google.android.material:material", version.require = "1.8.0" }
-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.require = "2.1.4" }
 swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.require = "1.1.0" }
 mokito = { module = "org.mockito.kotlin:mockito-kotlin", version.require = "4.1.0" }
 kfixture = { module = "com.flextrade.jfixture:kfixture", version.require = "0.2.0" }
@@ -156,6 +159,7 @@ preference-ktx = { module = "androidx.preference:preference-ktx", version.requir
 oss-licences = { module = "com.google.android.gms:play-services-oss-licenses", version.require = "17.0.0" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.require = "0.3.5" }
 
 [bundles]
 coil = [
@@ -192,7 +196,8 @@ compose-main = [
     "compose-icons-extended",
     "compose-animation",
     "compose-ui-util",
-    "compose-constraintlayout"
+    "compose-constraintlayout",
+    "compose-material"
 ]
 hilt = [
     "hilt-android"

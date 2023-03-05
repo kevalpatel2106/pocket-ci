@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.kevalpatel2106.core.extentions.collectInFragment
+import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.core.ui.extension.setContent
 import com.kevalpatel2106.pocketci.bottomDrawer.usecase.HandleBottomDrawerVMEvents
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +30,7 @@ internal class BottomDrawerDialog : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.vmEventsFlow.collectInFragment(this, handleBottomDrawerVMEvents::invoke)
+        viewModel.vmEventsFlow.collectVMEventInFragment(this, handleBottomDrawerVMEvents::invoke)
     }
 
     companion object {

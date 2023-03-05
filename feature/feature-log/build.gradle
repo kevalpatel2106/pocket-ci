@@ -14,28 +14,29 @@ android defaultAndroidConfig
 android {
     namespace 'com.kevalpatel2106.feature.log'
     defaultConfig defaultLibConfig
-    sourceSets {
-        main {
-            res.srcDirs = ["${this.rootDir}/core/core-resources/src/main/res", 'src/main/res']
-        }
+    buildFeatures {
+        compose = true
     }
 }
 
 dependencies {
     implementation project(':entity')
     implementation project(':core:core')
-    implementation project(':core:core-views')
+    implementation project(':core:core-ui')
+    implementation project(':core:core-resources')
     implementation project(':repository:repository')
     testImplementation project(':core:core-test')
 
     hilt()
     lifecycle()
+    jetpackCompose()
     implementation libs.timber
     implementation libs.coroutines.android
     implementation libs.bundles.ktx
     implementation libs.bundles.paging
     implementation libs.bundles.navigtion
     implementation libs.bundles.design.legacy
+    implementation libs.collections.immutable
 
     // Unit and UI tests
     androidTest()

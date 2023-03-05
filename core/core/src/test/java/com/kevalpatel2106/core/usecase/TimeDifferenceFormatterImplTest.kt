@@ -1,4 +1,4 @@
-package com.kevalpatel2106.coreViews.useCase
+package com.kevalpatel2106.core.usecase
 
 import android.app.Application
 import android.content.res.Resources

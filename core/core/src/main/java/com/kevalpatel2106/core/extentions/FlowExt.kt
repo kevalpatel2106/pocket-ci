@@ -4,26 +4,45 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-inline fun <T> Flow<T>.collectInFragment(
+// With screens with compose collectAsState in compose should be used instead of this.
+inline fun <T> Flow<T>.collectStateInFragment(
     fragment: Fragment,
     crossinline action: suspend (value: T) -> Unit,
 ) {
+    val lifecycle = if (fragment.view == null) {
+        fragment.lifecycle
+    } else {
+        fragment.viewLifecycleOwner.lifecycle
+    }
     fragment.lifecycleScope.launch {
-        if (fragment.view == null) {
-            flowWithLifecycle(fragment.lifecycle)
-        } else {
-            flowWithLifecycle(fragment.viewLifecycleOwner.lifecycle)
-        }.collectLatest { action(it) }
+        flowWithLifecycle(lifecycle)
+            .collectLatest { action(it) }   // Only interested in latest events
     }
 }
 
-inline fun <T> Flow<T>.collectInActivity(
+inline fun <T> Flow<T>.collectVMEventInFragment(
+    fragment: Fragment,
+    crossinline action: suspend (value: T) -> Unit,
+) {
+    val lifecycle = if (fragment.view == null) {
+        fragment.lifecycle
+    } else {
+        fragment.viewLifecycleOwner.lifecycle
+    }
+    flowWithLifecycle(lifecycle)
+        .buffer()   // We want to get all the events
+        .onEach { action(it) }
+        .launchIn(fragment.lifecycleScope)
+}
+
+inline fun <T> Flow<T>.collectStateInActivity(
     activity: AppCompatActivity,
     crossinline action: suspend (value: T) -> Unit,
 ) {
@@ -32,11 +51,12 @@ inline fun <T> Flow<T>.collectInActivity(
     }
 }
 
-inline fun <T : Any> MutableStateFlow<T>.modify(
-    viewModelScope: CoroutineScope,
-    crossinline modify: T.() -> T,
+inline fun <T> Flow<T>.collectVMEventsInActivity(
+    activity: AppCompatActivity,
+    crossinline action: suspend (value: T) -> Unit,
 ) {
-    viewModelScope.launch { emit(value.modify()) }
+    flowWithLifecycle(activity.lifecycle)
+        .buffer()   // We want to get all the events
+        .onEach { action(it) }
+        .launchIn(activity.lifecycleScope)
 }
-
-suspend inline fun <T : Any> MutableStateFlow<T>.modify(modify: T.() -> T) = emit(value.modify())

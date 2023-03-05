@@ -14,6 +14,9 @@ android defaultAndroidConfig
 android {
     namespace 'com.kevalpatel2106.feature.artifact'
     defaultConfig defaultLibConfig
+    buildFeatures {
+        compose = true
+    }
     sourceSets {
         main {
             res.srcDirs = ["${this.rootDir}/core/core-resources/src/main/res", 'src/main/res']
@@ -24,12 +27,13 @@ android {
 dependencies {
     implementation project(':entity')
     implementation project(':core:core')
-    implementation project(':core:core-views')
     implementation project(':repository:repository')
+    implementation project(':core:core-ui')
     testImplementation project(':core:core-test')
 
     hilt()
     lifecycle()
+    jetpackCompose()
     implementation libs.timber
     implementation libs.coroutines.android
     implementation libs.bundles.ktx

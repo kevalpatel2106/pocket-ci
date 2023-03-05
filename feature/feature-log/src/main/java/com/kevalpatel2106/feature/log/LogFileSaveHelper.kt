@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.kevalpatel2106.core.extentions.showSnack
+import com.kevalpatel2106.core.resources.R
 import timber.log.Timber
 import java.io.IOException
 

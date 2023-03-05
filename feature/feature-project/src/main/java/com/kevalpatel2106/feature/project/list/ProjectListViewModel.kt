@@ -1,12 +1,12 @@
 package com.kevalpatel2106.feature.project.list
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.insertSeparators
 import androidx.paging.map
-import com.kevalpatel2106.core.BaseViewModel
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateCallback
 import com.kevalpatel2106.entity.Project
@@ -23,6 +23,8 @@ import com.kevalpatel2106.feature.project.list.usecase.InsertProjectListHeaders
 import com.kevalpatel2106.repository.ProjectRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
@@ -35,8 +37,11 @@ internal class ProjectListViewModel @Inject constructor(
     private val projectRepo: ProjectRepo,
     insertListSeparator: InsertProjectListHeaders,
     displayErrorMapper: DisplayErrorMapper,
-) : BaseViewModel<ProjectListVMEvent>(), ProjectListAdapterCallback, NetworkStateCallback {
+) : ViewModel(), ProjectListAdapterCallback, NetworkStateCallback {
     private val navArgs = ProjectListFragmentArgs.fromSavedStateHandle(savedStateHandle)
+
+    private val _vmEventsFlow = MutableSharedFlow<ProjectListVMEvent>()
+    val vmEventsFlow = _vmEventsFlow.asSharedFlow()
 
     val pageViewState: Flow<PagingData<ProjectListItem>> = projectRepo
         .getProjects(navArgs.accountId.toAccountId())

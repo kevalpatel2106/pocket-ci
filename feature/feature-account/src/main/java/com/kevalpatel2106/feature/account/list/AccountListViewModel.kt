@@ -1,12 +1,11 @@
 package com.kevalpatel2106.feature.account.list
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.insertSeparators
 import androidx.paging.map
-import com.kevalpatel2106.core.BaseViewModel
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
-import com.kevalpatel2106.core.extentions.modify
 import com.kevalpatel2106.entity.Account
 import com.kevalpatel2106.entity.analytics.ClickEvent
 import com.kevalpatel2106.entity.id.AccountId
@@ -25,10 +24,13 @@ import com.kevalpatel2106.feature.account.list.usecase.InsertAccountListHeaders
 import com.kevalpatel2106.repository.AccountRepo
 import com.kevalpatel2106.repository.AnalyticsRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -40,7 +42,7 @@ internal class AccountListViewModel @Inject constructor(
     accountItemMapper: AccountItemMapper,
     private val displayErrorMapper: DisplayErrorMapper,
     private val analyticsRepo: AnalyticsRepo,
-) : BaseViewModel<AccountListVMEvent>(), AccountMenuCallback {
+) : ViewModel(), AccountMenuCallback {
 
     val pageViewState = accountRepo.getAccounts()
         .mapNotNull { pagingData ->
@@ -51,6 +53,9 @@ internal class AccountListViewModel @Inject constructor(
         }
         .catch { _vmEventsFlow.emit(ShowErrorLoadingAccounts(displayErrorMapper(it))) }
         .cachedIn(viewModelScope)
+
+    private val _vmEventsFlow = MutableSharedFlow<AccountListVMEvent>()
+    val vmEventsFlow = _vmEventsFlow.asSharedFlow()
 
     private val _viewState = MutableStateFlow(AccountListViewState.initialState())
     val viewState = _viewState.asStateFlow()
@@ -96,7 +101,7 @@ internal class AccountListViewModel @Inject constructor(
 
     override fun editModeStatus(on: Boolean) {
         viewModelScope.launch { _vmEventsFlow.emit(InvalidateOptionsMenu) }
-        _viewState.modify(viewModelScope) { copy(isEditModeOn = on) }
+        _viewState.update { it.copy(isEditModeOn = on) }
     }
 
     override fun isInEditMode() = !_viewState.value.isEditModeOn

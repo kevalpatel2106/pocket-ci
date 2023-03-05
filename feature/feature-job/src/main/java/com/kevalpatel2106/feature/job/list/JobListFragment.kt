@@ -6,7 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
-import com.kevalpatel2106.core.extentions.collectInFragment
+import com.kevalpatel2106.core.extentions.collectStateInFragment
+import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations.BuildLog
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
 import com.kevalpatel2106.core.paging.FirstPageLoadState.Empty
@@ -15,7 +16,7 @@ import com.kevalpatel2106.core.paging.FirstPageLoadState.Loaded
 import com.kevalpatel2106.core.paging.FirstPageLoadState.Loading
 import com.kevalpatel2106.core.paging.usecase.LoadStateMapper
 import com.kevalpatel2106.core.viewbinding.viewBinding
-import com.kevalpatel2106.coreViews.errorView.showErrorSnack
+import com.kevalpatel2106.core.baseUi.showErrorSnack
 import com.kevalpatel2106.coreViews.networkStateAdapter.NetworkStateAdapter
 import com.kevalpatel2106.feature.job.R
 import com.kevalpatel2106.feature.job.databinding.FragmentJobListBinding
@@ -49,9 +50,9 @@ class JobListFragment : Fragment(R.layout.fragment_job_list) {
         prepareRecyclerView()
         observeAdapterLoadState()
         binding.jobListSwipeRefresh.setOnRefreshListener { viewModel.reload() }
-        viewModel.pageViewState.collectInFragment(this, jobsListAdapter::submitData)
-        viewModel.viewState.collectInFragment(this, ::handleViewState)
-        viewModel.vmEventsFlow.collectInFragment(this, ::handleSingleEvent)
+        viewModel.pageViewState.collectStateInFragment(this, jobsListAdapter::submitData)
+        viewModel.viewState.collectStateInFragment(this, ::handleViewState)
+        viewModel.vmEventsFlow.collectVMEventInFragment(this, ::handleSingleEvent)
     }
 
     private fun prepareRecyclerView() = with(binding.jobListRecyclerView) {
@@ -68,7 +69,7 @@ class JobListFragment : Fragment(R.layout.fragment_job_list) {
 
     private fun observeAdapterLoadState() = jobsListAdapter.loadStateFlow
         .map { loadStateMapper(jobsListAdapter, it) }
-        .collectInFragment(this) { state ->
+        .collectStateInFragment(this) { state ->
             binding.jobListSwipeRefresh.isRefreshing = false
             binding.jobListViewFlipper.displayedChild = when (state) {
                 is Error -> {

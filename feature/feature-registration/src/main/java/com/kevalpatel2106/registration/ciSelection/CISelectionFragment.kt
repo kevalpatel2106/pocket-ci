@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
-import com.kevalpatel2106.core.extentions.collectInFragment
+import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.core.ui.extension.setContent
 import com.kevalpatel2106.registration.ciSelection.CISelectionVMEvent.Close
 import com.kevalpatel2106.registration.ciSelection.CISelectionVMEvent.OpenRegisterAccount
@@ -30,7 +30,7 @@ class CISelectionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.vmEventsFlow.collectInFragment(this, ::handleSingleEvent)
+        viewModel.vmEventsFlow.collectVMEventInFragment(this, ::handleSingleEvent)
     }
 
     private fun handleSingleEvent(event: CISelectionVMEvent) {

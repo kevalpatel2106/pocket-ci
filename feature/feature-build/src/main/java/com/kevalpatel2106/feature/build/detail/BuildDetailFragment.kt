@@ -5,11 +5,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.kevalpatel2106.core.extentions.collectInFragment
+import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
 import com.kevalpatel2106.core.viewbinding.viewBinding
-import com.kevalpatel2106.coreViews.errorView.showErrorSnack
+import com.kevalpatel2106.core.baseUi.showErrorSnack
 import com.kevalpatel2106.feature.build.R
 import com.kevalpatel2106.feature.build.databinding.FragmentBuildDetailBinding
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenBuildArtifacts
@@ -30,7 +30,7 @@ class BuildDetailFragment : Fragment(R.layout.fragment_build_detail) {
             lifecycleOwner = viewLifecycleOwner
             model = viewModel
         }
-        viewModel.vmEventsFlow.collectInFragment(this, ::handleVMEvents)
+        viewModel.vmEventsFlow.collectVMEventInFragment(this, ::handleVMEvents)
     }
 
     private fun handleVMEvents(event: BuildDetailVMEvent) {

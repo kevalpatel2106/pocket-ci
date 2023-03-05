@@ -1,5 +1,7 @@
 package com.kevalpatel2106.feature.log.usecase
 
+import kotlinx.collections.immutable.PersistentList
+
 internal interface ConvertToPaddedLogs {
-    operator fun invoke(logs: String): String
+    suspend operator fun invoke(logs: String): PersistentList<String>
 }

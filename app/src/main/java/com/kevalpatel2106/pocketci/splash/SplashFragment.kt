@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.kevalpatel2106.core.extentions.collectInFragment
+import com.kevalpatel2106.core.extentions.collectStateInFragment
+import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.pocketci.splash.usecase.HandleSplashVMEvents
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -18,8 +19,8 @@ class SplashFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.viewState.collectInFragment(this, ::handleViewState)
-        viewModel.vmEventsFlow.collectInFragment(this, handleSplashVMEvents::invoke)
+        viewModel.viewState.collectStateInFragment(this, ::handleViewState)
+        viewModel.vmEventsFlow.collectVMEventInFragment(this, handleSplashVMEvents::invoke)
     }
 
     private fun handleViewState(viewState: SplashViewState) {

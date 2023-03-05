@@ -8,13 +8,13 @@ import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.kevalpatel2106.core.extentions.collectInFragment
+import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.core.extentions.showSnack
 import com.kevalpatel2106.core.navigation.DeepLinkDestinations
 import com.kevalpatel2106.core.navigation.navigateToInAppDeeplink
 import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.core.ui.extension.setContent
-import com.kevalpatel2106.coreViews.errorView.showErrorSnack
+import com.kevalpatel2106.core.baseUi.showErrorSnack
 import com.kevalpatel2106.registration.register.RegisterVMEvent.AccountAlreadyAdded
 import com.kevalpatel2106.registration.register.RegisterVMEvent.HandleAuthSuccess
 import com.kevalpatel2106.registration.register.RegisterVMEvent.ShowErrorAddingAccount
@@ -32,7 +32,7 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.vmEventsFlow.collectInFragment(this, ::handleSingleEvent)
+        viewModel.vmEventsFlow.collectVMEventInFragment(this, ::handleSingleEvent)
     }
 
     override fun onStart() {

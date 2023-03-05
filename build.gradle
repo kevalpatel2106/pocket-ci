@@ -1,5 +1,8 @@
 buildscript {
     apply from: './gradle/config.gradle'
+    ext {
+        kotlin_version = '1.8.10'
+    }
     repositories {
         google()
         mavenCentral()
@@ -11,6 +14,7 @@ buildscript {
         classpath libs.gms.plugin
         classpath libs.firebase.crashlytics.plugin
         classpath libs.firebase.performance.plugin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 

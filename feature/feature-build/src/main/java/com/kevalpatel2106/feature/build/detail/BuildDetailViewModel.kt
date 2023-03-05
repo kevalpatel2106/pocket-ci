@@ -1,10 +1,9 @@
 package com.kevalpatel2106.feature.build.detail
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kevalpatel2106.core.BaseViewModel
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
-import com.kevalpatel2106.core.extentions.modify
 import com.kevalpatel2106.entity.isInProgress
 import com.kevalpatel2106.feature.build.R
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenBuildArtifacts
@@ -14,8 +13,11 @@ import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenMarkDownVi
 import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.ShowErrorAndClose
 import com.kevalpatel2106.repository.CIInfoRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -25,8 +27,11 @@ internal class BuildDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     ciInfoRepo: CIInfoRepo,
     private val displayErrorMapper: DisplayErrorMapper,
-) : BaseViewModel<BuildDetailVMEvent>() {
+) : ViewModel() {
     private val navArgs = BuildDetailFragmentArgs.fromSavedStateHandle(savedStateHandle)
+
+    private val _vmEventsFlow = MutableSharedFlow<BuildDetailVMEvent>()
+    val vmEventsFlow = _vmEventsFlow.asSharedFlow()
 
     private val _viewState = MutableStateFlow(BuildDetailViewState.initialState(navArgs.build))
     val viewState = _viewState.asStateFlow()
@@ -36,11 +41,11 @@ internal class BuildDetailViewModel @Inject constructor(
             runCatching {
                 ciInfoRepo.getCIInfo(navArgs.accountId)
             }.onSuccess { ciInfo ->
-                _viewState.modify {
-                    copy(
+                _viewState.update {
+                    it.copy(
                         hideBuildLogButton = !ciInfo.supportBuildLevelLogs,
                         hideJobsListButton = !ciInfo.supportJobs,
-                        hideArtifactsButton = build.status.isInProgress() ||
+                        hideArtifactsButton = it.build.status.isInProgress() ||
                             !ciInfo.supportViewArtifacts,
                     )
                 }
