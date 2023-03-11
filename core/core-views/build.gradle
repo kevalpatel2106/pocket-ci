@@ -25,7 +25,6 @@ dependencies {
     testImplementation project(':core:core-test')
 
     hilt()
-    jetpackCompose()
     implementation libs.timber
     implementation libs.bundles.paging
     implementation libs.bundles.design.legacy

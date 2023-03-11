@@ -19,6 +19,7 @@ plugins {
     alias(libs.plugins.jacoco.android) apply false
     alias(libs.plugins.junit5.android) apply false
     alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.compose.compiler.report) apply false
     alias(libs.plugins.detekt)
 }
 

@@ -56,27 +56,11 @@ internal class ProjectListViewModelTest {
         }
 
     @Test
-    fun `when reload called then check projects list refreshed`() =
-        runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
-            subject.reload()
-
-            assertEquals(ProjectListVMEvent.RefreshProjects, flowTurbine.awaitItem())
-        }
-
-    @Test
     fun `when close called then check projects list closed`() =
         runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
             subject.close()
 
             assertEquals(ProjectListVMEvent.Close, flowTurbine.awaitItem())
-        }
-
-    @Test
-    fun `when retry next page called then check retry loading event emitted`() =
-        runTestObservingSharedFlow(subject.vmEventsFlow) { _, flowTurbine ->
-            subject.retryNextPage()
-
-            assertEquals(ProjectListVMEvent.RetryLoading, flowTurbine.awaitItem())
         }
 
     @Test

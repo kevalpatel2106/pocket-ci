@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -35,26 +34,26 @@ internal fun BuildLogScreen(
         )
 
         is Error -> ErrorView(
+            title = stringResource(id = R.string.error_unknown_title),
+            message = stringResource(id = R.string.error_unknown_message),
             error = state.error,
-            onRetry = { viewModel.reload() },
-            onClose = { viewModel.close() },
+            onRetry = viewModel::reload,
+            onClose = viewModel::close,
         )
 
         Loading -> LoadingView()
 
-        is Success -> {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .horizontalScroll(horizontalScrollState),
-            ) {
-                itemsIndexed(state.logs) { index, item ->
-                    BuildLogLineView(
-                        text = item,
-                        lineNumber = index + 1,
-                        fontScale = state.textScale,
-                    )
-                }
+        is Success -> LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .horizontalScroll(horizontalScrollState),
+        ) {
+            itemsIndexed(state.logs) { index, item ->
+                BuildLogLineView(
+                    text = item,
+                    lineNumber = index + 1,
+                    fontScale = state.textScale,
+                )
             }
         }
     }

@@ -104,5 +104,5 @@ internal class AccountListViewModel @Inject constructor(
         _viewState.update { it.copy(isEditModeOn = on) }
     }
 
-    override fun isInEditMode() = !_viewState.value.isEditModeOn
+    override fun isInEditMode() = _viewState.value.isEditModeOn
 }

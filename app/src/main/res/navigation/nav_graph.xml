@@ -2,8 +2,9 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splash">
+    app:startDestination="@id/nav_graph_splash">
 
+    <include app:graph="@navigation/nav_graph_splash" />
     <include app:graph="@navigation/nav_graph_setting" />
     <include app:graph="@navigation/nav_graph_registration" />
     <include app:graph="@navigation/nav_graph_project" />
@@ -13,8 +14,4 @@
     <include app:graph="@navigation/nav_graph_job" />
     <include app:graph="@navigation/nav_graph_artifact" />
 
-    <fragment
-        android:id="@+id/splash"
-        android:name="com.kevalpatel2106.pocketci.splash.SplashFragment"
-        android:label="splash" />
 </navigation>

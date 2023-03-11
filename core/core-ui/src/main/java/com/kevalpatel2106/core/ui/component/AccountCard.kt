@@ -19,6 +19,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_C
@@ -29,7 +33,6 @@ import androidx.constraintlayout.compose.Dimension
 import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.core.ui.PocketCITheme
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_SMALL
-import com.kevalpatel2106.core.ui.resource.md_theme_dark_background
 import com.kevalpatel2106.entity.Url
 
 @Composable
@@ -45,15 +48,21 @@ fun AccountInfoCard(
     onItemClick: () -> Unit = {},
     onItemDelete: () -> Unit = {},
 ) {
+    val selectedCardBorderBrush = Brush.linearGradient(
+        colors = listOf(
+            Color.Red,
+            Color.Yellow,
+        ),
+        start = Offset(0f, 0f),
+        end = Offset(48.dp.value, 48.dp.value),
+        tileMode = TileMode.Mirror,
+    )
+
     Card(
         modifier = modifier
             .padding(vertical = SPACING_SMALL)
             .clickable { onItemClick() },
-        border = if (isSelected) {
-            BorderStroke(3.dp, MaterialTheme.colorScheme.primary)
-        } else {
-            null
-        },
+        border = if (isSelected) BorderStroke(3.dp, selectedCardBorderBrush) else null,
     ) {
         ConstraintLayout(Modifier.fillMaxWidth()) {
             val (avatarRef, infoViewRef, deleteIconRef) = createRefs()

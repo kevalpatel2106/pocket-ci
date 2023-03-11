@@ -10,9 +10,13 @@ android defaultAndroidConfig
 android {
     namespace 'com.kevalpatel2106.entity'
     defaultConfig defaultLibConfig
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
     implementation libs.androidx.appcompat
     unitTest()
+    jetpackCompose()
 }

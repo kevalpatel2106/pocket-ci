@@ -89,6 +89,8 @@
 
     <!--Projects screen-->
     <string name="title_projects_screen">Projects</string>
+    <string name="pin_project_button_content_description">Unpin project</string>
+    <string name="unpin_project_button_content_description">Pin project</string>
     <string name="list_header_pinned">Pinned</string>
     <string name="list_header_other">Other</string>
     <string name="projects_empty_view_description">Please check you have projects set up in the account. If you\'re linked with organisation, please verify the authentication token has access to organisation.</string>
@@ -188,6 +190,10 @@
     <string name="artifact_list_download_not_supported">Artifact download is not supported for this CI server.</string>
     <string name="artifact_list_download_queue_error">Cannot initiate download.</string>
     <string name="artifact_list_downloading_in_progress_message">Downloading</string>
+    <string name="artifact_type_text_content_description">Text file</string>
+    <string name="artifact_type_zip_content_description">Zip file</string>
+    <string name="artifact_type_apk_content_description">Android APK</string>
+    <string name="artifact_type_unknown_content_description">Unknown file type</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

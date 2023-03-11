@@ -20,7 +20,11 @@ android {
 
 dependencies {
     implementation project(':entity')
+
+    // Core
     implementation project(':core:core-resources')
+    testImplementation project(":core:core-test")
+
     implementation libs.moshi
     implementation libs.retrofit
     implementation libs.timber

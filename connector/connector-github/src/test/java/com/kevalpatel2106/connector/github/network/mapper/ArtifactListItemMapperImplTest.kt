@@ -17,7 +17,7 @@ internal class ArtifactListItemMapperImplTest {
     private val fixture = KFixture()
     private val date = fixture<Date>()
     private val artifactTypeMapper = mock<ArtifactTypeMapper> {
-        on { invoke(any()) } doReturn ArtifactType.UNKNOWN
+        on { invoke(any()) } doReturn ArtifactType.UNKNOWN_TYPE
     }
     private val isoDateMapper = mock<IsoDateMapper> {
         on { invoke(any()) } doReturn date
@@ -34,7 +34,7 @@ internal class ArtifactListItemMapperImplTest {
         val expected = Artifact(
             id = dto.id.toString().toArtifactId(),
             name = dto.name,
-            type = ArtifactType.UNKNOWN,
+            type = ArtifactType.UNKNOWN_TYPE,
             sizeBytes = dto.sizeInBytes,
             createdAt = date,
             buildId = buildId,

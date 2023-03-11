@@ -147,7 +147,7 @@ internal class DisplayErrorMapperImplTest {
                     message = resourceMap.getValue(testHttpMessageRes),
                     technicalMessage = httpExc.message,
                     httpResponseCode = httpExc.code(),
-                    url = httpExc.response()?.raw()?.request()?.url().toString(),
+                    url = httpExc.response()?.raw()?.request?.url.toString(),
                     httpResponse = httpErrorBody,
                     time = now,
                     nonRecoverable = false,

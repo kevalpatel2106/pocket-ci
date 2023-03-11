@@ -3,7 +3,7 @@ package com.kevalpatel2106.pocketci.host
 import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kevalpatel2106.pocketci.R
+import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.pocketci.host.AppNavigationConfig.SCREENS_WITH_BOTTOM_DRAWER
 import com.kevalpatel2106.pocketci.host.AppNavigationConfig.SCREENS_WITH_NO_TOOLBAR
 import com.kevalpatel2106.repository.AnalyticsRepo

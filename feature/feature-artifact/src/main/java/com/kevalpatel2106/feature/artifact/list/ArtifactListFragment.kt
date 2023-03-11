@@ -14,7 +14,7 @@ import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.core.extentions.showSnack
 import com.kevalpatel2106.core.ui.extension.setContent
 import com.kevalpatel2106.core.baseUi.showErrorSnack
-import com.kevalpatel2106.feature.artifact.R
+import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.feature.artifact.list.ArtifactListVMEvent.Close
 import com.kevalpatel2106.feature.artifact.list.ArtifactListVMEvent.ShowArtifactRemoved
 import com.kevalpatel2106.feature.artifact.list.ArtifactListVMEvent.ShowDownloadFailed

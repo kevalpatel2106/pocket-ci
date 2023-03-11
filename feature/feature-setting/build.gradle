@@ -12,16 +12,12 @@ android defaultAndroidConfig
 android {
     namespace 'com.kevalpatel2106.feature.setting'
     defaultConfig defaultLibConfig
-    sourceSets {
-        main {
-            res.srcDirs = ["${this.rootDir}/core/core-resources/src/main/res", 'src/main/res']
-        }
-    }
 }
 
 dependencies {
     implementation project(':entity')
     implementation project(':core:core')
+    implementation project(':core:core-resources')
     implementation project(':core:core-views')
     implementation project(':repository:repository')
     testImplementation project(':core:core-test')
@@ -35,7 +31,6 @@ dependencies {
     implementation libs.bundles.ktx
     implementation libs.bundles.paging
     implementation libs.bundles.navigtion
-    implementation libs.bundles.design.legacy
     implementation libs.preference.ktx
     implementation libs.oss.licences
 

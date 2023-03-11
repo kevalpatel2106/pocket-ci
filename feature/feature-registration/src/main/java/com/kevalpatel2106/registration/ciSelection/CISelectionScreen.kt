@@ -9,8 +9,10 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
+import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.core.ui.component.CIInfoCard
 import com.kevalpatel2106.core.ui.component.ErrorView
 import com.kevalpatel2106.core.ui.component.LoadingView
@@ -30,15 +32,17 @@ internal fun CISelectionScreen(
     Box(
         Modifier
             .fillMaxSize()
-            .padding(horizontal = GUTTER)
+            .padding(horizontal = GUTTER),
     ) {
         when (val currentState = state.value) {
             LoadingState -> LoadingView()
 
             is ErrorState -> ErrorView(
+                title = stringResource(id = R.string.error_unknown_title),
+                message = stringResource(id = R.string.error_unknown_message),
                 error = displayErrorMapper(currentState.error),
-                onClose = { viewModel.close() },
-                onRetry = { viewModel.reload() },
+                onRetry = viewModel::reload,
+                onClose = viewModel::close,
             )
 
             is SuccessState -> LazyColumn {

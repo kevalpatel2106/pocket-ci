@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.kevalpatel2106.feature.setting.R
+import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.feature.setting.list.usecase.PrepareAppInviteIntentImpl.Companion.INVITATION_URL
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

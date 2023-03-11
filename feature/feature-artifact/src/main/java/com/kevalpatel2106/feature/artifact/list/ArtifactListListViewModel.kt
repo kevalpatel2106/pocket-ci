@@ -18,7 +18,6 @@ import com.kevalpatel2106.feature.artifact.list.ArtifactListVMEvent.ShowArtifact
 import com.kevalpatel2106.feature.artifact.list.ArtifactListVMEvent.ShowDownloadFailed
 import com.kevalpatel2106.feature.artifact.list.ArtifactListVMEvent.ShowDownloadNotSupported
 import com.kevalpatel2106.feature.artifact.list.ArtifactListVMEvent.ShowDownloadQueuedMessage
-import com.kevalpatel2106.feature.artifact.list.adapter.ArtifactListItem
 import com.kevalpatel2106.feature.artifact.list.usecase.ArtifactItemMapper
 import com.kevalpatel2106.feature.artifact.usecase.DownloadFileFromUrl
 import com.kevalpatel2106.repository.ArtifactRepo
@@ -33,7 +32,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -63,14 +61,11 @@ internal class ArtifactListListViewModel @Inject constructor(
         buildId = navArgs.buildId.toBuildId(),
     ).cachedIn(viewModelScope)
         .flowOn(Dispatchers.Default)
-        .onEach { _viewState.update { it.copy(isRefreshing = false) } }
         .flatMapLatest { pagedData -> secondsTicker().map { pagedData } }
         .map { pagedData ->
             @Suppress("USELESS_CAST")
             pagedData.map { artifact -> artifactItemMapper(artifact) as ArtifactListItem }
         }
-
-    fun reload() = _viewState.update { it.copy(isRefreshing = true) }
 
     fun close() {
         viewModelScope.launch { _vmEventsFlow.emit(Close) }

@@ -53,14 +53,6 @@ android {
             buildConfigField 'String', 'VERSION_NAME', "\"${playStoreVersion.versionName}\""
         }
     }
-    buildFeatures {
-        compose = true
-    }
-    sourceSets {
-        main {
-            res.srcDirs = ["${this.rootDir}/core/core-resources/src/main/res", 'src/main/res']
-        }
-    }
     tasks.withType(Test) {
         jacoco.includeNoLocationClasses = true
         jacoco.excludes = ['jdk.internal.*']
@@ -77,6 +69,8 @@ dependencies {
     implementation project(':feature:feature-job')
     implementation project(':feature:feature-artifact')
     implementation project(':feature:feature-setting')
+    implementation project(':feature:feature-drawer')
+    implementation project(':feature:feature-splash')
 
     // Core modules
     implementation project(':entity')
@@ -87,17 +81,14 @@ dependencies {
     testImplementation project(':core:core-test')
     androidTestImplementation project(':core:core-test')
 
-    // protocols modules
+    // data modules
     implementation project(':repository:repository')
-
-    // Implementation module
     implementation project(':repository:repository-impl')
     implementation project(':repository:repository-impl-analytics')
 
     // Other dependencies
     hilt()
     lifecycle()
-    jetpackCompose()
     implementation libs.timber
     implementation libs.coroutines.android
     implementation libs.bundles.ktx

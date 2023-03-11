@@ -1,7 +1,9 @@
 package com.kevalpatel2106.entity
 
-import java.util.Date
+import androidx.compose.runtime.Immutable
+import java.util.*
 
+@Immutable
 data class DisplayError(
     val throwable: Throwable,
     val headline: String,

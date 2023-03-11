@@ -15,7 +15,7 @@ import org.mockito.kotlin.mock
 internal class ArtifactListItemMapperImplTest {
     private val fixture = KFixture()
     private val artifactTypeMapper = mock<ArtifactTypeMapper> {
-        on { invoke(any()) } doReturn ArtifactType.UNKNOWN
+        on { invoke(any()) } doReturn ArtifactType.UNKNOWN_TYPE
     }
     private val subject = ArtifactListItemMapperImpl(artifactTypeMapper)
 
@@ -29,7 +29,7 @@ internal class ArtifactListItemMapperImplTest {
         val expected = Artifact(
             id = dto.slug.toArtifactId(),
             name = dto.title,
-            type = ArtifactType.UNKNOWN,
+            type = ArtifactType.UNKNOWN_TYPE,
             sizeBytes = dto.fileSizeBytes,
             createdAt = null,
             buildId = buildId,

@@ -135,8 +135,8 @@ private fun TechnicalMessageButton(error: DisplayError?) {
 @Composable
 fun ErrorView(
     modifier: Modifier = Modifier,
-    title: String? = stringResource(id = R.string.error_unknown_title),
-    message: String = stringResource(id = R.string.error_unknown_message),
+    title: String?,
+    message: String,
     error: DisplayError? = null,
     onRetry: () -> Unit = {},
     onClose: () -> Unit = {},
@@ -152,8 +152,8 @@ fun ErrorView(
 @Composable
 fun HorizontalPagingErrorItem(
     modifier: Modifier = Modifier,
-    title: String? = stringResource(id = R.string.error_unknown_title),
-    message: String = stringResource(id = R.string.error_unknown_message),
+    title: String?,
+    message: String,
     error: DisplayError? = null,
     onRetry: () -> Unit = {},
     onClose: () -> Unit = {},
@@ -169,8 +169,8 @@ fun HorizontalPagingErrorItem(
 @Composable
 fun VerticalPagingErrorItem(
     modifier: Modifier = Modifier,
-    title: String? = stringResource(id = R.string.error_unknown_title),
-    message: String = stringResource(id = R.string.error_unknown_message),
+    title: String?,
+    message: String,
     error: DisplayError? = null,
     onRetry: () -> Unit = {},
     onClose: () -> Unit = {},
