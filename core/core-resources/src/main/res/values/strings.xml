@@ -7,6 +7,15 @@
     <string name="back">Back</string>
     <string name="delete">delete</string>
 
+    <!--Build status-->
+    <string name="build_status_fail_content_description">Failed</string>
+    <string name="build_status_success_content_description">Successful</string>
+    <string name="build_status_abort_content_description">Aborted</string>
+    <string name="build_status_skipped_content_description">Skipped</string>
+    <string name="build_status_unknown_content_description">Unknown</string>
+    <string name="build_status_running_content_description">Running</string>
+    <string name="build_status_pending_content_description">Pending</string>
+
     <!--Error handling-->
     <string name="error_view_retry_button_title">Retry</string>
     <string name="error_view_close_button_title">Close</string>
@@ -178,6 +187,8 @@
     <string name="title_jobs_list_screen">Jobs</string>
     <string name="jobs_list_empty_view_description">This build has no job triggered.</string>
     <string name="jobs_list_empty_view_headline">No jobs found for build!</string>
+    <string name="job_list_triggered_time_label">Triggered at:</string>
+    <string name="job_list_execution_time_label">Execution time:</string>
 
     <!--Artifacts list-->
     <string name="title_artifacts_list_screen">Artifacts</string>

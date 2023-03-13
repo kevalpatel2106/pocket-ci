@@ -6,6 +6,8 @@ import com.kevalpatel2106.coreTest.getAccountFixture
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
 import com.kevalpatel2106.entity.Account
 import com.kevalpatel2106.entity.NightMode
+import com.kevalpatel2106.feature.splash.splash.model.SplashVMEvent
+import com.kevalpatel2106.feature.splash.splash.SplashViewModel
 import com.kevalpatel2106.repository.AccountRepo
 import com.kevalpatel2106.repository.SettingsRepo
 import kotlinx.coroutines.test.advanceUntilIdle

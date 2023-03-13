@@ -27,8 +27,10 @@ import com.kevalpatel2106.core.ui.resource.Spacing.GUTTER
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_REGULAR
 import com.kevalpatel2106.entity.Account
 import com.kevalpatel2106.entity.id.AccountId
-import com.kevalpatel2106.feature.account.list.AccountsListItem.AccountItem
-import com.kevalpatel2106.feature.account.list.AccountsListItem.HeaderItem
+import com.kevalpatel2106.feature.account.list.model.AccountListViewState
+import com.kevalpatel2106.feature.account.list.model.AccountsListItem
+import com.kevalpatel2106.feature.account.list.model.AccountsListItem.AccountItem
+import com.kevalpatel2106.feature.account.list.model.AccountsListItem.HeaderItem
 
 @Composable
 internal fun AccountListScreen(

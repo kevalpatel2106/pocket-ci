@@ -2,8 +2,8 @@ package com.kevalpatel2106.feature.project.list.usecase
 
 import com.kevalpatel2106.entity.Project
 import com.kevalpatel2106.core.resources.R
-import com.kevalpatel2106.feature.project.list.ProjectListItem
-import com.kevalpatel2106.feature.project.list.ProjectListItem.HeaderItem
+import com.kevalpatel2106.feature.project.list.model.ProjectListItem
+import com.kevalpatel2106.feature.project.list.model.ProjectListItem.HeaderItem
 import javax.inject.Inject
 
 internal class InsertProjectListHeadersImpl @Inject constructor() : InsertProjectListHeaders {

@@ -3,7 +3,7 @@ package com.kevalpatel2106.pocketci.host.usecase
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import com.kevalpatel2106.feature.drawer.BottomDrawerDialog
+import com.kevalpatel2106.feature.drawer.drawer.BottomDrawerDialog
 import com.kevalpatel2106.pocketci.host.HostVMEvents
 import com.kevalpatel2106.pocketci.host.HostVMEvents.NavigateUp
 import com.kevalpatel2106.pocketci.host.HostVMEvents.ShowBottomDialog

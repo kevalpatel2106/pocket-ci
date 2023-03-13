@@ -2,9 +2,7 @@ package com.kevalpatel2106.feature.artifact.list.usecase
 
 import com.kevalpatel2106.core.usecase.TimeDifferenceFormatter
 import com.kevalpatel2106.entity.Artifact
-import com.kevalpatel2106.feature.artifact.list.ArtifactListItem.ArtifactItem
-import com.kevalpatel2106.feature.artifact.usecase.ArtifactIconMapper
-import com.kevalpatel2106.feature.artifact.usecase.ArtifactSizeConverter
+import com.kevalpatel2106.feature.artifact.list.model.ArtifactListItem.ArtifactItem
 import java.util.Date
 import javax.inject.Inject
 

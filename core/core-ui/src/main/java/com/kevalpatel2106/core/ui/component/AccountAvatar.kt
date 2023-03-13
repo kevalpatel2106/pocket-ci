@@ -16,6 +16,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.kevalpatel2106.core.R
+import com.kevalpatel2106.core.ui.element.UrlImage
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_HUGE
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_LARGE
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_SMALL

@@ -32,6 +32,8 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.core.ui.PocketCITheme
+import com.kevalpatel2106.core.ui.extension.ARTIFACT_NAME
+import com.kevalpatel2106.core.ui.extension.ARTIFACT_NAME_LONG
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_LARGE
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_MICRO
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_SMALL

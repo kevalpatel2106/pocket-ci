@@ -4,8 +4,8 @@ import com.flextrade.kfixture.KFixture
 import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.coreTest.getProjectFixture
 import com.kevalpatel2106.entity.Project
-import com.kevalpatel2106.feature.project.list.ProjectListItem
-import com.kevalpatel2106.feature.project.list.ProjectListItem.HeaderItem
+import com.kevalpatel2106.feature.project.list.model.ProjectListItem
+import com.kevalpatel2106.feature.project.list.model.ProjectListItem.HeaderItem
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments

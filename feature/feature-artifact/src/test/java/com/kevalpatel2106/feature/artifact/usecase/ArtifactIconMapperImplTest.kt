@@ -2,6 +2,7 @@ package com.kevalpatel2106.feature.artifact.usecase
 
 import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.entity.ArtifactType
+import com.kevalpatel2106.feature.artifact.list.usecase.ArtifactIconMapperImpl
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments

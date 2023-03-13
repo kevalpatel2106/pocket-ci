@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/splash"
-        android:name="com.kevalpatel2106.feature.splash.SplashFragment"
+        android:name="com.kevalpatel2106.feature.splash.splash.SplashFragment"
         android:label="splash" />
 </navigation>

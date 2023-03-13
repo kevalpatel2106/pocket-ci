@@ -23,8 +23,9 @@ import com.kevalpatel2106.core.ui.extension.setUpPullRefresh
 import com.kevalpatel2106.core.ui.resource.Spacing
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_MICRO
 import com.kevalpatel2106.entity.Project
-import com.kevalpatel2106.feature.project.list.ProjectListItem.HeaderItem
-import com.kevalpatel2106.feature.project.list.ProjectListItem.ProjectItem
+import com.kevalpatel2106.feature.project.list.model.ProjectListItem
+import com.kevalpatel2106.feature.project.list.model.ProjectListItem.HeaderItem
+import com.kevalpatel2106.feature.project.list.model.ProjectListItem.ProjectItem
 
 @Composable
 @OptIn(ExperimentalMaterialApi::class)

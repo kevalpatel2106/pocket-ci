@@ -1,29 +1,27 @@
 package com.kevalpatel2106.feature.build.markdownView
 
+import android.content.Context
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.navArgs
-import com.kevalpatel2106.core.viewbinding.viewBinding
-import com.kevalpatel2106.feature.build.R
-import com.kevalpatel2106.feature.build.databinding.FragmentMarkdownViewerBinding
+import com.kevalpatel2106.core.ui.extension.setContent
 import dagger.hilt.android.AndroidEntryPoint
-import io.noties.markwon.Markwon
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class MarkdownViewerFragment : DialogFragment(R.layout.fragment_markdown_viewer) {
-    private val binding by viewBinding(FragmentMarkdownViewerBinding::bind)
+class MarkdownViewerFragment : DialogFragment() {
     private val navArgs by navArgs<MarkdownViewerFragmentArgs>()
 
-    @Inject
-    internal lateinit var markwon: Markwon
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = setContent { MarkdownViewerScreen(navArgs.message) }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        markwon.setMarkdown(binding.markdownTextView, navArgs.message)
-        binding.markdownTextView.movementMethod = ScrollingMovementMethod()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         requireActivity().title = navArgs.title
     }
 }

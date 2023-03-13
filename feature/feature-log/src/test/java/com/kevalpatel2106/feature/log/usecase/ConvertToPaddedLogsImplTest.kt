@@ -1,6 +1,7 @@
 package com.kevalpatel2106.feature.log.usecase
 
 import com.flextrade.kfixture.KFixture
+import com.kevalpatel2106.feature.log.log.usecase.ConvertToPaddedLogsImpl
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

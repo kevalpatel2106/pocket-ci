@@ -11,8 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.kevalpatel2106.coreViews.databinding.ViewBuildStatusBinding
-import com.kevalpatel2106.coreViews.useCase.GetBuildStatusImage
-import com.kevalpatel2106.coreViews.useCase.GetBuildStatusImageTint
 import com.kevalpatel2106.entity.BuildStatus
 import com.kevalpatel2106.entity.isInProgress
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,12 +23,6 @@ class BuildStatusView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
-
-    @Inject
-    internal lateinit var getBuildStatusImage: GetBuildStatusImage
-
-    @Inject
-    internal lateinit var getBuildStatusImageTint: GetBuildStatusImageTint
 
     private val binding = ViewBuildStatusBinding.inflate(LayoutInflater.from(context), this, true)
 
@@ -52,13 +44,6 @@ class BuildStatusView @JvmOverloads constructor(
         }
         buildStatusImageView.apply {
             isVisible = !status.isInProgress()
-            if (isVisible) {
-                setImageResource(getBuildStatusImage(status))
-                setColorFilter(
-                    ContextCompat.getColor(context, getBuildStatusImageTint(status)),
-                    PorterDuff.Mode.SRC_IN,
-                )
-            }
         }
     }
 

@@ -1,5 +1,8 @@
 package com.kevalpatel2106.feature.log.usecase
 
+import com.kevalpatel2106.feature.log.log.usecase.CalculateTextScale
+import com.kevalpatel2106.feature.log.log.usecase.CalculateTextScaleImpl
+import com.kevalpatel2106.feature.log.log.usecase.TextChangeDirection
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments

@@ -30,4 +30,5 @@ dependencies {
 
     // Coil
     implementation libs.bundles.coil
+    unitTest()
 }

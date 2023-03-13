@@ -21,7 +21,8 @@ import com.kevalpatel2106.core.ui.extension.handleLoadState
 import com.kevalpatel2106.core.ui.extension.setUpPullRefresh
 import com.kevalpatel2106.core.ui.resource.Spacing
 import com.kevalpatel2106.core.ui.resource.Spacing.GUTTER
-import com.kevalpatel2106.feature.artifact.list.ArtifactListItem.ArtifactItem
+import com.kevalpatel2106.feature.artifact.list.model.ArtifactListItem
+import com.kevalpatel2106.feature.artifact.list.model.ArtifactListItem.ArtifactItem
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

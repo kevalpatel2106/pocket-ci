@@ -10,10 +10,12 @@ import androidx.paging.map
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.entity.Project
 import com.kevalpatel2106.entity.id.toAccountId
-import com.kevalpatel2106.feature.project.list.ProjectListItem.ProjectItem
-import com.kevalpatel2106.feature.project.list.ProjectListVMEvent.Close
-import com.kevalpatel2106.feature.project.list.ProjectListVMEvent.OpenBuildsList
-import com.kevalpatel2106.feature.project.list.ProjectListVMEvent.ShowErrorLoadingProjects
+import com.kevalpatel2106.feature.project.list.model.ProjectListItem.ProjectItem
+import com.kevalpatel2106.feature.project.list.model.ProjectListVMEvent.Close
+import com.kevalpatel2106.feature.project.list.model.ProjectListVMEvent.OpenBuildsList
+import com.kevalpatel2106.feature.project.list.model.ProjectListVMEvent.ShowErrorLoadingProjects
+import com.kevalpatel2106.feature.project.list.model.ProjectListItem
+import com.kevalpatel2106.feature.project.list.model.ProjectListVMEvent
 import com.kevalpatel2106.feature.project.list.usecase.InsertProjectListHeaders
 import com.kevalpatel2106.repository.ProjectRepo
 import dagger.hilt.android.lifecycle.HiltViewModel

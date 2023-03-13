@@ -49,7 +49,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kevalpatel2106.core.resources.R
-import com.kevalpatel2106.core.ui.component.LoadingButton
+import com.kevalpatel2106.core.ui.element.LoadingButton
 import com.kevalpatel2106.core.ui.resource.Spacing.GUTTER
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_HUGE
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_LARGE

@@ -3,7 +3,6 @@ package com.kevalpatel2106.feature.account.list.usecase
 import com.flextrade.kfixture.KFixture
 import com.kevalpatel2106.coreTest.getAccountFixture
 import com.kevalpatel2106.coreTest.getCIInfoFixture
-import com.kevalpatel2106.feature.account.R
 import com.kevalpatel2106.repository.CIInfoRepo
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -46,25 +45,4 @@ internal class AccountItemMapperImplTest {
 
         assertEquals(testCIInfo.name, result.ciName)
     }
-
-    @Test
-    fun `given account which is selected when invoke then check stroke width is 2dp`() = runTest {
-        val account = getAccountFixture(kFixture).copy(isSelected = true)
-        whenever(mockCiRepo.getCIInfo(account.type)).thenReturn(testCIInfo)
-
-        val result = subject.invoke(account)
-
-        assertEquals(R.dimen.selected_account_stroke_width, result.imageStrokeWidth)
-    }
-
-    @Test
-    fun `given account which is not selected when invoke then check stroke width is 0dp`() =
-        runTest {
-            val account = getAccountFixture(kFixture).copy(isSelected = false)
-            whenever(mockCiRepo.getCIInfo(account.type)).thenReturn(testCIInfo)
-
-            val result = subject.invoke(account)
-
-            assertEquals(R.dimen.unselected_account_stroke_width, result.imageStrokeWidth)
-        }
 }

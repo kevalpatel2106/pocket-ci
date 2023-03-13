@@ -32,6 +32,12 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.core.ui.PocketCITheme
+import com.kevalpatel2106.core.ui.extension.AVATAR_IMAGE
+import com.kevalpatel2106.core.ui.extension.EMAIL
+import com.kevalpatel2106.core.ui.extension.LONG_EMAIL
+import com.kevalpatel2106.core.ui.extension.LONG_STRING
+import com.kevalpatel2106.core.ui.extension.NAME
+import com.kevalpatel2106.core.ui.extension.SAMPLE_STRING_RES
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_SMALL
 import com.kevalpatel2106.entity.Url
 
@@ -50,11 +56,12 @@ fun AccountInfoCard(
 ) {
     val selectedCardBorderBrush = Brush.linearGradient(
         colors = listOf(
-            Color.Red,
-            Color.Yellow,
+            Color.DarkGray,
+            Color.Gray,
+            Color.LightGray,
         ),
         start = Offset(0f, 0f),
-        end = Offset(48.dp.value, 48.dp.value),
+        end = Offset(96.dp.value, 96.dp.value),
         tileMode = TileMode.Mirror,
     )
 

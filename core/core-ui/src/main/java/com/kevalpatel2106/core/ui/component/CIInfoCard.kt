@@ -28,6 +28,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.kevalpatel2106.core.ui.PocketCITheme
+import com.kevalpatel2106.core.ui.extension.LONG_STRING
+import com.kevalpatel2106.core.ui.extension.SAMPLE_IMAGE
+import com.kevalpatel2106.core.ui.extension.SAMPLE_STRING_RES
 import com.kevalpatel2106.core.ui.resource.Spacing
 import com.kevalpatel2106.entity.Url
 
@@ -137,7 +140,7 @@ fun CIInfoCardPreview() = PocketCITheme {
         CIInfoCard(
             ciName = SAMPLE_STRING_RES,
             ciIcon = SAMPLE_IMAGE,
-            infoUrl = Url("https://${LONG_STRING}.com"),
+            infoUrl = Url("https://$LONG_STRING.com"),
             modifier = Modifier.padding(vertical = Spacing.SPACING_SMALL),  // Spacing between cards
         )
     }

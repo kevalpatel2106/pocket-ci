@@ -5,7 +5,8 @@ import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.coreTest.TestCoroutineExtension
 import com.kevalpatel2106.coreTest.getProjectFixture
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
-import com.kevalpatel2106.feature.project.list.ProjectListVMEvent.OpenBuildsList
+import com.kevalpatel2106.feature.project.list.model.ProjectListVMEvent
+import com.kevalpatel2106.feature.project.list.model.ProjectListVMEvent.OpenBuildsList
 import com.kevalpatel2106.feature.project.list.usecase.InsertProjectListHeaders
 import com.kevalpatel2106.repository.ProjectRepo
 import kotlinx.coroutines.flow.emptyFlow

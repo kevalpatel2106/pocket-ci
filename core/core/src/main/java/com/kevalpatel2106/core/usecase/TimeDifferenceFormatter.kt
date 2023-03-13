@@ -7,7 +7,7 @@ interface TimeDifferenceFormatter {
     operator fun invoke(
         dateStart: Date,
         dateEnd: Date,
-        appendText: String?,
+        appendText: String? = null,
         showMorePrecise: Boolean,
     ): String
 }

@@ -18,9 +18,9 @@ import com.kevalpatel2106.core.ui.component.ErrorView
 import com.kevalpatel2106.core.ui.component.LoadingView
 import com.kevalpatel2106.core.ui.resource.Spacing.GUTTER
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_SMALL
-import com.kevalpatel2106.registration.ciSelection.CISelectionViewState.ErrorState
-import com.kevalpatel2106.registration.ciSelection.CISelectionViewState.LoadingState
-import com.kevalpatel2106.registration.ciSelection.CISelectionViewState.SuccessState
+import com.kevalpatel2106.registration.ciSelection.model.CISelectionViewState.ErrorState
+import com.kevalpatel2106.registration.ciSelection.model.CISelectionViewState.LoadingState
+import com.kevalpatel2106.registration.ciSelection.model.CISelectionViewState.SuccessState
 
 @Composable
 internal fun CISelectionScreen(

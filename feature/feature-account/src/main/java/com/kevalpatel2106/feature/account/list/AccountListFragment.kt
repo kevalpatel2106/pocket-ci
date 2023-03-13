@@ -17,16 +17,17 @@ import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.core.ui.extension.setContent
 import com.kevalpatel2106.core.baseUi.showErrorSnack
 import com.kevalpatel2106.entity.id.AccountId
-import com.kevalpatel2106.feature.account.list.AccountListVMEvent.AccountRemovedSuccess
-import com.kevalpatel2106.feature.account.list.AccountListVMEvent.Close
-import com.kevalpatel2106.feature.account.list.AccountListVMEvent.InvalidateOptionsMenu
-import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenCiSelection
-import com.kevalpatel2106.feature.account.list.AccountListVMEvent.OpenProjects
-import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowDeleteConfirmation
-import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorLoadingAccounts
-import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorRemovingAccount
-import com.kevalpatel2106.feature.account.list.AccountListVMEvent.ShowErrorSelectingAccount
+import com.kevalpatel2106.feature.account.list.model.AccountListVMEvent.AccountRemovedSuccess
+import com.kevalpatel2106.feature.account.list.model.AccountListVMEvent.Close
+import com.kevalpatel2106.feature.account.list.model.AccountListVMEvent.InvalidateOptionsMenu
+import com.kevalpatel2106.feature.account.list.model.AccountListVMEvent.OpenCiSelection
+import com.kevalpatel2106.feature.account.list.model.AccountListVMEvent.OpenProjects
+import com.kevalpatel2106.feature.account.list.model.AccountListVMEvent.ShowDeleteConfirmation
+import com.kevalpatel2106.feature.account.list.model.AccountListVMEvent.ShowErrorLoadingAccounts
+import com.kevalpatel2106.feature.account.list.model.AccountListVMEvent.ShowErrorRemovingAccount
+import com.kevalpatel2106.feature.account.list.model.AccountListVMEvent.ShowErrorSelectingAccount
 import com.kevalpatel2106.feature.account.list.menu.AccountMenuProvider
+import com.kevalpatel2106.feature.account.list.model.AccountListVMEvent
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

@@ -11,10 +11,11 @@ import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
 import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.toToken
 import com.kevalpatel2106.entity.toUrl
-import com.kevalpatel2106.registration.register.RegisterVMEvent.AccountAlreadyAdded
-import com.kevalpatel2106.registration.register.RegisterVMEvent.HandleAuthSuccess
-import com.kevalpatel2106.registration.register.RegisterVMEvent.ShowErrorAddingAccount
+import com.kevalpatel2106.registration.register.model.RegisterVMEvent.AccountAlreadyAdded
+import com.kevalpatel2106.registration.register.model.RegisterVMEvent.HandleAuthSuccess
+import com.kevalpatel2106.registration.register.model.RegisterVMEvent.ShowErrorAddingAccount
 import com.kevalpatel2106.registration.register.analytics.RegisterEvent
+import com.kevalpatel2106.registration.register.model.RegisterViewState
 import com.kevalpatel2106.registration.register.usecase.SanitiseRegisterInput
 import com.kevalpatel2106.registration.register.usecase.ValidateRegisterInput
 import com.kevalpatel2106.repository.AccountRepo
