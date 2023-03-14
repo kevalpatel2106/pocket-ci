@@ -63,7 +63,7 @@ jobs:
           distribution: 'adopt'
           java-version: 17
       - name: AVD cache
-        uses: actions/cache@v3.3.0
+        uses: actions/cache@v3.3.1
         id: avd-cache
         with:
           path: |
