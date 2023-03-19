@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import com.kevalpatel2106.core.R
+import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.core.ui.resource.Spacing
 
 @Composable

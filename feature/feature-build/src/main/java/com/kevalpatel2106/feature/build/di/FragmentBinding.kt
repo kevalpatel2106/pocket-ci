@@ -1,5 +1,7 @@
 package com.kevalpatel2106.feature.build.di
 
+import com.kevalpatel2106.feature.build.detail.eventHandler.BuildDetailVmEventHandler
+import com.kevalpatel2106.feature.build.detail.eventHandler.BuildDetailVmEventHandlerImpl
 import com.kevalpatel2106.feature.build.list.eventHandler.BuildListViewStateHandler
 import com.kevalpatel2106.feature.build.list.eventHandler.BuildListViewStateHandlerImpl
 import com.kevalpatel2106.feature.build.list.eventHandler.BuildListVmEventHandler
@@ -23,4 +25,10 @@ internal interface FragmentBinding {
     fun bindBuildListViewStateHandler(
         impl: BuildListViewStateHandlerImpl
     ): BuildListViewStateHandler
+
+    @Binds
+    @FragmentScoped
+    fun bindBuildDetailVmEventHandler(
+        impl: BuildDetailVmEventHandlerImpl
+    ): BuildDetailVmEventHandler
 }

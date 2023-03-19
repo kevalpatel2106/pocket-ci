@@ -2,7 +2,7 @@ package com.kevalpatel2106.feature.log.log.eventHandler
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.kevalpatel2106.core.baseUi.showErrorSnack
+import com.kevalpatel2106.core.ui.errorHandling.showErrorSnack
 import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.feature.log.log.model.BuildLogVMEvent
 import com.kevalpatel2106.feature.log.log.model.BuildLogVMEvent.Close

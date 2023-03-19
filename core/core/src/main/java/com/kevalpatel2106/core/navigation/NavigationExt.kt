@@ -3,7 +3,7 @@ package com.kevalpatel2106.core.navigation
 import android.net.Uri
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import com.kevalpatel2106.core.R
+import com.kevalpatel2106.core.resources.R
 import timber.log.Timber
 
 fun NavController.navigateToInAppDeeplink(

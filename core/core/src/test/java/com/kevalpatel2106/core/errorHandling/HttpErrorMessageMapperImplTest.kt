@@ -1,6 +1,6 @@
 package com.kevalpatel2106.core.errorHandling
 
-import com.kevalpatel2106.core.R
+import com.kevalpatel2106.core.resources.R
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments

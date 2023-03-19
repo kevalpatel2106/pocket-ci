@@ -27,6 +27,7 @@ dependencies {
     implementation libs.compose.google.fonts
     implementation libs.bundles.coil
     implementation libs.design.material
+    implementation libs.preference.ktx
 
     // Coil
     implementation libs.bundles.coil

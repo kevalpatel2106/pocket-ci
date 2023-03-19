@@ -21,9 +21,6 @@ data class ClickEvent(val action: Action, val label: String? = null) : Event(Nam
         SETTINGS_OPEN_SOURCE_LICENCE_CLICKED(value = "settings_open_source_licence_clicked"),
         SETTINGS_SHOW_PRIVACY_POLICY_CLICKED(value = "settings_show_privacy_policy_clicked"),
         SETTINGS_CHANGELOG_CLICKED(value = "settings_changelog_clicked"),
-
-        // Webview
-        WEBVIEW_RELOAD(value = "webview_reload")
     }
 
     companion object {

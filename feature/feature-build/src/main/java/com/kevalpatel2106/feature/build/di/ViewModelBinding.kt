@@ -1,5 +1,7 @@
 package com.kevalpatel2106.feature.build.di
 
+import com.kevalpatel2106.feature.build.detail.usecase.BuildDetailViewStateMapper
+import com.kevalpatel2106.feature.build.detail.usecase.BuildDetailViewStateMapperImpl
 import com.kevalpatel2106.feature.build.list.usecase.BuildItemMapper
 import com.kevalpatel2106.feature.build.list.usecase.BuildItemMapperImpl
 import dagger.Binds
@@ -15,4 +17,10 @@ internal interface ViewModelBinding {
     @Binds
     @ViewModelScoped
     fun bindBuildItemMapper(impl: BuildItemMapperImpl): BuildItemMapper
+
+    @Binds
+    @ViewModelScoped
+    fun bindBuildDetailViewStateMapper(
+        impl: BuildDetailViewStateMapperImpl
+    ): BuildDetailViewStateMapper
 }

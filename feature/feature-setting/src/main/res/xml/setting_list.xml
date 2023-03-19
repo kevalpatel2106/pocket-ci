@@ -54,5 +54,5 @@
             app:iconSpaceReserved="false" />
     </androidx.preference.PreferenceCategory>
 
-    <com.kevalpatel2106.coreViews.CentralTitlePreference android:summary="@string/settings_title_made_love_with_uk" />
+    <com.kevalpatel2106.core.ui.view.CentralTitlePreference android:summary="@string/settings_title_made_love_with_uk" />
 </androidx.preference.PreferenceScreen>

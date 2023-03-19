@@ -6,6 +6,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
+import com.kevalpatel2106.core.resources.R
 
 private const val GOOGLE_FONTS_AUTHORITY = "com.google.android.gms.fonts"
 private const val GOOGLE_FONTS_PACKAGE = "com.google.android.gms"
@@ -14,7 +15,7 @@ private const val GOOGLE_FONTS_PACKAGE = "com.google.android.gms"
 private val fontProvider = GoogleFont.Provider(
     providerAuthority = GOOGLE_FONTS_AUTHORITY,
     providerPackage = GOOGLE_FONTS_PACKAGE,
-    certificates = com.kevalpatel2106.core.resources.R.array.com_google_android_gms_fonts_certs,
+    certificates = R.array.com_google_android_gms_fonts_certs,
 )
 
 @OptIn(ExperimentalTextApi::class)

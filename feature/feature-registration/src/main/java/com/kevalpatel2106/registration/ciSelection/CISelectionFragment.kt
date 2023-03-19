@@ -10,6 +10,7 @@ import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.core.ui.extension.setContent
 import com.kevalpatel2106.registration.ciSelection.eventHandler.CISelectionVmEventHandler
+import com.kevalpatel2106.registration.ciSelection.screen.CISelectionScreen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

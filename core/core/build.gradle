@@ -11,11 +11,6 @@ android defaultAndroidConfig
 android {
     namespace 'com.kevalpatel2106.core'
     defaultConfig defaultLibConfig
-    sourceSets {
-        main {
-            res.srcDirs = ["${this.rootDir}/core/core-resources/src/main/res", 'src/main/res']
-        }
-    }
 }
 
 dependencies {
@@ -28,10 +23,8 @@ dependencies {
     implementation libs.moshi
     implementation libs.retrofit
     implementation libs.timber
-    implementation libs.design.material
     implementation libs.bundles.paging
     implementation libs.bundles.navigtion
     unitTest()
-    glide()
     hilt()
 }

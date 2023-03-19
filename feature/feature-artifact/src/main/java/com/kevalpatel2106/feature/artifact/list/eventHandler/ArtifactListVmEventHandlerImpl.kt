@@ -2,7 +2,7 @@ package com.kevalpatel2106.feature.artifact.list.eventHandler
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.kevalpatel2106.core.baseUi.showErrorSnack
+import com.kevalpatel2106.core.ui.errorHandling.showErrorSnack
 import com.kevalpatel2106.core.extentions.showSnack
 import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.feature.artifact.list.model.ArtifactListVMEvent

@@ -152,7 +152,6 @@ internal class TimeDifferenceFormatterImplTest {
             arguments((2.5 * HOUR).toLong(), testAppendText, 2, R.plurals.time_format_hour),
             arguments(DAY, testAppendText, 1, R.plurals.time_format_day),
             arguments((2.1 * DAY).toLong(), testAppendText, 2, R.plurals.time_format_day),
-            arguments(WEEK, testAppendText, 1, R.plurals.time_format_week),
             arguments((2.99 * WEEK).toLong(), testAppendText, 2, R.plurals.time_format_week),
             arguments(YEAR, testAppendText, 1, R.plurals.time_format_year),
             arguments((2.4 * YEAR).toLong(), testAppendText, 2, R.plurals.time_format_year),

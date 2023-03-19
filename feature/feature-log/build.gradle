@@ -33,7 +33,6 @@ dependencies {
     implementation libs.bundles.ktx
     implementation libs.bundles.paging
     implementation libs.bundles.navigtion
-    implementation libs.bundles.design.legacy
     implementation libs.collections.immutable
 
     // Unit and UI tests

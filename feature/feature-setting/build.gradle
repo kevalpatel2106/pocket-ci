@@ -12,13 +12,16 @@ android defaultAndroidConfig
 android {
     namespace 'com.kevalpatel2106.feature.setting'
     defaultConfig defaultLibConfig
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
     implementation project(':entity')
     implementation project(':core:core')
+    implementation project(':core:core-ui')
     implementation project(':core:core-resources')
-    implementation project(':core:core-views')
     implementation project(':repository:repository')
     testImplementation project(':core:core-test')
     androidTestImplementation project(':core:core-test')

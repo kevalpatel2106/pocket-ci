@@ -124,6 +124,7 @@
 
     <!--Webview screen-->
     <string name="title_web_view_screen">WebView</string>
+    <string name="title_web_view_error_title">Cannot load page.</string>
     <string name="title_web_view_privacy_policy">Privacy Policy</string>
     <string name="title_web_view_change_log">Changelog</string>
 
@@ -158,6 +159,9 @@
     <string name="builds_empty_view_description">Please check you have at least one build triggered in this project. Also verify the token has read access to builds.</string>
     <string name="builds_empty_view_headline">No builds found in this project.</string>
     <string name="builds_commit_hash_content_description">Commit Hash</string>
+    <string name="builds_branch_content_description">Head Branch</string>
+    <string name="builds_workflow_name_content_description">Workflow</string>
+    <string name="builds_triggered_by_content_description">Triggered by</string>
 
     <!--Build detail screen-->
     <string name="title_build_detail">Build detail</string>
@@ -172,7 +176,9 @@
     <string name="build_detail_build_triggered_label">Build triggered</string>
     <string name="build_detail_triggered_by_label">Triggered by</string>
     <string name="build_detail_branch_label">Branch</string>
+    <string name="build_detail_commit_hash_label">Commit hash</string>
     <string name="build_detail_build_status_label">Status</string>
+    <string name="build_detail_full_screen_content_description">Expand</string>
 
     <!--Build logs screen-->
     <string name="title_build_logs_screen">Build logs</string>

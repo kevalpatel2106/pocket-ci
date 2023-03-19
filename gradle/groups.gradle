@@ -35,12 +35,6 @@ ext {
         androidTestImplementation libs.moshi.codegen
     }
 
-    glide = Group {
-        implementation libs.glide
-        kapt libs.glide.compiler
-        kaptAndroidTest libs.glide.compiler
-    }
-
     lifecycle = Group {
         implementation libs.bundles.lifecycle
         kapt libs.lifecycle.compiler

@@ -76,4 +76,8 @@ internal val md_theme_dark_link = Color(0xFF76B6EF)
 
 // region extra
 internal val orange = Color(0xFFFF9933)
+internal val yellow = Color(0xFFFFE121)
+internal val red = Color(0xFFFE463A)
+internal val green = Color(0xFF81B000)
+internal val gray = Color(0xFF939290)
 // endregion

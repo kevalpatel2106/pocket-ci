@@ -20,8 +20,7 @@
     <fragment
         android:id="@+id/webview"
         android:name="com.kevalpatel2106.feature.setting.webView.WebViewFragment"
-        android:label="@string/title_web_view_screen"
-        tools:layout="@layout/fragment_webview">
+        android:label="@string/title_web_view_screen">
 
         <argument
             android:name="content"

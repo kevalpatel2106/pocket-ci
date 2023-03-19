@@ -4,13 +4,15 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
-import com.kevalpatel2106.entity.isInProgress
-import com.kevalpatel2106.feature.build.R
-import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenBuildArtifacts
-import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenBuildLogs
-import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenJobs
-import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.OpenMarkDownViewer
-import com.kevalpatel2106.feature.build.detail.BuildDetailVMEvent.ShowErrorAndClose
+import com.kevalpatel2106.entity.Build
+import com.kevalpatel2106.core.resources.R
+import com.kevalpatel2106.feature.build.detail.model.BuildDetailVMEvent
+import com.kevalpatel2106.feature.build.detail.model.BuildDetailVMEvent.OpenBuildArtifacts
+import com.kevalpatel2106.feature.build.detail.model.BuildDetailVMEvent.OpenBuildLogs
+import com.kevalpatel2106.feature.build.detail.model.BuildDetailVMEvent.OpenJobs
+import com.kevalpatel2106.feature.build.detail.model.BuildDetailVMEvent.OpenMarkDownViewer
+import com.kevalpatel2106.feature.build.detail.model.BuildDetailVMEvent.ShowErrorAndClose
+import com.kevalpatel2106.feature.build.detail.usecase.BuildDetailViewStateMapper
 import com.kevalpatel2106.repository.CIInfoRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -27,13 +29,15 @@ internal class BuildDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     ciInfoRepo: CIInfoRepo,
     private val displayErrorMapper: DisplayErrorMapper,
+    private val viewStateMapper: BuildDetailViewStateMapper,
 ) : ViewModel() {
     private val navArgs = BuildDetailFragmentArgs.fromSavedStateHandle(savedStateHandle)
+    private val build: Build = navArgs.build
 
     private val _vmEventsFlow = MutableSharedFlow<BuildDetailVMEvent>()
     val vmEventsFlow = _vmEventsFlow.asSharedFlow()
 
-    private val _viewState = MutableStateFlow(BuildDetailViewState.initialState(navArgs.build))
+    private val _viewState = MutableStateFlow(viewStateMapper(build, null))
     val viewState = _viewState.asStateFlow()
 
     init {
@@ -41,14 +45,7 @@ internal class BuildDetailViewModel @Inject constructor(
             runCatching {
                 ciInfoRepo.getCIInfo(navArgs.accountId)
             }.onSuccess { ciInfo ->
-                _viewState.update {
-                    it.copy(
-                        hideBuildLogButton = !ciInfo.supportBuildLevelLogs,
-                        hideJobsListButton = !ciInfo.supportJobs,
-                        hideArtifactsButton = it.build.status.isInProgress() ||
-                            !ciInfo.supportViewArtifacts,
-                    )
-                }
+                _viewState.update { viewStateMapper(build, ciInfo) }
             }.onFailure { error ->
                 Timber.e(error)
                 _vmEventsFlow.emit(ShowErrorAndClose(displayErrorMapper(error)))
@@ -72,7 +69,7 @@ internal class BuildDetailViewModel @Inject constructor(
                 accountId = navArgs.accountId,
                 projectId = navArgs.build.projectId,
                 buildId = navArgs.build.id,
-                title = "${viewState.value.build.workflow.name} (#${viewState.value.build.number})",
+                title = "${build.workflow.name} (#${build.number})",
             ),
         )
     }
@@ -83,7 +80,7 @@ internal class BuildDetailViewModel @Inject constructor(
                 accountId = navArgs.accountId,
                 projectId = navArgs.build.projectId,
                 buildId = navArgs.build.id,
-                title = "${viewState.value.build.workflow.name} (#${viewState.value.build.number})",
+                title = "${build.workflow.name} (#${build.number})",
             ),
         )
     }

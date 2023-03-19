@@ -94,7 +94,6 @@ dependencies {
     implementation libs.bundles.ktx
     implementation libs.bundles.paging
     implementation libs.bundles.navigtion
-    implementation libs.bundles.design.legacy
     debugImplementation libs.bundles.debugging
     implementation libs.androidx.startup
 

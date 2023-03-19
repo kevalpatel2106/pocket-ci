@@ -12,6 +12,7 @@ import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.core.ui.extension.setContent
 import com.kevalpatel2106.feature.build.list.eventHandler.BuildListViewStateHandler
 import com.kevalpatel2106.feature.build.list.eventHandler.BuildListVmEventHandler
+import com.kevalpatel2106.feature.build.list.screen.BuildListScreen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

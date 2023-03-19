@@ -22,7 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.kevalpatel2106.core.baseUi.DebugInfoAlertDialogBuilder
+import com.kevalpatel2106.core.ui.errorHandling.DebugInfoAlertDialogBuilder
 import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.core.ui.component.ActionButtonMode.Companion.ACTION_CLOSE
 import com.kevalpatel2106.core.ui.component.ActionButtonMode.Companion.ACTION_RETRY

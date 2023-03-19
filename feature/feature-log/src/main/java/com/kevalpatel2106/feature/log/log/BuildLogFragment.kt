@@ -12,6 +12,7 @@ import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.core.ui.extension.setContent
 import com.kevalpatel2106.feature.log.log.eventHandler.BuildLogVmEventHandler
 import com.kevalpatel2106.feature.log.log.menu.BuildLogMenuProvider
+import com.kevalpatel2106.feature.log.log.screen.BuildLogScreen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

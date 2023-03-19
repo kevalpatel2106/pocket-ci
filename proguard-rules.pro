@@ -24,17 +24,6 @@
      public void println(**);
  }
 
-# Glide: http://bumptech.github.io/glide/doc/download-setup.html#proguard
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public class * extends com.bumptech.glide.module.AppGlideModule
--keep class com.bumptech.glide.GeneratedAppGlideModuleImpl
--keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
-}
--dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
-# End of Glide
-
 # sqlcipher: https://github.com/sqlcipher/android-database-sqlcipher#proguard
 -keep,includedescriptorclasses class net.sqlcipher.** { *; }
 -keep,includedescriptorclasses interface net.sqlcipher.** { *; }

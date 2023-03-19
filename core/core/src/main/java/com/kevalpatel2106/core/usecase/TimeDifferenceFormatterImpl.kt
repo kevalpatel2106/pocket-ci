@@ -1,7 +1,7 @@
 package com.kevalpatel2106.core.usecase
 
 import android.app.Application
-import com.kevalpatel2106.core.R
+import com.kevalpatel2106.core.resources.R
 import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

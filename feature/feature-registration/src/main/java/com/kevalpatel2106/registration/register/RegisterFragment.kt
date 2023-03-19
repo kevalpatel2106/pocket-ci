@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.kevalpatel2106.core.extentions.collectVMEventInFragment
 import com.kevalpatel2106.core.ui.extension.setContent
 import com.kevalpatel2106.registration.register.eventHandler.RegisterVmEventHandler
+import com.kevalpatel2106.registration.register.screen.RegisterScreen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

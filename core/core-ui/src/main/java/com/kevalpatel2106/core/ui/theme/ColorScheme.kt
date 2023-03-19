@@ -5,6 +5,8 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import com.kevalpatel2106.core.ui.resource.gray
+import com.kevalpatel2106.core.ui.resource.green
 import com.kevalpatel2106.core.ui.resource.md_theme_dark_background
 import com.kevalpatel2106.core.ui.resource.md_theme_dark_error
 import com.kevalpatel2106.core.ui.resource.md_theme_dark_errorContainer
@@ -66,6 +68,8 @@ import com.kevalpatel2106.core.ui.resource.md_theme_light_surfaceVariant
 import com.kevalpatel2106.core.ui.resource.md_theme_light_tertiary
 import com.kevalpatel2106.core.ui.resource.md_theme_light_tertiaryContainer
 import com.kevalpatel2106.core.ui.resource.orange
+import com.kevalpatel2106.core.ui.resource.red
+import com.kevalpatel2106.core.ui.resource.yellow
 
 /**
  * Generated from https://m3.material.io/theme-builder#/custom.
@@ -138,6 +142,22 @@ internal val DarkColorsScheme = darkColorScheme(
 val ColorScheme.colorOrange
     @Composable
     get() = orange
+
+val ColorScheme.colorYellow
+    @Composable
+    get() = yellow
+
+val ColorScheme.colorRed
+    @Composable
+    get() = red
+
+val ColorScheme.colorGreen
+    @Composable
+    get() = green
+
+val ColorScheme.colorGray
+    @Composable
+    get() = gray
 
 val ColorScheme.colorLink
     @Composable

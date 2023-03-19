@@ -1,6 +1,6 @@
 package com.kevalpatel2106.core.errorHandling
 
-import com.kevalpatel2106.core.R
+import com.kevalpatel2106.core.resources.R
 import java.net.HttpURLConnection.HTTP_FORBIDDEN
 import java.net.HttpURLConnection.HTTP_INTERNAL_ERROR
 import java.net.HttpURLConnection.HTTP_NOT_ACCEPTABLE

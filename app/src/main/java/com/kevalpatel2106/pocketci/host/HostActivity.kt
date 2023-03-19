@@ -9,7 +9,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.kevalpatel2106.core.extentions.collectStateInActivity
 import com.kevalpatel2106.core.extentions.collectVMEventsInActivity
-import com.kevalpatel2106.core.viewbinding.viewBinding
 import com.kevalpatel2106.pocketci.R
 import com.kevalpatel2106.pocketci.databinding.ActivityHostBinding
 import com.kevalpatel2106.pocketci.host.usecase.HandleHostVMEvents
