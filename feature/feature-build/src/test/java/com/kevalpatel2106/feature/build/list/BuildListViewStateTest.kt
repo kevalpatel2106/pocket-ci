@@ -1,5 +1,6 @@
 package com.kevalpatel2106.feature.build.list
 
+import com.kevalpatel2106.feature.build.list.model.BuildListViewState
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 

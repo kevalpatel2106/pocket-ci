@@ -3,24 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="buildItem"
-            type="com.kevalpatel2106.feature.build.list.adapter.BuildListItem.BuildItem" />
-
-        <variable
-            name="callback"
-            type="com.kevalpatel2106.feature.build.list.adapter.BuildListAdapterCallback" />
-    </data>
-
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.Material3.CardView.Outlined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_regular"
-        android:layout_marginVertical="@dimen/spacing_small"
-        android:onClick="@{() -> callback.onBuildSelected(buildItem.build)}">
+        android:layout_marginVertical="@dimen/spacing_small">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -39,7 +27,6 @@
                 android:id="@+id/buildStatusView"
                 android:layout_width="@dimen/spacing_large"
                 android:layout_height="@dimen/spacing_large"
-                app:buildStatus="@{buildItem.build.status}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingClass" />
@@ -51,7 +38,6 @@
                 android:layout_marginStart="@dimen/spacing_small"
                 android:maxEms="@integer/build_number_max_digits"
                 android:maxLines="1"
-                android:text="@{buildItem.numberText}"
                 android:textAppearance="@style/LargeText.Orange"
                 app:layout_constraintStart_toEndOf="@id/buildStatusView"
                 app:layout_constraintTop_toTopOf="@id/buildStatusView"
@@ -68,7 +54,6 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="@{buildItem.build.workflow.name}"
                 android:textAppearance="@style/MediumText.Primary"
                 app:layout_constraintBottom_toBottomOf="@+id/buildNumberTextView"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -84,9 +69,7 @@
                 android:layout_marginTop="@dimen/spacing_small"
                 android:ellipsize="end"
                 android:maxLines="@integer/short_commit_message_max_lines"
-                android:text="@{buildItem.build.commit.message}"
                 android:textAppearance="@style/MediumText.Secondary"
-                android:visibility="@{buildItem.build.commit.message == null}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/buildStatusView"
                 app:layout_constraintTop_toBottomOf="@id/buildNumberTextView"
@@ -113,7 +96,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_micro"
                         android:clickable="false"
-                        android:text="@{buildItem.status}"
                         android:textAppearance="@style/MediumText.Primary"
                         android:textColor="@color/white"
                         app:chipIcon="@drawable/ic_history"
@@ -127,10 +109,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_micro"
                         android:clickable="false"
-                        android:text="@{buildItem.build.triggeredBy}"
                         android:textAppearance="@style/MediumText.Primary"
                         android:textColor="@color/white"
-                        android:visibility="@{buildItem.hideTriggeredBy}"
                         app:chipIcon="@drawable/ic_person"
                         app:chipIconTint="@color/white"
                         app:ensureMinTouchTargetSize="false"
@@ -142,10 +122,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_micro"
                         android:clickable="false"
-                        android:text="@{buildItem.commitHash}"
                         android:textAppearance="@style/MediumText.Primary"
                         android:textColor="@color/white"
-                        android:visibility="@{buildItem.commitHash == null}"
                         app:chipIcon="@drawable/ic_commit"
                         app:chipIconTint="@color/white"
                         app:ensureMinTouchTargetSize="false"
@@ -157,10 +135,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_micro"
                         android:clickable="false"
-                        android:text="@{buildItem.build.headBranch}"
                         android:textAppearance="@style/MediumText.Primary"
                         android:textColor="@color/white"
-                        android:visibility="@{buildItem.build.headBranch == null}"
                         app:chipIcon="@drawable/ic_branch"
                         app:chipIconTint="@color/white"
                         app:ensureMinTouchTargetSize="false"
@@ -182,7 +158,6 @@
                 android:maxLines="1"
                 android:textAppearance="@style/SmallText.Primary"
                 app:appendText="@string/ago"
-                app:dates="@{buildItem.triggeredTimeDifference}"
                 app:displayAccurate="false"
                 app:layout_constraintEnd_toStartOf="@+id/verticalGuide"
                 app:layout_constraintStart_toEndOf="@id/buildStatusView"
@@ -203,7 +178,6 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:textAppearance="@style/SmallText.Secondary"
-                app:dates="@{buildItem.executionTimeDifference}"
                 app:displayAccurate="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/verticalGuide"

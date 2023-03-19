@@ -1,4 +1,4 @@
-package com.kevalpatel2106.core.ui
+package com.kevalpatel2106.core.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes

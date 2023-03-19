@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.kevalpatel2106.core.ui.PocketCITheme
+import com.kevalpatel2106.core.ui.theme.PocketCITheme
 import com.kevalpatel2106.core.ui.resource.Spacing
 import io.noties.markwon.Markwon
 
@@ -89,6 +89,6 @@ internal fun MarkdownViewerScreen(
     showBackground = true,
     device = Devices.PIXEL_C,
 )
-fun MarkdownViewerScreenPreview() = PocketCITheme {
+private fun MarkdownViewerScreenPreview() = PocketCITheme {
     MarkdownViewerScreen(MARKDWON_TEXT_PREVIEW)
 }

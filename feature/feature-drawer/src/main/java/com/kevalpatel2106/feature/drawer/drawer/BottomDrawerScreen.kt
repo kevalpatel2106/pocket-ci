@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.kevalpatel2106.core.ui.PocketCITheme
+import com.kevalpatel2106.core.ui.theme.PocketCITheme
 import com.kevalpatel2106.core.ui.element.DragHandle
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_REGULAR
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_SMALL

@@ -21,7 +21,7 @@ import androidx.paging.compose.itemsIndexed
 import com.kevalpatel2106.core.R
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
 import com.kevalpatel2106.core.ui.component.AccountInfoCard
-import com.kevalpatel2106.core.ui.component.ListHeaderItemRow
+import com.kevalpatel2106.core.ui.component.ListSeparatorHeading
 import com.kevalpatel2106.core.ui.extension.handleLoadState
 import com.kevalpatel2106.core.ui.resource.Spacing.GUTTER
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_REGULAR
@@ -100,6 +100,6 @@ private fun AccountListItemRow(
             onItemDelete = { onItemDelete(item.account) },
         )
 
-        is HeaderItem -> ListHeaderItemRow(item.ciName)
+        is HeaderItem -> ListSeparatorHeading(item.ciName)
     }
 }

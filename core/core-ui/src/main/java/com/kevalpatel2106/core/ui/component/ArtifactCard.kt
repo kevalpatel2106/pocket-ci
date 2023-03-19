@@ -15,14 +15,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DataUsage
 import androidx.compose.material.icons.filled.WatchLater
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -31,12 +28,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.kevalpatel2106.core.resources.R
-import com.kevalpatel2106.core.ui.PocketCITheme
+import com.kevalpatel2106.core.ui.element.ItemPropertyView
 import com.kevalpatel2106.core.ui.extension.ARTIFACT_NAME
 import com.kevalpatel2106.core.ui.extension.ARTIFACT_NAME_LONG
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_LARGE
-import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_MICRO
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_SMALL
+import com.kevalpatel2106.core.ui.theme.PocketCITheme
 
 @Composable
 fun ArtifactCard(
@@ -77,14 +74,14 @@ fun ArtifactCard(
                     style = MaterialTheme.typography.titleMedium,
                 )
                 if (size != null) {
-                    ArtifactPropertyView(
+                    ItemPropertyView(
                         icon = Icons.Filled.DataUsage,
                         label = R.string.artifact_list_size_label,
                         value = size,
                     )
                 }
                 if (time != null) {
-                    ArtifactPropertyView(
+                    ItemPropertyView(
                         icon = Icons.Filled.WatchLater,
                         label = R.string.artifact_list_create_label,
                         value = time,
@@ -93,32 +90,6 @@ fun ArtifactCard(
             }
         }
     }
-}
-
-@Composable
-private fun ArtifactPropertyView(
-    icon: ImageVector, @StringRes label: Int, value: String
-) = Row(
-    modifier = Modifier
-        .padding(top = SPACING_MICRO)
-        .fillMaxWidth(),
-    verticalAlignment = Alignment.CenterVertically,
-) {
-    Icon(
-        imageVector = icon,
-        contentDescription = stringResource(id = label),
-        modifier = Modifier.padding(end = SPACING_SMALL),
-    )
-    Text(
-        text = stringResource(id = label),
-        modifier = Modifier.padding(end = SPACING_SMALL),
-        style = MaterialTheme.typography.titleMedium,
-    )
-    Text(
-        text = value,
-        overflow = TextOverflow.Ellipsis,
-        maxLines = 1,
-    )
 }
 
 @Composable
@@ -151,7 +122,7 @@ private fun ArtifactPropertyView(
     showBackground = true,
     device = Devices.PIXEL_C,
 )
-fun ArtifactCardPreview() = PocketCITheme {
+private fun ArtifactCardPreview() = PocketCITheme {
     Column {
         ArtifactCard(
             artifactIcon = R.drawable.ic_android_apk,

@@ -26,11 +26,12 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
-import com.kevalpatel2106.core.ui.PocketCITheme
+import com.kevalpatel2106.core.ui.theme.PocketCITheme
 import com.kevalpatel2106.core.ui.extension.LONG_STRING
 import com.kevalpatel2106.core.ui.extension.NAME
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_REGULAR
 import com.kevalpatel2106.core.ui.resource.Spacing.SPACING_SMALL
+import com.kevalpatel2106.core.ui.theme.monoSpaceMedium
 
 private const val MAX_LINE_NUMBER_LETTER = 5
 
@@ -57,7 +58,7 @@ fun BuildLogLine(
         ) {
             Text(
                 text = lineNumber.toString(),
-                style = MaterialTheme.typography.labelLarge,
+                style = MaterialTheme.typography.monoSpaceMedium,
                 color = MaterialTheme.colorScheme.onTertiary,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,

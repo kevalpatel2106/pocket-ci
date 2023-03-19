@@ -16,7 +16,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.kevalpatel2106.core.R
 import com.kevalpatel2106.core.errorHandling.DisplayErrorMapper
-import com.kevalpatel2106.core.ui.component.ListHeaderItemRow
+import com.kevalpatel2106.core.ui.component.ListSeparatorHeading
 import com.kevalpatel2106.core.ui.component.ProjectCard
 import com.kevalpatel2106.core.ui.extension.handleLoadState
 import com.kevalpatel2106.core.ui.extension.setUpPullRefresh
@@ -79,7 +79,7 @@ private inline fun ProjectListItem(
     crossinline onItemClick: (project: Project) -> Unit,
     crossinline onItemPinned: (project: Project, pinned: Boolean) -> Unit,
 ) = when (item) {
-    is HeaderItem -> ListHeaderItemRow(item.title)
+    is HeaderItem -> ListSeparatorHeading(item.title)
     is ProjectItem -> ProjectCard(
         projectImageUrl = item.project.image,
         projectOwner = item.project.owner,

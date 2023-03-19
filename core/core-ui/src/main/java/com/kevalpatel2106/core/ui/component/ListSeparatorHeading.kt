@@ -18,7 +18,7 @@ import com.kevalpatel2106.core.R
 import com.kevalpatel2106.core.ui.resource.Spacing
 
 @Composable
-fun ListHeaderItemRow(@StringRes title: Int) = Column {
+fun ListSeparatorHeading(@StringRes title: Int) = Column {
     Text(
         text = stringResource(id = title),
         style = MaterialTheme.typography.bodyLarge,
@@ -63,6 +63,6 @@ fun ListHeaderItemRow(@StringRes title: Int) = Column {
     showBackground = true,
     device = Devices.PIXEL_C,
 )
-private fun ListHeaderItemRowPreview() {
-    ListHeaderItemRow(title = R.string.list_header_pinned)
+private fun ListSeparatorHeadingPreview() {
+    ListSeparatorHeading(title = R.string.list_header_pinned)
 }

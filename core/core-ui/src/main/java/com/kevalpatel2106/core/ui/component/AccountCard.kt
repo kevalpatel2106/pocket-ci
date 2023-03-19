@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.kevalpatel2106.core.resources.R
-import com.kevalpatel2106.core.ui.PocketCITheme
+import com.kevalpatel2106.core.ui.theme.PocketCITheme
 import com.kevalpatel2106.core.ui.extension.AVATAR_IMAGE
 import com.kevalpatel2106.core.ui.extension.EMAIL
 import com.kevalpatel2106.core.ui.extension.LONG_EMAIL

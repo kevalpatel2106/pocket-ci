@@ -1,4 +1,4 @@
-package com.kevalpatel2106.core.ui
+package com.kevalpatel2106.core.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

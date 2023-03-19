@@ -157,6 +157,7 @@
     <string name="title_builds_screen">Builds</string>
     <string name="builds_empty_view_description">Please check you have at least one build triggered in this project. Also verify the token has read access to builds.</string>
     <string name="builds_empty_view_headline">No builds found in this project.</string>
+    <string name="builds_commit_hash_content_description">Commit Hash</string>
 
     <!--Build detail screen-->
     <string name="title_build_detail">Build detail</string>
@@ -182,6 +183,8 @@
     <string name="build_log_empty_state_message">This can happen if your build is not concluded yet or logs are deleted from your CI server depending on your archive settings.</string>
     <string name="build_log_empty_state_title">No logs found.</string>
     <string name="build_log_error_writing_logs">Cannot save log file. Please try again.</string>
+    <string name="build_list_triggered_time_label">Triggered at:</string>
+    <string name="build_list_execution_time_label">Execution time:</string>
 
     <!--Jobs list-->
     <string name="title_jobs_list_screen">Jobs</string>

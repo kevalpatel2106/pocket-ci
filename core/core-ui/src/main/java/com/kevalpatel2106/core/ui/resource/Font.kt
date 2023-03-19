@@ -58,18 +58,31 @@ private val latoBold = Font(
 )
 
 @OptIn(ExperimentalTextApi::class)
-private val latoExtraBold = Font(
-    googleFont = GoogleFont("Lato"),
+private val JetBrainsMonoNormal = Font(
+    googleFont = GoogleFont("JetBrains Mono"),
     fontProvider = fontProvider,
     style = FontStyle.Normal,
-    weight = FontWeight.ExtraBold,
+    weight = FontWeight.Normal,
 )
+
+@OptIn(ExperimentalTextApi::class)
+private val JetBrainsMonoBold = Font(
+    googleFont = GoogleFont("JetBrains Mono"),
+    fontProvider = fontProvider,
+    style = FontStyle.Normal,
+    weight = FontWeight.Bold,
+)
+
 
 val latoFontFamily = FontFamily(
     latoLight,
     latoNormal,
     latoSemiBold,
     latoBold,
-    latoExtraBold,
     latoItalicsNormal,
+)
+
+val jetBrainsMonoFamily = FontFamily(
+    JetBrainsMonoNormal,
+    JetBrainsMonoBold,
 )

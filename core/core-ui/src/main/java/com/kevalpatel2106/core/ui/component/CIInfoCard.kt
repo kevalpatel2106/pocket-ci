@@ -27,7 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import com.kevalpatel2106.core.ui.PocketCITheme
+import com.kevalpatel2106.core.ui.theme.PocketCITheme
 import com.kevalpatel2106.core.ui.extension.LONG_STRING
 import com.kevalpatel2106.core.ui.extension.SAMPLE_IMAGE
 import com.kevalpatel2106.core.ui.extension.SAMPLE_STRING_RES

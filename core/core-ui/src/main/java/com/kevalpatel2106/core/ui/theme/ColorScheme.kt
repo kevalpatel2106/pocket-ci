@@ -1,13 +1,17 @@
-package com.kevalpatel2106.core.ui
+package com.kevalpatel2106.core.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
 import com.kevalpatel2106.core.ui.resource.md_theme_dark_background
 import com.kevalpatel2106.core.ui.resource.md_theme_dark_error
 import com.kevalpatel2106.core.ui.resource.md_theme_dark_errorContainer
 import com.kevalpatel2106.core.ui.resource.md_theme_dark_inverseOnSurface
 import com.kevalpatel2106.core.ui.resource.md_theme_dark_inversePrimary
 import com.kevalpatel2106.core.ui.resource.md_theme_dark_inverseSurface
+import com.kevalpatel2106.core.ui.resource.md_theme_dark_link
 import com.kevalpatel2106.core.ui.resource.md_theme_dark_onBackground
 import com.kevalpatel2106.core.ui.resource.md_theme_dark_onError
 import com.kevalpatel2106.core.ui.resource.md_theme_dark_onErrorContainer
@@ -37,6 +41,7 @@ import com.kevalpatel2106.core.ui.resource.md_theme_light_errorContainer
 import com.kevalpatel2106.core.ui.resource.md_theme_light_inverseOnSurface
 import com.kevalpatel2106.core.ui.resource.md_theme_light_inversePrimary
 import com.kevalpatel2106.core.ui.resource.md_theme_light_inverseSurface
+import com.kevalpatel2106.core.ui.resource.md_theme_light_link
 import com.kevalpatel2106.core.ui.resource.md_theme_light_onBackground
 import com.kevalpatel2106.core.ui.resource.md_theme_light_onError
 import com.kevalpatel2106.core.ui.resource.md_theme_light_onErrorContainer
@@ -60,6 +65,7 @@ import com.kevalpatel2106.core.ui.resource.md_theme_light_surfaceTint
 import com.kevalpatel2106.core.ui.resource.md_theme_light_surfaceVariant
 import com.kevalpatel2106.core.ui.resource.md_theme_light_tertiary
 import com.kevalpatel2106.core.ui.resource.md_theme_light_tertiaryContainer
+import com.kevalpatel2106.core.ui.resource.orange
 
 /**
  * Generated from https://m3.material.io/theme-builder#/custom.
@@ -127,3 +133,12 @@ internal val DarkColorsScheme = darkColorScheme(
     outlineVariant = md_theme_dark_outlineVariant,
     scrim = md_theme_dark_scrim,
 )
+
+// Extra colors
+val ColorScheme.colorOrange
+    @Composable
+    get() = orange
+
+val ColorScheme.colorLink
+    @Composable
+    get() = if (isSystemInDarkTheme()) md_theme_dark_link else md_theme_light_link

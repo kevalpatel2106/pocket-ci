@@ -32,7 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kevalpatel2106.core.resources.R
-import com.kevalpatel2106.core.ui.PocketCITheme
+import com.kevalpatel2106.core.ui.theme.PocketCITheme
 import com.kevalpatel2106.core.ui.resource.Spacing
 import com.kevalpatel2106.core.ui.useCase.GetBuildStatusImage
 import com.kevalpatel2106.entity.BuildStatus

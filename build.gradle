@@ -35,4 +35,10 @@ allprojects {
     }
 }
 
+// https://docs.gradle.org/current/userguide/performance.html#disable_reports
+tasks.withType(Test).configureEach {
+    reports.html.required = System.getenv("CI").toBoolean()
+    reports.junitXml.required = System.getenv("CI").toBoolean()
+}
+
 apply plugin: "android-reporting"

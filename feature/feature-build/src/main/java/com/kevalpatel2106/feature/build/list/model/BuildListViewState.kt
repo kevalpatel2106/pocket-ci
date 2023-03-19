@@ -1,4 +1,4 @@
-package com.kevalpatel2106.feature.build.list
+package com.kevalpatel2106.feature.build.list.model
 
 data class BuildListViewState(val toolbarTitle: String) {
 
