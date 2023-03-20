@@ -37,6 +37,7 @@ internal val md_theme_light_shadow = Color(0xFF000000)
 internal val md_theme_light_surfaceTint = Color(0xFF6750A4)
 internal val md_theme_light_outlineVariant = Color(0xFFCAC4D0)
 internal val md_theme_light_scrim = Color(0xFF000000)
+internal val md_theme_light_link = Color(0xFF551A8B)
 // endregion
 
 // region dark theme
@@ -70,4 +71,13 @@ internal val md_theme_dark_shadow = Color(0xFF000000)
 internal val md_theme_dark_surfaceTint = Color(0xFFD0BCFF)
 internal val md_theme_dark_outlineVariant = Color(0xFF49454F)
 internal val md_theme_dark_scrim = Color(0xFF000000)
+internal val md_theme_dark_link = Color(0xFF76B6EF)
+// endregion
+
+// region extra
+internal val orange = Color(0xFFFF9933)
+internal val yellow = Color(0xFFFFE121)
+internal val red = Color(0xFFFE463A)
+internal val green = Color(0xFF81B000)
+internal val gray = Color(0xFF939290)
 // endregion

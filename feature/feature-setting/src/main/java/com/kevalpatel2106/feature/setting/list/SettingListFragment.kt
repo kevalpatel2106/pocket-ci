@@ -12,15 +12,19 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import com.kevalpatel2106.core.extentions.collectInFragment
-import com.kevalpatel2106.coreViews.errorView.showErrorSnack
+import com.kevalpatel2106.core.extentions.collectStateInFragment
+import com.kevalpatel2106.core.extentions.collectVMEventInFragment
+import com.kevalpatel2106.core.ui.errorHandling.showErrorSnack
 import com.kevalpatel2106.feature.setting.R
-import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.ErrorChangingTheme
-import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenAppInvite
-import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenChangelog
-import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenContactUs
-import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenOpenSourceLicences
-import com.kevalpatel2106.feature.setting.list.SettingListVMEvent.OpenPrivacyPolicy
+import com.kevalpatel2106.feature.setting.list.model.SettingListVMEvent
+import com.kevalpatel2106.core.resources.R as coreR
+import com.kevalpatel2106.feature.setting.list.model.SettingListVMEvent.ErrorChangingTheme
+import com.kevalpatel2106.feature.setting.list.model.SettingListVMEvent.OpenAppInvite
+import com.kevalpatel2106.feature.setting.list.model.SettingListVMEvent.OpenChangelog
+import com.kevalpatel2106.feature.setting.list.model.SettingListVMEvent.OpenContactUs
+import com.kevalpatel2106.feature.setting.list.model.SettingListVMEvent.OpenOpenSourceLicences
+import com.kevalpatel2106.feature.setting.list.model.SettingListVMEvent.OpenPrivacyPolicy
+import com.kevalpatel2106.feature.setting.list.model.SettingListViewState
 import com.kevalpatel2106.feature.setting.list.usecase.PrepareAppInviteIntent
 import com.kevalpatel2106.feature.setting.list.usecase.PrepareContactUsIntent
 import com.kevalpatel2106.feature.setting.webView.WebViewContent
@@ -46,8 +50,8 @@ class SettingListFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
         findPreference<ListPreference>(getString(R.string.pref_key_theme))?.summaryProvider =
             ListPreference.SimpleSummaryProvider.getInstance()
 
-        viewModel.viewState.collectInFragment(this, ::handleViewState)
-        viewModel.vmEventsFlow.collectInFragment(this, ::handleViewEvents)
+        viewModel.viewState.collectStateInFragment(this, ::handleViewState)
+        viewModel.vmEventsFlow.collectVMEventInFragment(this, ::handleViewEvents)
     }
 
     override fun onResume() {
@@ -91,7 +95,7 @@ class SettingListFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
                 startActivity(prepareContactUsIntent(event.versionName, event.versionCode))
             }
             is ErrorChangingTheme -> {
-                showErrorSnack(event.error, R.string.settings_error_loading_them)
+                showErrorSnack(event.error, coreR.string.settings_error_loading_them)
             }
             is OpenAppInvite -> startActivity(prepareAppInviteIntent())
             OpenOpenSourceLicences -> showOpenSourceLicences()
@@ -109,7 +113,7 @@ class SettingListFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
     private fun showOpenSourceLicences() {
         // Cannot open from nav graph because of 3rd party activity
         OssLicensesMenuActivity.setActivityTitle(
-            requireContext().getString(R.string.title_activity_licences),
+            requireContext().getString(coreR.string.title_activity_licences),
         )
         startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
     }

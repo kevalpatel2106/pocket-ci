@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_build"
     app:startDestination="@id/buildList">
 
     <fragment
         android:id="@+id/buildList"
         android:name="com.kevalpatel2106.feature.build.list.BuildListFragment"
-        android:label="@string/title_builds_screen"
-        tools:layout="@layout/fragment_build_list">
+        android:label="@string/title_builds_screen">
         <argument
             android:name="projectId"
             app:argType="string" />
@@ -30,8 +28,7 @@
     <fragment
         android:id="@+id/buildDetail"
         android:name="com.kevalpatel2106.feature.build.detail.BuildDetailFragment"
-        android:label="@string/title_build_detail"
-        tools:layout="@layout/fragment_build_detail">
+        android:label="@string/title_build_detail">
         <argument
             android:name="accountId"
             app:argType="com.kevalpatel2106.entity.id.AccountId" />
@@ -49,8 +46,7 @@
 
     <fragment
         android:id="@+id/markdownViewFragment"
-        android:name="com.kevalpatel2106.feature.build.markdownView.MarkdownViewerFragment"
-        tools:layout="@layout/fragment_markdown_viewer">
+        android:name="com.kevalpatel2106.feature.build.markdownView.MarkdownViewerFragment">
         <argument
             android:name="title"
             app:argType="string" />

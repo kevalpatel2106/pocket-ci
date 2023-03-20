@@ -4,7 +4,7 @@ import com.kevalpatel2106.entity.toUrl
 import java.net.MalformedURLException
 import javax.inject.Inject
 
-class ValidateRegisterInputImpl @Inject constructor() : ValidateRegisterInput {
+internal class ValidateRegisterInputImpl @Inject constructor() : ValidateRegisterInput {
 
     override operator fun invoke(url: String, token: String): Pair<Boolean, Boolean> {
         @SuppressWarnings("SwallowedException")

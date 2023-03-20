@@ -3,9 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'dev.shreyaspatil.compose-compiler-report-generator'
 }
-apply from: "${this.rootDir}/gradle/config.gradle"
-apply from: "${this.rootDir}/gradle/groups.gradle"
 
 android defaultAndroidConfig
 android {
@@ -28,7 +27,9 @@ dependencies {
     implementation libs.compose.google.fonts
     implementation libs.bundles.coil
     implementation libs.design.material
+    implementation libs.preference.ktx
 
     // Coil
     implementation libs.bundles.coil
+    unitTest()
 }

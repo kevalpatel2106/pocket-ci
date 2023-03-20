@@ -1,6 +1,8 @@
 package com.kevalpatel2106.feature.log.usecase
 
 import com.flextrade.kfixture.KFixture
+import com.kevalpatel2106.feature.log.log.usecase.ConvertToPaddedLogsImpl
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -9,11 +11,17 @@ internal class ConvertToPaddedLogsImplTest {
     private val subject = ConvertToPaddedLogsImpl()
 
     @Test
-    fun `given logs when converted then verify padded logs`() {
+    fun `given logs when converted then verify padded logs`() = runTest {
         val logs = fixture<String>()
 
         val actual = subject(logs)
 
-        assertEquals("\n\n$logs\n\n\n\n", actual)
+        val expected = logs.split("\n").toMutableList().apply {
+            add("\n")
+            add("\n")
+        }
+        actual.forEachIndexed { index, line ->
+            assertEquals(expected[index], line)
+        }
     }
 }

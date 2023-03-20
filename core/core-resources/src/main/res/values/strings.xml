@@ -7,6 +7,15 @@
     <string name="back">Back</string>
     <string name="delete">delete</string>
 
+    <!--Build status-->
+    <string name="build_status_fail_content_description">Failed</string>
+    <string name="build_status_success_content_description">Successful</string>
+    <string name="build_status_abort_content_description">Aborted</string>
+    <string name="build_status_skipped_content_description">Skipped</string>
+    <string name="build_status_unknown_content_description">Unknown</string>
+    <string name="build_status_running_content_description">Running</string>
+    <string name="build_status_pending_content_description">Pending</string>
+
     <!--Error handling-->
     <string name="error_view_retry_button_title">Retry</string>
     <string name="error_view_close_button_title">Close</string>
@@ -89,6 +98,8 @@
 
     <!--Projects screen-->
     <string name="title_projects_screen">Projects</string>
+    <string name="pin_project_button_content_description">Unpin project</string>
+    <string name="unpin_project_button_content_description">Pin project</string>
     <string name="list_header_pinned">Pinned</string>
     <string name="list_header_other">Other</string>
     <string name="projects_empty_view_description">Please check you have projects set up in the account. If you\'re linked with organisation, please verify the authentication token has access to organisation.</string>
@@ -113,6 +124,7 @@
 
     <!--Webview screen-->
     <string name="title_web_view_screen">WebView</string>
+    <string name="title_web_view_error_title">Cannot load page.</string>
     <string name="title_web_view_privacy_policy">Privacy Policy</string>
     <string name="title_web_view_change_log">Changelog</string>
 
@@ -146,6 +158,10 @@
     <string name="title_builds_screen">Builds</string>
     <string name="builds_empty_view_description">Please check you have at least one build triggered in this project. Also verify the token has read access to builds.</string>
     <string name="builds_empty_view_headline">No builds found in this project.</string>
+    <string name="builds_commit_hash_content_description">Commit Hash</string>
+    <string name="builds_branch_content_description">Head Branch</string>
+    <string name="builds_workflow_name_content_description">Workflow</string>
+    <string name="builds_triggered_by_content_description">Triggered by</string>
 
     <!--Build detail screen-->
     <string name="title_build_detail">Build detail</string>
@@ -160,7 +176,9 @@
     <string name="build_detail_build_triggered_label">Build triggered</string>
     <string name="build_detail_triggered_by_label">Triggered by</string>
     <string name="build_detail_branch_label">Branch</string>
+    <string name="build_detail_commit_hash_label">Commit hash</string>
     <string name="build_detail_build_status_label">Status</string>
+    <string name="build_detail_full_screen_content_description">Expand</string>
 
     <!--Build logs screen-->
     <string name="title_build_logs_screen">Build logs</string>
@@ -171,11 +189,15 @@
     <string name="build_log_empty_state_message">This can happen if your build is not concluded yet or logs are deleted from your CI server depending on your archive settings.</string>
     <string name="build_log_empty_state_title">No logs found.</string>
     <string name="build_log_error_writing_logs">Cannot save log file. Please try again.</string>
+    <string name="build_list_triggered_time_label">Triggered at:</string>
+    <string name="build_list_execution_time_label">Execution time:</string>
 
     <!--Jobs list-->
     <string name="title_jobs_list_screen">Jobs</string>
     <string name="jobs_list_empty_view_description">This build has no job triggered.</string>
     <string name="jobs_list_empty_view_headline">No jobs found for build!</string>
+    <string name="job_list_triggered_time_label">Triggered at:</string>
+    <string name="job_list_execution_time_label">Execution time:</string>
 
     <!--Artifacts list-->
     <string name="title_artifacts_list_screen">Artifacts</string>
@@ -188,6 +210,10 @@
     <string name="artifact_list_download_not_supported">Artifact download is not supported for this CI server.</string>
     <string name="artifact_list_download_queue_error">Cannot initiate download.</string>
     <string name="artifact_list_downloading_in_progress_message">Downloading</string>
+    <string name="artifact_type_text_content_description">Text file</string>
+    <string name="artifact_type_zip_content_description">Zip file</string>
+    <string name="artifact_type_apk_content_description">Android APK</string>
+    <string name="artifact_type_unknown_content_description">Unknown file type</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

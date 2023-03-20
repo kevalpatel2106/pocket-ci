@@ -1,4 +1,4 @@
-package com.kevalpatel2106.core.ui.component
+package com.kevalpatel2106.core.ui.element
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource

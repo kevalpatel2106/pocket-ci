@@ -22,7 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.kevalpatel2106.core.baseUi.DebugInfoAlertDialogBuilder
+import com.kevalpatel2106.core.ui.errorHandling.DebugInfoAlertDialogBuilder
 import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.core.ui.component.ActionButtonMode.Companion.ACTION_CLOSE
 import com.kevalpatel2106.core.ui.component.ActionButtonMode.Companion.ACTION_RETRY
@@ -135,8 +135,8 @@ private fun TechnicalMessageButton(error: DisplayError?) {
 @Composable
 fun ErrorView(
     modifier: Modifier = Modifier,
-    title: String? = stringResource(id = R.string.error_unknown_title),
-    message: String = stringResource(id = R.string.error_unknown_message),
+    title: String?,
+    message: String,
     error: DisplayError? = null,
     onRetry: () -> Unit = {},
     onClose: () -> Unit = {},
@@ -152,8 +152,8 @@ fun ErrorView(
 @Composable
 fun HorizontalPagingErrorItem(
     modifier: Modifier = Modifier,
-    title: String? = stringResource(id = R.string.error_unknown_title),
-    message: String = stringResource(id = R.string.error_unknown_message),
+    title: String?,
+    message: String,
     error: DisplayError? = null,
     onRetry: () -> Unit = {},
     onClose: () -> Unit = {},
@@ -169,8 +169,8 @@ fun HorizontalPagingErrorItem(
 @Composable
 fun VerticalPagingErrorItem(
     modifier: Modifier = Modifier,
-    title: String? = stringResource(id = R.string.error_unknown_title),
-    message: String = stringResource(id = R.string.error_unknown_message),
+    title: String?,
+    message: String,
     error: DisplayError? = null,
     onRetry: () -> Unit = {},
     onClose: () -> Unit = {},

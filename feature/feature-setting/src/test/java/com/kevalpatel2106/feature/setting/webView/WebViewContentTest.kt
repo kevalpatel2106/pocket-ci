@@ -1,7 +1,7 @@
 package com.kevalpatel2106.feature.setting.webView
 
 import androidx.annotation.StringRes
-import com.kevalpatel2106.feature.setting.R
+import com.kevalpatel2106.core.resources.R
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments

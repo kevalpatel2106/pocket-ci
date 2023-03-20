@@ -5,16 +5,18 @@ plugins {
     id 'de.mannodermaus.android-junit5'
     id 'com.dicedmelon.gradle.jacoco-android'
 }
-apply from: "${this.rootDir}/gradle/config.gradle"
-apply from: "${this.rootDir}/gradle/groups.gradle"
 
 android defaultAndroidConfig
 android {
     namespace 'com.kevalpatel2106.entity'
     defaultConfig defaultLibConfig
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
     implementation libs.androidx.appcompat
     unitTest()
+    jetpackCompose()
 }

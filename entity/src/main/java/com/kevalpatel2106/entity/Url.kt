@@ -1,11 +1,14 @@
 package com.kevalpatel2106.entity
 
 import android.os.Parcelable
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import kotlinx.parcelize.Parcelize
 import java.net.MalformedURLException
 import java.net.URL
 
 @Parcelize
+@Immutable
 data class Url(val value: String) : Parcelable {
 
     init {

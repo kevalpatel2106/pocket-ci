@@ -1,5 +1,5 @@
 package com.kevalpatel2106.registration.register.usecase
 
-interface ValidateRegisterInput {
+internal interface ValidateRegisterInput {
     operator fun invoke(url: String, token: String): Pair<Boolean, Boolean>
 }

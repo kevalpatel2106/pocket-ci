@@ -4,9 +4,9 @@ import com.flextrade.kfixture.KFixture
 import com.kevalpatel2106.coreTest.getAccountFixture
 import com.kevalpatel2106.entity.CIType
 import com.kevalpatel2106.feature.account.getAccountItemFixture
-import com.kevalpatel2106.feature.account.list.AccountsListItem
-import com.kevalpatel2106.feature.account.list.AccountsListItem.AccountItem
-import com.kevalpatel2106.feature.account.list.AccountsListItem.HeaderItem
+import com.kevalpatel2106.feature.account.list.model.AccountsListItem
+import com.kevalpatel2106.feature.account.list.model.AccountsListItem.AccountItem
+import com.kevalpatel2106.feature.account.list.model.AccountsListItem.HeaderItem
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments

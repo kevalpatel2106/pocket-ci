@@ -6,6 +6,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
+import com.kevalpatel2106.core.resources.R
 
 private const val GOOGLE_FONTS_AUTHORITY = "com.google.android.gms.fonts"
 private const val GOOGLE_FONTS_PACKAGE = "com.google.android.gms"
@@ -14,7 +15,7 @@ private const val GOOGLE_FONTS_PACKAGE = "com.google.android.gms"
 private val fontProvider = GoogleFont.Provider(
     providerAuthority = GOOGLE_FONTS_AUTHORITY,
     providerPackage = GOOGLE_FONTS_PACKAGE,
-    certificates = com.kevalpatel2106.core.resources.R.array.com_google_android_gms_fonts_certs,
+    certificates = R.array.com_google_android_gms_fonts_certs,
 )
 
 @OptIn(ExperimentalTextApi::class)
@@ -58,18 +59,31 @@ private val latoBold = Font(
 )
 
 @OptIn(ExperimentalTextApi::class)
-private val latoExtraBold = Font(
-    googleFont = GoogleFont("Lato"),
+private val JetBrainsMonoNormal = Font(
+    googleFont = GoogleFont("JetBrains Mono"),
     fontProvider = fontProvider,
     style = FontStyle.Normal,
-    weight = FontWeight.ExtraBold,
+    weight = FontWeight.Normal,
 )
+
+@OptIn(ExperimentalTextApi::class)
+private val JetBrainsMonoBold = Font(
+    googleFont = GoogleFont("JetBrains Mono"),
+    fontProvider = fontProvider,
+    style = FontStyle.Normal,
+    weight = FontWeight.Bold,
+)
+
 
 val latoFontFamily = FontFamily(
     latoLight,
     latoNormal,
     latoSemiBold,
     latoBold,
-    latoExtraBold,
     latoItalicsNormal,
+)
+
+val jetBrainsMonoFamily = FontFamily(
+    JetBrainsMonoNormal,
+    JetBrainsMonoBold,
 )

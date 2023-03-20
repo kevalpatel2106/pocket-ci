@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_log"
     app:startDestination="@id/buildLog">
 
     <fragment
         android:id="@+id/buildLog"
-        android:name="com.kevalpatel2106.feature.log.BuildLogFragment"
-        android:label="@string/title_build_logs_screen"
-        tools:layout="@layout/fragment_build_log">
+        android:name="com.kevalpatel2106.feature.log.log.BuildLogFragment"
+        android:label="@string/title_build_logs_screen">
         <argument
             android:name="accountId"
             app:argType="long" />

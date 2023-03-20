@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import com.kevalpatel2106.feature.setting.R
+import com.kevalpatel2106.core.resources.R
 import javax.inject.Inject
 
 internal class PrepareContactUsIntentImpl @Inject constructor(

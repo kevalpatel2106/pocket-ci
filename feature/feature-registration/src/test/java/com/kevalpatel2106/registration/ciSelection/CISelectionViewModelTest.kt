@@ -6,7 +6,9 @@ import com.kevalpatel2106.coreTest.latestValue
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
 import com.kevalpatel2106.entity.CIInfo
 import com.kevalpatel2106.entity.analytics.ClickEvent
-import com.kevalpatel2106.registration.ciSelection.CISelectionVMEvent.Close
+import com.kevalpatel2106.registration.ciSelection.model.CISelectionVMEvent
+import com.kevalpatel2106.registration.ciSelection.model.CISelectionVMEvent.Close
+import com.kevalpatel2106.registration.ciSelection.model.CISelectionViewState
 import com.kevalpatel2106.repository.AnalyticsRepo
 import com.kevalpatel2106.repository.CIInfoRepo
 import kotlinx.coroutines.test.advanceUntilIdle

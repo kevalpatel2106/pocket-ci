@@ -1,21 +1,27 @@
 package com.kevalpatel2106.feature.job.list.usecase
 
-import com.kevalpatel2106.coreViews.TimeDifferenceTextView.TimeDifferenceData
+import com.kevalpatel2106.core.usecase.TimeDifferenceFormatter
 import com.kevalpatel2106.entity.Job
-import com.kevalpatel2106.feature.job.list.adapter.JobListItem.JobItem
+import com.kevalpatel2106.feature.job.list.model.JobListItem.JobItem
+import java.util.Date
 import javax.inject.Inject
 
-internal class JobItemMapperImpl @Inject constructor() : JobItemMapper {
+internal class JobItemMapperImpl @Inject constructor(
+    private val timeDifferenceFormatter: TimeDifferenceFormatter,
+) : JobItemMapper {
 
-    override fun invoke(job: Job) = JobItem(
+    override fun invoke(job: Job, now: Date) = JobItem(
         job = job,
-        triggeredTimeDifference = TimeDifferenceData(
-            dateOfEventStart = job.triggeredAt,
-            dateOfEventEnd = null,
+        triggeredTime = timeDifferenceFormatter(
+            dateStart = job.triggeredAt,
+            dateEnd = now,
+            appendText = "ago", // TODO convert to use string resource
+            showMorePrecise = false,
         ),
-        executionTimeDifference = TimeDifferenceData(
-            dateOfEventStart = job.triggeredAt,
-            dateOfEventEnd = job.finishedAt,
+        executionTime = timeDifferenceFormatter(
+            dateStart = job.triggeredAt,
+            dateEnd = job.finishedAt ?: now,
+            showMorePrecise = true,
         ),
     )
 }

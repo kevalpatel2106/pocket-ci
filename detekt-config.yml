@@ -66,6 +66,7 @@ style:
     active: true
     excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**', '**/*.kts' ]
     ignorePropertyDeclaration: true   # https://detekt.dev/docs/introduction/compose/
+    ignoreAnnotated: [ 'Preview' ]   # Disable for compose preview
   MaxLineLength:
     active: false   # Handled by ktlint rule MaximumLineLength
     maxLineLength: 120

@@ -1,6 +1,6 @@
 package com.kevalpatel2106.core.errorHandling
 
-import com.kevalpatel2106.core.R
+import com.kevalpatel2106.core.resources.R
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
@@ -14,7 +14,7 @@ import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 import java.net.HttpURLConnection.HTTP_UNAVAILABLE
 import java.net.HttpURLConnection.HTTP_UNSUPPORTED_TYPE
 
-internal class HttpErrorMessageMapperImplTest {
+internal class  HttpErrorMessageMapperImplTest {
     private val subject = HttpErrorMessageMapperImpl()
 
     @ParameterizedTest(name = "given is http response code {0} when mapped then check title {1}")

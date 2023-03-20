@@ -7,8 +7,8 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.kevalpatel2106.core.extentions.collectInActivity
-import com.kevalpatel2106.core.viewbinding.viewBinding
+import com.kevalpatel2106.core.extentions.collectStateInActivity
+import com.kevalpatel2106.core.extentions.collectVMEventsInActivity
 import com.kevalpatel2106.pocketci.R
 import com.kevalpatel2106.pocketci.databinding.ActivityHostBinding
 import com.kevalpatel2106.pocketci.host.usecase.HandleHostVMEvents
@@ -35,10 +35,10 @@ class HostActivity : AppCompatActivity() {
         binding.lifecycleOwner = this@HostActivity
         setUpToolbar()
         monitorNavigation()
-        viewModel.vmEventsFlow.collectInActivity(this) { event ->
+        viewModel.vmEventsFlow.collectVMEventsInActivity(this) { event ->
             handleHostVMEvents(event, navController)
         }
-        viewModel.viewState.collectInActivity(this, ::handleViewState)
+        viewModel.viewState.collectStateInActivity(this, ::handleViewState)
     }
 
     private fun monitorNavigation() {

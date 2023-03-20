@@ -1,12 +1,12 @@
 package com.kevalpatel2106.feature.project.list.usecase
 
 import com.kevalpatel2106.entity.Project
-import com.kevalpatel2106.feature.project.R
-import com.kevalpatel2106.feature.project.list.adapter.ProjectListItem
-import com.kevalpatel2106.feature.project.list.adapter.ProjectListItem.HeaderItem
+import com.kevalpatel2106.core.resources.R
+import com.kevalpatel2106.feature.project.list.model.ProjectListItem
+import com.kevalpatel2106.feature.project.list.model.ProjectListItem.HeaderItem
 import javax.inject.Inject
 
-class InsertProjectListHeadersImpl @Inject constructor() : InsertProjectListHeaders {
+internal class InsertProjectListHeadersImpl @Inject constructor() : InsertProjectListHeaders {
 
     override operator fun invoke(
         before: Project?,

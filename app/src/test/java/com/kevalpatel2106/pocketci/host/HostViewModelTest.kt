@@ -1,9 +1,9 @@
 package com.kevalpatel2106.pocketci.host
 
 import com.flextrade.kfixture.KFixture
+import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.coreTest.TestCoroutineExtension
 import com.kevalpatel2106.coreTest.runTestObservingSharedFlow
-import com.kevalpatel2106.pocketci.R
 import com.kevalpatel2106.pocketci.host.AppNavigationConfig.SCREENS_WITH_BOTTOM_DRAWER
 import com.kevalpatel2106.pocketci.host.AppNavigationConfig.SCREENS_WITH_NO_TOOLBAR
 import com.kevalpatel2106.repository.AnalyticsRepo
@@ -24,7 +24,7 @@ internal class HostViewModelTest {
     private val subject by lazy { HostViewModel(analyticsRepo) }
 
     @ParameterizedTest(
-        name = "given previous destination id {0} and next destination id {1} when on destination changed called check navigation icon is {2}"
+        name = "given previous destination id {0} and next destination id {1} when on destination changed called check navigation icon is {2}",
     )
     @MethodSource("provideValuesForNavIconOnNavDestinationChanged")
     fun `given previous and next destination id when on destination changed called check navigation icon`(
@@ -39,7 +39,7 @@ internal class HostViewModelTest {
     }
 
     @ParameterizedTest(
-        name = "given previous destination id {0} and next destination id {1} when on destination changed called check navigation visibility is {2}"
+        name = "given previous destination id {0} and next destination id {1} when on destination changed called check navigation visibility is {2}",
     )
     @MethodSource("provideValuesForVisibilityOfNavIconOnNavDestinationChanged")
     fun `given previous and next destination id when on destination changed called check navigation visibility`(
@@ -102,10 +102,20 @@ internal class HostViewModelTest {
         fun provideValuesForNavIconOnNavDestinationChanged() = listOf(
             // Format previous dst, next dst, nav icon
             arguments(null, navDestinationIdFixture, null),
-            arguments(R.id.splash, navDestinationIdFixture, R.drawable.ic_arrow_back),
+            arguments(
+                com.kevalpatel2106.feature.splash.R.id.splash,
+                navDestinationIdFixture,
+                R.drawable.ic_arrow_back,
+            ),
         ).toMutableList().apply {
             SCREENS_WITH_BOTTOM_DRAWER.forEach {
-                add(arguments(R.id.splash, it, R.drawable.ic_hamburger))
+                add(
+                    arguments(
+                        com.kevalpatel2106.feature.splash.R.id.splash,
+                        it,
+                        R.drawable.ic_hamburger,
+                    ),
+                )
                 add(arguments(null, it, R.drawable.ic_hamburger))
             }
         }
@@ -115,11 +125,11 @@ internal class HostViewModelTest {
         fun provideValuesForVisibilityOfNavIconOnNavDestinationChanged() = listOf(
             // Format previous dst, next dst, nav icon is visible
             arguments(null, navDestinationIdFixture, true),
-            arguments(R.id.splash, navDestinationIdFixture, true),
+            arguments(com.kevalpatel2106.feature.splash.R.id.splash, navDestinationIdFixture, true),
         ).toMutableList().apply {
             SCREENS_WITH_NO_TOOLBAR.forEach {
                 add(arguments(null, it, false))
-                add(arguments(R.id.splash, it, false))
+                add(arguments(com.kevalpatel2106.feature.splash.R.id.splash, it, false))
             }
         }
     }

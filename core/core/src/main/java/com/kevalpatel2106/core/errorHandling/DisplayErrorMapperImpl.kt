@@ -1,7 +1,7 @@
 package com.kevalpatel2106.core.errorHandling
 
 import android.app.Application
-import com.kevalpatel2106.core.R
+import com.kevalpatel2106.core.resources.R
 import com.kevalpatel2106.entity.DisplayError
 import com.kevalpatel2106.entity.exception.FeatureNotSupportedException
 import com.kevalpatel2106.entity.exception.NoInternetException
