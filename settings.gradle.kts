@@ -7,7 +7,7 @@ pluginManagement {
 }
 plugins {
     // Version catalog is not supported here.
-    id("com.gradle.enterprise") version "3.12.3"
+    id("com.gradle.enterprise") version "3.12.4"
 }
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {

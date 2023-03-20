@@ -11,7 +11,7 @@ jobs:
       # The Dependency Submission API requires write permission
       contents: write
     steps:
-      - uses: actions/checkout@v3.3.0
+      - uses: actions/checkout@v3.4.0
       - name: Submit dependencies
         uses: mikepenz/gradle-dependency-submission@v0.8.5
         with:
@@ -21,7 +21,7 @@ jobs:
     name: Gradle wrapper validation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.3.0
+      - uses: actions/checkout@v3.4.0
       - uses: gradle/wrapper-validation-action@v1
 
   codeql:
@@ -39,7 +39,7 @@ jobs:
         language: [ "java" ]
 
     steps:
-      - uses: actions/checkout@v3.3.0
+      - uses: actions/checkout@v3.4.0
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
     steps:
-      - uses: actions/checkout@v3.3.0
+      - uses: actions/checkout@v3.4.0
       - name: Dependency Review
         uses: actions/dependency-review-action@v3.0.3
         with:
