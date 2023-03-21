@@ -236,5 +236,5 @@ android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jacoco-android = { id = "com.dicedmelon.gradle.jacoco-android", version.require = "0.1.5" }
 junit5-android = { id = "de.mannodermaus.android-junit5", version.require = "1.8.2.1" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-compose-compiler-report = { id = "dev.shreyaspatil.compose-compiler-report-generator", version = "1.0.0" }
+compose-compiler-report = { id = "dev.shreyaspatil.compose-compiler-report-generator", version = "1.0.1" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
