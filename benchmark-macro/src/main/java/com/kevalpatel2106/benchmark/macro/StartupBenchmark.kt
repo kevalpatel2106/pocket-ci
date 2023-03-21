@@ -6,6 +6,7 @@ import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.RequiresDevice
 import androidx.test.rule.GrantPermissionRule
 import com.kevalpatel2106.benchmark.macro.Const.PACKAGE
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -15,6 +16,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @HiltAndroidTest
+@RequiresDevice
 @RunWith(AndroidJUnit4::class)
 class StartupBenchmark {
 

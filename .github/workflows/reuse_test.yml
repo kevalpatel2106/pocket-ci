@@ -47,9 +47,6 @@ jobs:
     strategy:
       fail-fast: false  # Allow tests to continue on other devices if they fail on one device.
       matrix:
-        arch: [ x86_64 ]
-        target: [ google_apis ]
-        channel: [ stable ]
         api-level:
           - 27
           - 29
@@ -88,7 +85,7 @@ jobs:
           disable-spellchecker: true
           ram-size: 4096M
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: ./gradlew connectedAndroidTest mergeAndroidReports
+          script: ./gradlew connectedAndroidTest mergeAndroidReports -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.kevalpatel2106.coreTest.filter.BaselineProfileGenerator
       - name: Upload test results Artifact
         uses: actions/upload-artifact@v3.1.2
         if: success() || failure()
