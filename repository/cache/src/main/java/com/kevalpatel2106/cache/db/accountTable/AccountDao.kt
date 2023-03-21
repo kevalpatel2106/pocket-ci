@@ -7,6 +7,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.RewriteQueriesToDropUnusedColumns
 
 @Dao
 interface AccountDao {
@@ -29,6 +30,7 @@ interface AccountDao {
     suspend fun getAccount(accountId: Long): AccountDto
 
     @Query("SELECT * FROM ${AccountTableInfo.TABLE_NAME} WHERE ${AccountTableInfo.ID} = :accountId")
+    @RewriteQueriesToDropUnusedColumns
     suspend fun getAccountBasic(accountId: Long): AccountBasicDto
 
     @Query("SELECT * FROM ${AccountTableInfo.TABLE_NAME} ORDER BY ${AccountTableInfo.TYPE} ASC")
