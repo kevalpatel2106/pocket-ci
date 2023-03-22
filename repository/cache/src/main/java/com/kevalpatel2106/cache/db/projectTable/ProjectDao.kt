@@ -6,6 +6,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.RewriteQueriesToDropUnusedColumns
 import androidx.room.Transaction
 import com.kevalpatel2106.cache.db.projectTable.ProjectWithLocalDataDto.Companion.LOCAL_DATA
 import com.kevalpatel2106.cache.db.projectTable.ProjectWithLocalDataDto.Companion.PROJECT
@@ -33,6 +34,7 @@ interface ProjectDao {
         "SELECT * FROM ${PT.TABLE_NAME} " +
             "WHERE ${PT.REMOTE_ID} = :remoteId AND ${PT.ACCOUNT_ID} = :accountId",
     )
+    @RewriteQueriesToDropUnusedColumns
     suspend fun getProjectBasic(remoteId: String, accountId: Long): ProjectBasicDto
 
     @Query(

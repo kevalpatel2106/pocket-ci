@@ -32,7 +32,7 @@ android {
         }
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), './proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), "${this.rootDir}/rules/proguard-rules.pro"
 
             debuggable false
             jniDebuggable false
@@ -48,6 +48,7 @@ android {
             signingConfig signingConfigs.debug
             matchingFallbacks = ['release']
             debuggable false
+            proguardFiles "${this.rootDir}/rules/baseline-profile-rules.pro"
 
             buildConfigField 'int', 'VERSION_CODE', "${playStoreVersion.versionCode}"
             buildConfigField 'String', 'VERSION_NAME', "\"${playStoreVersion.versionName}\""
@@ -96,6 +97,7 @@ dependencies {
     implementation libs.bundles.navigtion
     debugImplementation libs.bundles.debugging
     implementation libs.androidx.startup
+    implementation libs.profile.installer
 
     // Unit and UI tests
     androidTest()
