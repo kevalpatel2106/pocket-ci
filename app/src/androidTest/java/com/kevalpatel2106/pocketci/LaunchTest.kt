@@ -4,6 +4,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.MediumTest
 import androidx.test.rule.ActivityTestRule
 import com.kevalpatel2106.core.resources.R
@@ -20,7 +21,7 @@ class LaunchTest {
     var hiltRule = HiltAndroidRule(this)
 
     @get:Rule(order = 1)
-    var activityTestRule = ActivityTestRule(HostActivity::class.java, true, true)
+    var activityTestRule = ActivityScenarioRule(HostActivity::class.java)
 
     @Test
     fun checkHostActivityOpened() {
