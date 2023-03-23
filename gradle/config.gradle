@@ -39,10 +39,6 @@ ext {
         // module where all the e2e tests sits. Other module (repository-impl) will use their own
         // hilt component to create new preferences/in-memory db, so they don't require cleaning up
         testInstrumentationRunnerArguments clearPackageData: 'true'
-        if (!project.hasProperty('android.testInstrumentationRunnerArguments.annotation')) {
-            // Avoid running benchmark tests on emulator and failing test
-            testInstrumentationRunnerArgument 'notAnnotation', 'android.support.test.filters.RequiresDevice'
-        }
         testInstrumentationRunner "com.kevalpatel2106.coreTest.runner.UiTestsRunner"
 
         multiDexEnabled false
