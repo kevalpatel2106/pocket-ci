@@ -72,7 +72,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.2
         if: success()
         with:
-          name: baseline-profiles
+          name: baseline-profiles-avd-${{ matrix.api-level }}-${{ matrix.target }}-${{ matrix.arch }}
           path: |
             ./benchmark-macro/build/outputs/connected_android_test_additional_output/benchmark/connected/*/*.txt
           if-no-files-found: warn
@@ -80,7 +80,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.2
         if: success() || failure()
         with:
-          name: baseline-profile-test-report
+          name: baseline-profile-test-report-avd-${{ matrix.api-level }}-${{ matrix.target }}-${{ matrix.arch }}
           path: |
             ./build/androidTest-results/*
           if-no-files-found: warn
