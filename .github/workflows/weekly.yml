@@ -82,5 +82,7 @@ jobs:
         with:
           name: baseline-profile-test-report-avd-${{ matrix.api-level }}-${{ matrix.target }}-${{ matrix.arch }}
           path: |
+            **/build/reports/androidTest-results/*
+            build/reports/*
             ./build/androidTest-results/*
           if-no-files-found: warn

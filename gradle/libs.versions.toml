@@ -135,7 +135,6 @@ compose-material3 = { module = "androidx.compose.material3:material3" }
 compose-icons = { module = "androidx.compose.material:material-icons-core" }
 compose-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 compose-animation = { module = "androidx.compose.animation:animation" }
-compose-webview = { module = "com.google.accompanist:accompanist-webview" , version = "0.29.2-rc" }
 
 # Constraint layout
 compose-constraintlayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.require = "1.0.1" }

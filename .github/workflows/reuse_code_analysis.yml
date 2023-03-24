@@ -59,4 +59,4 @@ jobs:
       - name: Lint check
         uses: ibiqlik/action-yamllint@v3.1.1
         with:
-          config_file: yamllint-config.yml
+          config_file: rules/yamllint-config.yml

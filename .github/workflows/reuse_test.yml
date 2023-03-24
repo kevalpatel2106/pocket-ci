@@ -36,6 +36,7 @@ jobs:
           path: |
             **/build/reports/tests/**/*
             **/build/reports/test-results/**/*
+            build/reports/*
           if-no-files-found: warn
 
   instrumentation-tests:
@@ -100,4 +101,6 @@ jobs:
           name: android-test-report-avd-${{ matrix.api-level }}-${{ matrix.target }}-${{ matrix.arch }}
           path: |
             ./build/androidTest-results/*
+            **/build/reports/androidTest-results/*
+            build/reports/*
           if-no-files-found: warn

@@ -33,6 +33,14 @@ jobs:
         with:
           name: apk-debug
           path: app/build/outputs/apk/debug/*.apk
+      - name: Upload reports
+        uses: actions/upload-artifact@v3.1.2
+        if: success() || failure()
+        with:
+          name: report-apk-debug
+          path: |
+            build/reports/*
+          if-no-files-found: warn
 
   release:
     name: Release APK
@@ -73,6 +81,14 @@ jobs:
         with:
           name: apk-release-unsigned
           path: app/build/outputs/apk/release/app-release-unsigned-aligned.apk
+      - name: Upload reports
+        uses: actions/upload-artifact@v3.1.2
+        if: success() || failure()
+        with:
+          name: report-apk-release
+          path: |
+            build/reports/*
+          if-no-files-found: warn
 
   aab:
     name: AAB to release
@@ -111,3 +127,11 @@ jobs:
         with:
           name: mapping-bundle-release
           path: app/build/outputs/mapping/release/mapping.txt
+      - name: Upload reports
+        uses: actions/upload-artifact@v3.1.2
+        if: success() || failure()
+        with:
+          name: report-bundle-release
+          path: |
+            build/reports/*
+          if-no-files-found: warn

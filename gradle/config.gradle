@@ -148,7 +148,7 @@ ext {
                 "-Xinline-classes",
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi,androidx.paging.ExperimentalPagingApi,androidx.compose.ui.text.ExperimentalTextApi",
                 "-P",
-                "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+                "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=1.8.0"
         ]
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
@@ -182,7 +182,7 @@ ext {
     }
 
     detektOption = {
-        config = files("${this.rootDir}/detekt-config.yml")
+        config = files("${this.rootDir}/rules/detekt-config.yml")
         baseline = file("detekt/baseline.xmk")
         autoCorrect = true
     }

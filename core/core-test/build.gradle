@@ -16,5 +16,6 @@ dependencies {
     implementation libs.bundles.android.test
     implementation libs.retrofit
     implementation libs.okhttp
+    implementation libs.ui.automator
     implementation libs.hilt.testing
 }
