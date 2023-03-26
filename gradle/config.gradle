@@ -116,7 +116,7 @@ ext {
         checkTestSources true
         ignoreWarnings true
         checkDependencies true
-        baseline file("${this.rootDir}/lint-baseline.xml")
+        baseline file("${this.rootDir}/rules/baseline/lint-baseline.xml")
     }
 
     compileOption = {
@@ -183,8 +183,10 @@ ext {
 
     detektOption = {
         config = files("${this.rootDir}/rules/detekt-config.yml")
-        baseline = file("detekt/baseline.xmk")
+        baseline = file("${this.rootDir}/rules/baseline/baseline.xmk")
         autoCorrect = true
+        parallel = true
+        useDefaultConfig = true
     }
 
     hiltOptions = {

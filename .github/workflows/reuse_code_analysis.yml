@@ -36,13 +36,13 @@ jobs:
             app:lintRelease
             --stacktrace
       - name: Generate annotations from lint report
-        if: success() || failure()
+        if: always()
         uses: yutailang0119/action-android-lint@v3.1.0
         with:
           report-path: '**/build/reports/lint-results-*.xml'
         continue-on-error: true
       - name: Upload lint report
-        if: success() || failure()
+        if: always()
         uses: actions/upload-artifact@v3.1.2
         with:
           name: lint-report

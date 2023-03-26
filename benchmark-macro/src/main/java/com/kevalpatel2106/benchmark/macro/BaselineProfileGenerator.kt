@@ -7,7 +7,6 @@ import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Until
 import com.kevalpatel2106.benchmark.macro.Const.PACKAGE
-import com.kevalpatel2106.coreTest.filter.BaselineProfileGenerator
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Rule
@@ -16,7 +15,6 @@ import org.junit.runner.RunWith
 
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
-@BaselineProfileGenerator
 class BaselineProfileGenerator {
 
     @get:Rule(order = 0)

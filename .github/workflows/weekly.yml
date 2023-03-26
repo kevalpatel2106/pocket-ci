@@ -20,69 +20,53 @@ jobs:
   baseline-profiles:
     runs-on: macos-latest
     timeout-minutes: 45
-    env:
-      JAVA_TOOL_OPTIONS: -Xmx4g -XX:+UseParallelGC
-    strategy:
-      matrix:
-        target: [ google_apis ]
-        arch: [ x86_64 ]
-        api-level: [ 33 ]
     steps:
       - uses: actions/checkout@v3.4.0
       - uses: actions/setup-java@v3.10.0
         with:
           distribution: 'adopt'
           java-version: 17
-      - name: AVD cache
-        uses: actions/cache@v3.3.1
-        id: avd-cache
+      - name: Build app and benchmark
+        run: ./gradlew :benchmark-macro:assembleBenchmark
+      - name: Clear unused Gradle Managed Devices
+        run: ./gradlew cleanManagedDevices --unused-only
+      - name: Run benchmark on Gradle Managed Device
+        # --info used to add a repro to https://issuetracker.google.com/issues/193118030
+        # config cache is disabled due to https://issuetracker.google.com/issues/262270582
+        run: |
+          ./gradlew api31BenchmarkAndroidTest \
+            -Dorg.gradle.workers.max=1 \
+            -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile \
+            -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect" \
+            --info \
+            --no-configuration-cache
+      # If we're on main branch, copy over the baseline profile and commit it to the repository
+      - name: Commit baseline profile into main
+        if: github.ref == 'refs/heads/main'
+        run: |
+          # Pull down any changes which may have been committed while this workflow has been running
+          git pull
+
+          # Copy the baseline profile to :app
+          cp benchmark/build/outputs/managed_device_android_test_additional_output/api31/BaselineProfileGenerator_generateBaselineProfile-baseline-prof.txt app/src/main/baseline-prof.txt
+
+          # If the baseline profile has changed, commit it
+          if [[ $(git diff --stat app/src/main/baseline-prof.txt) != '' ]]; then
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git add app/src/main/baseline-prof.txt
+            git commit -m "Update app baseline profile" && git push --no-verify
+          fi
+      - name: Upload baseline profile
+        uses: actions/upload-artifact@v3
         with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: avd-${{ matrix.api-level }}-${{ matrix.target }}-${{ matrix.arch }}-${{ secrets.AVD_CACHE_VERSION }}
-      - name: Create AVD and generate snapshot for caching
-        if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2.28.0
-        with:
-          avd-name: test-${{ matrix.api-level }}-${{ matrix.target }}-${{ matrix.arch }}
-          api-level: ${{ matrix.api-level }}
-          force-avd-creation: false
-          disable-animations: true
-          disable-spellchecker: true
-          ram-size: 4096M
-          target: ${{ matrix.target }}
-          arch: ${{ matrix.arch }}
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: echo "Generated AVD snapshot for caching."
-      - name: Run baseline profile generator
-        uses: reactivecircus/android-emulator-runner@v2.28.0
-        with:
-          avd-name: test-${{ matrix.api-level }}-${{ matrix.target }}-${{ matrix.arch }}
-          api-level: ${{ matrix.api-level }}
-          force-avd-creation: false
-          disable-animations: true
-          disable-spellchecker: true
-          ram-size: 4096M
-          target: ${{ matrix.target }}
-          arch: ${{ matrix.arch }}
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: ./gradlew :benchmark-macro:connectedBenchmarkAndroidTest -Pandroid.testInstrumentationRunnerArguments.annotation=com.kevalpatel2106.coreTest.filter.BaselineProfileGenerator
-      - name: Upload baseline profiles
-        uses: actions/upload-artifact@v3.1.2
-        if: success()
-        with:
-          name: baseline-profiles-avd-${{ matrix.api-level }}-${{ matrix.target }}-${{ matrix.arch }}
-          path: |
-            ./benchmark-macro/build/outputs/connected_android_test_additional_output/benchmark/connected/*/*.txt
-          if-no-files-found: warn
+          name: baseline-profile-output
+          path: benchmark/build/outputs/managed_device_android_test_additional_output
       - name: Upload test results Artifact
         uses: actions/upload-artifact@v3.1.2
-        if: success() || failure()
+        if: always()
         with:
           name: baseline-profile-test-report-avd-${{ matrix.api-level }}-${{ matrix.target }}-${{ matrix.arch }}
           path: |
-            **/build/reports/androidTest/*
-            build/reports/*
-            ./build/androidTest-results/*
+            **/build/reports/*
           if-no-files-found: warn

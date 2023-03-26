@@ -35,7 +35,7 @@ jobs:
           path: app/build/outputs/apk/debug/*.apk
       - name: Upload reports
         uses: actions/upload-artifact@v3.1.2
-        if: success() || failure()
+        if: always()
         with:
           name: report-apk-debug
           path: |
@@ -83,7 +83,7 @@ jobs:
           path: app/build/outputs/apk/release/app-release-unsigned-aligned.apk
       - name: Upload reports
         uses: actions/upload-artifact@v3.1.2
-        if: success() || failure()
+        if: always()
         with:
           name: report-apk-release
           path: |
@@ -129,7 +129,7 @@ jobs:
           path: app/build/outputs/mapping/release/mapping.txt
       - name: Upload reports
         uses: actions/upload-artifact@v3.1.2
-        if: success() || failure()
+        if: always()
         with:
           name: report-bundle-release
           path: |

@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ManagedVirtualDevice
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -59,6 +61,7 @@ android {
         jacoco.excludes = ['jdk.internal.*']
     }
 }
+apply from: "${this.rootDir}/gradle/screenshots.gradle"
 
 dependencies {
     // feature modules
