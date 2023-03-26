@@ -17,7 +17,7 @@ jobs:
     name: Debug APK
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.4.0
+      - uses: actions/checkout@v3.5.0
       - uses: actions/setup-java@v3.10.0
         with:
           distribution: 'adopt'
@@ -46,7 +46,7 @@ jobs:
     name: Release APK
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.4.0
+      - uses: actions/checkout@v3.5.0
       - uses: actions/setup-java@v3.10.0
         with:
           distribution: 'adopt'
@@ -95,7 +95,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v') }}
     steps:
-      - uses: actions/checkout@v3.4.0
+      - uses: actions/checkout@v3.5.0
       - uses: actions/setup-java@v3.10.0
         with:
           distribution: 'adopt'
