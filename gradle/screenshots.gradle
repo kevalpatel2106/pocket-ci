@@ -1,0 +1,46 @@
+/**
+ * Group of gradle tasks that pulls the captured screenshots from the device storage into the
+ * screenshots directory of the root of the project.
+ *
+ * https://proandroiddev.com/easy-ui-and-screenshot-testing-on-android-2b138f6d1eb8
+ */
+apply from: "${this.rootDir}/gradle/config.gradle"
+
+def projectScreenshotsDirectory = "${rootDir.absolutePath}/build/screenshots"
+def deviceScreenshotsDirectory = "/sdcard/Android/data/${debugDetail.packageName}/files/ui-test"
+
+/**
+ * Clears the screenshot directory from the device pictures external directory.
+ */
+def clearScreenshotsTask = task('clearScreenshots', type: Exec) {
+    executable "${android.getAdbExe().toString()}"
+    args 'shell', 'rm', '-r', deviceScreenshotsDirectory
+}
+
+def createScreenshotDirectoryTask = task('createScreenshotDirectory', type: Exec, group: 'reporting') {
+    executable "${android.getAdbExe().toString()}"
+    args 'shell', 'mkdir', '-p', deviceScreenshotsDirectory
+}
+
+def fetchScreenshotsTask = task('fetchScreenshots', type: Exec, group: 'reporting') {
+    finalizedBy {
+        clearScreenshotsTask
+    }
+    dependsOn {
+        createScreenshotDirectoryTask
+    }
+    doFirst {
+        println "Screenshots will be stored at ${projectScreenshotsDirectory}"
+        new File(projectScreenshotsDirectory).mkdirs()
+    }
+    executable "${android.getAdbExe().toString()}"
+    args 'pull', deviceScreenshotsDirectory + '/.', projectScreenshotsDirectory
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'connectedDebugAndroidTest') {
+        task.finalizedBy {
+            fetchScreenshotsTask
+        }
+    }
+}

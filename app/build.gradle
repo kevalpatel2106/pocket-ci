@@ -59,6 +59,7 @@ android {
         jacoco.excludes = ['jdk.internal.*']
     }
 }
+apply from: "${this.rootDir}/gradle/screenshots.gradle"
 
 dependencies {
     // feature modules
