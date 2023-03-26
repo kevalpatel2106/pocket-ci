@@ -38,7 +38,6 @@ jobs:
             -Dorg.gradle.workers.max=1 \
             -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile \
             -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect" \
-            --info \
             --no-configuration-cache
       # If we're on main branch, copy over the baseline profile and commit it to the repository
       - name: Commit baseline profile into main

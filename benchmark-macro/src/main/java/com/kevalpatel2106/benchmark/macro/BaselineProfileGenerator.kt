@@ -30,7 +30,7 @@ class BaselineProfileGenerator {
     )
 
     @Test
-    fun appStartupNotLoggedIn() {
+    fun generateBaselineProfile() {
         baselineProfileRule.collectBaselineProfile(packageName = PACKAGE) {
             // App startup journey
             startActivityAndWait()
