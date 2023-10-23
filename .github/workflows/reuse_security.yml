@@ -51,7 +51,7 @@ jobs:
       # More on the bug: https://github.com/github/codeql-action/issues/1417#issuecomment-1446028805
       - name: Manual build
         if: matrix.language == 'java'
-        uses: gradle/gradle-build-action@v2.4.0
+        uses: gradle/gradle-build-action@v2.4.2
         with:
           arguments: |
             assembleRelease

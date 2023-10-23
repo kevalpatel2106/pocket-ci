@@ -23,7 +23,7 @@ jobs:
           distribution: 'adopt'
           java-version: 17
       - name: Build debug APK
-        uses: gradle/gradle-build-action@v2.4.0
+        uses: gradle/gradle-build-action@v2.4.2
         with:
           arguments: |
             :app:assembleDebug
@@ -52,7 +52,7 @@ jobs:
           distribution: 'adopt'
           java-version: 17
       - name: Build release APK (signed with upload key)
-        uses: gradle/gradle-build-action@v2.4.0
+        uses: gradle/gradle-build-action@v2.4.2
         with:
           arguments: |
             :app:assembleRelease
@@ -101,7 +101,7 @@ jobs:
           distribution: 'adopt'
           java-version: 17
       - name: Build release bundle
-        uses: gradle/gradle-build-action@v2.4.0
+        uses: gradle/gradle-build-action@v2.4.2
         with:
           arguments: |
             :app:bundleRelease
