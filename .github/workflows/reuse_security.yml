@@ -74,6 +74,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3.5.0
       - name: Dependency Review
-        uses: actions/dependency-review-action@v3.0.4
+        uses: actions/dependency-review-action@v3.1.0
         with:
           config-file: './.github/dependency-review-config.yml'
