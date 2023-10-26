@@ -33,7 +33,7 @@ jobs:
       pull-requests: write
     steps:
       - name: PR labeler
-        uses: actions/labeler@4.1.0
+        uses: actions/labeler@v4.3.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           configuration-path: ".github/labeler.yml"
